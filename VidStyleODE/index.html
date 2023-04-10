@@ -1,7 +1,449 @@
 <!DOCTYPE html>
 <html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>VidStyleODE: Disentangled Video Editing via </br> StyleGAN and
+		NeuralODEs</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="static/css/styles.css">
+	<link rel="stylesheet" href="static/css/project-page.css">
+	<!-- <link rel="stylesheet" href="static/css/main.css"> -->
+
+
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+	<center>
+		<table style="width:100%;text-align:justified">
+			<tbody>
+				<tr>
+					<td>
+						<center>
+							<h1 class="title_heading" style="font-family: 'Varela Round',sans-serif">VidStyleODE</h1>
+							<h2 class="project-title">Disentangled Video Editing via StyleGAN and
+								NeuralODEs </h2>
+						</center>
+					</td>
+				</tr>
+
+				<tr>
+
+					<td>
+						<center>
+							<div class="authors">
+								<a href="https://moayedha.com/" style="margin-right: 10px;">
+									Moayed Haji Ali
+									<sup>*</sup>
+								</a>
+								<a href="https://tr.linkedin.com/in/andrew-bond-a31a01207" style="margin-right: 10px;">
+									Andrew Bond
+									<sup>*</sup>
+								</a>
+								<a href="https://tolgabirdal.github.io/" style="margin-right: 10px;">
+									Tolga Birdal
+									<!-- <sup>2</sup> -->
+								</a>
+								<a href="https://scholar.google.com.tr/citations?user=I8A1STcAAAAJ&hl=en"
+									style="margin-right: 10px;">
+									Levent Karacan
+									<!-- <sup>3</sup> -->
+								</a>
+								<a href="https://scholar.google.ch/citations?user=56Kj2QoAAAAJ&hl=en"
+									style="margin-right: 10px;">
+									Duygu Ceylan
+									<!-- <sup>4</sup> -->
+								</a>
+								<!-- <br> -->
+								<a href="https://web.cs.hacettepe.edu.tr/~erkut/" style="margin-right: 10px;">
+									Erkut Erdem
+									<!-- <sup>5</sup> -->
+								</a>
+								<a href="https://aykuterdem.github.io/" style="margin-right: 10px;">
+									Aykut Erdem
+									<!-- <sup>1</sup> -->
+								</a>
+								<br>
+								<i>* denotes equal contribution</i>
+							</div>
+						</center>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<center style="margin-top: 20px; margin-bottom: 45px;">
+							<div class="logos">
+								<img class="logo" src="./static/imgs/koc-logo.svg" alt="Koc" width="250" height="125"
+									style="margin-top: -20px; margin-left: 3px;">
+								<img class="logo" src="./static/imgs/imperial-logo.svg" alt="Imperial College"
+									width="220" height="110" style="margin-top: -10px;">
+								<img class="logo" src="./static/imgs/adobe-logo.png" alt="Adobe Research" width="220"
+									height="65" style="margin-top: 10px;">
+								<img class="logo" src="./static/imgs/iskenderun-logo.png" alt="Iskenderun" width="180"
+									height="90">
+								<img class="logo" src="./static/imgs/haceteppe-logo.svg" alt="Haceteppe" width="90"
+									height="80">
+							</div>
+						</center>
+
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<div class="teaser">
+							<center>
+								<video id="teaser_video" width="700" controls autoplay muted>
+									<source src="videos/teaser.mp4" type="video/mp4">
+									Your browser does not support the video element.
+								</video>
+							</center>
+						</div>
+
+						<br>
+						<h2>Abstract </h2>
+						<p class="paragraph desc" style="padding: 0% 0% 0% 0%;">
+							We propose <b>VidStyleODE</b>, a spatiotemporally continuous disentangled
+							<b>Vid</b>eo representation based upon <b>Style</b>GAN and Neural-<b>ODE</b>s.
+							Effective traversal of the latent space learned by Generative Adversarial Networks (GANs)
+							has been the basis for recent breakthroughs in image editing. However, the applicability of
+							such advancements to the video domain has been hindered by the difficulty of representing
+							and controlling videos in the latent space of GANs. In particular, videos are composed of
+							content (i.e., appearance) and complex motion components that require a special mechanism to
+							disentangle and control. To achieve this, VidStyleODE encodes the video content in a
+							pre-trained StyleGAN \(\mathcal{W}_+\) space and benefits from a latent ODE component to
+							summarize the spatiotemporal dynamics of the input video. Our novel continuous video
+							generation process then combines the two to generate high-quality and temporally consistent
+							videos with varying frame rates. We show that our proposed method enables a variety of
+							applications on real videos: text-guided appearance manipulation, motion manipulation, image
+							animation, and video interpolation and extrapolation.</br>
+						</p>
+						<br>
+						<div class="icons" style="padding: 0% 20% 0% 20%;">
+							<table style="border: none;border-collapse: collapse; border-spacing:0;" cellspacing="0">
+								<tr>
+
+									<center>
+										<td align="center" style="border: none;">
+											<a href="static/docs/VidStyleODE.pdf">
+												<i class="fa fa-file-pdf-o" style="font-size:36px"></i> <br>
+												Paper
+											</a>
+										</td>
+
+										<td align="center" style="border: none;">
+											<a href="TODO" style="margin-left:-500px; margin-right:-500px">
+												<i class="fa fa-file-archive-o" style="font-size:36px"></i> <br>
+												Arxiv
+											</a>
+										</td>
+
+										<td align="center" style="border: none;">
+											<a href="TODO">
+												<i class="fa fa-github" style="font-size:36px" margin-right="100px"></i>
+												<br>
+												Code
+											</a>
+										</td>
+									</center>
+
+								</tr>
+							</table>
+
+						</div>
+
+					</td>
+
+				</tr>
+
+
+				<tr>
+					<td>
+
+
+						<h2 style="padding-top: 1%;">Method Overview</h2>
+						<img src="./static/imgs/vidstyleode.png" width="auto" style="padding: 1% 1% 1% 1%;">
+						</br>
+						<p class="paragraph desc" style="padding: 1% 1% 1% 1%;">
+							We encode video dynamics and process them using a ConvGRU layer to obtain a dynamic latent
+							representation \(\mathbf{Z}_{d0}\) used to initialize a latent ODE of the motion (bottom).
+							We also
+							encode the video in \(\mathcal{W}_+\) space to obtain a global latent code \(\mathbf{Z}_C\)
+							(middle). We
+							combine
+							the two with an external style cue through an attention mechanism to condition the AdaIN
+							layer that predicts the directions to the latent codes of the frames in the target video
+							(top). Modules in \(\textcolor{gray}{\textbf{gray}}\) are \(\it{\textit{pre-trained}}\) and
+							\(\it{frozen}\)
+							during training.
+						</p>
+						<br>
+						<a id="table_of_contents"></a>
+						<h3>
+							VidStyleODE results:</br>
+						</h3>
+						<ol>
+							<li><a href="#image_animation">Image Animation</a></li>
+							<li><a href="#estimate_rgb_i3db_ablations">Text-Guided Appearance Manipulation</a></li>
+							<li><a href="#estimate3d_noisy_joints">Local Dynamic Editing</a></li>
+							<li><a href="#estimate_rgb_i3db_baselines">Temporal Interpolation and Extrapolation</a></li>
+							<li><a href="#estimate3d_occ_keypoints">Video Dynamic Latent Interpolation</a></li>
+							<li><a href="#estimate_rgb_prox_baselines">Ablation Study On Model Architecture</a></li>
+							<li><a href="#estimate_rgbd_prox_baselines">Failure Cases</a></li>
+						</ol>
+						</p>
+					</td>
+
+
+				</tr>
+
+
+			</tbody>
+		</table>
+		<table style="width:100%;text-align:center" border="0">
+			<colgroup>
+				<col width="5%">
+				<col width="5%">
+				<col width="5%">
+				<col width="5%">
+				<col width="5%">
+				<col width="5%">
+				<col width="5%">
+				<col width="5%">
+				<col width="5%">
+				<col width="5%">
+				<col width="5%">
+				<col width="5%">
+			</colgroup>
+
+
+			<tbody>
+
+				<!-- Image Animation -->
+				<tr>
+					<td align="left" colspan="12">
+						<a id="image_animation"></a>
+						<h2>1. Image Animation</h2>
+						<p class="desc">We obtain the video global code from the given single frame and use the motion
+							from another
+							driving video by extracting its dynamic latent representation. 
+						</p>
+					</td>
+				</tr>
+
+				<tr>
+					<center>
+						<td colspan="12">
+							<video id="image_animation_video" width="1100" controls="">
+								<source src="videos/image_animation.mp4" type="video/mp4">
+								Your browser does not support the video element.
+							</video>
+						</td>
+					</center>
+				</tr>
+
+				<tr>
+					<td align="left" colspan="12">
+						<h3>
+							Comparison to Baselines
+						</h3>
+					</td>
+				</tr>
+
+				<tr>
+					<td colspan="12">
+						<video id="animation_baseline_video" width="1100" controls="">
+							<source src="videos/animation-baselines.mp4" type="video/mp4">
+							Your browser does not support the video element.
+						</video>
+					</td>
+				</tr>
+
+
+				<tr>
+					<td align="left" colspan="12">
+						<a id="estimate_rgb_i3db_ablations"></a>
+						<h2>2. Text-Guided Appearance Manipulation</h2>
+						<p class="desc">We manipulate a source video by specifying a direction based on a given source
+							text that
+							describes the video and alternative target descriptions. 
+						</p>
+					</td>
+				</tr>
+
+				<tr>
+					<td colspan="12">
+						<video id="estimrgb_i3db_ablate_result_video" width="1100" controls="">
+							<source src="videos/apperance_manipulation.mp4" type="video/mp4">
+							Your browser does not support the video element.
+						</video>
+					</td>
+				</tr>
+
+				<tr>
+					<td align="left" colspan="12">
+						<h3>
+							Comparison to Baselines
+						</h3>
+					</td>
+				</tr>
+
+				<tr>
+					<td colspan="12">
+						<video id="baseline_video" width="1100" controls="">
+							<source src="videos/baselines.mp4" type="video/mp4">
+							Your browser does not support the video element.
+						</video>
+					</td>
+				</tr>
+
+
+				<tr>
+					<td align="left" colspan="12">
+						<a id="estimate3d_noisy_joints"></a>
+						<h2>3. Local Dynamic Editing</h2>
+						<p class="desc">
+							The rich dynamic representation learned by VidStyleODE, we are able to manipulate the motion
+							of local body parts of a target video by blending its dynamic representation with another
+							video.  
+							\[
+							\mathbf{z}_{d_{new}} = m * \mathbf{z}_{d_1} + (1 - m) * \mathbf{z}_{d_2}
+							\]
+							\[
+							m \in \{0, 1\} ^ {\{ 8 \times 6\}}
+							\]
+
+						</p>
+					</td>
+				</tr>
+
+
+				<tr>
+					<td colspan="12">
+						<video id="estim3d_joints_result_video" width="1100" controls="">
+							<source src="videos/dynamic_local_editting.mp4" type="video/mp4">
+							Your browser does not support the video element.
+						</video>
+					</td>
+				</tr>
+
+
+				<!-- Estimation from RGB: i3DB Data Baseline Comparisons (Section 5.5) -->
+				<tr>
+					<td align="left" colspan="12">
+						<a id="estimate_rgb_i3db_baselines"></a>
+						<h2>4. Temporal Interpolation and Extrapolation </h2>
+						<p class="desc">
+							We extract the dynamic representation from \(K\) given frames of timestamps \(
+							[t_1, t_2, \dots, t_k ]\) and perform interpolation or extrapolation by solving the latent
+							ODE
+							in the intended timestamps.
+						</p>
+					</td>
+				</tr>
+				 
+
+				<tr>
+					<td colspan="12">
+						<video id="estimrgb_i3db_base_result_video" width="1100" controls="">
+							<source src="videos/interpolation_extrapolation.mp4" type="video/mp4">
+							Your browser does not support the video element.
+						</video>
+					</td>
+				</tr>
+
+
+				<tr>
+					<td align="left" colspan="12">
+						<a id="estimate3d_occ_keypoints"></a>
+						<h2>5. Video Dynamic Latent Interpolation</h2>
+						<p class="desc">
+							To show the expressiveness of our learned motion representation, we interpolate between two
+							different dynamic representations by taking a weighted average of
+							the two and generating a new video accordingly. 
+							\[
+							\mathbf{z}_{d_{new}} = (1-\lambda) * \mathbf{z}_{d_1} + \lambda * \mathbf{z}_{d_2}
+							\]
+
+						</p>
+					</td>
+				</tr>
+
+
+				<tr>
+					<td colspan="12">
+						<video id="estim3d_keypoints_result_video" width="1100" controls="">
+							<source src="videos/dynamic_interpolation.mp4" type="video/mp4">
+							Your browser does not support the video element.
+						</video>
+					</td>
+				</tr>
+
+				<!-- Estimation from RGB: i3DB Data Ablation Comparisons (Section 5.5) -->
+
+
+
+				<!-- Estimation from RGB: PROX Data Baseline Comparisons (Section 5.5) -->
+				<tr>
+					<td align="left" colspan="12">
+						<a id="estimate_rgb_prox_baselines"></a>
+						<h2>6. Ablation Study On Model Architecture</h2>
+						<p class="desc">
+							To demonstrate the effectiveness of the loss and architecture choices of VidStyleODE, we
+							report sample
+							generated videos of our method without its most essential components: consistency loss
+							\(\mathcal{L}_C\), structure loss \(\mathcal{L}_S\),
+							appearance loss \( \mathcal{L}_A\), latent directions, and the conditional modulation
+							network.
+						</p>
+					</td>
+				</tr>
+
+
+				<tr>
+					<td colspan="12">
+						<video id="estimrgb_prox_base_result_video" width="1100" controls="">
+							<source src="videos/ablation.mp4" type="video/mp4">
+							Your browser does not support the video element.
+						</video>
+					</td>
+				</tr>
+
+				<!-- Estimation from RGB-D: PROX Data Baseline Comparisons (Section 5.5) -->
+				<tr>
+					<td align="left" colspan="12">
+						<a id="estimate_rgbd_prox_baselines"></a>
+						<h2>7. Failure Cases</h2>
+					</td>
+				</tr>
+
+				<tr>
+					<td colspan="12">
+						<video id="estimrgbd_prox_base_result_video" width="1100" controls="">
+							<source src="videos/failure.mp4" type="video/mp4">
+							Your browser does not support the video element.
+						</video>
+					</td>
+				</tr>
+
+
+
+
+			</tbody>
+		</table>
+
+
+		<div class="section-title">Citation</div>
+		<div class="section bibtex" ; align="left">
+			<pre>TODO            </pre>
+		</div>
+		<br>
+		<div class="section-title">Contact</div>
+		<div class="content">
+			For any questions, please contact Moayed Haji Ali at <a href="mali18@ku.edu.tr">mali18@ku.edu.tr</a>.
+		</div>
+
 </body>
+
 </html>
