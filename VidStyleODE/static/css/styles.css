@@ -7,6 +7,10 @@ author {
     margin-left: 10px;
 }
 
+/* ai-arxiv:before {
+    content: "\e974";
+} */
+
 .main-container {
     max-width: 2000px;
     margin-left: auto;
@@ -230,6 +234,8 @@ button.left {
     margin-right: 0px;
     border-right: none;
 }
+
+
 
 a.button.middle,
 button.middle {
