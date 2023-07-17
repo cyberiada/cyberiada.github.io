@@ -1,7 +1,312 @@
 <!DOCTYPE html>
 <html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>
+		CLIP-Guided StyleGAN Inversion for Text-Driven Real Image Editing
+
+	</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="static/css/styles.css">
+	<link rel="stylesheet" href="static/css/project-page.css">
+	<!-- <link rel="stylesheet" href="static/css/main.css"> -->
+
+
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+    <center>
+		<table style="width:100%;text-align:justified">
+			<tbody>
+				<tr>
+					<td>
+						<center>
+							<h1 class="title_heading" style="font-family: 'Varela Round',sans-serif">CLIPInverter</h1>
+							<h2 class="project-title">CLIP-Guided StyleGAN Inversion for Text-Driven Real Image Editing </h2>
+						</center>
+					</td>
+				</tr>
+
+				<tr>
+
+					<td>
+						<center>
+							<div class="authors">
+								<a href="https://johnberg1.github.io/" style="margin-right: 10px;">
+									Ahmet Canberk Baykal
+								</a>
+								<a href="https://www.linkedin.com/in/abdul-basit-anees/" style="margin-right: 10px;">
+									Abdul Basit Anees
+								</a>
+								<a href="https://www.duygu-ceylan.com" style="margin-right: 10px;">
+									Duygu Ceylan
+									<!-- <sup>2</sup> -->
+								</a>
+								<a href="https://web.cs.hacettepe.edu.tr/~erkut/"
+									style="margin-right: 10px;">
+									Erkut Erdem
+									<!-- <sup>3</sup> -->
+								</a>
+								<a  href="https://aykuterdem.github.io"    
+									style="margin-right: 10px;">
+									Aykut Erdem
+									<!-- <sup>4</sup> -->
+								</a>
+								<!-- <br> -->
+								<a  href="http://www.denizyuret.com" style="margin-right: 10px;">
+									Deniz Yuret
+									<!-- <sup>5</sup> -->
+								</a>
+								<br>
+							</div>
+						</center>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<center style="margin-top: 20px; margin-bottom: 45px;">
+							<div class="logos">
+								<img class="logo" src="./static/imgs/koc-logo.svg" alt="Koc" width="250" height="125"
+									style="margin-top: -20px; margin-left: 150px;">
+                                <img class="logo" src="./static/imgs/kuis-ai.png" alt="Kuis" width="250" height="125"
+                                        style="margin-top: -20px; margin-left: -20px;">
+								<img class="logo" src="./static/imgs/adobe-logo.png" alt="Adobe Research" width="220"
+									height="65" style="margin-top: 10px; margin-left: -20px;">
+								<img class="logo" src="./static/imgs/haceteppe-logo.svg" alt="Haceteppe" width="90"
+									height="80">
+							</div>
+						</center>
+
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+
+						<br>
+						<h2>Abstract </h2>
+						<p class="paragraph desc" style="padding: 0% 0% 0% 0%;">
+							Researchers have recently begun exploring the use of StyleGAN-based models 
+                            for real image editing. One particularly interesting application is using 
+                            natural language descriptions to guide the editing process. Existing approaches 
+                            for editing images using language either resort to instance-level latent code 
+                            optimization or map predefined text prompts to some editing directions in the 
+                            latent space. However, these approaches have inherent limitations. The former 
+                            is not very efficient, while the latter often struggles to effectively handle 
+                            multi-attribute changes. To address these weaknesses, we present CLIPInverter, 
+                            a new text-driven image editing approach that is able to efficiently and 
+                            reliably perform multi-attribute changes. The core of our method is the use 
+                            of novel, lightweight text-conditioned adapter layers integrated into 
+                            pretrained GAN-inversion networks. We demonstrate that by conditioning 
+                            the initial inversion step on the CLIP embedding of the target description, 
+                            we are able to obtain more successful edit directions. Additionally, we use 
+                            a CLIP-guided refinement step to make corrections in the resulting residual 
+                            latent codes, which further improves the alignment with the text prompt. Our 
+                            method outperforms competing approaches in terms of manipulation accuracy and 
+                            photo-realism on various domains including human faces, cats, and birds, as 
+                            shown by our qualitative and quantitative results.</br>
+						</p>
+						<br>
+						<div class="icons" style="padding: 0% 20% 0% 20%;">
+							<table style="border: none;border-collapse: collapse; border-spacing:0;" cellspacing="0">
+								<tr>
+
+									<center>
+										<td align="center" style="border: none;">
+											<a 
+                                            href="static/docs/CLIPInverter.pdf">
+												<i class="fa fa-file-pdf-o" style="font-size:36px"></i> <br>
+												Paper
+											</a>
+										</td>
+<!-- 
+										<td align="center" style="border: none;">
+											<a href="https://arxiv.org/abs/2304.06020"
+												style="margin-left:-500px; margin-right:-500px">
+												<i class="fa fa-file-archive-o" style="font-size:36px"></i> <br>
+												Arxiv
+											</a>
+										</td> -->
+
+										<td align="center" style="border: none;">
+											<a href="https://github.com/johnberg1/CLIPInverter">
+												<i class="fa fa-github" style="font-size:36px" margin-right="100px"></i>
+												<br>
+												Code
+											</a>
+										</td>
+									</center>
+
+								</tr>
+							</table>
+
+						</div>
+
+					</td>
+
+				</tr>
+
+
+				<tr>
+					<td>
+
+
+						<h2 style="padding-top: 1%;">Method Overview</h2>
+						<img src="./static/imgs/clipinverter.pdf" width="auto" style="padding: 1% 1% 1% 1%;">
+						</br>
+						<p class="paragraph desc" style="padding: 1% 1% 1% 1%;">
+							<b> An overview of our CLIPInverter approach in comparison to similar text-guided 
+                            image manipulation methods. </b> StyleCLIP-LM utilizes target description only in 
+                            the loss function. HairCLIP additionally uses the description to modulate the 
+                            latent code obtained by the encoder within the mapper. Alternatively, our 
+                            CLIPInverter employs specially designed adapter layers, CLIPAdapter, to modulate 
+                            the encoder in extracting the latent code with respect to the target description. 
+                            To further obtain more accurate edits, it also makes use of an extra refinement 
+                            module, CLIPRemapper, to make subsequent corrections on the predicted latent code.
+						</p>
+						<br>
+						<a id="table_of_contents"></a>
+						<h3>
+							CLIPInverter results:</br>
+						</h3>
+						<ol>
+							<li><a href="#text_guided_manipulation">Text-Guided Manipulation</a></li>
+							<li><a href="#composition">Composition of Facial Attributes</a></li>
+							<li><a href="#continuous_manipulation">Continuous Manipulation</a></li>
+							<li><a href="#image_guided_manipulation">Image-Guided Manipulation</a></li>
+							<li><a href="#unseen_manipulation">Manipulations with Unseen Captions</a></li>
+							<li><a href="#qualitative-comparisons">Comparisons Against Other Approaches</a></li>
+							<li><a href="#ablation-study">Ablation Study</a></li>
+						</ol>
+						</p>
+					</td>
+
+
+				</tr>
+
+
+			</tbody>
+		</table>
+    <table style="width:100%;text-align:center" border="0">
+        <colgroup>
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+        </colgroup>
+
+
+        <tbody>
+
+            <!-- Text-Guided Manipulation -->
+            <tr>
+                <td align="left" colspan="12">
+                    <a id="text_guided_manipulation"></a>
+                    <h2>1. Text-Guided Manipulation</h2>
+                    <img src="./static/imgs/qualitative-results.pdf" width="auto" style="padding: 1% 1% 1% 1%;">
+                    <p class="desc"><b>Qualitative manipulation results.</b> We show sample text-guided 
+                        manipulation results on human faces (<i>left</i>), cat images (<i>middle</i>), 
+                        and bird images (<i>right</i>). Our approach successfully makes local semantic 
+                        edits based on the target descriptions while keeping the generated outputs faithful 
+                        to the input images. The images displayed on the left side are the inversion results 
+                        obtained with the e4e encoder.
+                    </p>
+                </td>
+            </tr>
+            <!-- Composition of Facial Attributes -->
+            <tr>
+                <td align="left" colspan="12">
+                    <a id="composition"></a>
+                    <h2>2. Composition of Facial Attributes</h2>
+                    <img src="./static/imgs/composition.pdf" width="auto" style="padding: 1% 1% 1% 1%;">
+                    <p class="desc"><b>Manipulations with compositions of facial attributes.</b> We provide example manipulation results 
+                        where we apply various compositions of several facial attributes as target descriptions.
+                    </p>
+                </td>
+            </tr>
+            <!-- Continuous Manipulation -->
+            <tr>
+                <td align="left" colspan="12">
+                    <a id="continuous_manipulation"></a>
+                    <h2>3. Continuous Manipulation </h2>
+                    <img src="./static/imgs/interpolations.pdf" width="auto" style="padding: 1% 1% 1% 1%;">
+                    <p class="desc"><b> Continuous manipulation results.</b> We show that starting from the latent code of the original 
+                        image and walking along the predicted residual latent codes, we can naturally obtain smooth image manipulations, 
+                        providing control over the end result. For reference, we provide the original (<i>left</i>) and the target 
+                        descriptions (<i>right</i>) below each row.
+                </td>
+            </tr>
+
+
+            <!-- Image-Guided Manipulation -->
+            <tr>
+                <td align="left" colspan="12">
+                    <a id="image_guided_manipulation"></a>
+                    <h2>4. Image-Guided Manipulation </h2>
+                    <img src="./static/imgs/image-guided.pdf" width="auto" style="padding: 1% 1% 1% 1%;">
+                    <p class="desc"><b> Image-based manipulation results.</b> Our framework allows for using a reference 
+						image as the conditioning input for editing. In the figure, these reference images are given at the 
+						top-right. Results on different domains illustrate that our model can transfer the look of the conditioning images to the provided input images.
+                </td>
+            </tr>
+
+
+            <!-- Manipulations with Unseen Captions -->
+            <tr>
+                <td align="left" colspan="12">
+                    <a id="unseen_manipulation"></a>
+                    <h2>5. Manipulations with Unseen Captions </h2>
+                    <img src="./static/imgs/unseen.pdf" width="auto" style="padding: 1% 1% 1% 1%;">
+                    <p class="desc"><b>Additional manipulation results with out-of-distribution training data.</b> We demonstrate 
+						that our CLIPInverter method can perform manipulations with target descriptions involving words never seen 
+						during training but semantically similar to the observed ones.
+                </td>
+            </tr>
+
+			<!-- Comparisons Against Other Approaches -->
+            <tr>
+                <td align="left" colspan="12">
+                    <a id="qualitative-comparisons"></a>
+                    <h2>6. Comparisons Against Other Approaches </h2>
+                    <img src="./static/imgs/comparison.pdf" width="auto" style="padding: 1% 1% 1% 1%;">
+                    <p class="desc"><b>Comparison against the state-of-the-art text-guided manipulation methods.</b> Our method 
+						applies the target edits mentioned in the given descriptions much more accurately than the competing approaches, 
+						especially when there are multiple attributes present in the descriptions.
+                </td>
+            </tr>
+
+
+			<!-- Ablation Study -->
+            <tr>
+                <td align="left" colspan="12">
+                    <a id="ablation-study"></a>
+                    <h2>7. Ablation Study </h2>
+                    <img src="./static/imgs/ablation.pdf" width="auto" style="padding: 1% 1% 1% 1%;">
+                    <p class="desc"><b>Qualitative results for the ablation study.</b> The global CLIP loss leads to unintuitive and 
+						unnatural results. Without perceptual losses, unwanted manipulations occur. Without the cycle pass or CLIPRemapper, 
+						we are not able to apply all the desired manipulations.
+                </td>
+            </tr>
+
+
+
+        </tbody>
+    </table>
+
+	<br>
+	<div class="section-title">Contact</div>
+	<div class="content">
+		For any questions, please contact Ahmet Canberk Baykal at <a href="canberk.baykal1@gmail.com">canberk.baykal1@gmail.com</a>.
+	</div>
 </body>
 </html>
