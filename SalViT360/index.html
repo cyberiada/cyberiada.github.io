@@ -1,6 +1,5 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
-
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>
@@ -15,209 +14,179 @@
 	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-<body style="width: 50%;">
+<body>
     <center>
-		<!-- <table style="width:120%;text-align:justified" cellspacing="0" cellpadding="0"> -->
-			<tbody>
+		<table style="width:100%">
 				<tr>
-					<td>
-						<center>
-							<h1 style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size:300%; color: #003971">
-								SalViT360
-							</h1>
-							<h2 style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size:150%; color: #003971;">
-								Spherical Vision Transformers for 360◦ Video Saliency Prediction 
-							</h2>
-
-							<!-- <h2 class="project-title">Spherical Vision Transformers for 360◦ Video Saliency Prediction </h2> -->
-						</center>
-					</td>
+					<center>
+						<h1 style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size:300%; color: #003971">
+							SalViT360
+						</h1>
+						<h2 style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size:150%; color: #003971;">
+							Spherical Vision Transformers for 360◦ Video Saliency Prediction 
+						</h2>
+					</center>
 				</tr>
 
 				<tr>
-					<td>
-						<center>
-							<div class="authors">
-								<a href="https://github.com/MertCokelek/" style="margin-right: 10px;">
-									Mert Cokelek
-								</a>
-								<a href="https://nevrez.github.io/" style="margin-right: 10px;">
-									Nevrez Imamoglu
-								</a>
-								<a href="https://cagriozcinar.netlify.app/" style="margin-right: 10px;">
-									Cagri Ozcinar
-									<!-- <sup>2</sup> -->
-								</a>
-								<a href="https://web.cs.hacettepe.edu.tr/~erkut/" style="margin-right: 10px;">
-									Erkut Erdem
-									<!-- <sup>3</sup> -->
-								</a>
-								<a  href="https://aykuterdem.github.io"    
-									style="margin-right: 10px;">
-									Aykut Erdem
-									<!-- <sup>4</sup> -->
-								</a>
-								<br>
-							</div>
-						</center>
-					</td>
+					<center>
+						<div class="authors">
+							<a href="https://github.com/MertCokelek/" style="margin-right: 10px;">
+								Mert Cokelek
+							</a>
+							<a href="https://nevrez.github.io/" style="margin-right: 10px;">
+								Nevrez Imamoglu
+							</a>
+							<a href="https://cagriozcinar.netlify.app/" style="margin-right: 10px;">
+								Cagri Ozcinar
+								<!-- <sup>2</sup> -->
+							</a>
+							<a href="https://web.cs.hacettepe.edu.tr/~erkut/" style="margin-right: 10px;">
+								Erkut Erdem
+								<!-- <sup>3</sup> -->
+							</a>
+							<a  href="https://aykuterdem.github.io"    
+								style="margin-right: 10px;">
+								Aykut Erdem
+								<!-- <sup>4</sup> -->
+							</a>
+							<br>
+						</div>
+						<tr bgcolor="white" style="border-color: white;">
+							<center>
+								<div class="logos" style="scale: 70%;">
+									<ul>
+										<li><img src="./static/imgs/koc-logo.svg" style="margin-left:-40px; width: 20%;"></li>
+										<li><img src="./static/imgs/kuis-ai.png" style="width: 20%;"></li>
+										<li><img src="./static/imgs/aist-logo.jpg" style="width: 20%;"></li>
+										<li><img src="./static/imgs/msk-logo.png" style="width: 20%;"></li>
+										<li><img src="./static/imgs/haceteppe-logo.svg" style="height: 100px;"></li>
+									</ul>
+								</div>
+							</center>
+						</tr>
+					</center>
 				</tr>
-				<br>
-				
-				<td>
-					<tr>
+			
+				<tr>
 					<div class="row">
 						<div class="column">
-						<h3>SalViT360</h3>
-						<iframe width="920" height="240" src="./static/media/outputs_webpgage/025_grid.mp4" frameborder="0" scrolling="no" onload="resizeIframe(this)"></iframe>
-						<iframe width="920" height="240" src="./static/media/outputs_webpgage/025_grid.mp4" frameborder="0" scrolling="no" onload="resizeIframe(this)"></iframe>
+							
+							<h4 style="margin-left: 25%; text-align: center; font-family: Geneva, Verdana, sans-serif; color: #003971">
+								SalViT360
+							</h4>
 						</div>
 						<div class="column">
-						<h3>Ground Truth</h3>
+							<h4 style="margin-left: -25%; text-align: center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: #003971">
+								Ground Truth
+							</h4>
 						</div>
 					</div>
 				</tr>
-				</td>
-				<!-- <div style="margin-left: -0px;">
-						<iframe width="920" height="240" src="./static/media/outputs_webpgage/025_grid.mp4"></iframe>
-				</div>  -->
-				<!-- <div style="margin-left: -0px;">
-					<iframe width="920" height="240" src="./static/media/outputs_webpgage/MzcdEI-tSUc_grid.mp4"></iframe>
-				</div>  -->
-				<!-- <div style="margin-left: -10px;">
-					<iframe width="570" height="150" src="./static/media/outputs_webpgage/slR85J2Ua28-173_grid.mp4"></iframe>
-				</div>  -->
-	
+				<iframe width="920" height="240" src="./static/media/outputs_webpgage/025_grid.mp4"></iframe>
+				<iframe width="920" height="240" src="./static/media/outputs_webpgage/MzcdEI-tSUc_grid.mp4"></iframe>
 
-				<tr>
-					<td>
-						<br>
-						<h2 style="text-align: center;">Abstract</h2>
-						<p class="paragraph desc" style="padding: 0% 0% 0% 0%;">
-							The growing interest in omnidirectional videos (ODVs) that capture the full field-of-view (FOV) has gained 360◦ saliency prediction importance in computer vision. 
-							However, predicting where humans look in 360◦ scenes presents unique challenges, including spherical distortion, high resolution, and limited labelled data. 
-							To address these challenges, we propose a novel vision-transformer-based model for omnidirectional videos named SalViT360 that leverages tangent image representations. 
-							We introduce a spherical geometry-aware spatio-temporal self-attention mechanism that is capable of effective omnidirectional video understanding. 
-							Furthermore, we present a consistency-based unsupervised regularization term for projection-based 360◦ dense-prediction models to reduce artefacts in the predictions that occur after inverse projection. 
-							Our approach is the first to employ tangent images for omnidirectional saliency prediction, 
-							and our experimental results on three ODV saliency datasets demonstrate its effectiveness compared to the state-of-the-art.</br>
-						</p>
-						<img src="./static/imgs/overview.png" width="auto" style="padding: 1% 1% 1% 1%;">
-						<br>
-						<br>
+				
+				<table style="width:80%">
+					<tr bgcolor="white"; style="border-color: white;">
+						<td bgcolor="white"; style="border-color: white;">
+							<!-- <h2 style="text-align: center;">Abstract</h2> -->
 
-						<div class="icons" style="padding: 0% 20% 0% 20%;">
-							<table style="border: none;border-collapse: collapse; border-spacing:0;" cellspacing="0">
-								<tr>
+							<div class="section-title" style="text-align: center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: #003971">
+								Abstract
+							</div>
+							<br>
 
-									<center>
-										<td align="center" style="border: none; width: 20%;">
-											<a 
-                                            href="static/docs/paper.pdf">
-												<i class="fa fa-file-pdf-o" style="font-size:36px;"></i> <br>
-												Paper
-											</a>
-										</td>
-										<td align="center" style="border: none; width: 20%;">
-											<a 
-                                            href="static/docs/supp.pdf">
-												<i class="fa fa-file-pdf-o" style="font-size:36px;"></i> <br>
-												Supplementary
-											</a>
-										</td>
+							<p class="paragraph desc" style="padding: 0% 0% 0% 0%;">
+								The growing interest in omnidirectional videos (ODVs) that capture the full field-of-view (FOV) has gained 360◦ saliency prediction importance in computer vision. 
+								However, predicting where humans look in 360◦ scenes presents unique challenges, including spherical distortion, high resolution, and limited labelled data. 
+								To address these challenges, we propose a novel vision-transformer-based model for omnidirectional videos named SalViT360 that leverages tangent image representations. 
+								We introduce a spherical geometry-aware spatio-temporal self-attention mechanism that is capable of effective omnidirectional video understanding. 
+								Furthermore, we present a consistency-based unsupervised regularization term for projection-based 360◦ dense-prediction models to reduce artefacts in the predictions that occur after inverse projection. 
+								Our approach is the first to employ tangent images for omnidirectional saliency prediction, 
+								and our experimental results on three ODV saliency datasets demonstrate its effectiveness compared to the state-of-the-art.</br>
+							</p>
+							<img src="./static/imgs/overview.png" width="auto" style="padding: 1% 1% 1% 1%;">
+							<br>
+							<!-- <br> -->
 
-										<!-- <td align="center" style="border: none; width: 20%">
-											<a href="https://arxiv.org/abs/2307.08397"">
-												<i class="fa fa-file-archive-o" style="font-size:36px"></i> <br>
-												Arxiv
-											</a>
-										</td>  -->
+							<tr bgcolor="white"; style="border-color: white;">
 
-										<!-- <td align="center" style="border: none; width: 20%">
-											<a href="https://dl.acm.org/doi/10.1145/3610287">
-												<i class="fa fa-newspaper-o" style="font-size:36px"></i> <br>
-												TOG
-											</a>
-										</td>  -->
+								<div class="icons" style="padding: 0% 20% 0% 20%;">
+									<table bgcolor="white" style="width: 50%; border: none;border-collapse: collapse; border-spacing:0;" cellspacing="0">
+										<tr>
+											<center>
+												<td align="center" style="border: none; width: 20%;">
+													<a 
+													href="static/docs/paper.pdf">
+														<i class="fa fa-file-pdf-o" style="font-size:36px;"></i> <br>
+														Paper
+													</a>
+												</td>
+												<td align="center" style="border: none; width: 20%;">
+													<a 
+													href="static/docs/supp.pdf">
+														<i class="fa fa-file-pdf-o" style="font-size:36px;"></i> <br>
+														Supplementary
+													</a>
+												</td>
 
-										<td align="center" style="border: none; width: 20%">
-											<a href="https://github.com/MertCokelek/OmniAVSAL">
-												<i class="fa fa-github" style="font-size:36px"></i>
-												<br>
-												Code
-											</a>
-										</td>
+												<td align="center" style="border: none; width: 20%">
+													<a href="https://github.com/MertCokelek/OmniAVSAL">
+														<i class="fa fa-github" style="font-size:36px"></i>
+														<br>
+														Code
+													</a>
+												</td>
+											</center>
+										</tr>
+									</table>
 
-									</center>
+								</div>
 
-								</tr>
-							</table>
+							</tr>
+							<tr>
+								<div class="section-title" style="text-align: center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: #003971">
+									BibTeX
+								</div>
+								<div class="section bibtex" ; align="left">
+									<pre>
+										<!--
+											 @article{CLIPInverter, 
+											author = {Baykal, Ahmet Canberk and Anees, Abdul Basit and Ceylan, Duygu and Erdem, Erkut and Erdem, Aykut and Yuret, Deniz}, 
+											title = {CLIP-Guided StyleGAN Inversion for Text-Driven Real Image Editing}, 
+											year = {2023}, 
+											publisher = {Association for Computing Machinery}, 
+											address = {New York, NY, USA}, 
+											issn = {0730-0301}, 
+											url = {https://doi.org/10.1145/3610287}, 
+											doi = {10.1145/3610287}, 
+											note = {Just Accepted}, 
+											journal = {ACM Trans. Graph.}, 
+											month = {jul}, 
+											keywords = {Image-to-Image Translation, Generative Adversarial Networks, Image Editing} }
+										-->
+										</pre>  
 
-						</div>
-
-					</td>
-
-				</tr>
+								</div>
+							</tr>
+						</td>
+					</tr>
+				</table>
 
 			</tbody>
-		<!-- </table> -->
 
+			<!-- </table> -->
+ 	</div>
 
-    <!-- <table style="width:100%;text-align:center" border="0">
-        <colgroup>
-            <col width="5%">
-            <col width="5%">
-            <col width="5%">
-            <col width="5%">
-            <col width="5%">
-            <col width="5%">
-            <col width="5%">
-            <col width="5%">
-            <col width="5%">
-            <col width="5%">
-            <col width="5%">
-            <col width="5%">
-        </colgroup>
-
-
-    </table> -->
-
-	<div class="section-title">BibTeX</div>
-	<div class="section bibtex" ; align="left">
-		<!-- <pre>@article{CLIPInverter, 
-author = {Baykal, Ahmet Canberk and Anees, Abdul Basit and Ceylan, Duygu and Erdem, Erkut and Erdem, Aykut and Yuret, Deniz}, 
-title = {CLIP-Guided StyleGAN Inversion for Text-Driven Real Image Editing}, 
-year = {2023}, 
-publisher = {Association for Computing Machinery}, 
-address = {New York, NY, USA}, 
-issn = {0730-0301}, 
-url = {https://doi.org/10.1145/3610287}, 
-doi = {10.1145/3610287}, 
-note = {Just Accepted}, 
-journal = {ACM Trans. Graph.}, 
-month = {jul}, 
-keywords = {Image-to-Image Translation, Generative Adversarial Networks, Image Editing} }</pre> -->
-	</div>
-	<br>
 	<tr>
-		<td bgcolor="white">
-			<center style="margin-top: 20px; margin-bottom: 45px;">
-				<div class="logos">
-					<ul>
-						<li><img src="./static/imgs/koc-logo.svg" style="margin-left:-40px; width: 20%;"></li>
-						<li><img src="./static/imgs/kuis-ai.png" style="width: 20%;"></li>
-						<li><img src="./static/imgs/aist-logo.jpg" style="width: 20%;"></li>
-						<li><img src="./static/imgs/msk-logo.png" style="width: 20%;"></li>
-						<li><img src="./static/imgs/haceteppe-logo.svg" style="height: 100px;"></li>
-					</ul>
-				</div>
-			</center>
-		</td>
+		<div class="section-title" style="text-align: center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: #003971">
+			Contact
+		</div>		
+		For any questions, please contact Mert Cokelek at <a href="mailto:mcokelek21@ku.edu.tr">mcokelek21@ku.edu.tr.
+
+
 	</tr>
-	<div class="section-title">Contact</div>
-	<div class="content">
-		For any questions, please contact Mert Cokelek at <a href="mcokelek21@ku.edu.tr">mcokelek21@ku.edu.tr</a>.
-	</div>
 	
 </body>
 </html>
