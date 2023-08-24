@@ -60,7 +60,7 @@
 										<li><img src="./static/imgs/kuis-ai.png" style="width: 20%;"></li>
 										<li><img src="./static/imgs/aist-logo.jpg" style="width: 20%;"></li>
 										<li><img src="./static/imgs/msk-logo.png" style="width: 20%;"></li>
-										<li><img src="./static/imgs/haceteppe-logo.svg" style="height: 100px;"></li>
+										<li><img src="./static/imgs/haceteppe-logo.png" style="width: 17%;"></li>
 									</ul>
 								</div>
 							</center>
@@ -69,6 +69,32 @@
 				</tr>
 			
 				<tr>
+					<div style="width: 85%;"> 
+						<div class="section-title" style="text-align: center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: #003971">
+							Overview
+						</div>
+					<br>
+
+						<!-- <hr style="width: 100%;"> -->
+					<img src="./static/imgs/overview.png"style="padding-bottom: 3%;">
+					<p class="paragraph desc">
+						<b>Overview of the proposed SalViT360 model.</b> 
+						The ERP video clip of F frames (1) is projected to F × T tangent images per set (2). 
+						Each tangent image is encoded and fused with spherical-geometry-aware position embeddings (3) for the 360◦ video transformer to aggregate global information (4). 
+						The outputs are decoded into saliency predictions in tangent space (5), 
+						which are projected back to ERP, giving the final saliency map (6). 
+						In addition to the supervised loss, the model is trainable with L<sub>VAC(P, P′)</sub> 
+						to minimize the tangent artefacts (7). 
+						During test time, the model works with a single tangent set. 
+						For simplicity, only one set of tangent images is shown.
+					</p>
+					
+					</div>
+
+					<br>
+					<br>
+					<iframe width="920" height="240" src="./static/media/outputs_webpgage/025_grid.mp4"></iframe>
+					<iframe width="920" height="240" src="./static/media/outputs_webpgage/MzcdEI-tSUc_grid.mp4"></iframe>
 					<div class="row">
 						<div class="column">
 							
@@ -83,15 +109,21 @@
 						</div>
 					</div>
 				</tr>
-				<iframe width="920" height="240" src="./static/media/outputs_webpgage/025_grid.mp4"></iframe>
-				<iframe width="920" height="240" src="./static/media/outputs_webpgage/MzcdEI-tSUc_grid.mp4"></iframe>
 
+				<div style="width:85%">
+					<br>
+					<p class="paragraph desc">
+						<b>Qualitative comparison</b> of <i>SalViT360 predictions</i> and <i>ground truth</i> saliency maps on 
+							<a href="https://github.com/xuyanyu-shh/VR-EyeTracking">VR-EyeTracking</a>
+						 	and 
+							<a href="https://github.com/cozcinar/360_Audio_Visual_ICMEW2020">360AV-HM</a>
+							datasets.
+					</p>
+				</div>
 				
 				<table style="width:80%">
 					<tr bgcolor="white"; style="border-color: white;">
 						<td bgcolor="white"; style="border-color: white;">
-							<!-- <h2 style="text-align: center;">Abstract</h2> -->
-
 							<div class="section-title" style="text-align: center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: #003971">
 								Abstract
 							</div>
@@ -106,9 +138,6 @@
 								Our approach is the first to employ tangent images for omnidirectional saliency prediction, 
 								and our experimental results on three ODV saliency datasets demonstrate its effectiveness compared to the state-of-the-art.</br>
 							</p>
-							<img src="./static/imgs/overview.png" width="auto" style="padding: 1% 1% 1% 1%;">
-							<br>
-							<!-- <br> -->
 
 							<tr bgcolor="white"; style="border-color: white;">
 
