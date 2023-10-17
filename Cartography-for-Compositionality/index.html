@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>
+		Cartography for Compositionality
+	</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="static/css/styles.css">
+	<link rel="stylesheet" href="static/css/project-page.css">
+	<!-- <link rel="stylesheet" href="static/css/main.css"> -->
+
+
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<body>
+    <center>
+		<table style="width:100%;text-align:justified">
+			<tbody>
+				<tr>
+					<td>
+						<center>
+							<h2 class="project-title"><b>Harnessing Dataset Cartography for Improved <br/> Compositional Generalization in Transformers</b> </h2>
+						</center>
+					</td>
+				</tr>
+
+				<tr>
+
+					<td>
+						<center>
+							<div class="authors">
+								<a href="https://ospanbatyr.github.io/" style="margin-right: 10px;">
+									Osman Batur İnce
+								</a>
+								<a href="https://ir.linkedin.com/in/tanin-zeraati-9a2a80196" style="margin-right: 10px;">
+									Tanin Zeraati
+								</a>
+								<a href="https://semihyagcioglu.com/" style="margin-right: 10px;">
+									Semih Yagcioglu
+									<!-- <sup>2</sup> -->
+								</a>
+								<a href="https://yyaghoobzadeh.github.io/"
+									style="margin-right: 10px;">
+									Yadollah Yaghoobzadeh
+								</a>
+								<a href="https://web.cs.hacettepe.edu.tr/~erkut/"
+									style="margin-right: 10px;">
+									Erkut Erdem
+									<!-- <sup>3</sup> -->
+								</a>
+								<a  href="https://aykuterdem.github.io"    
+									style="margin-right: 10px;">
+									Aykut Erdem
+									<!-- <sup>4</sup> -->
+								</a>
+								<br>
+							</div>
+						</center>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<center style="margin-top: 20px; margin-bottom: 45px;">
+							<div class="logos">
+								<img class="logo" src="./static/imgs/koc-logo.svg" alt="Koc" width="250" height="125"
+									style="margin-top: -20px; margin-left: 200px;">
+                                <img class="logo" src="./static/imgs/kuis-ai.png" alt="Kuis" width="250" height="125"
+                                        style="margin-top: -20px; margin-left: -20px;">
+								<img class="logo" src="./static/imgs/uoftehran_logo.svg" alt="Adobe Research" width="125"
+									height="125" style="margin-top: -20px; margin-left: -20px;">
+								<img class="logo" src="./static/imgs/haceteppe-logo.svg" alt="Haceteppe" width="90"
+									height="80">
+							</div>
+						</center>
+
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+
+						<br>
+						<h2>Abstract </h2>
+						<p class="paragraph desc" style="padding: 0% 0% 0% 0%;">
+							Neural networks have revolutionized language modeling and excelled in various downstream tasks. 
+							However, the extent to which these models achieve <strong>compositional generalization</strong> comparable to human cognitive abilities remains a topic of debate. 
+							While existing approaches in the field have mainly focused on novel architectures and alternative learning paradigms, 
+							we introduce a pioneering method harnessing the power of <strong>dataset cartography</strong> <a href="https://aclanthology.org/2020.emnlp-main.746/">[1]</a>. 
+							By strategically identifying a subset of compositional generalization data using this approach, we achieve a remarkable improvement in model accuracy, 
+							yielding enhancements of up to <strong>10%</strong> on CFQ and COGS datasets. Notably, our technique incorporates dataset cartography as a curriculum learning criterion, 
+							eliminating the need for hyperparameter tuning while consistently achieving superior performance. 
+							Our findings highlight the untapped potential of dataset cartography in unleashing 
+							the full capabilities of compositional generalization within Transformer models.</br></br>
+							<a id="citation1" href="https://aclanthology.org/2020.emnlp-main.746/">[1] &nbsp; Dataset Cartography: Mapping and Diagnosing Datasets with Training Dynamics (Swayamdipta et al., EMNLP 2020)</a>
+						</p>
+						<br>
+						<div class="icons" style="padding: 0% 20% 0% 20%;">
+							<table style="border: none;border-collapse: collapse; border-spacing:0;" cellspacing="0">
+								<tr>
+
+									<center>
+										<td align="center" style="border: none; width: 20%;">
+											<a 
+                                            href="static/docs/CLIPInverter.pdf">
+												<i class="fa fa-file-pdf-o" style="font-size:36px;"></i> <br>
+												Paper (HQ)
+											</a>
+										</td>
+
+										<td align="center" style="border: none; width: 20%">
+											<a href="https://arxiv.org/abs/2307.08397"">
+												<i class="fa fa-file-archive-o" style="font-size:36px"></i> <br>
+												Arxiv
+											</a>
+										</td> 
+										<!--
+										<td align="center" style="border: none; width: 20%">
+											<a href="https://dl.acm.org/doi/10.1145/3610287">
+												<i class="fa fa-newspaper-o" style="font-size:36px"></i> <br>
+												TOG
+											</a>
+										</td> 
+										-->
+										<td align="center" style="border: none; width: 20%">
+											<a href="https://github.com/cyberiada/cartography-for-compositionality">
+												<i class="fa fa-github" style="font-size:36px"></i>
+												<br>
+												Code
+											</a>
+										</td>
+
+									</center>
+
+								</tr>
+							</table>
+
+						</div>
+
+					</td>
+
+				</tr>
+
+
+				<tr>
+					<td>
+
+
+						<h2 style="padding-top: 1%;">Method Overview</h2>
+						</br>
+						<p class="paragraph desc" style="padding: 1% 1% 1% 1%;">
+							<a href="#citation1">[1]</a> propose dataset cartography, a visualization tool named data maps with two dimensions, <u>confidence</u> and <u>variability</u>, 
+								which characterizes the informativeness of training instances of a classification dataset with respect to a model. In this study, we extended dataset cartography idea
+								into the text generation setting. Furthermore, we addressed the lack of compositional generalization capabilities of Transformers by demonstrating that 
+								selecting a subset of the training dataset using dataset cartography and training models on this subset can enhance model accuracy by up to <u>10%</u>. 
+								We also showed that our setup can generalize to different model architectures and natural datasets. 
+								Moreover, we achieved improved performance by employing a dataset cartography-based curriculum learning without the need for hyperparameter tuning. 
+	
+						</p>
+						<br>
+						<a id="table_of_contents"></a>
+						<h3>
+							Our findings:</br>
+						</h3>
+						<ol>
+							<li><a href="#33_percent_results">33% Subset Results</a></li>
+							<li><a href="#50_percent_results">50% Subset Results</a></li>
+							<li><a href="#curriculum_results_cfq">Curriculum Learning Results (CFQ)</a></li>
+							<li><a href="#curriculum_results_cogs">Curriculum Learning Results (COGS)</a></li>
+							<li><a href="#unseen_manipulation">Manipulations with Unseen Captions</a></li>
+							<li><a href="#qualitative-comparisons">Comparisons Against Other Approaches</a></li>
+							<li><a href="#ablation-study">Ablation Study</a></li>
+						</ol>
+						</p>
+					</td>
+
+
+				</tr>
+
+
+			</tbody>
+		</table>
+    <table style="width:100%;text-align:center" border="0">
+        <colgroup>
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+        </colgroup>
+
+
+        <tbody>
+
+            <!-- 33% Subset Selection -->
+            <tr>
+                <td align="left" colspan="12">
+                    <a id="33_percent_results"></a>
+                    <h2>33% Subset Results</h2>
+                    <div align="center"><img class="pdf" src="./static/imgs/cfq_cogs_33_percent.pdf"></div>
+                    <p class="desc"><b>The impact of subset training (Part 1).</b> Our experiment results reveal superior generalization performance when models 
+						are trained on <b>hard-to-learn</b> samples compared to <b>ambiguous</b> or <b>random</b> subsets. Notably, these subsets consistently outperform 
+						the entire dataset, especially evident in the COGS dataset. Conversely, training on <b>easy-to-learn</b> samples results in poor generalization. 
+						Noteworthy is the efficacy of Inverse Perplexity as a superior measure for selecting challenging samples, 
+						as demonstrated by the averaged accuracy results over 3 runs. The best and second-best subsets are highlighted in bold and underlined, respectively.
+
+                    </p>
+                </td>
+            </tr>
+            <!-- Composition of Facial Attributes -->
+            <tr>
+                <td align="left" colspan="12">
+                    <a id="50_percent_results"></a>
+                    <h2>50% Subset Results</h2>
+                    <div align="center"><img class="pdf" src="./static/imgs/cfq_cogs_50_percent.pdf"></div>
+                    <p class="desc"><b>The impact of subset training (Part 2).</b>  The table outlines accuracy results for CFQ and COGS datasets, comparing models trained on 50% subsets of the training data 
+						to using the full dataset. The <b>hard-to-learn</b> subset, particularly with the <b>Inv PPL</b> measure, consistently outperforms other subsets, 
+						showcasing over 4% and 10% accuracy improvement compared to 100% training in CFQ and COGS, respectively. 
+						While subset combinations exhibit promise with CHIA and BLEU measures, the <b>hard-to-learn (Inv PPL)</b> subset consistently performs exceptionally well, 
+						often surpassing other subset combinations. The findings underscore the robustness of the <b>hard-to-learn</b> and particularly <b>hard-to-learn (Inv PPL)</b> subset across both datasets.
+                    </p>
+
+                </td>
+            </tr>
+            <!-- Continuous Manipulation -->
+            <tr>
+                <td align="left" colspan="12">
+                    <a id="curriculum_results_cfq"></a>
+                    <h2>3. Curriculum Learning Results (CFQ dataset) </h2>
+                    <div align="center"><h3><b>Accuracy plots on CFQ for the CL strategy by <a href="#citation2">[2]</a></b></h3></div>
+                    <div align="center"><img class="pdf" src="./static/imgs/cfq_curr_plot.pdf"></div>
+					<div style="height: 3em"></div>
+                    <div align="center"><h3><b>Accuracy plots on CFQ for the CL strategy by <a href="#citation3">[3]</a></b></h3></div>
+                    <div align="center"><img class="pdf" src="./static/imgs/cfq_curr_sort_plot.pdf"></div>
+                    <p class="desc"><b> Results for both frameworks.</b> We show that starting from the latent code of the original 
+                        image and walking along the predicted residual latent codes, we can naturally obtain smooth image manipulations, 
+                        providing control over the end result. For reference, we provide the original (<i>left</i>) and the target 
+                        descriptions (<i>right</i>) below each row.
+						<br/>
+						<br/> 
+						<a id="citation2" href="https://proceedings.mlr.press/v97/hacohen19a.html">[2] &nbsp; On The Power of Curriculum Learning in Training Deep Networks (Hacohen and Weinshall, PMLR 2019)</a>
+						<a id="citation3" href="https://aclanthology.org/N19-1189">[3] &nbsp; Curriculum Learning for Domain Adaptation in Neural Machine Translation (Zhang et al., NAACL 2019)</a>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td align="left" colspan="12">
+                    <a id="curriculum_results_cfogs"></a>
+                    <h2>4. Curriculum Learning Results (COGS dataset) </h2>
+                    <div align="center"><h3><b>Accuracy plots on COGS for the CL strategy by <a href="#citation2">[2]</a></b></h3></div>
+                    <div align="center"><img class="pdf" src="./static/imgs/cogs_curr_plot.pdf"></div>
+					<div style="height: 3em"></div>
+                    <div align="center"><h3><b>Accuracy plots on COGS for the CL strategy by <a href="#citation3">[3]</a></b></h3></div>
+                    <div align="center"><img class="pdf" src="./static/imgs/cogs_curr_sort_plot.pdf"></div>
+                    <p class="desc"><b> Results for both frameworks.</b> We show that starting from the latent code of the original 
+                        image and walking along the predicted residual latent codes, we can naturally obtain smooth image manipulations, 
+                        providing control over the end result. For reference, we provide the original (<i>left</i>) and the target 
+                        descriptions (<i>right</i>) below each row.
+						<br/>
+						<br/>
+						
+                </td>
+            </tr>
+
+
+            <!-- Manipulations with Unseen Captions -->
+            <tr>
+                <td align="left" colspan="12">
+                    <a id="unseen_manipulation"></a>
+                    <h2>5. Manipulations with Unseen Captions </h2>
+                    <img src="./static/imgs/unseen.pdf" width="auto" style="padding: 1% 1% 1% 1%;">
+                    <p class="desc"><b>Additional manipulation results with out-of-distribution training data.</b> We demonstrate 
+						that our CLIPInverter method can perform manipulations with target descriptions involving words never seen 
+						during training but semantically similar to the observed ones.
+                </td>
+            </tr>
+
+			<!-- Comparisons Against Other Approaches -->
+            <tr>
+                <td align="left" colspan="12">
+                    <a id="qualitative-comparisons"></a>
+                    <h2>6. Comparisons Against Other Approaches </h2>
+                    <img src="./static/imgs/comparison.pdf" width="auto" style="padding: 1% 1% 1% 1%;">
+                    <p class="desc"><b>Comparison against the state-of-the-art text-guided manipulation methods.</b> Our method 
+						applies the target edits mentioned in the given descriptions much more accurately than the competing approaches, 
+						especially when there are multiple attributes present in the descriptions.
+                </td>
+            </tr>
+
+
+			<!-- Ablation Study -->
+            <tr>
+                <td align="left" colspan="12">
+                    <a id="ablation-study"></a>
+                    <h2>7. Ablation Study </h2>
+                    <img src="./static/imgs/ablation.pdf" width="auto" style="padding: 1% 1% 1% 1%;">
+                    <p class="desc"><b>Qualitative results for the ablation study.</b> The global CLIP loss leads to unintuitive and 
+						unnatural results. Without perceptual losses, unwanted manipulations occur. Without the cycle pass or CLIPRemapper, 
+						we are not able to apply all the desired manipulations.
+                </td>
+            </tr>
+
+
+
+        </tbody>
+    </table>
+
+	<div class="section-title">BibTeX</div>
+	<div class="section bibtex" ; align="left">
+		<pre> @article{CLIPInverter, 
+author = {Baykal, Ahmet Canberk and Anees, Abdul Basit and Ceylan, Duygu and Erdem, Erkut and Erdem, Aykut and Yuret, Deniz}, 
+title = {CLIP-Guided StyleGAN Inversion for Text-Driven Real Image Editing}, 
+year = {2023}, 
+publisher = {Association for Computing Machinery}, 
+address = {New York, NY, USA}, 
+issn = {0730-0301}, 
+url = {https://doi.org/10.1145/3610287}, 
+doi = {10.1145/3610287}, 
+note = {Just Accepted}, 
+journal = {ACM Trans. Graph.}, 
+month = {jul}, 
+keywords = {Image-to-Image Translation, Generative Adversarial Networks, Image Editing} }</pre>
+	</div>
+	<br>
+	<div class="section-title">Contact</div>
+	<div class="content">
+		For any questions, please contact Osman Batur İnce at <a href="osmanbaturince@outlook.com">osmanbaturince@outlook.com</a>.
+	</div>
+</body>
+</html>
