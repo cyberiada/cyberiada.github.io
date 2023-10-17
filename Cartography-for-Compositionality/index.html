@@ -104,7 +104,7 @@
 									<center>
 										<td align="center" style="border: none; width: 20%;">
 											<a 
-                                            href="static/docs/CLIPInverter.pdf">
+                                            href="static/docs/CLIPInverter.png">
 												<i class="fa fa-file-pdf-o" style="font-size:36px;"></i> <br>
 												Paper (HQ)
 											</a>
@@ -169,9 +169,9 @@
 							<li><a href="#50_percent_results">50% Subset Results</a></li>
 							<li><a href="#curriculum_results_cfq">Curriculum Learning Results (CFQ)</a></li>
 							<li><a href="#curriculum_results_cogs">Curriculum Learning Results (COGS)</a></li>
-							<li><a href="#unseen_manipulation">Manipulations with Unseen Captions</a></li>
-							<li><a href="#qualitative-comparisons">Comparisons Against Other Approaches</a></li>
-							<li><a href="#ablation-study">Ablation Study</a></li>
+							<li><a href="#smcs_results">Preliminary Experiments w/Natural Datasets</a></li>
+							<li><a href="#bilstm_results">Preliminary Experiments w/Other Architectures</a></li>
+							<li><a href="#cartography_maps">Sample Cartography Maps</a></li>
 						</ol>
 						</p>
 					</td>
@@ -206,7 +206,7 @@
                 <td align="left" colspan="12">
                     <a id="33_percent_results"></a>
                     <h2>33% Subset Results</h2>
-                    <div align="center"><img class="pdf" src="./static/imgs/cfq_cogs_33_percent.pdf"></div>
+                    <div align="center"><img class="pdf" src="./static/imgs/cfq_cogs_33_percent.png" style="width: 100%;"></div>
                     <p class="desc"><b>The impact of subset training (Part 1).</b> Our experiment results reveal superior generalization performance when models 
 						are trained on <b>hard-to-learn</b> samples compared to <b>ambiguous</b> or <b>random</b> subsets. Notably, these subsets consistently outperform 
 						the entire dataset, especially evident in the COGS dataset. Conversely, training on <b>easy-to-learn</b> samples results in poor generalization. 
@@ -221,7 +221,7 @@
                 <td align="left" colspan="12">
                     <a id="50_percent_results"></a>
                     <h2>50% Subset Results</h2>
-                    <div align="center"><img class="pdf" src="./static/imgs/cfq_cogs_50_percent.pdf"></div>
+                    <div align="center"><img class="pdf" src="./static/imgs/cfq_cogs_33_percent.png" style="width: 90%;"></div>
                     <p class="desc"><b>The impact of subset training (Part 2).</b>  The table outlines accuracy results for CFQ and COGS datasets, comparing models trained on 50% subsets of the training data 
 						to using the full dataset. The <b>hard-to-learn</b> subset, particularly with the <b>Inv PPL</b> measure, consistently outperforms other subsets, 
 						showcasing over 4% and 10% accuracy improvement compared to 100% training in CFQ and COGS, respectively. 
@@ -237,14 +237,16 @@
                     <a id="curriculum_results_cfq"></a>
                     <h2>3. Curriculum Learning Results (CFQ dataset) </h2>
                     <div align="center"><h3><b>Accuracy plots on CFQ for the CL strategy by <a href="#citation2">[2]</a></b></h3></div>
-                    <div align="center"><img class="pdf" src="./static/imgs/cfq_curr_plot.pdf"></div>
+                    <div align="center"><img class="pdf" src="./static/imgs/cfq_curr_plot.png"></div>
 					<div style="height: 3em"></div>
                     <div align="center"><h3><b>Accuracy plots on CFQ for the CL strategy by <a href="#citation3">[3]</a></b></h3></div>
-                    <div align="center"><img class="pdf" src="./static/imgs/cfq_curr_sort_plot.pdf"></div>
-                    <p class="desc"><b> Results for both frameworks.</b> We show that starting from the latent code of the original 
-                        image and walking along the predicted residual latent codes, we can naturally obtain smooth image manipulations, 
-                        providing control over the end result. For reference, we provide the original (<i>left</i>) and the target 
-                        descriptions (<i>right</i>) below each row.
+                    <div align="center"><img class="pdf" src="./static/imgs/cfq_curr_sort_plot.png"></div>
+                    <p class="desc"><b> Results for both frameworks.</b> These figures evaluate the performance of different curriculum learning (CL) 
+						strategies on the CFQ dataset. The results show that no single curriculum consistently outperforms others. 
+						Surprisingly, initiating training with <b>hard-to-learn</b> samples yields superior performance compared to 
+						<b>easy-to-learn</b> samples, contrary to common CL expectations. This observation is consistent across both CL frameworks evaluated in the study.
+
+
 						<br/>
 						<br/> 
 						<a id="citation2" href="https://proceedings.mlr.press/v97/hacohen19a.html">[2] &nbsp; On The Power of Curriculum Learning in Training Deep Networks (Hacohen and Weinshall, PMLR 2019)</a>
@@ -258,16 +260,15 @@
                     <a id="curriculum_results_cfogs"></a>
                     <h2>4. Curriculum Learning Results (COGS dataset) </h2>
                     <div align="center"><h3><b>Accuracy plots on COGS for the CL strategy by <a href="#citation2">[2]</a></b></h3></div>
-                    <div align="center"><img class="pdf" src="./static/imgs/cogs_curr_plot.pdf"></div>
+                    <div align="center"><img class="pdf" src="./static/imgs/cogs_curr_plot.png"></div>
 					<div style="height: 3em"></div>
                     <div align="center"><h3><b>Accuracy plots on COGS for the CL strategy by <a href="#citation3">[3]</a></b></h3></div>
-                    <div align="center"><img class="pdf" src="./static/imgs/cogs_curr_sort_plot.pdf"></div>
-                    <p class="desc"><b> Results for both frameworks.</b> We show that starting from the latent code of the original 
-                        image and walking along the predicted residual latent codes, we can naturally obtain smooth image manipulations, 
-                        providing control over the end result. For reference, we provide the original (<i>left</i>) and the target 
-                        descriptions (<i>right</i>) below each row.
-						<br/>
-						<br/>
+                    <div align="center"><img class="pdf" src="./static/imgs/cogs_curr_sort_plot.png"></div>
+                    <p class="desc"><b> Results for both frameworks.</b> Figures 5 and 6 provide further insights into the impact of dataset cartography on CL 
+						for compositional generalization. The <b>hard-to-learn (BLEU)</b> configuration emerges as the most effective configuration, 
+						while the <b>easy-to-learn</b> configurations demonstrate the poorest final performance across both CL frameworks. 
+						These findings suggest that starting the curriculum with <b>hard-to-learn</b> examples 
+						is more beneficial for improving generalization capabilities.
 						
                 </td>
             </tr>
@@ -276,24 +277,30 @@
             <!-- Manipulations with Unseen Captions -->
             <tr>
                 <td align="left" colspan="12">
-                    <a id="unseen_manipulation"></a>
-                    <h2>5. Manipulations with Unseen Captions </h2>
-                    <img src="./static/imgs/unseen.pdf" width="auto" style="padding: 1% 1% 1% 1%;">
-                    <p class="desc"><b>Additional manipulation results with out-of-distribution training data.</b> We demonstrate 
-						that our CLIPInverter method can perform manipulations with target descriptions involving words never seen 
-						during training but semantically similar to the observed ones.
+                    <a id="smcs_results"></a>
+                    <h2>5. Preliminary Experiments w/Natural Datasets </h2>
+                    <div align="center"><img class="pdf" src="./static/imgs/smcs_50_percent.png" style="width: 70%;"></div>
+                    <p class="desc"><b>Additional results on SmCalFlow-CS Simple (SMCS) 50% subset experiments.</b> The SMCS 16 and 32 splits follow a similar trend 
+						to the CFQ and COGS datasets, with hard-to-learn subsets consistently outperforming the original dataset and easy-to-learn subsets 
+						performing the worst. Interestingly, the ranking of metrics is more fluid in the SMCS results, with hard-to-learn (Inv PPL) no longer 
+						the clear frontrunner. Instead, hard-to-learn (BLEU) and hard-to-learn (CHIA) are the best performing subsets in SMCS 16 and 32 respectively.
                 </td>
             </tr>
 
 			<!-- Comparisons Against Other Approaches -->
             <tr>
                 <td align="left" colspan="12">
-                    <a id="qualitative-comparisons"></a>
-                    <h2>6. Comparisons Against Other Approaches </h2>
-                    <img src="./static/imgs/comparison.pdf" width="auto" style="padding: 1% 1% 1% 1%;">
-                    <p class="desc"><b>Comparison against the state-of-the-art text-guided manipulation methods.</b> Our method 
-						applies the target edits mentioned in the given descriptions much more accurately than the competing approaches, 
-						especially when there are multiple attributes present in the descriptions.
+                    <a id="bilstm_results"></a>
+                    <h2>6. Preliminary Experiments w/Other Architectures </h2>
+                    <div align="center"><img class="pdf" src="./static/imgs/cogs_bilstm_50_percent.png" style="width: 45%;"></div>
+                    <p class="desc"><b>Additional results on COGS 50% subset Bi-LSTM experiments.</b> Despite the overall lower performance, 
+						the Bi-LSTM experiments support the primary findings of the paper: training models on hard-to-learn subsets consistently 
+						outperforms training on the full dataset. While the maximum absolute performance increase between hard-to-learn subsets 
+						and full training is slightly lower for the Bi-LSTM model than for the Transformer model, the maximum relative performance
+						 increase is actually higher. This shows that dataset cartography can improve generalization performance in architectures 
+						 other than Transformer.
+
+
                 </td>
             </tr>
 
@@ -301,14 +308,17 @@
 			<!-- Ablation Study -->
             <tr>
                 <td align="left" colspan="12">
-                    <a id="ablation-study"></a>
-                    <h2>7. Ablation Study </h2>
-                    <img src="./static/imgs/ablation.pdf" width="auto" style="padding: 1% 1% 1% 1%;">
-                    <p class="desc"><b>Qualitative results for the ablation study.</b> The global CLIP loss leads to unintuitive and 
-						unnatural results. Without perceptual losses, unwanted manipulations occur. Without the cycle pass or CLIPRemapper, 
-						we are not able to apply all the desired manipulations.
+                    <a id="curriculum_results_cfogs"></a>
+                    <h2>7. Sample Cartography Maps </h2>
+                    <div align="center"><h3><b>CFQ - Inverse PPL Cartography Map</b></h3></div>
+                    <div align="center"><img class="pdf" src="./static/imgs/cfq_20_inv_ppl.png"></div>
+					<div style="height: 3em"></div>
+                    <div align="center"><h3><b>COGS - Inverse PPL Cartography Map</b></h3></div>
+                    <div align="center"><img class="pdf" src="./static/imgs/cogs_20_inv_ppl.png"></div>
+
                 </td>
             </tr>
+
 
 
 
