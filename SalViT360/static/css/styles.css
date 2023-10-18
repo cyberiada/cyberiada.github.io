@@ -2,33 +2,52 @@
     text-align: left;
 }
 
+hr {
+    
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: double;
+    border-width: 1px;
+  }
+
 ul {
     white-space: nowrap;
   }
   
-  ul, li {
-    list-style: none;
-    display: inline;
-  }
-
-
-/* .videos {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.5rem;
-    padding: 0.5rem;
-    /* border: 1px dashed blue; */
+ul, li {
+list-style: none;
+display: inline;
+position:relative;
 }
+
+/* Create two equal columns that floats next to each other */
+.column {
+    float: left;
+    width: 50%;  }
+  
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+ 
+
+
 .video {
     min-height: 6rem;
     /* border: 1px dashed red; */
 }
-.video:nth-child(4n),
+/* .video:nth-child(4n),
 .video:nth-child(5n),
 .video:nth-child(6n) {
     min-height: 3rem;
     /* border: 1px dashed orange; */
-} */
+} */ */
 
 .center {
     display: block;
