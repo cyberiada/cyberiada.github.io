@@ -3,8 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>
-		Spherical Vision Transformers for 360◦ Video Saliency Prediction
-
+		Spherical Vision Transformers for Audio-Visual Saliency Prediction in 360° Videos
 	</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="static/css/styles.css">
@@ -20,10 +19,10 @@
 				<tr>
 					<center>
 						<h1 style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size:300%; color: #003971">
-							SalViT360
+							SalViT360-AV
 						</h1>
 						<h2 style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size:150%; color: #003971;">
-							Spherical Vision Transformers for 360◦ Video Saliency Prediction 
+							Spherical Vision Transformers for Audio-Visual Saliency Prediction in 360° Videos
 						</h2>
 					</center>
 				</tr>
@@ -34,12 +33,18 @@
 							<a href="https://github.com/MertCokelek/" style="margin-right: 10px;">
 								Mert Cokelek
 							</a>
+							<a href="https://github.com/corupta/" style="margin-right: 10px;">
+								Halit Ozsoy
+							</a>
 							<a href="https://nevrez.github.io/" style="margin-right: 10px;">
 								Nevrez Imamoglu
 							</a>
 							<a href="https://cagriozcinar.netlify.app/" style="margin-right: 10px;">
 								Cagri Ozcinar
 								<!-- <sup>2</sup> -->
+							</a>
+							<a href="https://psychology.bogazici.edu.tr/İnciAyhan" style="margin-right: 10px;">
+								Inci Ayhan
 							</a>
 							<a href="https://web.cs.hacettepe.edu.tr/~erkut/" style="margin-right: 10px;">
 								Erkut Erdem
@@ -54,117 +59,165 @@
 						</div>
 						<tr bgcolor="white" style="border-color: white;">
 							<center>
-								<div class="logos" style="scale: 70%;">
+								<div class="logos" style="scale: 75%;">
 									<ul>
-										<li><img src="./static/imgs/koc-logo.svg" style="margin-left:-40px; width: 20%;"></li>
-										<li><img src="./static/imgs/kuis-ai.png" style="width: 20%;"></li>
-										<li><img src="./static/imgs/aist-logo.jpg" style="width: 20%;"></li>
-										<li><img src="./static/imgs/msk-logo.png" style="width: 20%;"></li>
-										<li><img src="./static/imgs/haceteppe-logo.png" style="width: 17%;"></li>
-									</ul>
+											<li><img src="./static/imgs/kuis-ai.png" 		style="margin-left:-210px; width: 20%;"></li>
+											<li><img src="./static/imgs/boun-vr-logo.png" 	style="margin-left:-20px;  width: 20%;"></li>
+											<li><img src="./static/imgs/aist-logo.jpg" 		style="margin-left:10px;  width: 14%;"></li>
+											<li><img src="./static/imgs/msk-logo.svg" 		style="margin-left:20px;  width: 14%;"></li>
+											<li><img src="./static/imgs/boun-logo.png" 		style="margin-left:30px; width: 10%;"></li>
+											<li><img src="./static/imgs/haceteppe-logo.png" style="margin-left:35px;  width: 17%;"></li>
+											<li><img src="./static/imgs/koc-logo.svg" 		style="margin-left:40px; width: 20%;"></li>
+
+										</ul>
 								</div>
 							</center>
 						</tr>
 					</center>
 				</tr>
 			
+				<div class="section-title" style="text-align: center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: #003971">
+					Abstract
+				</div>
+				<br>
+
+				<p class="paragraph desc" style="padding: 0% 0% 0% 0%;">
+					Omnidirectional videos (ODVs) are redefining viewer experiences in virtual reality (VR) by offering an unprecedented full field-of-view (FOV). 
+					This study extends the domain of saliency prediction to 360◦ environments, addressing the complexities of spherical distortion and the integration of spatial audio. 
+					Contextually, ODVs have transformed user experience by adding a spatial audio dimension that aligns sound direction with the viewer’s perspective in spherical scenes. 
+					Motivated by the lack of comprehensive datasets for 360◦ audio-visual saliency prediction, our study curates YT360-EyeTracking, a new dataset of 81 ODVs, each observed under varying audio-visual conditions. 
+					Our goal is to explore how to utilize audio-visual cues to effectively predict visual saliency in 360◦ videos. 
+					Towards this aim, we propose two novel saliency prediction models: 
+					SalViT360, a vision-transformer-based framework for ODVs equipped with spherical geometry-aware spatio-temporal attention layers, and SalViT360-AV, which further incorporates transformer adapters conditioned on audio input. 
+					Our results on a number of benchmark datasets, including our YT360-EyeTracking, demonstrate that SalViT360 and SalViT360-AV significantly outperform existing methods in predicting viewer attention in 360◦ scenes. 
+					Interpreting these results, we suggest that integrating spatial audio cues in the model architecture is crucial for accurate saliency prediction in omnidirectional videos.
+				</br>
+				</p>
+
 				<tr>
-					<div style="width: 85%;"> 
+					<div style="width: 50;"> 
 						<div class="section-title" style="text-align: center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: #003971">
-							Overview
+							Model Overview
 						</div>
 					<br>
-
-						<!-- <hr style="width: 100%;"> -->
-					<img src="./static/imgs/overview.png"style="padding-bottom: 3%;">
+					<img src="./static/imgs/AV-overview-2.png"style="padding-bottom: 3%;padding-top: 4%">
 					<p class="paragraph desc">
-						<b>Overview of the proposed SalViT360 model.</b> 
-						The ERP video clip of F frames (1) is projected to F × T tangent images per set (2). 
-						Each tangent image is encoded and fused with spherical-geometry-aware position embeddings (3) for the 360◦ video transformer to aggregate global information (4). 
-						The outputs are decoded into saliency predictions in tangent space (5), 
-						which are projected back to ERP, giving the final saliency map (6). 
-						In addition to the supervised loss, the model is trainable with L<sub>VAC(P, P′)</sub> 
-						to minimize the tangent artefacts (7). 
-						During test time, the model works with a single tangent set. 
-						For simplicity, only one set of tangent images is shown.
+						<b>Overview of the proposed SalViT360-AV pipeline.</b>        
+						We use the SalViT360 [1] model as the video saliency module (top), and our implementation allows for any audio model as the audio backbone (bottom).        
+						The audio stream takes input spatial audio waveforms \(x_{aud} \in \mathbb{R}^{4 \times N}\) encoded as first-order ambisonics in 4-channel B-format.        
+						To simulate what the subjects are hearing while looking at a particular location, we rotate the ambisonics depending on the angular coordinates \((\theta, \phi)\) for each tangent viewport \(\{x_t\}_{T}^{t=1}\) (1).        
+						The rotated waveforms are mono, which enables us to use any pre-trained audio backbone for feature extraction (2).        
+						The extracted features are passed to the adapter layers in each upgraded transformer block (3) for audio-visual tuning.        
+						While the total number of parameters in the video pipeline is 37M, the additional adapter layers require only 600k parameters for fine-tuning. 
 					</p>
-					
-					</div>
+					<br>
+				</tr>
+				<tr>
+					<div style="width: 100%;"> 
+						<div class="section-title" style="text-align: center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: #003971">
+							<a href="https://yt360-eye-tracking.corupta.net/">YT360-EyeTracking Dataset</a>
+						</div>
+						<p class="paragraph desc" style="text-align: center;"></p>
+						We curated a subset of 360° videos with first order ambisonics from YT-360 Dataset 
+						containing equal amounts of clips from each scene type (indoor, outdoor-natural, and outdoor-manmade) and audio type (human speech, music instrument, and vehicle sounds). 
+						Each category combination has 9 clips, totaling 81 clips.
+					</p>
+					<a href="https://yt360-eye-tracking.corupta.net/">
+						<img src="./static/imgs/yt360-eyetracking-overview.png" style="padding-bottom: 3%;">
+					</a>
 
-					<br>
-					<br>
-					<iframe width="920" height="240" src="./static/media/outputs_webpgage/025_grid.mp4"></iframe>
-					<iframe width="920" height="240" src="./static/media/outputs_webpgage/MzcdEI-tSUc_grid.mp4"></iframe>
-					<div class="row">
-						<div class="column">
-							
-							<h4 style="margin-left: 25%; text-align: center; font-family: Geneva, Verdana, sans-serif; color: #003971">
-								SalViT360
-							</h4>
-						</div>
-						<div class="column">
-							<h4 style="margin-left: -25%; text-align: center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: #003971">
-								Ground Truth
-							</h4>
-						</div>
+
 					</div>
+					<br>
+					<div style="width: 100%;"> 
+						<div class="section-title" style="text-align: center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: #003971">
+							<a href="https://drive.google.com/drive/folders/1bsC_4vYVrLnWCmCGtSs4aiiIKmEuuJed?usp=drive_link">Qualitative Results</a>
+						</div>
+					<br>
+
+					</div>
+					<div class="video-container">
+						<video controls>
+							<source src="./static/media/supp-videos/supp-RI2eIMZdyX8-1063.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+
+						<video controls>
+							<source src="./static/media/supp-videos/supp-RGzcsBqIbPk-969.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+
+						<video controls>
+							<source src="./static/media/supp-videos/supp-UgyKRGwMm7U-72.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+
+						<video controls>
+							<source src="./static/media/supp-videos/supp-Wb_RGCFKpDw-745.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+						<video controls>
+							<source src="./static/media/supp-videos/supp-xyccHcWoS74-138.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
 				</tr>
 
-				<div style="width:85%">
 					<br>
-					<p class="paragraph desc">
-						<b>Qualitative comparison</b> of <i>SalViT360 predictions</i> and <i>ground truth</i> saliency maps on 
-							<a href="https://github.com/xuyanyu-shh/VR-EyeTracking">VR-EyeTracking</a>
+					<p class="paragraph desc" style="text-align: center;"></p>
+						Qualitative comparison of <b>Ground Truth</b> saliency maps and <b>SalViT360-AV</b> predictions on 
+							<a href="https://yt360-eye-tracking.corupta.net/"><b>YT360-EyeTracking</b></a>
 						 	and 
-							<a href="https://github.com/cozcinar/360_Audio_Visual_ICMEW2020">360AV-HM</a>
+							<a href="https://github.com/cozcinar/360_Audio_Visual_ICMEW2020"><b>360AV-HM</b></a>
 							datasets.
+						 	<br>
+							Click <a href="https://drive.google.com/drive/folders/1bsC_4vYVrLnWCmCGtSs4aiiIKmEuuJed?usp=drive_link"><b>here</b></a> for more qualitative results.
 					</p>
-				</div>
 				
-				<table style="width:80%">
+				<table style="width:100%">
 					<tr bgcolor="white"; style="border-color: white;">
 						<td bgcolor="white"; style="border-color: white;">
-							<div class="section-title" style="text-align: center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: #003971">
-								Abstract
-							</div>
-							<br>
-
-							<p class="paragraph desc" style="padding: 0% 0% 0% 0%;">
-								The growing interest in omnidirectional videos (ODVs) that capture the full field-of-view (FOV) has gained 360◦ saliency prediction importance in computer vision. 
-								However, predicting where humans look in 360◦ scenes presents unique challenges, including spherical distortion, high resolution, and limited labelled data. 
-								To address these challenges, we propose a novel vision-transformer-based model for omnidirectional videos named SalViT360 that leverages tangent image representations. 
-								We introduce a spherical geometry-aware spatio-temporal self-attention mechanism that is capable of effective omnidirectional video understanding. 
-								Furthermore, we present a consistency-based unsupervised regularization term for projection-based 360◦ dense-prediction models to reduce artefacts in the predictions that occur after inverse projection. 
-								Our approach is the first to employ tangent images for omnidirectional saliency prediction, 
-								and our experimental results on three ODV saliency datasets demonstrate its effectiveness compared to the state-of-the-art.</br>
-							</p>
-
 							<tr bgcolor="white"; style="border-color: white;">
-
-								<div class="icons" style="padding: 0% 20% 0% 20%;">
+								<div class="icons" style="padding: 0% 0% 0% 0%;">
 									<table bgcolor="white" style="width: 50%; border: none;border-collapse: collapse; border-spacing:0;" cellspacing="0">
 										<tr>
+											<div class="section-title" style="text-align: center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: #003971">
+												Additional Links
+											</div>
+											<br>
 											<center>
 												<td align="center" style="border: none; width: 20%;">
 													<a 
 													href="https://arxiv.org/abs/2308.13004">
 														<i class="fa fa-file-pdf-o" style="font-size:36px;"></i> <br>
-														Arxiv
+														SalViT360
 													</a>
 												</td>
 												<td align="center" style="border: none; width: 20%;">
 													<a 
 													href="static/docs/supp.pdf">
 														<i class="fa fa-file-pdf-o" style="font-size:36px;"></i> <br>
-														Supplementary
+														SalViT360 Appendix
 													</a>
 												</td>
-
 												<td align="center" style="border: none; width: 20%">
 													<a href="https://github.com/MertCokelek/SalViT360/">
 														<i class="fa fa-github" style="font-size:36px"></i>
 														<br>
 														Code
+													</a>
+												</td>
+												<td align="center" style="border: none; width: 20%;">
+													<a 
+													href="https://drive.google.com/drive/folders/1bsC_4vYVrLnWCmCGtSs4aiiIKmEuuJed?usp=drive_link	">
+														<i class="fa fa-video-camera" style="font-size:36px;"></i> <br>	
+														Supplementary Videos
+													</a>
+												</td>
+												<td align="center" style="border: none; width: 20%;">
+													<a 
+													href="https://yt360-eye-tracking.corupta.net/">
+														<i class="fa fa-link" style="font-size:36px;"></i>
+														YT360-EyeTracking Dataset
 													</a>
 												</td>
 											</center>
@@ -179,14 +232,16 @@
 									BibTeX
 								</div>
 								<div class="section bibtex" ; align="left" style="width: 70%;">
+									<br>
+
 									<pre>
-@misc{cokelek2023spherical,
-	title={Spherical Vision Transformer for 360-degree Video Saliency Prediction}, 
-	author={Mert Cokelek and Nevrez Imamoglu and Cagri Ozcinar and Erkut Erdem and Aykut Erdem},
-	year={2023},
-	eprint={2308.13004},
-	archivePrefix={arXiv},
-	primaryClass={cs.CV}
+	@misc{cokelek2023spherical,
+		title={Spherical Vision Transformer for 360-degree Video Saliency Prediction}, 
+		author={Mert Cokelek and Nevrez Imamoglu and Cagri Ozcinar and Erkut Erdem and Aykut Erdem},
+		year={2023},
+		eprint={2308.13004},
+		archivePrefix={arXiv},
+		primaryClass={cs.CV}
 	}
 										</pre>  
 
@@ -205,7 +260,9 @@
 		<div class="section-title" style="text-align: center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: #003971">
 			Contact
 		</div>		
-		For any questions, please contact Mert Cokelek at <a href="mailto:mcokelek21@ku.edu.tr">mcokelek21@ku.edu.tr.
+		<br>
+		For any questions, please contact Mert Cokelek at 
+		<a href="mailto:mcokelek21@ku.edu.tr">mcokelek21@ku.edu.tr</a> or Halit Ozsoy at <a href="mailto:halitozsoy1584@gmail.com">halitozsoy1584@gmail.com</a>.
 
 
 	</tr>
