@@ -1,0 +1,54 @@
+.compact-logo {
+    font-family: 'Rubik Doodle Shadow', sans-serif;
+}
+
+/*https://stackoverflow.com/questions/35647044/boostrap-how-to-stick-a-button-over-an-image-when-re-sizing*/
+.img-wrapper {
+    position: relative;
+}
+
+.img-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: left;
+}
+
+.img-overlay:before {
+    content: ' ';
+    display: block;
+    /* adjust 'height' to position overlay content vertically */
+    height: 40%;
+}
+
+a {
+    text-decoration: none;
+}
+
+img.person-card {
+    height: 200px;
+    object-fit: cover;
+}
+
+html {
+    scroll-padding-top: 70px;
+}
+
+body {
+    padding-top: 70px;
+    position: relative;
+}
+
+.samplerow {
+    margin: 35px 0;
+    display: flex;
+    align-items: center;
+    grid-area: side;
+    padding: 20px 20px;
+    border-radius: 5px;
+    border: solid 1px rgba(255, 255, 255, .1);
+    background: #f4f6f9;
+}
+

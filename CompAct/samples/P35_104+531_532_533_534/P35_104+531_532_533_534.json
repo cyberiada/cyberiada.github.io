@@ -1,0 +1,85 @@
+{
+    "key": "P35_104+531_532_533_534",
+    "video_id": "P35_104",
+    "narration_ids": [
+        "P35_104_531",
+        "P35_104_532",
+        "P35_104_533",
+        "P35_104_534"
+    ],
+    "src": "open container . stir pasta . pick_up pasta",
+    "src1": "open container",
+    "src2": "stir pasta",
+    "src3": "pick_up pasta",
+    "trg": "pour pasta",
+    "vis_src": "P35_104:531 P35_104:532 P35_104:533",
+    "vis_trg": "P35_104:534",
+    "narrations": [
+        "open container",
+        "stir pasta",
+        "pick up pasta",
+        "pour pasta"
+    ],
+    "verbs": [
+        "open",
+        "stir",
+        "pick-up",
+        "pour"
+    ],
+    "verb_classes": [
+        3,
+        10,
+        0,
+        9
+    ],
+    "nouns": [
+        "container",
+        "pasta",
+        "pasta",
+        "pasta"
+    ],
+    "noun_classes": [
+        21,
+        45,
+        45,
+        45
+    ],
+    "start_stop_timestamps": [
+        [
+            "00:37:11.75",
+            "00:37:13.25"
+        ],
+        [
+            "00:37:14.13",
+            "00:37:23.97"
+        ],
+        [
+            "00:37:23.79",
+            "00:37:27.04"
+        ],
+        [
+            "00:37:27.39",
+            "00:37:28.14"
+        ]
+    ],
+    "start_stop_frames": [
+        [
+            111587,
+            111662
+        ],
+        [
+            111706,
+            112198
+        ],
+        [
+            112189,
+            112352
+        ],
+        [
+            112369,
+            112407
+        ]
+    ],
+    "trgnoun": "pasta",
+    "trgverb": "pour"
+}

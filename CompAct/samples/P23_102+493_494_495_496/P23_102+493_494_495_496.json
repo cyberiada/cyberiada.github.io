@@ -1,0 +1,85 @@
+{
+    "key": "P23_102+493_494_495_496",
+    "video_id": "P23_102",
+    "narration_ids": [
+        "P23_102_493",
+        "P23_102_494",
+        "P23_102_495",
+        "P23_102_496"
+    ],
+    "src": "put red_chilli . open tap . wash plate",
+    "src1": "put red_chilli",
+    "src2": "open tap",
+    "src3": "wash plate",
+    "trg": "put plate",
+    "vis_src": "P23_102:493 P23_102:494 P23_102:495",
+    "vis_trg": "P23_102:496",
+    "narrations": [
+        "put red chilli",
+        "open tap",
+        "wash plate",
+        "put plate"
+    ],
+    "verbs": [
+        "put",
+        "turn-on",
+        "wash",
+        "put"
+    ],
+    "verb_classes": [
+        1,
+        6,
+        2,
+        1
+    ],
+    "nouns": [
+        "chilli:red",
+        "tap",
+        "plate",
+        "plate"
+    ],
+    "noun_classes": [
+        69,
+        0,
+        2,
+        2
+    ],
+    "start_stop_timestamps": [
+        [
+            "00:47:31.49",
+            "00:47:33.15"
+        ],
+        [
+            "00:47:34.91",
+            "00:47:35.80"
+        ],
+        [
+            "00:47:35.51",
+            "00:47:37.95"
+        ],
+        [
+            "00:47:45.02",
+            "00:47:53.21"
+        ]
+    ],
+    "start_stop_frames": [
+        [
+            142574,
+            142657
+        ],
+        [
+            142745,
+            142790
+        ],
+        [
+            142775,
+            142897
+        ],
+        [
+            143251,
+            143660
+        ]
+    ],
+    "trgnoun": "plate",
+    "trgverb": "put"
+}

@@ -1,0 +1,85 @@
+{
+    "key": "P06_101+145_146_147_148",
+    "video_id": "P06_101",
+    "narration_ids": [
+        "P06_101_145",
+        "P06_101_146",
+        "P06_101_147",
+        "P06_101_148"
+    ],
+    "src": "pick_up chopping_board . scrape pepper into pan . put_down chopping_board",
+    "src1": "pick_up chopping_board",
+    "src2": "scrape pepper into pan",
+    "src3": "put_down chopping_board",
+    "trg": "pick_up pepper",
+    "vis_src": "P06_101:145 P06_101:146 P06_101:147",
+    "vis_trg": "P06_101:148",
+    "narrations": [
+        "pick up chopping board",
+        "scrape pepper into pan",
+        "put down chopping board",
+        "pick up pepper"
+    ],
+    "verbs": [
+        "pick-up",
+        "scrape-into",
+        "put-down",
+        "pick-up"
+    ],
+    "verb_classes": [
+        0,
+        25,
+        1,
+        0
+    ],
+    "nouns": [
+        "board:chopping",
+        "pepper",
+        "board:chopping",
+        "pepper"
+    ],
+    "noun_classes": [
+        18,
+        37,
+        18,
+        37
+    ],
+    "start_stop_timestamps": [
+        [
+            "00:10:43.51",
+            "00:10:45.13"
+        ],
+        [
+            "00:10:45.10",
+            "00:10:49.06"
+        ],
+        [
+            "00:10:49.03",
+            "00:10:50.33"
+        ],
+        [
+            "00:10:50.11",
+            "00:10:50.77"
+        ]
+    ],
+    "start_stop_frames": [
+        [
+            32175,
+            32256
+        ],
+        [
+            32255,
+            32452
+        ],
+        [
+            32451,
+            32516
+        ],
+        [
+            32505,
+            32538
+        ]
+    ],
+    "trgnoun": "pepper",
+    "trgverb": "pick_up"
+}
