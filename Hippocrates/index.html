@@ -71,22 +71,46 @@
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title">Academic Project Page</h1>
+            <h1 class="title is-1 publication-title">
+              <style>
+                  .logo {
+                    width: 1.5em; /* 调整图标大小 */
+                    position: relative; /* 使 top 和 left 属性生效 */
+                    top: -10px; /* 向上移动 */
+                    left: -5px; /* 向左移动 */
+                    vertical-align: middle;
+                  }
+                </style>
+                <img src="static/images/logo.png" class="logo" alt="Logo" />
+                Hippocrates:<br>
+                An Open-Source Framework for Advancing<br>Large Language Models in Healthcare
+            </h1>
             <div class="is-size-5 publication-authors">
               <!-- Paper authors -->
-              <span class="author-block">
-                <a href="FIRST AUTHOR PERSONAL LINK" target="_blank">First Author</a><sup>*</sup>,</span>
-                <span class="author-block">
-                  <a href="SECOND AUTHOR PERSONAL LINK" target="_blank">Second Author</a><sup>*</sup>,</span>
-                  <span class="author-block">
-                    <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Third Author</a>
-                  </span>
-                  </div>
+              <span class="author-block"><a href="https://emrecanacikgoz.github.io/" target="_blank">Emre Can Acikgoz</a><sup>*</sup>,</span>
+              <span class="author-block"><sup>1</sup><a href="" target="_blank">Osman Batur İnce</a>,</span>
+              <span class="author-block"><sup>4</sup><a href="" target="_blank">Rayene Bech</a>,</span>
+              <span class="author-block"><sup>5</sup><a href="" target="_blank">Arda Anıl Boz</a>,</span>
+              <span class="author-block"><sup>1</sup><a href="" target="_blank">Ilker Kesen</a>,</span><br>
+              <span class="author-block"><sup>1</sup><a href="https://aykuterdem.github.io/" target="_blank">Aykut Erdem</a>,</span>
+              <span class="author-block"><sup>3</sup><a href="" target="_blank">Erkut Erdem</a>,</span>
+            </div>
 
-                  <div class="is-size-5 publication-authors">
-                    <span class="author-block">Institution Name<br>Conferance name and year</span>
-                    <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span>
-                  </div>
+            <div class="is-size-5 publication-authors">
+                <span class="author-block">
+                <sup>1</sup>Koç University, KUIS AI Center,
+                <sup>2</sup>Koç University, Department of Computer Engineering,
+                <sup>3</sup>Hacettepe University, Department of Computer Engineering,
+                <sup>4</sup>Shanghai Jiaotong University,
+                <sup>5</sup>Robert Collage,
+            <span class="eql-cntrb"><small><br><sup>*</sup>These authors contributed equally</small></span>
+            <span class="eql-cntrb"><small><br><sup>†</sup>Corresponding Authors</small></span>
+            </div>
+
+            <div class="column has-text-centered">
+              <span class="author-block">
+                  <a href="mailto:eacikgoz17@ku.edu.tr">eacikgoz17@ku.edu.tr</a></span>
+            </div>
 
                   <div class="column has-text-centered">
                     <div class="publication-links">
@@ -142,163 +166,44 @@
 </section>
 
 
-<!-- Teaser video-->
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      <video poster="" id="tree" autoplay controls muted loop height="100%">
-        <!-- Your video here -->
-        <source src="static/videos/banner_video.mp4"
-        type="video/mp4">
-      </video>
-      <h2 class="subtitle has-text-centered">
-        Aliquam vitae elit ullamcorper tellus egestas pellentesque. Ut lacus tellus, maximus vel lectus at, placerat pretium mi. Maecenas dignissim tincidunt vestibulum. Sed consequat hendrerit nisl ut maximus. 
-      </h2>
-    </div>
-  </div>
-</section>
-<!-- End teaser video -->
 
 <!-- Paper abstract -->
-<section class="section hero is-light">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper tellus sed ante aliquam tempus. Etiam porttitor urna feugiat nibh elementum, et tempor dolor mattis. Donec accumsan enim augue, a vulputate nisi sodales sit amet. Proin bibendum ex eget mauris cursus euismod nec et nibh. Maecenas ac gravida ante, nec cursus dui. Vivamus purus nibh, placerat ac purus eget, sagittis vestibulum metus. Sed vestibulum bibendum lectus gravida commodo. Pellentesque auctor leo vitae sagittis suscipit.
-          </p>
-        </div>
+<section class="hero">
+  <div class="hero-body">
+      <div class="container is-max-desktop">
+          <div class="columns is-centered">
+              <div class="column has-text-centered">
+                  <h2 class="title is-3">Abstract</h2>
+                  <div class="content has-text-justified">
+                      <p>
+                          The integration of Large Language Models (LLMs) into healthcare promises to transform medical diagnostics, research, and patient care. Yet, the progression of medical LLMs faces obstacles such as complex training requirements, rigorous evaluation demands, and the dominance of proprietary models that restrict academic exploration. Transparent, comprehensive access to LLM resources is essential for advancing the field, fostering reproducibility, and encouraging innovation in healthcare AI. We present Hippocrates, an open-source LLM framework specifically developed for the medical domain. In stark contrast to previous efforts, it offers unrestricted access to its training datasets, codebase, checkpoints, and evaluation protocols. This open approach is designed to stimulate collaborative research, allowing the community to build upon, refine, and rigorously evaluate medical LLMs within a transparent ecosystem. Also, we introduce Hippo, a family of 7B models tailored for the medical domain, fine-tuned from Mistral and LLaMA2 through continual pre-training, instruction tuning, and reinforcement learning from human and AI feedback. Our models outperform existing open medical LLMs models by a large-margin, even surpassing models with 70B parameters. Through Hippocrates, we aspire to unlock the full potential of LLMs not just to advance medical knowledge and patient care but also to democratize the benefits of AI research in healthcare, making them available across the globe.
+                      </p>
+                  </div>
+              </div>
+          </div>
       </div>
-    </div>
   </div>
 </section>
 <!-- End paper abstract -->
 
 
-<!-- Image carousel -->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-       <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/carousel1.jpg" alt="MY ALT TEXT"/>
-        <h2 class="subtitle has-text-centered">
-          First image description.
-        </h2>
-      </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/carousel2.jpg" alt="MY ALT TEXT"/>
-        <h2 class="subtitle has-text-centered">
-          Second image description.
-        </h2>
-      </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/carousel3.jpg" alt="MY ALT TEXT"/>
-        <h2 class="subtitle has-text-centered">
-         Third image description.
-       </h2>
-     </div>
-     <div class="item">
-      <!-- Your image here -->
-      <img src="static/images/carousel4.jpg" alt="MY ALT TEXT"/>
-      <h2 class="subtitle has-text-centered">
-        Fourth image description.
-      </h2>
-    </div>
-  </div>
-</div>
-</div>
-</section>
-<!-- End image carousel -->
-
-
-
-
-<!-- Youtube video -->
-<section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-      <!-- Paper video. -->
-      <h2 class="title is-3">Video Presentation</h2>
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          
-          <div class="publication-video">
-            <!-- Youtube embed code here -->
-            <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- End youtube video -->
-
-
-<!-- Video carousel -->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title is-3">Another Carousel</h2>
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-video1">
-          <video poster="" id="video1" autoplay controls muted loop height="100%">
-            <!-- Your video file here -->
-            <source src="static/videos/carousel1.mp4"
-            type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video2">
-          <video poster="" id="video2" autoplay controls muted loop height="100%">
-            <!-- Your video file here -->
-            <source src="static/videos/carousel2.mp4"
-            type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video3">
-          <video poster="" id="video3" autoplay controls muted loop height="100%">\
-            <!-- Your video file here -->
-            <source src="static/videos/carousel3.mp4"
-            type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- End video carousel -->
-
-
-
-
-
-
-<!-- Paper poster -->
-<section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title">Poster</h2>
-
-      <iframe  src="static/pdfs/sample.pdf" width="100%" height="550">
-          </iframe>
-        
-      </div>
-    </div>
-  </section>
-<!--End paper poster -->
-
-
 <!--BibTex citation -->
-  <section class="section" id="BibTeX">
-    <div class="container is-max-desktop content">
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
       <h2 class="title">BibTeX</h2>
-      <pre><code>BibTex Code Here</code></pre>
-    </div>
+      Please don't forget to kindly cite our paper if you use our models, data, codes, or results:
+      <br><br>
+      <pre><code>
+        @misc{acikgoz2024hippocrates,
+        title={Hippocrates: An Open-Source Framework for Advancing Large Language Models in Healthcare}, 
+        author={Emre Can Acikgoz and Osman Batur İnce and Rayene Bench and Arda Anıl Boz and İlker Kesen and Aykut Erdem and Erkut Erdem},
+        year={2024},
+        eprint={2404.04167},
+        archivePrefix={arXiv},
+        primaryClass={cs.CL}
+        }
+      </code></pre>
+  </div>
 </section>
 <!--End BibTex citation -->
 
