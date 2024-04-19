@@ -28,15 +28,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#paper">Paper</a>
                     </li>
-                    <!--<li class="nav-item">
-                        <a class="nav-link" href="#leaderboard">Leaderboard</a>
-                    </li>-->
+                    
                     <li class="nav-item">
-                        <a class="nav-link" href="#authors">Contact</a>
+                        <a class="nav-link" href="#authors">Authors</a>
                     </li>
-                    <!--li class="nav-item">
+                    li class="nav-item">
                         <a class="nav-link" href="#contact">Contact</a>
-                    </li-->
+                    </li
                 </ul>
             </div>
         </div>
@@ -99,53 +97,59 @@
         <div id="examples" class="mt-4 anchor-target">
             <h3><span class="compact-logo">CompAct</span> Examples</h3>
             We share a few example instances from the <span class="compact-logo">CompAct</span> dataset.
-            Each instance consist of a sequence of image-text-audio triplet.
+            Each instance consist of a sequence of image-text-audio triplets. The first 3 columns highlighted in <span class="yellow">yellow</span> illustrate input utterances and target is highlighted in <span class="blue">blue</span>. 
+            For the target column, the target predictions are textual utterances and the image or other modalities are not used but displayed here to provide context.
 
             <div class="samplerow">
             <table id="example" class="display nowrap" width="100%">
 
                 <tr>
                     <td colspan="3">
-                        <img id="im1" src="./samples/P06_101+145_146_147_148/P06_101_145.png" width="300px">
+                        <div class="inputs">
+                        <img src="./samples/P06_101+145_146_147_148/P06_101_145.png" width="280px">
                             <br>
                             <br>
                         <p style="width: 250px;"><span class="text-primary">pick up</span> <span class="text-danger">chopping board</span></p>
                         <audio id="audio1" controls="" style="width: 250px;">
                             <source src="./samples/P06_101+145_146_147_148/P06_101_145.wav">
                         </audio>
+                        </div>
                         
                     </td>
                     <td colspan="3">
-                        <img id="im2" src="./samples/P06_101+145_146_147_148/P06_101_146.png" width="300px">
+                        <div class="inputs">
+                        <img src="./samples/P06_101+145_146_147_148/P06_101_146.png" width="280px">
                             <br>
                             <br>
                         <p style="width: 250px;"><span class="text-primary">scrape</span> <span class="text-danger">pepper</span> into pan</p>
                         <audio id="audio2" controls="" style="width: 250px;">
                             <source src="./samples/P06_101+145_146_147_148/P06_101_146.wav">
                         </audio>
-                        
+                        </div>
                     </td>
 
                     <td colspan="3">
-                        <img id="im3" src="./samples/P06_101+145_146_147_148/P06_101_147.png" width="300px">
+                        <div class="inputs">
+                        <img src="./samples/P06_101+145_146_147_148/P06_101_147.png" width="280px">
                             <br>
                             <br>
                         <p style="width: 250px;"><span class="text-primary">put down</span> <span class="text-danger">chopping board</span></p>
                         <audio id="audio3" controls="" style="width: 250px;">
                             <source src="./samples/P06_101+145_146_147_148/P06_101_147.wav">
                         </audio>
-                        
+                        </div>
                     </td>
 
                     <td colspan="3">
-                        <img id="im3" src="./samples/P06_101+145_146_147_148/P06_101_148.png" width="300px">
+                        <div class="target">
+                        <img class="imtrg" src="./samples/P06_101+145_146_147_148/P06_101_148.png" width="280px">
                             <br>
                             <br>
                         <p style="width: 250px;"><span class="text-primary">pick up</span> <span class="text-danger">pepper</span></p>
                         <audio id="audio3" controls="" style="width: 250px;">
                             <source src="./samples/P06_101+145_146_147_148/P06_101_148.wav">
                         </audio>
-                        
+                        </div>
                     </td>
                 </tr>
 
@@ -158,7 +162,8 @@
                 
                 <tr>
                     <td colspan="3">
-                            <img id="im1" src="./samples/P23_102+493_494_495_496/P23_102_493.png" width="300px">
+                        <div class="inputs">
+                            <img src="./samples/P23_102+493_494_495_496/P23_102_493.png" width="280px">
                             <br>
                             <br>
                         <p style="width: 250px;"><span class="text-primary">put</span> <span class="text-danger">red chilli</span></p>
@@ -166,40 +171,43 @@
                         <audio id="audio1" controls="" style="width: 250px;">
                             <source src="./samples/P23_102+493_494_495_496/P23_102_493.wav">
                         </audio>
-                        
+                        </div>
                         
                     </td>
                     <td colspan="3">
-                        <img id="im2" src="./samples/P23_102+493_494_495_496/P23_102_494.png" width="300px">
+                        <div class="inputs">
+                        <img src="./samples/P23_102+493_494_495_496/P23_102_494.png" width="280px">
                             <br>
                             <br>
                         <p style="width: 250px;"><span class="text-primary">open</span> <span class="text-danger">tap</span></p>
                         <audio id="audio2" controls="" style="width: 250px;">
                             <source src="./samples/P23_102+493_494_495_496/P23_102_494.wav">
                         </audio>
-                        
+                        </div>
                     </td>
 
                     <td colspan="3">
-                        <img id="im3" src="./samples/P23_102+493_494_495_496/P23_102_495.png" width="300px">
+                        <div class="inputs">
+                        <img src="./samples/P23_102+493_494_495_496/P23_102_495.png" width="280px">
                             <br>
                             <br>
                         <p style="width: 250px;"><span class="text-primary">wash</span> <span class="text-danger">plate</span></p>
                         <audio id="audio3" controls="" style="width: 250px;">
                             <source src="./samples/P23_102+493_494_495_496/P23_102_495.wav">
                         </audio>
-                        
+                        </div>
                     </td>
 
                     <td colspan="3">
-                        <img id="im3" src="./samples/P23_102+493_494_495_496/P23_102_496.png" width="300px">
+                        <div class="target">
+                        <img class="imtrg" src="./samples/P23_102+493_494_495_496/P23_102_496.png" width="280px">
                             <br>
                             <br>
                         <p style="width: 250px;"><span class="text-primary">put</span> <span class="text-danger">plate</span></p>
                         <audio id="audio3" controls="" style="width: 250px;">
                             <source src="./samples/P23_102+493_494_495_496/P23_102_496.wav">
                         </audio>
-                        
+                        </div>
                     </td>
                 </tr>
                 </table>
@@ -211,50 +219,53 @@
 
         <tr>
             <td colspan="3">
-                <img id="im1" src="./samples/P35_104+531_532_533_534/P35_104_531.png" width="300px">
+                <div class="inputs">
+                <img src="./samples/P35_104+531_532_533_534/P35_104_531.png" width="280px">
                     <br>
                     <br>
                 <p style="width: 250px;"><span class="text-primary">open</span> <span class="text-danger">container</span></p>
                 <audio id="audio1" controls="" style="width: 250px;">
                     <source src="./samples/P35_104+531_532_533_534/P35_104_531.wav">
                 </audio>
-                
+                </div>
             </td>
             <td colspan="3">
-                <img id="im2" src="./samples/P35_104+531_532_533_534/P35_104_532.png" width="300px">
+                <div class="inputs">
+                <img src="./samples/P35_104+531_532_533_534/P35_104_532.png" width="280px">
                     <br>
                     <br>
                 <p style="width: 250px;"><span class="text-primary">stir</span> <span class="text-danger">pasta</span></p>
                 <audio id="audio2" controls="" style="width: 250px;">
                     <source src="./samples/P35_104+531_532_533_534/P35_104_532.wav">
                 </audio>
-                
+                </div>
             </td>
 
             <td colspan="3">
-                <img id="im3" src="./samples/P35_104+531_532_533_534/P35_104_533.png" width="300px">
+                <div class="inputs">
+                <img src="./samples/P35_104+531_532_533_534/P35_104_533.png" width="280px">
                     <br>
                     <br>
                 <p style="width: 250px;"><span class="text-primary">pick up</span> <span class="text-danger">pasta</span></p>
                 <audio id="audio3" controls="" style="width: 250px;">
                     <source src="./samples/P35_104+531_532_533_534/P35_104_533.wav">
                 </audio>
-                
+                </div>
             </td>
 
             <td colspan="3">
-                <img id="im3" src="./samples/P35_104+531_532_533_534/P35_104_534.png" width="300px">
+                <div class="target">
+                <img class="imtrg" src="./samples/P35_104+531_532_533_534/P35_104_534.png" width="280px">
                     <br>
                     <br>
                 <p style="width: 250px;"><span class="text-primary">pour</span> <span class="text-danger">pasta</span></p>
                 <audio id="audio3" controls="" style="width: 250px;">
                     <source src="./samples/P35_104+531_532_533_534/P35_104_534.wav">
                 </audio>
-                
+                </div>
             </td>
 
         </tr>
-
 
             </table>
         </div>
