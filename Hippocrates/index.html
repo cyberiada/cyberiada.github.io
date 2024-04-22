@@ -250,18 +250,76 @@
                         Figure 2 shows the overall workflow of the Hippocrates framework, starting from domain-
                         specific pre-training and progressing through supervised fine-tuning and reinforcement
                         learning from AI-generated feedback to an extensive evaluation phase. This pipeline ensures
-                        our models are precisely tailored and rigorously tested for the medical domain. <br> <br>
-
-                        <li><strong>Continued Pre-training Data.</strong> A key aspect of our methodology is the integration of specialized medical knowledge through an extensive pre-training corpus, assembled from three specialized datasets: Medical Guidelines, PMC-Patients, and PubMedQA-contexts. The Medical Guidelines dataset comprises clinical practice guidelines, is used for training Meditron models. The PMC-Patients dataset consists of patient summaries extracted from case reports within PubMed Central (PMC). Additionally, the PubMedQA-contexts dataset is constructed by extracting the context field of each sample in the training split of the benchmark PubMedQA. This extensive corpus, consisting of roughly 300M training tokens, forms the foundation of our models, ensuring their proficiency in navigating medical terminology and practices. We systematically assessed the impact of each dataset, both individually and in combination, to optimize our model's performance. <br>
-                        <li><strong>General Instructions Data.</strong> This dataset aggregates more than 400K samples from nine different datasets, each derived from the instruction corpora of previous studies. By excluding data from the training or test splits of downstream QA benchmarks, we aim to minimize bias and improve the model's generalization capabilities across different reasoning tasks. A pre-processing protocol was employed to remove irrelevant noise such as superfluous words and web URLs, ensuring the data's quality and relevance.
-                        <li><strong>Evaluation Instructions Data.</strong> This dataset was formed to examine the effects of including instruction samples directly from downstream tasks, a common practice in existing studies. Instruction-response pairs were crafted using the training splits of various benchmarks, following the templates established in Meditron. We conducted a series of experiments to assess the distinct influence of each split on each task, both individually and collectively.
-                        <li><strong>Medical Preference Data.</strong> Constructing a preference dataset typically involves generating diverse responses to identical queries using LLMs, which are subsequently evaluated by human annotators to identify the most accurate response. This method, however, can become prohibitively expensive, both in terms of computation for generating responses and the financial and time investments required for manual annotation. To circumvent these issues, we leveraged the iCliniq-10k dataset, containing 10K authentic patient-doctor dialogues from icliniq.com. Each dialogue features a patient question accompanied by three different answers: one from an actual doctor, and the others from ChatGPT and ChatDoctor. We conducted a thorough preprocessing of this dataset to eliminate any irrelevant or extraneous information.
-                        <li><strong>Medical RLAIF.</strong> To reduce annotation costs, we adopted the RLAIF methodology in the medical domain for the first time. Utilizing detailed prompts based on patient inquiries from the iCliniq-10k dataset, we used GPT4 to determine the optimal response based on predefined instructions. These instructions were derived from those used in qualitative assessments by medical professionals in Med-PaLM, with minor modifications. This annotation approach amounted to a cost of $120.
+                        our models are precisely tailored and rigorously tested for the medical domain.
                         </ul>
                   </div>
               </div>
           </div>
       </div>
+  </div>
+</section>
+
+
+<!-- Dataset -->
+<section class="hero">
+  <div class="hero-body">
+      <div class="container is-max-desktop">
+          <div class="columns is-centered">
+              <div class="column has-text-centered">
+                  <h2 class="title is-3">Datasets</h2>
+                  <div class="content has-text-justified">
+                      
+                      <ul>
+                        <li><strong>Continued Pre-training Data.</strong> A key aspect of our methodology is the integration of specialized medical knowledge through an extensive pre-training corpus, assembled from three specialized datasets: Medical Guidelines, PMC-Patients, and PubMedQA-contexts. The Medical Guidelines dataset comprises clinical practice guidelines, is used for training Meditron models. The PMC-Patients dataset consists of patient summaries extracted from case reports within PubMed Central (PMC). Additionally, the PubMedQA-contexts dataset is constructed by extracting the context field of each sample in the training split of the benchmark PubMedQA. This extensive corpus, consisting of roughly 300M training tokens, forms the foundation of our models, ensuring their proficiency in navigating medical terminology and practices. We systematically assessed the impact of each dataset, both individually and in combination, to optimize our model's performance. <br>
+                          <li><strong>General Instructions Data.</strong> This dataset aggregates more than 400K samples from nine different datasets, each derived from the instruction corpora of previous studies. By excluding data from the training or test splits of downstream QA benchmarks, we aim to minimize bias and improve the model's generalization capabilities across different reasoning tasks. A pre-processing protocol was employed to remove irrelevant noise such as superfluous words and web URLs, ensuring the data's quality and relevance.
+                          <li><strong>Evaluation Instructions Data.</strong> This dataset was formed to examine the effects of including instruction samples directly from downstream tasks, a common practice in existing studies. Instruction-response pairs were crafted using the training splits of various benchmarks, following the templates established in Meditron. We conducted a series of experiments to assess the distinct influence of each split on each task, both individually and collectively.
+                          <li><strong>Medical Preference Data.</strong> Constructing a preference dataset typically involves generating diverse responses to identical queries using LLMs, which are subsequently evaluated by human annotators to identify the most accurate response. This method, however, can become prohibitively expensive, both in terms of computation for generating responses and the financial and time investments required for manual annotation. To circumvent these issues, we leveraged the iCliniq-10k dataset, containing 10K authentic patient-doctor dialogues from icliniq.com. Each dialogue features a patient question accompanied by three different answers: one from an actual doctor, and the others from ChatGPT and ChatDoctor. We conducted a thorough preprocessing of this dataset to eliminate any irrelevant or extraneous information.
+                          <li><strong>Medical RLAIF.</strong> To reduce annotation costs, we adopted the RLAIF methodology in the medical domain for the first time. Utilizing detailed prompts based on patient inquiries from the iCliniq-10k dataset, we used GPT4 to determine the optimal response based on predefined instructions. These instructions were derived from those used in qualitative assessments by medical professionals in Med-PaLM, with minor modifications. This annotation approach amounted to a cost of $120.
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+<!-- End Dataset -->
+
+<!-- Methodology -->
+<section class="hero">
+  <div class="hero-body">
+      <div class="container is-max-desktop">
+          <div class="columns is-centered">
+              <div class="column has-text-centered">
+                  <h2 class="title is-3">Training Methodology</h2>
+                  <div class="content has-text-justified">
+                      <ul>
+                        Our training strategy includes several phases: injection of medical knowledge through continued pre-training, domain-specific instruction tuning, and reinforcement learning from AI-generated feedback for improved alignment with medical experts. Employing the LLaMA Factory framework, we adhere to replicable and high-performance training standards. Moreover, we adopt the Low-Rank Adaptation (LoRA) technique for training efficiency and precision. LoRA enhances LLMs by selectively updating weights within additional trainable layers, thereby accelerating the training process, minimizing memory usage, and mitigating overfitting and catastrophic forgetting. Our foundational models, LLaMA2 7B and Mistral 7B, are selected based on their robust performance across medical benchmarks, demonstrating their capacity to excel without extensive training modifications. The zero-shot performances of these generic baseline models is presented at the beginning
+                        
+                        <li><strong>Continued Pre-training.</strong> To equip our base LLMs with domain-specific medical expertise, we extend their pre-training on a carefully curated medical text corpus defined above. This stage employs traditional language modeling, focusing on next-token prediction. During this phase, both models undergo continued pre-training using LoRA, specifically adapting the fully connected layers. The parameters for LoRA are carefully set, with the rank at 8 and alpha at 16, to optimize learning. We use the AdamW optimizer and adjust the learning rate using a cosine scheduling, starting from an initial value of 1e-4. The batch size per device was initialized to be 8, with gradient accumulations of 2, culminating in an effective global batch size of 16, and the models are trained for a single epoch. <br>
+                        <li><strong>Supervised Finetuning.</strong> After continued pre-training, models undergo fine-tuning with an Instruction Tuning (IT) dataset to closely mirror medical directives, aligning model outputs with clinical requirements. We have tested with the different datasets and found that MedQA-train IT works better than the other options. This fine-tuning phase also employs LoRA to all fully connected layers with both rank and alpha set to 32 for balanced efficiency and computational overhead. AdamW optimizer is used with a learning rate of 1e-4. To prevent model overfitting, loss calculation focuses solely on the responses. The training spanned 3 epochs with a batch size of 8 per-device and gradient accumulation set to 2.
+                        <li><strong>Medical Preference Learning.</strong> Finally, the instruction-tuned models are further trained with a recent and popular technique called direct preference optimization (DPO). In DPO, reinforcement learning is bypassed which allows for direct optimization based on preference data. Unlike RLHF, the responses in DPO need not be derived from the LLM being optimized. Central to DPO is the development of a loss function that evaluates the likelihood of a preferred response over a less preferred one, steering the LLM towards this goal. This makes DPO more stable and significantly reduces computational demands.
+
+                        The outcome of all this are our medical LLMs, named HippoL and HippoM, built upon the pre-trained LLaMA2 7B and Mistral 7B models. These models were refined through a comprehensive process that included continued pre-training and/or instruction tuning using our carefully curated medical datasets. Following this, we also explored the impact of aligning the models with clinical preferences by conducting further training on medical preference data.
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+<!-- End Methodology -->
+
+<section class="section" id="Conclusion">
+  <div class="container is-max-desktop content">
+      <h2 class="title">Conclusion</h2>
+      <p>In this study, we have introduced Hippocrates, a comprehensive and open-source framework tailored for the medical domain, addressing a wide array of challenges faced by medical LLMs. We provide openly available datasets and establish an intuitive benchmark using the LM-Evaluation-Harness tool. We also introduce Hippo-M and Hippo-L , two 7B models demonstrating superior performance. Our work makes substantial contributions to the field by combining in-depth empirical research with a structured training methodology, offering invaluable insights and tools for future research not only in healthcare but in any area requiring domain-specific adaptation of LLMs</p>
+  </div>
+</section>
+
+
+<section class="section" id="Limitations">
+  <div class="container is-max-desktop content">
+      <h2 class="title">Limitations and Safety</h2>
+      <p><strong>Model Limitations.</strong> While our 7B model has achieved state-of-the-art results within its class, it is important to acknowledge its limitations compared to larger models such as OpenAI's GPT4. The constraints imposed by the smaller parameter size may impede the model's reasoning capabilities, a crucial aspect of complex medical decision-making. Additionally, the model's performances are almost half on the average which highlights a huge area for improvement in open-source models.</p>
+      <p><strong>Safety and Risks.</strong> Crucially, despite these advancements, it is important to highlight that these AI models need substantial improvements before they can be safely and effectively employed with real patients. They are not yet at a stage where they can provide medical advice or be utilized for commercial healthcare applications. This limitation highlights the need for ongoing, careful development and validation of AI systems to guarantee their reliability and safety in clinical settings. The path toward AI integration in patient care is still unfolding, and while it holds promise, it requires a methodical and thoroughly evaluated approach.</p>
   </div>
 </section>
 
