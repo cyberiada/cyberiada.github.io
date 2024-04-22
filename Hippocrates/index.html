@@ -178,6 +178,10 @@
 </section>
 
 
+<header style="text-align: center;">
+  <img src="static/images/fig1.png" alt="ResultsTable" width="100%" >
+</header>
+
 
 <!-- Paper abstract -->
 <section class="hero">
@@ -198,38 +202,21 @@
 </section>
 <!-- End paper abstract -->
 
+<!--
 <section class="hero">
   <div class="hero-body">
       <div class="container is-max-desktop">
           <div class="columns is-centered">
               <div class="column is-four-fifths">
-                  <!-- Text with embedded image -->
                   <div class="item">
-                      <!-- Image with float right -->
                       <img src="static/images/fig1.png" style="float: right; margin-left: 20px; max-width: 100%; height: auto;" />
-                      <!-- Caption for image -->
-                      <h2 class="subtitle" style="font-style: italic; clear: both;">
-                        Figure 1. The evolution of medical LLM performances on the MedQA dataset. Our 7B Hippo-Mistral and Hippo-LLaMA models achieve 50.8% and 59.9% 5-shot accuracy, respectively. Hippo-Mistral outperforms all existing open models, including even those with 70B parameters.
-                      </h2>
-                      <ul>
-                        In this work, we provide full access to our framework, from the data sources to the training
-                        configurations and the reproducible evaluation protocols. We conduct a detailed empirical
-                        analysis to identify the impact of various design elements on LLM performance, leading to
-                        a domain-adapted framework that demonstrates superior performance on multiple medical
-                        benchmarks. Based on these insights, we develop a step-by-step guide for the efficient
-                        training of medical-LLMs. Our research efforts yield two advanced 7B parameter models,
-                        Hippo- and Hippo- . As shown in Figure 1, our models not only outperform existing 7B
-                        and 13B models by a significant margin but also deliver results on par with, and in some
-                        cases exceeding, those of 70B models. We argue that the development of a broad, varied
-                        collection of open models is crucial for deepening our knowledge of language models and
-                        enhancing their applicability across various domains.
-                      </ul>
                   </div>
               </div>
           </div>
       </div>
   </div>
 </section>
+-->
 
 
 <section class="hero">
@@ -242,12 +229,23 @@
                   <div class="item">
                       <!-- Image with float right -->
                       <img src="static/images/fig2.png" style="float: right; margin-left: 20px; max-width: 100%; height: auto;" />
-                      <!-- Caption for image -->
-                      <h2 class="subtitle" style="font-style: italic; clear: both;">
-                        Figure 2. An overview of the Hippocrates framework. Illustrating the four critical phases including (1) continued pre-training, (2) supervised fine-tuning, (3) reinforcement learning from AI-generated feedback, and (4) the comprehensive evaluation pipeline.
-                      </h2>
                       <ul>
-                        Figure 2 shows the overall workflow of the Hippocrates framework, starting from domain-
+                        In this work, we provide full access to our framework, from the data sources to the training
+                        configurations and the reproducible evaluation protocols. We conduct a detailed empirical
+                        analysis to identify the impact of various design elements on LLM performance, leading to
+                        a domain-adapted framework that demonstrates superior performance on multiple medical
+                        benchmarks. Based on these insights, we develop a step-by-step guide for the efficient
+                        training of medical-LLMs. Our research efforts yield two advanced 7B parameter models,
+                        Hippo- and Hippo- . As shown in Figure 1, our models not only outperform existing 7B
+                        and 13B models by a significant margin but also deliver results on par with, and in some
+                        cases exceeding, those of 70B models. We argue that the development of a broad, varied
+                        collection of open models is crucial for deepening our knowledge of language models and
+                        enhancing their applicability across various domains. The figure above shows the evolution 
+                        of medical LLM performances on the MedQA dataset. Our 7B Hippo-Mistral and Hippo-LLaMA models 
+                        achieve 50.8% and 59.9% 5-shot accuracy, respectively. Hippo-Mistral outperforms all existing 
+                        open models, including even those with 70B parameters.
+                        
+                        The Figure above shows the overall workflow of the Hippocrates framework, starting from domain-
                         specific pre-training and progressing through supervised fine-tuning and reinforcement
                         learning from AI-generated feedback to an extensive evaluation phase. This pipeline ensures
                         our models are precisely tailored and rigorously tested for the medical domain.
@@ -268,8 +266,7 @@
               <div class="column has-text-centered">
                   <h2 class="title is-3">Datasets</h2>
                   <div class="content has-text-justified">
-                      
-                      <ul>
+                    <ul style="list-style-type: none;">
                         <li><strong>Continued Pre-training Data.</strong> A key aspect of our methodology is the integration of specialized medical knowledge through an extensive pre-training corpus, assembled from three specialized datasets: Medical Guidelines, PMC-Patients, and PubMedQA-contexts. The Medical Guidelines dataset comprises clinical practice guidelines, is used for training Meditron models. The PMC-Patients dataset consists of patient summaries extracted from case reports within PubMed Central (PMC). Additionally, the PubMedQA-contexts dataset is constructed by extracting the context field of each sample in the training split of the benchmark PubMedQA. This extensive corpus, consisting of roughly 300M training tokens, forms the foundation of our models, ensuring their proficiency in navigating medical terminology and practices. We systematically assessed the impact of each dataset, both individually and in combination, to optimize our model's performance. <br>
                           <li><strong>General Instructions Data.</strong> This dataset aggregates more than 400K samples from nine different datasets, each derived from the instruction corpora of previous studies. By excluding data from the training or test splits of downstream QA benchmarks, we aim to minimize bias and improve the model's generalization capabilities across different reasoning tasks. A pre-processing protocol was employed to remove irrelevant noise such as superfluous words and web URLs, ensuring the data's quality and relevance.
                           <li><strong>Evaluation Instructions Data.</strong> This dataset was formed to examine the effects of including instruction samples directly from downstream tasks, a common practice in existing studies. Instruction-response pairs were crafted using the training splits of various benchmarks, following the templates established in Meditron. We conducted a series of experiments to assess the distinct influence of each split on each task, both individually and collectively.
@@ -291,7 +288,7 @@
               <div class="column has-text-centered">
                   <h2 class="title is-3">Training Methodology</h2>
                   <div class="content has-text-justified">
-                      <ul>
+                    <ul style="list-style-type: none;">
                         Our training strategy includes several phases: injection of medical knowledge through continued pre-training, domain-specific instruction tuning, and reinforcement learning from AI-generated feedback for improved alignment with medical experts. Employing the LLaMA Factory framework, we adhere to replicable and high-performance training standards. Moreover, we adopt the Low-Rank Adaptation (LoRA) technique for training efficiency and precision. LoRA enhances LLMs by selectively updating weights within additional trainable layers, thereby accelerating the training process, minimizing memory usage, and mitigating overfitting and catastrophic forgetting. Our foundational models, LLaMA2 7B and Mistral 7B, are selected based on their robust performance across medical benchmarks, demonstrating their capacity to excel without extensive training modifications. The zero-shot performances of these generic baseline models is presented at the beginning
                         
                         <li><strong>Continued Pre-training.</strong> To equip our base LLMs with domain-specific medical expertise, we extend their pre-training on a carefully curated medical text corpus defined above. This stage employs traditional language modeling, focusing on next-token prediction. During this phase, both models undergo continued pre-training using LoRA, specifically adapting the fully connected layers. The parameters for LoRA are carefully set, with the rank at 8 and alpha at 16, to optimize learning. We use the AdamW optimizer and adjust the learning rate using a cosine scheduling, starting from an initial value of 1e-4. The batch size per device was initialized to be 8, with gradient accumulations of 2, culminating in an effective global batch size of 16, and the models are trained for a single epoch. <br>
