@@ -281,6 +281,27 @@
   </div>
 </section>
 
+<section class="hero">
+  <div class="hero-body">
+      <div class="container is-max-desktop">
+          <div class="columns is-centered">
+              <div class="column has-text-centered">
+                  <h2 class="title is-3">Datasets</h2>
+                  <div class="content has-text-justified">
+                    <img src="static/images/fig2.png" style="float: right; margin-left: 20px; max-width: 100%; height: auto;" />
+                    <ul style="list-style-type: none;">
+                        <li><strong>Continued Pre-training Data.</strong> A key aspect of our methodology is the integration of specialized medical knowledge through an extensive pre-training corpus, assembled from three specialized datasets: Medical Guidelines, PMC-Patients, and PubMedQA-contexts. The Medical Guidelines dataset comprises clinical practice guidelines, is used for training Meditron models. The PMC-Patients dataset consists of patient summaries extracted from case reports within PubMed Central (PMC). Additionally, the PubMedQA-contexts dataset is constructed by extracting the context field of each sample in the training split of the benchmark PubMedQA. This extensive corpus, consisting of roughly 300M training tokens, forms the foundation of our models, ensuring their proficiency in navigating medical terminology and practices. We systematically assessed the impact of each dataset, both individually and in combination, to optimize our model's performance. <br>
+                          <li><strong>General Instructions Data.</strong> This dataset aggregates more than 400K samples from nine different datasets, each derived from the instruction corpora of previous studies. By excluding data from the training or test splits of downstream QA benchmarks, we aim to minimize bias and improve the model's generalization capabilities across different reasoning tasks. A pre-processing protocol was employed to remove irrelevant noise such as superfluous words and web URLs, ensuring the data's quality and relevance.
+                          <li><strong>Evaluation Instructions Data.</strong> This dataset was formed to examine the effects of including instruction samples directly from downstream tasks, a common practice in existing studies. Instruction-response pairs were crafted using the training splits of various benchmarks, following the templates established in Meditron. We conducted a series of experiments to assess the distinct influence of each split on each task, both individually and collectively.
+                          <li><strong>Medical Preference Data.</strong> Constructing a preference dataset typically involves generating diverse responses to identical queries using LLMs, which are subsequently evaluated by human annotators to identify the most accurate response. This method, however, can become prohibitively expensive, both in terms of computation for generating responses and the financial and time investments required for manual annotation. To circumvent these issues, we leveraged the iCliniq-10k dataset, containing 10K authentic patient-doctor dialogues from icliniq.com. Each dialogue features a patient question accompanied by three different answers: one from an actual doctor, and the others from ChatGPT and ChatDoctor. We conducted a thorough preprocessing of this dataset to eliminate any irrelevant or extraneous information.
+                          <li><strong>Medical RLAIF.</strong> To reduce annotation costs, we adopted the RLAIF methodology in the medical domain for the first time. Utilizing detailed prompts based on patient inquiries from the iCliniq-10k dataset, we used GPT4 to determine the optimal response based on predefined instructions. These instructions were derived from those used in qualitative assessments by medical professionals in Med-PaLM, with minor modifications. This annotation approach amounted to a cost of $120.
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
 
 <!-- Dataset -->
 <section class="hero">
