@@ -61,6 +61,7 @@
           margin: 3px; /* 外边距 */
       }
   </style>
+
     
 </head>
 <body>
@@ -81,6 +82,7 @@
                     vertical-align: middle;
                   }
                 </style>
+                
                 <img src="static/images/logo.png" class="logo" alt="Logo" />
                 Hippocrates:<br>An Open-Source Framework for Advancing<br>Large Language Models in Healthcare
             </h1>
@@ -107,24 +109,22 @@
             <div class="column has-text-centered">
               <span class="author-block">
                   <a href="mailto:eacikgoz17@ku.edu.tr">eacikgoz17@ku.edu.tr</a></span>
-                  <a href="mailto:aerdem@ku.edu.tr">aerdem@ku.edu.tr</a>,
-                  <a href="mailto:erkut@cs.hacettepe.edu.tr">erkut@cs.hacettepe.edu.tr</a>,
             </div>
+
+            <header style="text-align: center;">
+              <img src="static/images/hippo2.png" alt="ResultsTable" width="85%" >
+            </header>
 
                   <div class="column has-text-centered">
                     <div class="publication-links">
-
-                      <!-- PDF link -->
+                      <!-- ArXiv abstract Link -->
                       <span class="link-block">
-                        <a href="static/pdfs/supplementary_material.pdf" target="_blank"
-                        class="external-link button is-normal is-rounded is-dark">
-                        <span class="icon">
-                          <i class="fas fa-file-pdf"></i>
-                        </span>
-                        <span>Paper (Soon)</span>
-                      </a>
-                    </span>
-                      
+                        <a href="https://arxiv.org/abs/2404.16621" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                          <span class="icon"> <i class="ai ai-arxiv"></i> </span>
+                          <span>arXiv</span>
+                        </a>
+                      </span>
+
                       <!-- Huggingface link -->
                       <span class="link-block">
                         <a href="https://huggingface.co/emrecanacikgoz" target="_blank" class="external-link button is-normal is-rounded is-dark">
@@ -143,32 +143,36 @@
                     <span class="link-block">
                         <a href="https://huggingface.co/emrecanacikgoz" target="_blank" class="external-link button is-normal is-rounded is-dark">
                             <span class="icon">🤗</span>
-                            <span>Benchmarks (Soon)</span>
+                            <span>Benchmark (Soon)</span>
                         </a>
                     </span>
 
-
-                  <!-- Github link -->
-                  <span class="link-block">
-                    <a href="https://github.com/YOUR REPO HERE" target="_blank"
-                    class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <i class="fab fa-github"></i>
+                    <!-- Github link -->
+                    <span class="link-block">
+                      <a href="https://github.com/YOUR REPO HERE" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon"> <i class="fab fa-github"></i> </span>
+                        <span>Code (Soon)</span>
+                      </a>
                     </span>
-                    <span>Code (Soon)</span>
-                  </a>
-                </span>
 
-                <!-- ArXiv abstract Link -->
-                <span class="link-block">
-                  <a href="https://arxiv.org/abs/<ARXIV PAPER ID>" target="_blank"
-                  class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                    <i class="ai ai-arxiv"></i>
+                    <!-- Wandb -->
+                    <span class="link-block">
+                      <a href="https://huggingface.co/emrecanacikgoz" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                          <span class="icon">W&B</span>
+                          <span>Wandb (Soon)</span>
+                      </a>
+                    </span>
+
+                    <!-- Poster PDF link -->
+                    <span class="link-block">
+                      <a href="static/images/hippocrates-poster.pdf" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                      </span>
+                      <span>Poster</span>
+                    </a>
                   </span>
-                  <span>arXiv (Soon)</span>
-                </a>
-              </span>
             </div>
           </div>
         </div>
@@ -177,10 +181,11 @@
   </div>
 </section>
 
-
+<!-- 
 <header style="text-align: center;">
   <img src="static/images/fig1.png" alt="ResultsTable" width="70%" >
 </header>
+-->
 
 
 <!-- Paper abstract -->
@@ -202,85 +207,56 @@
 </section>
 <!-- End paper abstract -->
 
-<!--
-<section class="hero">
-  <div class="hero-body">
-      <div class="container is-max-desktop">
-          <div class="columns is-centered">
-              <div class="column is-four-fifths">
-                  <div class="item">
-                      <img src="static/images/fig1.png" style="float: right; margin-left: 20px; max-width: 100%; height: auto;" />
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-</section>
--->
 
-<!--
+<!-- Hippo Series -->
 <section class="hero">
-  <h2 class="title has-text-centered">Hippocrates Framework</h2>
   <div class="hero-body">
       <div class="container is-max-desktop">
           <div class="columns is-centered">
-              <div class="column is-four-fifths">
-                  <div class="item">
-                      <img src="static/images/fig2.png" style="float: right; margin-left: 20px; max-width: 100%; height: auto;" />
-                      <ul>
-                        In this work, we provide full access to our framework, from the data sources to the training
-                        configurations and the reproducible evaluation protocols. We conduct a detailed empirical
-                        analysis to identify the impact of various design elements on LLM performance, leading to
-                        a domain-adapted framework that demonstrates superior performance on multiple medical
-                        benchmarks. Based on these insights, we develop a step-by-step guide for the efficient
-                        training of medical-LLMs. Our research efforts yield two advanced 7B parameter models,
-                        Hippo- and Hippo- . As shown in Figure 1, our models not only outperform existing 7B
-                        and 13B models by a significant margin but also deliver results on par with, and in some
-                        cases exceeding, those of 70B models. We argue that the development of a broad, varied
-                        collection of open models is crucial for deepening our knowledge of language models and
-                        enhancing their applicability across various domains. The figure above shows the evolution 
-                        of medical LLM performances on the MedQA dataset. Our 7B Hippo-Mistral and Hippo-LLaMA models 
-                        achieve 50.8% and 59.9% 5-shot accuracy, respectively. Hippo-Mistral outperforms all existing 
-                        open models, including even those with 70B parameters.
-                        
-                        The Figure above shows the overall workflow of the Hippocrates framework, starting from domain-
-                        specific pre-training and progressing through supervised fine-tuning and reinforcement
-                        learning from AI-generated feedback to an extensive evaluation phase. This pipeline ensures
-                        our models are precisely tailored and rigorously tested for the medical domain.
+              <div class="column has-text-centered">
+                  <h2 class="title is-3">Hippocrates</h2>
+                  <div class="content has-text-justified">
+                    <img src="static/images/fig1.png" class="interpolation-image" alt="" style="display: block; margin-left: auto; margin-right: auto; width: 100%;"/>
+                    <br>
+                    <p>Our release includes:</p>
+                        <ul style="list-style-type: disc; margin-left: 20px;">
+                            <li> Hippocrates, a comprehensive and open-source framework tailored for the medical domain. </li>
+                            <li> We provide openly available datasets and establish an intuitive benchmark using the LM-Evaluation-Harness tool. </li>
+                            <li> We also introduce Hippo-<img src="static/images/meta.png" class="logo1" alt="Logo" style="width: 20px; height: auto; vertical-align: middle;"/> and Hippo-<img src="static/images/mistral.png" class="logo2" alt="Logo"  style="width: 18px; height: auto; vertical-align: middle;"/>, two 7B models demonstrating superior performance. </li>
                         </ul>
+                    <p> We argue that the development of a broad, varied collection of open models is crucial for deepening our knowledge of language models and enhancing their applicability across various domains.  Our work makes substantial contributions to the field by combining in-depth empirical research with a structured training methodology, offering invaluable insights and tools for future research not only in healthcare but in any area requiring domain-specific adaptation of LLMs. </p>
                   </div>
               </div>
           </div>
       </div>
   </div>
 </section>
--->
+<!-- End Hippo Series -->
 
-
-
+<!-- Hippocrates Framework
 <section class="hero">
-  <h2 class="title has-text-centered">Hippocrates Framework</h2>
   <div class="hero-body">
       <div class="container is-max-desktop">
           <div class="columns is-centered">
-              <div class="column is-four-fifths">
-                  <!-- Text with embedded image -->
-                  <div class="item">
-                      <!-- Image with float right -->
-                      <img src="static/images/fig2.png" style="float: right; margin-left: 20px; max-width: 100%; height: auto;" />
-                      <!-- Caption for image -->
-                      <ul>
-                        In this work, we provide full access to our framework, from the data sources to the training configurations and the reproducible evaluation protocols. We conduct a detailed empirical analysis to identify the impact of various design elements on LLM performance, leading to a domain-adapted framework that demonstrates superior performance on multiple medical benchmarks. Based on these insights, we develop a step-by-step guide for the efficient training of medical-LLMs. Our research efforts yield two advanced 7B parameter models, Hippo-Mistral and Hippo-LLaMA. As shown in first figure, our models not only outperform existing 7B and 13B models by a significant margin but also deliver results on par with, and in some cases exceeding, those of 70B models. We argue that the development of a broad, varied collection of open models is crucial for deepening our knowledge of language models and enhancing their applicability across various domains. 
-                  
-                        The first figure above shows the evolution of medical LLM performances on the MedQA dataset. Our 7B Hippo-Mistral and Hippo-LLaMA models achieve 50.8% and 59.9% 5-shot accuracy, respectively. Hippo-Mistral outperforms all existing open models, including even those with 70B parameters.
-                      </ul>
+              <div class="column has-text-centered">
+                  <h2 class="title is-3">Hippocrates Framework</h2>
+                  <div class="content has-text-justified">
+                    <img src="static/images/fig2.png" class="interpolation-image" alt="" style="display: block; margin-left: auto; margin-right: auto; width: 95%;"/>
+                    <br>
+                    <ul style="list-style-type: none;">
+                      <li>In this work, we provide full access to our framework, from the data sources to the training configurations and the reproducible evaluation protocols. We conduct a detailed empirical analysis to identify the impact of various design elements on LLM performance, leading to a domain-adapted framework that demonstrates superior performance on multiple medical benchmarks. Based on these insights, we develop a step-by-step guide for the efficient training of medical-LLMs. Our research efforts yield two advanced 7B parameter models, Hippo-Mistral and Hippo-LLaMA. As shown in first figure, our models not only outperform existing 7B and 13B models by a significant margin but also deliver results on par with, and in some cases exceeding, those of 70B models. We argue that the development of a broad, varied collection of open models is crucial for deepening our knowledge of language models and enhancing their applicability across various domains.</li>
+                      <li>The figure above shows the evolution of medical LLM performances on the MedQA dataset. Our 7B Hippo-Mistral and Hippo-LLaMA models achieve 50.8% and 59.9% 5-shot accuracy, respectively. Hippo-Mistral outperforms all existing open models, including even those with 70B parameters.</li>
+                    </ul> 
                   </div>
               </div>
           </div>
       </div>
   </div>
 </section>
+End Hippocrates Framework -->
 
+
+<!-- Dataset 
 <section class="hero">
   <div class="hero-body">
       <div class="container is-max-desktop">
@@ -288,9 +264,8 @@
               <div class="column has-text-centered">
                   <h2 class="title is-3">Datasets</h2>
                   <div class="content has-text-justified">
-                    <img src="static/images/fig2.png" style="float: right; margin-left: 20px; max-width: 100%; height: auto;" />
                     <ul style="list-style-type: none;">
-                        <li><strong>Continued Pre-training Data.</strong> A key aspect of our methodology is the integration of specialized medical knowledge through an extensive pre-training corpus, assembled from three specialized datasets: Medical Guidelines, PMC-Patients, and PubMedQA-contexts. The Medical Guidelines dataset comprises clinical practice guidelines, is used for training Meditron models. The PMC-Patients dataset consists of patient summaries extracted from case reports within PubMed Central (PMC). Additionally, the PubMedQA-contexts dataset is constructed by extracting the context field of each sample in the training split of the benchmark PubMedQA. This extensive corpus, consisting of roughly 300M training tokens, forms the foundation of our models, ensuring their proficiency in navigating medical terminology and practices. We systematically assessed the impact of each dataset, both individually and in combination, to optimize our model's performance. <br>
+                          <li><strong>Continued Pre-training Data.</strong> A key aspect of our methodology is the integration of specialized medical knowledge through an extensive pre-training corpus, assembled from three specialized datasets: Medical Guidelines, PMC-Patients, and PubMedQA-contexts. The Medical Guidelines dataset comprises clinical practice guidelines, is used for training Meditron models. The PMC-Patients dataset consists of patient summaries extracted from case reports within PubMed Central (PMC). Additionally, the PubMedQA-contexts dataset is constructed by extracting the context field of each sample in the training split of the benchmark PubMedQA. This extensive corpus, consisting of roughly 300M training tokens, forms the foundation of our models, ensuring their proficiency in navigating medical terminology and practices. We systematically assessed the impact of each dataset, both individually and in combination, to optimize our model's performance. <br>
                           <li><strong>General Instructions Data.</strong> This dataset aggregates more than 400K samples from nine different datasets, each derived from the instruction corpora of previous studies. By excluding data from the training or test splits of downstream QA benchmarks, we aim to minimize bias and improve the model's generalization capabilities across different reasoning tasks. A pre-processing protocol was employed to remove irrelevant noise such as superfluous words and web URLs, ensuring the data's quality and relevance.
                           <li><strong>Evaluation Instructions Data.</strong> This dataset was formed to examine the effects of including instruction samples directly from downstream tasks, a common practice in existing studies. Instruction-response pairs were crafted using the training splits of various benchmarks, following the templates established in Meditron. We conducted a series of experiments to assess the distinct influence of each split on each task, both individually and collectively.
                           <li><strong>Medical Preference Data.</strong> Constructing a preference dataset typically involves generating diverse responses to identical queries using LLMs, which are subsequently evaluated by human annotators to identify the most accurate response. This method, however, can become prohibitively expensive, both in terms of computation for generating responses and the financial and time investments required for manual annotation. To circumvent these issues, we leveraged the iCliniq-10k dataset, containing 10K authentic patient-doctor dialogues from icliniq.com. Each dialogue features a patient question accompanied by three different answers: one from an actual doctor, and the others from ChatGPT and ChatDoctor. We conducted a thorough preprocessing of this dataset to eliminate any irrelevant or extraneous information.
@@ -301,29 +276,7 @@
       </div>
   </div>
 </section>
-
-
-<!-- Dataset -->
-<section class="hero">
-  <div class="hero-body">
-      <div class="container is-max-desktop">
-          <div class="columns is-centered">
-              <div class="column has-text-centered">
-                  <h2 class="title is-3">Datasets</h2>
-                  <div class="content has-text-justified">
-                    <ul style="list-style-type: none;">
-                        <li><strong>Continued Pre-training Data.</strong> A key aspect of our methodology is the integration of specialized medical knowledge through an extensive pre-training corpus, assembled from three specialized datasets: Medical Guidelines, PMC-Patients, and PubMedQA-contexts. The Medical Guidelines dataset comprises clinical practice guidelines, is used for training Meditron models. The PMC-Patients dataset consists of patient summaries extracted from case reports within PubMed Central (PMC). Additionally, the PubMedQA-contexts dataset is constructed by extracting the context field of each sample in the training split of the benchmark PubMedQA. This extensive corpus, consisting of roughly 300M training tokens, forms the foundation of our models, ensuring their proficiency in navigating medical terminology and practices. We systematically assessed the impact of each dataset, both individually and in combination, to optimize our model's performance. <br>
-                          <li><strong>General Instructions Data.</strong> This dataset aggregates more than 400K samples from nine different datasets, each derived from the instruction corpora of previous studies. By excluding data from the training or test splits of downstream QA benchmarks, we aim to minimize bias and improve the model's generalization capabilities across different reasoning tasks. A pre-processing protocol was employed to remove irrelevant noise such as superfluous words and web URLs, ensuring the data's quality and relevance.
-                          <li><strong>Evaluation Instructions Data.</strong> This dataset was formed to examine the effects of including instruction samples directly from downstream tasks, a common practice in existing studies. Instruction-response pairs were crafted using the training splits of various benchmarks, following the templates established in Meditron. We conducted a series of experiments to assess the distinct influence of each split on each task, both individually and collectively.
-                          <li><strong>Medical Preference Data.</strong> Constructing a preference dataset typically involves generating diverse responses to identical queries using LLMs, which are subsequently evaluated by human annotators to identify the most accurate response. This method, however, can become prohibitively expensive, both in terms of computation for generating responses and the financial and time investments required for manual annotation. To circumvent these issues, we leveraged the iCliniq-10k dataset, containing 10K authentic patient-doctor dialogues from icliniq.com. Each dialogue features a patient question accompanied by three different answers: one from an actual doctor, and the others from ChatGPT and ChatDoctor. We conducted a thorough preprocessing of this dataset to eliminate any irrelevant or extraneous information.
-                          <li><strong>Medical RLAIF.</strong> To reduce annotation costs, we adopted the RLAIF methodology in the medical domain for the first time. Utilizing detailed prompts based on patient inquiries from the iCliniq-10k dataset, we used GPT4 to determine the optimal response based on predefined instructions. These instructions were derived from those used in qualitative assessments by medical professionals in Med-PaLM, with minor modifications. This annotation approach amounted to a cost of $120.
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-</section>
-<!-- End Dataset -->
+ End Dataset -->
 
 <!-- Methodology -->
 <section class="hero">
@@ -331,15 +284,18 @@
       <div class="container is-max-desktop">
           <div class="columns is-centered">
               <div class="column has-text-centered">
-                  <h2 class="title is-3">Training Methodology</h2>
+                  <h2 class="title is-3">Hippocrates Framework</h2>
                   <div class="content has-text-justified">
+                    <img src="static/images/fig2.png" class="interpolation-image" alt="" style="display: block; margin-left: auto; margin-right: auto; width: 95%;"/>
+                    <br>
                     <ul style="list-style-type: none;">
-                        <li><strong>Approach.</strong> Our training strategy includes several phases: injection of medical knowledge through continued pre-training, domain-specific instruction tuning, and reinforcement learning from AI-generated feedback for improved alignment with medical experts. Employing the LLaMA Factory framework, we adhere to replicable and high-performance training standards. Moreover, we adopt the Low-Rank Adaptation (LoRA) technique for training efficiency and precision. LoRA enhances LLMs by selectively updating weights within additional trainable layers, thereby accelerating the training process, minimizing memory usage, and mitigating overfitting and catastrophic forgetting. Our foundational models, LLaMA2 7B and Mistral 7B, are selected based on their robust performance across medical benchmarks, demonstrating their capacity to excel without extensive training modifications. The zero-shot performances of these generic baseline models is presented at the beginning
-                        <li><strong>Continued Pre-training.</strong> To equip our base LLMs with domain-specific medical expertise, we extend their pre-training on a carefully curated medical text corpus defined above. This stage employs traditional language modeling, focusing on next-token prediction. During this phase, both models undergo continued pre-training using LoRA, specifically adapting the fully connected layers. The parameters for LoRA are carefully set, with the rank at 8 and alpha at 16, to optimize learning. We use the AdamW optimizer and adjust the learning rate using a cosine scheduling, starting from an initial value of 1e-4. The batch size per device was initialized to be 8, with gradient accumulations of 2, culminating in an effective global batch size of 16, and the models are trained for a single epoch. <br>
-                        <li><strong>Supervised Finetuning.</strong> After continued pre-training, models undergo fine-tuning with an Instruction Tuning (IT) dataset to closely mirror medical directives, aligning model outputs with clinical requirements. We have tested with the different datasets and found that MedQA-train IT works better than the other options. This fine-tuning phase also employs LoRA to all fully connected layers with both rank and alpha set to 32 for balanced efficiency and computational overhead. AdamW optimizer is used with a learning rate of 1e-4. To prevent model overfitting, loss calculation focuses solely on the responses. The training spanned 3 epochs with a batch size of 8 per-device and gradient accumulation set to 2.
-                        <li><strong>Medical Preference Learning.</strong> Finally, the instruction-tuned models are further trained with a recent and popular technique called direct preference optimization (DPO). In DPO, reinforcement learning is bypassed which allows for direct optimization based on preference data. Unlike RLHF, the responses in DPO need not be derived from the LLM being optimized. Central to DPO is the development of a loss function that evaluates the likelihood of a preferred response over a less preferred one, steering the LLM towards this goal. This makes DPO more stable and significantly reduces computational demands.
+                        <li><strong>Approach.</strong> Our training strategy includes several phases: injection of medical knowledge through continued pre-training, domain-specific instruction tuning, and reinforcement learning from AI-generated feedback for improved alignment with medical experts. Employing the LLaMA Factory framework, we adhere to replicable and high-performance training standards. Moreover, we adopt the Low-Rank Adaptation (LoRA) technique for training efficiency and precision. LoRA enhances LLMs by selectively updating weights within additional trainable layers, thereby accelerating the training process, minimizing memory usage, and mitigating overfitting and catastrophic forgetting. Our foundational models, LLaMA2 7B and Mistral 7B, are selected based on their robust performance across medical benchmarks, demonstrating their capacity to excel without extensive training modifications. <br> <br>
+                        <li><strong>Continued Pre-training.</strong> A key aspect of our methodology is the integration of specialized medical knowledge through an extensive pre-training corpus, assembled from three specialized datasets: Medical Guidelines, PMC-Patients, and PubMedQA-contexts. This stage employs traditional language modeling, focusing on next-token prediction. We systematically assessed the impact of each dataset, both individually and in combination, to optimize our model's performance. <br> <br>
+                        <li><strong>Supervised Finetuning.</strong> After continued pre-training, models undergo fine-tuning with an Instruction Tuning (IT) dataset to closely mirror medical directives, aligning model outputs with clinical requirements. We have tested with the different datasets and found that MedQA-train IT works better than the other options. <br> <br> 
+                        <li><strong>Medical Preference Data and RLAIF.</strong> To create a preference dataset, we used LLMs to generate varied responses to queries, reviewed by human annotators for accuracy. This method, costly in computation and manual review, led us to use the iCliniq-10k dataset containing 10,000 real patient-doctor dialogues. Each includes a patient question with three responses: one from a real doctor and two from AI models. We preprocessed this dataset to remove irrelevant details and applied the RLAIF methodology in the medical domain for cost-effective annotation, using GPT4 and modified medical assessment guidelines. This approach cost $120. <br> <br>
+                        <li><strong>Medical Preference Learning.</strong>  Finally, the instruction-tuned models are further trained with a recent and popular technique called direct preference optimization (DPO). In DPO, reinforcement learning is bypassed which allows for direct optimization based on preference data. Unlike RLHF, the responses in DPO need not be derived from the LLM being optimized. Central to DPO is the development of a loss function that evaluates the likelihood of a preferred response over a less preferred one, steering the LLM towards this goal. This makes DPO more stable and significantly reduces computational demands. Our medical LLMs underwent further refinement with these clinical preferences through DPO trainings. <br> <br>
 
-                        The outcome of all this are our medical LLMs, named HippoL and HippoM, built upon the pre-trained LLaMA2 7B and Mistral 7B models. These models were refined through a comprehensive process that included continued pre-training and/or instruction tuning using our carefully curated medical datasets. Following this, we also explored the impact of aligning the models with clinical preferences by conducting further training on medical preference data.
+                        The outcome of all this are our medical LLMs, named Hippo-<img src="static/images/meta.png" class="logo1" alt="Logo" style="width: 20px; height: auto; vertical-align: middle;"/> and Hippo-<img src="static/images/mistral.png" class="logo2" alt="Logo"  style="width: 18px; height: auto; vertical-align: middle;"/>, built upon the pre-trained LLaMA2 7B and Mistral 7B models. These models were refined through a comprehensive process that included continued pre-training and/or instruction tuning using our carefully curated medical datasets. Following this, we also explored the impact of aligning the models with clinical preferences by conducting further training on medical preference data.
                   </div>
               </div>
           </div>
@@ -348,21 +304,76 @@
 </section>
 <!-- End Methodology -->
 
+<!-- Stages -->
+<section class="hero">
+  <div class="hero-body">
+      <div class="container is-max-desktop">
+          <div class="columns is-centered">
+              <div class="column has-text-centered">
+                  <h2 class="title is-3">Contribution of Each Training Stage</h2>
+                  <div class="content has-text-justified">
+                    <img src="static/images/stages.png" class="interpolation-image" alt="" style="display: block; margin-left: auto; margin-right: auto; width: 95%;"/>
+                    <br>
+                    <ul style="list-style-type: none;">
+                        <li><strong>Hippo-<img src="static/images/meta.png" class="logo1" alt="Logo" style="width: 20px; height: auto; vertical-align: middle;"/>.</strong> Our evaluation methodology for the LLaMA2 7B model covers successive training stages: Continued Pre-training (CP), Instruction Tuning (SFT), and Direct Preference Optimization (DPO). As listed in table above, the base model LLaMA2 7B initially achieves an average accuracy of 34.0 across benchmarks. The CP stage marginally increases accuracy to 34.4, indicating initial benefits from domain-focused continued pre-training. The subsequent introduction of SFT yields a substantial performance boost to an average accuracy of 50.3, demonstrating the critical role of customized instruction in enhancing the model’s capabilities in understanding and answering medical queries. Integrating CP with SFT further improves this performance to 53.0, highlighting the combined value of domain knowledge and specific instruction tuning. The final DPO stage slightly decreases the model's performance to 52.5, albeit with a slight increase in accuracy for MedMCQA and PubMedQA, illustrating DPO's refined impact on model preference alignment. This sequence delineates the incremental enhancements attributable to each training phase, with SFT marking a pivotal improvement. The composite model, LLaMA2 + CP + SFT, is thus designated as Hippo-<img src="static/images/meta.png" class="logo1" alt="Logo" style="width: 20px; height: auto; vertical-align: middle;"/> for its distinguished performance across our benchmarks. <br> <br>
+                        <li><strong>Hippo-<img src="static/images/mistral.png" class="logo2" alt="Logo"  style="width: 18px; height: auto; vertical-align: middle;"/>.</strong> Following the approach for Hippo-<img src="static/images/meta.png" class="logo1" alt="Logo" style="width: 20px; height: auto; vertical-align: middle;"/>, the training evolution for the Mistral 7B model reveals gradual improvement in the model's proficiency in medical question-answering. Initial results from the baseline Mistral 7B model, as shown in the table, show an average benchmark accuracy of 39.3. Implementing CP slightly improves this to 41.0, reflecting the positive yet modest impact of domain-specific continued pre-training. The pivotal SFT stage significantly raises the performance, achieving an average accuracy of 61.6, emphasizing the critical role of customized instruction in enhancing the model's interpretative and response capabilities for medical inquiries. Interestingly, combining CP and SFT results in a slight reduction to 61.1, suggesting a complex interaction between domain pre-training and instruction tuning. The subsequent application of DPO slightly lowers the overall score to 59.6, similar to the pattern observed for Hippo-<img src="static/images/meta.png" class="logo1" alt="Logo" style="width: 20px; height: auto; vertical-align: middle;"/>, with targeted performance adjustment. Based on comprehensive analysis, Mistral 7b + SFT is selected to represent Hippo-<img src="static/images/mistral.png" class="logo2" alt="Logo"  style="width: 18px; height: auto; vertical-align: middle;"/>, credited for its exceptional performance across all benchmarks.
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+<!-- End Stages <style>.logo1 {vertical-align: middle;}</style>-->
+
+<!-- Uncertainty Quantification -->
+<section class="hero">
+  <div class="hero-body">
+      <div class="container is-max-desktop">
+          <div class="columns is-centered">
+              <div class="column has-text-centered">
+                  <h2 class="title is-3">Uncertainty Quantification</h2>
+                  <div class="content has-text-justified">
+                    <img src="static/images/uncertain.png" class="interpolation-image" alt="" style="display: block; margin-left: auto; margin-right: auto; width: 95%;"/>
+                    <br>
+                    <ul style="list-style-type: none;">
+                      <li>In our study, we conducted an uncertainty quantification experiment on Hippo-<img src="static/images/mistral.png" class="logo2" alt="Logo"  style="width: 18px; height: auto; vertical-align: middle;"/> to understand its performance on the MedMCQA, MedQA, and PubMedQA datasets, as shown in figure above. Our findings reveal that our model consistently assigns higher probabilities to questions it answers correctly across all datasets, suggesting an ability to self-calibrate its certainty. The model’s confidence is notably higher on MedMCQA, possibly reflecting the dataset's relative simplicity. In contrast, its confidence on PubMedQA is comparatively lower, likely due to the dataset's complexity. Additionally, the model's confidence changes with different training stages; CPT leads to more conservative estimates, SFT boosts confidence, and adding DPO leads to variable confidence, with noticeable effects in MedMCQA and MedQA. These outcomes emphasize a complex relationship between training approaches and confidence calibration in the model.
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+<!-- End Uncertainty Quantification -->
+
+<!-- 
 <section class="section" id="Conclusion">
   <div class="container is-max-desktop content">
       <h2 class="title">Conclusion</h2>
       <p>In this study, we have introduced Hippocrates, a comprehensive and open-source framework tailored for the medical domain, addressing a wide array of challenges faced by medical LLMs. We provide openly available datasets and establish an intuitive benchmark using the LM-Evaluation-Harness tool. We also introduce Hippo-M and Hippo-L , two 7B models demonstrating superior performance. Our work makes substantial contributions to the field by combining in-depth empirical research with a structured training methodology, offering invaluable insights and tools for future research not only in healthcare but in any area requiring domain-specific adaptation of LLMs</p>
   </div>
 </section>
+-->
 
 
-<section class="section" id="Limitations">
-  <div class="container is-max-desktop content">
-      <h2 class="title">Limitations and Safety</h2>
-      <p><strong>Model Limitations.</strong> While our 7B model has achieved state-of-the-art results within its class, it is important to acknowledge its limitations compared to larger models such as OpenAI's GPT4. The constraints imposed by the smaller parameter size may impede the model's reasoning capabilities, a crucial aspect of complex medical decision-making. Additionally, the model's performances are almost half on the average which highlights a huge area for improvement in open-source models.</p>
-      <p><strong>Safety and Risks.</strong> Crucially, despite these advancements, it is important to highlight that these AI models need substantial improvements before they can be safely and effectively employed with real patients. They are not yet at a stage where they can provide medical advice or be utilized for commercial healthcare applications. This limitation highlights the need for ongoing, careful development and validation of AI systems to guarantee their reliability and safety in clinical settings. The path toward AI integration in patient care is still unfolding, and while it holds promise, it requires a methodical and thoroughly evaluated approach.</p>
+<!-- Limitations -->
+
+<section class="hero">
+  <div class="hero-body">
+      <div class="container is-max-desktop">
+          <div class="columns is-centered">
+              <div class="column has-text-centered">
+                  <h2 class="title is-3">Limitations and Safety</h2>
+                  <div class="content has-text-justified">
+                    <ul style="list-style-type: none;">
+                        <li><strong>Model Limitations.</strong> While our 7B model has achieved state-of-the-art results within its class, it is important to acknowledge its limitations compared to larger models such as OpenAI's GPT4. The constraints imposed by the smaller parameter size may impede the model's reasoning capabilities, a crucial aspect of complex medical decision-making. Additionally, the model's performances are almost half on the average which highlights a huge area for improvement in open-source models. <br> <br>
+                        <li><strong>Safety and Risks.</strong> Crucially, despite these advancements, it is important to highlight that these AI models need substantial improvements before they can be safely and effectively employed with real patients. They are not yet at a stage where they can provide medical advice or be utilized for commercial healthcare applications. This limitation highlights the need for ongoing, careful development and validation of AI systems to guarantee their reliability and safety in clinical settings. The path toward AI integration in patient care is still unfolding, and while it holds promise, it requires a methodical and thoroughly evaluated approach.
+                  </div>
+              </div>
+          </div>
+      </div>
   </div>
 </section>
+<!-- End Limitations -->
 
 
 <!--BibTex citation -->
@@ -387,7 +398,7 @@
 
 <section class="section" id="Acknowledgements">
   <div class="container is-max-desktop content">
-      <h2 class="title">Limitations and Safety</h2>
+      <h2 class="title">Acknowledgements</h2>
       This work is supported in part provided by the KUIS AI Center. The numerical calculations reported in this paper were fully/partially performed at TUBITAK ULAKBIM, High Performance and Grid Computing Center (TRUBA resources). Last but not least, we also acknowledge VSB – Technical University of Ostrava, IT4Innovations National Supercomputing Center, Czech Republic, for awarding this project access to the LUMI supercomputer, owned by the EuroHPC Joint Undertaking, hosted by CSC (Finland) and the LUMI consortium through the Ministry of Education, Youth and Sports of the Czech Republic through the e-INFRA CZ (grant ID: 90254)
   </div>
 </section>
