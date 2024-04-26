@@ -94,7 +94,7 @@
               <span class="author-block"><sup>5</sup><a href="" target="_blank">Arda Anıl Boz</a>,</span>
               <span class="author-block"><sup>1</sup><a href="" target="_blank">Ilker Kesen</a>,</span><br>
               <span class="author-block"><sup>1,2</sup><a href="https://aykuterdem.github.io/" target="_blank">Aykut Erdem</a>,</span>
-              <span class="author-block"><sup>1,3</sup><a href="" target="_blank">Erkut Erdem</a></span>
+              <span class="author-block"><sup>1,3</sup><a href="https://web.cs.hacettepe.edu.tr/~erkut/" target="_blank">Erkut Erdem</a></span>
             </div>
 
             <div class="is-size-5 publication-authors">
@@ -126,19 +126,29 @@
                       </span>
 
                       <!-- Huggingface link -->
+                    <span class="link-block">
+                      <a href="https://huggingface.co/emrecanacikgoz" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                          <span class="icon">🤗</span>
+                          <span>Models</span>
+                      </a>
+                    </span>
+
                       <span class="link-block">
-                        <a href="https://huggingface.co/emrecanacikgoz" target="_blank" class="external-link button is-normal is-rounded is-dark">
-                            <span class="icon">🤗</span>
-                            <span>Datasets (Soon)</span>
+                        <a href="https://drive.google.com/drive/folders/11tX_nv8dxkZzt9NAMr2t7kiJ1YPvOZUl?usp=sharing" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                            <span class="icon"><i class="fas fa-database"></i></span>
+                            <span>Datasets</span>
                         </a>
                     </span>
 
+                    <!-- Poster PDF link -->
                     <span class="link-block">
-                        <a href="https://huggingface.co/emrecanacikgoz" target="_blank" class="external-link button is-normal is-rounded is-dark">
-                            <span class="icon">🤗</span>
-                            <span>Models (Soon)</span>
-                        </a>
-                    </span>
+                      <a href="static/images/hippocrates-poster.pdf" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                      </span>
+                      <span>Poster</span>
+                    </a>
 
                     <span class="link-block">
                         <a href="https://huggingface.co/emrecanacikgoz" target="_blank" class="external-link button is-normal is-rounded is-dark">
@@ -162,16 +172,6 @@
                       </a>
                     </span>
 
-                    <!-- Poster PDF link -->
-                    <span class="link-block">
-                      <a href="static/images/hippocrates-poster.pdf" target="_blank"
-                      class="external-link button is-normal is-rounded is-dark">
-                      <span class="icon">
-                        <i class="fas fa-file-pdf"></i>
-                      </span>
-                      <span>Poster</span>
-                    </a>
-                  </span>
             </div>
           </div>
         </div>
@@ -206,7 +206,6 @@
 </section>
 <!-- End paper abstract -->
 
-
 <!-- Hippo Series -->
 <section class="hero">
   <div class="hero-body">
@@ -219,9 +218,9 @@
                     <br>
                     <p>Our release includes:</p>
                         <ul style="list-style-type: disc; margin-left: 20px;">
-                            <li> Hippocrates, a comprehensive and open-source framework tailored for the medical domain. </li>
-                            <li> We provide openly available datasets and establish an intuitive benchmark using the LM-Evaluation-Harness tool. </li>
-                            <li> We also introduce Hippo-<img src="static/images/meta.png" class="logo1" alt="Logo" style="width: 20px; height: auto; vertical-align: middle;"/> and Hippo-<img src="static/images/mistral.png" class="logo2" alt="Logo"  style="width: 18px; height: auto; vertical-align: middle;"/>, two 7B models demonstrating superior performance. </li>
+                            <li> <a href="https://arxiv.org/pdf/2404.16621">Hippocrates-</a>, a comprehensive and open-source framework tailored for the medical domain. </li>
+                            <li> We provide openly available datasets and establish an intuitive benchmark using the <a href="https://github.com/emrecanacikgoz/lm-evaluation-harness">LM-Evaluation-Harness</a> tool. </li>
+                            <li> We also introduce <a href="https://huggingface.co/emrecanacikgoz/hippollama">Hippo-</a><img src="static/images/meta.png" class="logo1" alt="Logo" style="width: 20px; height: auto; vertical-align: middle;"/> and <a href="https://huggingface.co/emrecanacikgoz/hippomistral">Hippo-</a><img src="static/images/mistral.png" class="logo2" alt="Logo"  style="width: 18px; height: auto; vertical-align: middle;"/>, two 7B models demonstrating superior performance. </li>
                         </ul>
                     <p> We argue that the development of a broad, varied collection of open models is crucial for deepening our knowledge of language models and enhancing their applicability across various domains.  Our work makes substantial contributions to the field by combining in-depth empirical research with a structured training methodology, offering invaluable insights and tools for future research not only in healthcare but in any area requiring domain-specific adaptation of LLMs. </p>
                   </div>
@@ -276,7 +275,7 @@ End Hippocrates Framework -->
   </div>
 </section>
  End Dataset -->
-
+ 
 <!-- Methodology -->
 <section class="hero">
   <div class="hero-body">
@@ -288,11 +287,11 @@ End Hippocrates Framework -->
                     <img src="static/images/fig2.png" class="interpolation-image" alt="" style="display: block; margin-left: auto; margin-right: auto; width: 95%;"/>
                     <br>
                     <ul style="list-style-type: none;">
-                        <li><strong>Approach.</strong> Our training strategy includes several phases: injection of medical knowledge through continued pre-training, domain-specific instruction tuning, and reinforcement learning from AI-generated feedback for improved alignment with medical experts. Employing the LLaMA Factory framework, we adhere to replicable and high-performance training standards. Moreover, we adopt the Low-Rank Adaptation (LoRA) technique for training efficiency and precision. LoRA enhances LLMs by selectively updating weights within additional trainable layers, thereby accelerating the training process, minimizing memory usage, and mitigating overfitting and catastrophic forgetting. Our foundational models, LLaMA2 7B and Mistral 7B, are selected based on their robust performance across medical benchmarks, demonstrating their capacity to excel without extensive training modifications. <br> <br>
-                        <li><strong>Continued Pre-training.</strong> A key aspect of our methodology is the integration of specialized medical knowledge through an extensive pre-training corpus, assembled from three specialized datasets: Medical Guidelines, PMC-Patients, and PubMedQA-contexts. This stage employs traditional language modeling, focusing on next-token prediction. We systematically assessed the impact of each dataset, both individually and in combination, to optimize our model's performance. <br> <br>
+                        <li><strong>Approach.</strong> Our training strategy includes several phases: injection of medical knowledge through continued pre-training, domain-specific instruction tuning, and reinforcement learning from AI-generated feedback for improved alignment with medical experts. Employing the <a href="https://github.com/hiyouga/LLaMA-Factory">LLaMA Factory</a> framework, we adhere to replicable and high-performance training standards. Moreover, we adopt the <a href="https://arxiv.org/abs/2106.09685">Low-Rank Adaptation (LoRA)</a> technique for training efficiency and precision. LoRA enhances LLMs by selectively updating weights within additional trainable layers, thereby accelerating the training process, minimizing memory usage, and mitigating overfitting and catastrophic forgetting. Our foundational models, <a href="https://huggingface.co/meta-llama/Llama-2-7b-hf">LLaMA2 7B</a> and <a href="https://huggingface.co/mistralai/Mistral-7B-v0.1">Mistral 7B</a>, are selected based on their robust performance across medical benchmarks, demonstrating their capacity to excel without extensive training modifications. <br> <br>
+                        <li><strong>Continued Pre-training.</strong> A key aspect of our methodology is the integration of specialized medical knowledge through an extensive pre-training corpus, assembled from three specialized datasets: <a href="https://huggingface.co/datasets/epfl-llm/guidelines">Medical Guidelines</a>, <a href="https://huggingface.co/datasets/zhengyun21/PMC-Patients">PMC-Patients</a>, and <a href="https://huggingface.co/datasets/qiaojin/PubMedQA">PubMedQA-contexts</a>. This stage employs traditional language modeling, focusing on next-token prediction. We systematically assessed the impact of each dataset, both individually and in combination, to optimize our model's performance. <br> <br>
                         <li><strong>Supervised Finetuning.</strong> After continued pre-training, models undergo fine-tuning with an Instruction Tuning (IT) dataset to closely mirror medical directives, aligning model outputs with clinical requirements. We have tested with the different datasets and found that MedQA-train IT works better than the other options. <br> <br> 
-                        <li><strong>Medical Preference Data and RLAIF.</strong> To create a preference dataset, we used LLMs to generate varied responses to queries, reviewed by human annotators for accuracy. This method, costly in computation and manual review, led us to use the iCliniq-10k dataset containing 10,000 real patient-doctor dialogues. Each includes a patient question with three responses: one from a real doctor and two from AI models. We preprocessed this dataset to remove irrelevant details and applied the RLAIF methodology in the medical domain for cost-effective annotation, using GPT4 and modified medical assessment guidelines. This approach cost $120. <br> <br>
-                        <li><strong>Medical Preference Learning.</strong>  Finally, the instruction-tuned models are further trained with a recent and popular technique called direct preference optimization (DPO). In DPO, reinforcement learning is bypassed which allows for direct optimization based on preference data. Unlike RLHF, the responses in DPO need not be derived from the LLM being optimized. Central to DPO is the development of a loss function that evaluates the likelihood of a preferred response over a less preferred one, steering the LLM towards this goal. This makes DPO more stable and significantly reduces computational demands. Our medical LLMs underwent further refinement with these clinical preferences through DPO trainings. <br> <br>
+                        <li><strong>Medical Preference Data and RLAIF.</strong> To create a preference dataset, we used LLMs to generate varied responses to queries, reviewed by human annotators for accuracy. This method, costly in computation and manual review, led us to use the <a href="https://drive.google.com/file/d/1ZKbqgYqWc7DJHs3N9TQYQVPdDQmZaClA/view">iCliniq-10k</a> dataset containing 10,000 real patient-doctor dialogues. Each includes a patient question with three responses: one from a real doctor and two from AI models. We preprocessed this dataset to remove irrelevant details and applied the <a href="https://arxiv.org/abs/2309.00267">RLAIF</a> methodology in the medical domain for cost-effective annotation, using GPT4 and modified medical assessment guidelines. This approach cost $120. <br> <br>
+                        <li><strong>Medical Preference Learning.</strong>  Finally, the instruction-tuned models are further trained with a recent and popular technique called <a href="https://arxiv.org/abs/2305.18290">direct preference optimization (DPO)</a>. In DPO, reinforcement learning is bypassed which allows for direct optimization based on preference data. Unlike RLHF, the responses in DPO need not be derived from the LLM being optimized. Central to DPO is the development of a loss function that evaluates the likelihood of a preferred response over a less preferred one, steering the LLM towards this goal. This makes DPO more stable and significantly reduces computational demands. Our medical LLMs underwent further refinement with these clinical preferences through DPO trainings. <br> <br>
 
                         The outcome of all this are our medical LLMs, named Hippo-<img src="static/images/meta.png" class="logo1" alt="Logo" style="width: 20px; height: auto; vertical-align: middle;"/> and Hippo-<img src="static/images/mistral.png" class="logo2" alt="Logo"  style="width: 18px; height: auto; vertical-align: middle;"/>, built upon the pre-trained LLaMA2 7B and Mistral 7B models. These models were refined through a comprehensive process that included continued pre-training and/or instruction tuning using our carefully curated medical datasets. Following this, we also explored the impact of aligning the models with clinical preferences by conducting further training on medical preference data.
                   </div>
