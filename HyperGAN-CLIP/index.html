@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>
+		HyperGAN-CLIP: A Unified Framework for Domain Adaptation, Image Synthesis and Manipulation
+
+	</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="static/css/styles.css">
+	<link rel="stylesheet" href="static/css/project-page.css">
+	<!-- <link rel="stylesheet" href="static/css/main.css"> -->
+
+
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<body>
+    <center>
+		<table style="width:100%;text-align:justified">
+			<tbody>
+				<tr>
+					<td>
+						<center>
+							<h1 class="title_heading" style="font-family: 'Varela Round',sans-serif">HyperGAN-CLIP</h1>
+							<h2 class="project-title">HyperGAN-CLIP: A Unified Framework for Domain Adaptation, Image Synthesis and Manipulation </h2>
+						</center>
+					</td>
+				</tr>
+
+				<tr>
+
+					<td>
+						<center>
+							<div class="authors">
+								<a href="https://www.linkedin.com/in/abdul-basit-anees/" style="margin-right: 10px;">
+									Abdul Basit Anees
+								</a>
+								<a href="https://johnberg1.github.io/" style="margin-right: 10px;">
+									Ahmet Canberk Baykal
+								</a>
+								<a href="https://www.linkedin.com/in/muhammed-burak-k%C4%B1z%C4%B1l-4bb00b198" style="margin-right: 10px;">
+									Muhammed Burak Kizil
+								</a>
+								<a href="https://www.duygu-ceylan.com" style="margin-right: 10px;">
+									Duygu Ceylan
+								</a>
+								<a href="https://web.cs.hacettepe.edu.tr/~erkut/" style="margin-right: 10px;">
+									Erkut Erdem
+								</a>
+								<a  href="https://aykuterdem.github.io" style="margin-right: 10px;">
+									Aykut Erdem
+								</a>
+								<br>
+							</div>
+						</center>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<center style="margin-top: 20px; margin-bottom: 45px;">
+							<div class="logos">
+								<img class="logo" src="./static/imgs/koc-logo.svg" alt="Koc" width="250" height="125"
+									style="margin-top: -20px; margin-left: 80px;">
+									<img class="logo" src="./static/imgs/university-of-cambridge-logo.svg" alt="Cambridge" width="250" height="125"
+										style="margin-top: -20px; margin-left: -40px;">
+                                <img class="logo" src="./static/imgs/kuis-ai.png" alt="Kuis" width="250" height="125"
+                                        style="margin-top: -20px; margin-left: -80px;">
+								<img class="logo" src="./static/imgs/adobe-logo.png" alt="Adobe Research" width="220"
+									height="65" style="margin-top: 10px; margin-left: -20px;">
+								<img class="logo" src="./static/imgs/haceteppe-logo.svg" alt="Haceteppe" width="90"
+									height="80">
+							</div>
+						</center>
+
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+
+						<br>
+						<h2>Abstract </h2>
+						<p class="paragraph desc" style="padding: 0% 0% 0% 0%;">
+							Generative Adversarial Networks (GANs), particularly StyleGAN and its
+							variants, have demonstrated remarkable capabilities in generating highly
+							realistic images. Despite their success, adapting these models to diverse tasks
+							such as domain adaptation, reference-guided synthesis, and text-guided manipulation 
+							with limited training data remains challenging. Towards this end, in this study, we 
+							present a novel framework that significantly extends the capabilities of a pre-trained 
+							StyleGAN by integrating CLIP space via hypernetworks. This integration allows dynamic 
+							adaptation of StyleGAN to new domains defined by reference images or textual descriptions. 
+							Additionally, we introduce a CLIP-guided discriminator that enhances the alignment
+							between generated images and target domains, ensuring superior image quality. Our 
+							approach demonstrates unprecedented flexibility, enabling textguided image manipulation 
+							without the need for text-specific training data and facilitating seamless style transfer. 
+							Comprehensive qualitative and quantitative evaluations confirm the robustness and superior 
+							performance of our framework compared to existing methods</br>
+						</p>
+						<br>
+						<div class="icons" style="padding: 0% 20% 0% 20%;">
+							<table style="border: none;border-collapse: collapse; border-spacing:0;" cellspacing="0">
+								<tr>
+
+									<!-- <center>
+										<td align="center" style="border: none; width: 20%;">
+											<a 
+                                            href="static/docs/CLIPInverter.pdf">
+												<i class="fa fa-file-pdf-o" style="font-size:36px;"></i> <br>
+												Paper (HQ)
+											</a>
+										</td>
+
+										<td align="center" style="border: none; width: 20%">
+											<a href="https://arxiv.org/abs/2307.08397"">
+												<i class="fa fa-file-archive-o" style="font-size:36px"></i> <br>
+												Arxiv
+											</a>
+										</td> 
+
+										<td align="center" style="border: none; width: 20%">
+											<a href="https://dl.acm.org/doi/10.1145/3610287">
+												<i class="fa fa-newspaper-o" style="font-size:36px"></i> <br>
+												TOG
+											</a>
+										</td> 
+
+										<td align="center" style="border: none; width: 20%">
+											<a href="https://github.com/johnberg1/CLIPInverter">
+												<i class="fa fa-github" style="font-size:36px"></i>
+												<br>
+												Code
+											</a>
+										</td>
+
+										<td align="center" style="border: none; width: 20%">
+											<a href="https://huggingface.co/spaces/johnberg/CLIPInverter">
+												<i class="fa fa-play-circle" style="font-size:36px"></i>
+												<br>
+												Demo
+											</a>
+										</td>
+									</center> -->
+
+								</tr>
+							</table>
+
+						</div>
+
+					</td>
+
+				</tr>
+
+
+				<tr>
+					<td>
+
+
+						<h2 style="padding-top: 1%;">Method Overview</h2>
+						<img src="./static/imgs/hyperganclip.jpg" width="auto" style="padding: 1% 1% 1% 1%;">
+						</br>
+						<p class="paragraph desc" style="padding: 1% 1% 1% 1%;">
+							<b> Overview of HyperGAN-CLIP </b> This framework employs hypernetwork modules to 
+							adjust StyleGAN generator weights based on images or text prompts. These inputs 
+							facilitate domain adaptation, attribute transfer, or image editing. The modulated weights 
+							blend with original features to produce images that align with specified domains or tasks 
+							like reference-guided synthesis and text-guided manipulation, while maintaining source integrity.
+						</p>
+						<br>
+						<a id="table_of_contents"></a>
+						<h3>
+							HyperGAN-CLIP results:</br>
+						</h3>
+						<ol>
+							<li><a href="#applications">HyperGAN-CLIP Applications</a></li>
+							<li><a href="#domain_adaptation">Qualitative Comparisons - Domain Adaptation</a></li>
+							<li><a href="#domain_mixing">Domain Mixing</a></li>
+							<li><a href="#edits_in_target_domain">Semantic Editing in Target Domains</a></li>
+							<li><a href="#reference_guided_image_synthesis">Qualitative Comparisons - Reference-Guided Image Synthesis</a></li>
+							<li><a href="#mixed_embeddings">Reference-Guided Synthesis with Mixed Embeddings</a></li>
+							<li><a href="#text_guided_image_manipulation">Qualitative Comparisons - Text-Guided Image Manipulation</a></li>
+						</ol>
+						</p>
+					</td>
+
+
+				</tr>
+
+
+			</tbody>
+		</table>
+    <table style="width:100%;text-align:center" border="0">
+        <colgroup>
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+            <col width="5%">
+        </colgroup>
+
+
+        <tbody>
+
+            <!-- Applications -->
+            <tr>
+                <td align="left" colspan="12">
+                    <a id="applications"></a>
+                    <h2>1. HyperGAN-CLIP Applications</h2>
+                    <img src="./static/imgs/applications.jpg" width="auto" style="padding: 1% 1% 1% 1%;">
+                    <p class="desc"><b>HyperGAN-CLIP and its Applications.</b> Introducing HyperGAN-CLIP, 
+						a flexible framework that enhances the capabilities of a pre-trained StyleGAN model 
+						for a multitude of tasks, including multiple domain one-shot adaptation, reference-guided 
+						image synthesis and text-guided image manipulation. Our method pushes the boundaries of 
+						image synthesis and editing, enabling users to create diverse and high-quality images with 
+						remarkable ease and precision.
+                    </p>
+                </td>
+            </tr>
+            <!-- Qualitative Comparisons - Domain Adaptation -->
+            <tr>
+                <td align="left" colspan="12">
+                    <a id="domain_adaptation"></a>
+                    <h2>2. Qualitative Comparisons - Domain Adaptation</h2>
+                    <img src="./static/imgs/domain_adaptation.jpg" width="auto" style="padding: 1% 1% 1% 1%;">
+                    <p class="desc"><b>Comparison against the state-of-the-art few-shot domain adaptation methods.</b> Our 
+						proposed HyperGAN-CLIP model outperforms competing methods in accurately capturing the visual 
+						characteristics of the target domains.
+                    </p>
+                </td>
+            </tr>
+            <!-- Domain Mixing -->
+            <tr>
+                <td align="left" colspan="12">
+                    <a id="domain_mixing"></a>
+                    <h2>3. Domain Mixing </h2>
+                    <img src="./static/imgs/domain_mixing.jpg" width="auto" style="padding: 1% 1% 1% 1%;">
+                    <p class="desc"><b> Domain mixing.</b> Our approach can fuse multiple domains to create 
+						novel compositions. By averaging and re-scaling the CLIP embeddings of two target 
+						domains, we can generate images that blend characteristics from both.
+					</p>
+                </td>
+            </tr>
+
+
+            <!-- Semantic Editing in Target Domains -->
+            <tr>
+                <td align="left" colspan="12">
+                    <a id="edits_in_target_domain"></a>
+                    <h2>4. Semantic Editing in Target Domains </h2>
+                    <img src="./static/imgs/editing.jpg" width="auto" style="padding: 1% 1% 1% 1%;">
+                    <p class="desc"><b> Semantic editing in target domains.</b> Since latent mapper is kept 
+						intact, our approach allows for using existing latent space discovery methods to perform 
+						semantic edits. We manipulate two sample face images from adapted domains by playing with 
+						age, smile, and pose using InterfaceGAN.
+                </td>
+            </tr>
+
+
+            <!-- Qualitative Comparisons - Reference-Guided Image Synthesis -->
+            <tr>
+                <td align="left" colspan="12">
+                    <a id="reference_guided_image_synthesis"></a>
+                    <h2>5. Qualitative Comparisons - Reference-Guided Image Synthesis </h2>
+                    <img src="./static/imgs/reference_guided_synthesis.jpg" width="auto" style="padding: 1% 1% 1% 1%;">
+                    <p class="desc"><b>Comparison with state-of-the-art reference-guided image synthesis approaches.</b> 
+						Our approach effectively transfers the style of the target image to the source image while 
+						effectively preserving identity compared to competing methods.
+                </td>
+            </tr>
+
+			<!-- Reference-Guided Synthesis with Mixed Embeddings -->
+            <tr>
+                <td align="left" colspan="12">
+                    <a id="mixed_embeddings"></a>
+                    <h2>6. Reference-Guided Synthesis with Mixed Embeddings </h2>
+                    <img src="./static/imgs/mixed_embeddings.jpg" width="auto" style="padding: 1% 1% 1% 1%;">
+                    <p class="desc"><b>Reference-guided image synthesis with mixed embeddings.</b> Each row shows the input 
+						image, the initial result with the CLIP image embedding, the refined result with a mixed embedding 
+						that incorporates the target attribute with α=0.5, and the reference image, respectively. 
+						Target text attributes are <i>beard</i> (top row), <i>black hair</i> (middle row), and <i>smiling</i> 
+						(bottom row). Incorporating mixed modality embeddings results in more accurate and detailed image modifications.
+                </td>
+            </tr>
+
+
+			<!-- Qualitative Comparisons - Text-Guided Image Manipulation -->
+            <tr>
+                <td align="left" colspan="12">
+                    <a id="text_guided_image_manipulation"></a>
+                    <h2>7. Qualitative Comparisons - Text-Guided Image Manipulation </h2>
+                    <img src="./static/imgs/text_based_editing.jpg" width="auto" style="padding: 1% 1% 1% 1%;">
+                    <p class="desc"><b>Comparisons with state-of-the-art text-guided image manipulation methods.</b> Our model 
+						shows remarkable versality in manipulating images across a diverse range of textual descriptions. The 
+						results vividly illustrate our model's ability to accurately apply changes based on target descriptions 
+						encompassing both single and multiple attributes. Compared to the competing approaches, our model preserves 
+						the identity of the input much better while successfully executing the desired manipulations.
+                </td>
+            </tr>
+
+
+
+        </tbody>
+    </table>
+
+	<!-- <div class="section-title">BibTeX</div>
+	<div class="section bibtex" ; align="left">
+		<pre> @article{CLIPInverter, 
+author = {Baykal, Ahmet Canberk and Anees, Abdul Basit and Ceylan, Duygu and Erdem, Erkut and Erdem, Aykut and Yuret, Deniz}, 
+title = {CLIP-Guided StyleGAN Inversion for Text-Driven Real Image Editing}, 
+year = {2023}, 
+publisher = {Association for Computing Machinery}, 
+address = {New York, NY, USA}, 
+issn = {0730-0301}, 
+url = {https://doi.org/10.1145/3610287}, 
+doi = {10.1145/3610287}, 
+note = {Just Accepted}, 
+journal = {ACM Trans. Graph.}, 
+month = {jul}, 
+keywords = {Image-to-Image Translation, Generative Adversarial Networks, Image Editing} }</pre>
+	</div> -->
+	<br>
+	<div class="section-title">Contact</div>
+	<div class="content">
+		For any questions, please contact Abdul Basit Anees at <a href="abdulbasitanees98@gmail.com">abdulbasitanees98@gmail.com</a>.
+	</div>
+</body>
+</html>
