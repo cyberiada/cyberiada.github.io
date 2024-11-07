@@ -103,15 +103,15 @@
 							<table style="border: none;border-collapse: collapse; border-spacing:0;" cellspacing="0">
 								<tr>
 
-									<!-- <center>
+									<center>
 										<td align="center" style="border: none; width: 20%;">
 											<a 
-                                            href="static/docs/CLIPInverter.pdf">
+                                            href="static/docs/HyperGANCLIP.pdf">
 												<i class="fa fa-file-pdf-o" style="font-size:36px;"></i> <br>
-												Paper (HQ)
+												Paper
 											</a>
 										</td>
-
+<!-- 
 										<td align="center" style="border: none; width: 20%">
 											<a href="https://arxiv.org/abs/2307.08397"">
 												<i class="fa fa-file-archive-o" style="font-size:36px"></i> <br>
@@ -124,24 +124,24 @@
 												<i class="fa fa-newspaper-o" style="font-size:36px"></i> <br>
 												TOG
 											</a>
-										</td> 
+										</td>  -->
 
 										<td align="center" style="border: none; width: 20%">
-											<a href="https://github.com/johnberg1/CLIPInverter">
+											<a href="https://github.com/basitanees/HyperGAN-CLIP">
 												<i class="fa fa-github" style="font-size:36px"></i>
 												<br>
 												Code
 											</a>
 										</td>
-
+<!-- 
 										<td align="center" style="border: none; width: 20%">
 											<a href="https://huggingface.co/spaces/johnberg/CLIPInverter">
 												<i class="fa fa-play-circle" style="font-size:36px"></i>
 												<br>
 												Demo
 											</a>
-										</td>
-									</center> -->
+										</td> -->
+									</center>
 
 								</tr>
 							</table>
@@ -179,7 +179,9 @@
 							<li><a href="#edits_in_target_domain">Semantic Editing in Target Domains</a></li>
 							<li><a href="#reference_guided_image_synthesis">Qualitative Comparisons - Reference-Guided Image Synthesis</a></li>
 							<li><a href="#mixed_embeddings">Reference-Guided Synthesis with Mixed Embeddings</a></li>
+							<li><a href="#reference_guided_real">Reference-Guided Synthesis on Real Images</a></li>
 							<li><a href="#text_guided_image_manipulation">Qualitative Comparisons - Text-Guided Image Manipulation</a></li>
+							<li><a href="#text_guided_real">Text-Guided Image Manipulation on Real Images</a></li>
 						</ol>
 						</p>
 					</td>
@@ -290,6 +292,18 @@
                 </td>
             </tr>
 
+			<!-- Reference-Guided Synthesis on Real Images -->
+			<tr>
+				<td align="left" colspan="12">
+					<a id="reference_guided_real"></a>
+					<h2>7. Reference-Guided Synthesis on Real Images </h2>
+					<img src="./static/imgs/ibe_real.jpg" width="auto" style="padding: 1% 1% 1% 1%;">
+					<p class="desc"><b>Reference-guided image synthesis on real images.</b> Our model can effectively 
+						transfer the style of the target image to the source image while preserving the identity of the 
+						source image. The results demonstrate the robustness of our model in handling real images.
+				</td>
+			</tr>
+
 
 			<!-- Qualitative Comparisons - Text-Guided Image Manipulation -->
             <tr>
@@ -305,27 +319,32 @@
                 </td>
             </tr>
 
+			<!-- Text-Guided Image Manipulation on Real Images -->
+			<tr>
+				<td align="left" colspan="12">
+					<a id="text_guided_real"></a>
+					<h2>8. Text-Guided Image Manipulation on Real Images </h2>
+					<img src="./static/imgs/tbe_real.jpg" width="auto" style="padding: 1% 1% 1% 1%;">
+					<p class="desc"><b>Text-guided image manipulation on real images.</b> Our model can effectively manipulate
+						real images based on textual descriptions. The results demonstrate the robustness of our model in handling
+						real images and executing the desired manipulations.
+				</td>
+			</tr>
+
 
 
         </tbody>
     </table>
 
-	<!-- <div class="section-title">BibTeX</div>
+	<div class="section-title">BibTeX</div>
 	<div class="section bibtex" ; align="left">
-		<pre> @article{CLIPInverter, 
-author = {Baykal, Ahmet Canberk and Anees, Abdul Basit and Ceylan, Duygu and Erdem, Erkut and Erdem, Aykut and Yuret, Deniz}, 
-title = {CLIP-Guided StyleGAN Inversion for Text-Driven Real Image Editing}, 
-year = {2023}, 
-publisher = {Association for Computing Machinery}, 
-address = {New York, NY, USA}, 
-issn = {0730-0301}, 
-url = {https://doi.org/10.1145/3610287}, 
-doi = {10.1145/3610287}, 
-note = {Just Accepted}, 
-journal = {ACM Trans. Graph.}, 
-month = {jul}, 
-keywords = {Image-to-Image Translation, Generative Adversarial Networks, Image Editing} }</pre>
-	</div> -->
+		<pre> @inproceedings{Anees2024HyperGANCLIP,
+    title     = {HyperGAN-CLIP: A Unified Framework for Domain Adaptation, Image Synthesis and Manipulation},
+    author    = {Abdul Basit Anees and Ahmet Canberk Baykal and Duygu Ceylan and Aykut Erdem and Erkut Erdem and Muhammed Burak Kızıl},
+    booktitle = {Proceedings of the ACM (SIGGRAPH Asia)},
+    year      = {2024}
+}</pre>
+	</div>
 	<br>
 	<div class="section-title">Contact</div>
 	<div class="content">
