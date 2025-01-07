@@ -1,1 +1,858 @@
-GaussianVideo
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="DESCRIPTION META TAG">
+  <meta property="og:title" content="SOCIAL MEDIA TITLE TAG"/>
+  <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION TAG TAG"/>
+  <meta property="og:url" content="URL OF THE WEBSITE"/>
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image" content="static/image/your_banner_image.png" />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+
+
+  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
+  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>GaussianVideo</title>
+  <!-- <link rel="icon" type="image/x-icon" href="static/images/favicon.ico"> -->
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="stylesheet" href="static/css/twentytwenty.css">
+  <link rel="stylesheet" href="static/css/foundation.css" media="screen">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+  <script src="static/js/twentytwenty.js"></script>
+  <script src="static/js/jquery.event.move.js"></script>
+  <script src="static/js/jquery.twentytwenty.js"></script>
+  <script src="static/js/jquery-3.2.1.min.js"></script>
+
+  <style>
+    .comparison-container {
+        position: relative;
+        max-width: 800px;
+        margin: 0 auto;
+        overflow: hidden;
+        user-select: none;
+    }
+    .video-comparison {
+        display: flex;
+        position: relative;
+        width: 100%;
+    }
+    .video-left-wrapper {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        overflow: hidden;
+    }
+    .video-left {
+        height: 100%;
+        width: auto;
+        max-width: none;
+    }
+    .video-right {
+        width: 100%;
+        height: auto;
+    }
+    .slider {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: white;
+        left: 50%;
+        transform: translateX(-50%);
+        cursor: col-resize;
+        z-index: 10;
+    }
+    .slider-handle {
+        position: absolute;
+        top: 50%;
+        width: 40px;
+        height: 40px;
+        background: white;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        border: 2px solid #333;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    div.center {
+
+    text-align: center;
+
+    }
+</style>
+</head>
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">GaussianVideo: Efficient Video Representation via Hierarchical Gaussian
+              Splatting</h1>
+              <!-- <h2 class="subtitle is-3 publication-subtitle">Supplementary Material</h2> -->
+             <div class="is-size-5 publication-authors">
+            
+              <span class="author-block">
+                <a href="https://abond19.github.io" target="_blank">Andrew Bond</a><sup>1,*</sup>,</span>
+                <span class="author-block">
+                  <a href="http://juiwang.com/" target="_blank">Jui-Hsien Wang</a><sup>2</sup>,</span>
+                  <span class="author-block">
+                    <a href="https://mai-t-long.com/" target="_blank">Long Mai</a><sup>2</sup>,
+                  </span>
+                  <span class="author-block">
+                    <a href="https://web.cs.hacettepe.edu.tr/~erkut/" target="_blank">Erkut Erdem</a><sup>3</sup>,
+                  </span>
+                  <span class="author-block">
+                    <a href="https://aykuterdem.github.io/" target="_blank">Aykut Erdem</a><sup>1</sup>
+                  </span>
+                  </div>
+
+                  <div class="is-size-5 publication-authors">
+                    <!-- <span class="author-block">Institution Name<br>Conferance name and year</span> -->
+                    <span class="eql-cntrb"><small><br><sup>*</sup>Done during an internship at Adobe Research</small></span>
+                    <span class="eql-cntrb"><small><br><sup>1</sup>Koç University</small></span>
+                    <span class="eql-cntrb"><small><sup>2</sup>Adobe Research</small></span>
+                    <span class="eql-cntrb"><small><sup>3</sup>Hacettepe University</small></span>
+                  </div>
+
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                      <!-- <span class="link-block">
+                        <a href="https://arxiv.org/pdf/<ARXIV PAPER ID>.pdf" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Paper</span>
+                      </a>
+                    </span> -->
+
+                    <!-- <span class="link-block">
+                      <a href="static/pdfs/supplementary_material.pdf" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                      </span>
+                      <span>Supplementary</span>
+                    </a>
+                  </span> -->
+
+                  <span class="link-block">
+                    <a href="https://github.com/YOUR REPO HERE" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/<ARXIV PAPER ID>" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video poster="" id="tree" autoplay controls muted loop height="100%">
+        <source src="static/videos/banner_video.mp4"
+        type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        Aliquam vitae elit ullamcorper tellus egestas pellentesque. Ut lacus tellus, maximus vel lectus at, placerat pretium mi. Maecenas dignissim tincidunt vestibulum. Sed consequat hendrerit nisl ut maximus. 
+      </h2>
+    </div>
+  </div>
+</section> -->
+
+<div style="text-align: center;">
+  <figure>
+    <img src="static/images/teaser_figure.jpg" alt="Teaser Figure" style="width:80%;">  
+    <figcaption style="font-size: 7pt; margin-left: 5%; margin-right: 5%;">We present GaussianVideo -- a new Gaussian Splatting framework for representing videos that effectively models in-the-wild videos, while maintaining training efficiency and capturing semantic motions with minimal supervision. (a) We can render the 960x540 video at 93~FPS on an NVIDIA A40 GPU. (b) Our reconstruction PSNR on this video achieves 44.21 compared to NeRV at 29.36, representing a 50.6% improvement. (c) On the DAVIS dataset, our approach balances reconstruction quality with training time (dot size in log scale).</figcaption>
+  </figure>
+</div>
+<br>
+
+<div style="text-align: center;">
+  <figure>
+    <img src="static/images/method_figure.png", alt="Method Figure", style="width:80%"> <br>
+    <figcaption style="font-size: 7pt; margin-left: 5%; margin-right: 5%;">Overview of the GaussianVideo approach for neural video representation. Our method combines 3D Gaussian splatting with continuous camera motion modeling via Neural ODEs to handle dynamic scenes efficiently. The pipeline includes hierarchical learning strategies for both (a) spatial and (b) temporal domains, progressively refining Gaussians to capture fine details and smooth motion.</figcaption>
+  </figure>
+  </div>
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        
+        <h2 class="title is-3">Overview</h2>
+        <div class="content has-text-justified">
+          <p>
+            This webpage highlights the performance of our method through visual comparisons and illustrative examples.
+            <ul>
+              <li><b>Visual Comparisons:</b> Compare our method with GaussianImage, NeRV, and HNeRV across various videos. Use the sliders to view side-by-side renderings and observe the differences in detail and quality.</li>
+              <li><b>Emergent Semantic Tracking:</b> Our model naturally tracks dynamic elements in videos without additional supervision. Each example shows the full reconstruction using our method (left) and a version rendered with only 100K Gaussians, highlighting how Gaussians move in dynamic and static parts of the scene.</li>
+              <li><b>Frame Interpolation:</b> We demonstrate the power of continuous motion representation in GaussianVideo through frame interpolation. The model can interpolate frames at arbitrary timesteps, even those not seen during training. Example videos show the case where we double the original framerate by interpolating between existing frames.</li>
+              <li><b>Spatial Resampling:</b> Due to the use of a explicit spatial representation for the video, we are able to arbitrarily resample different resolutions and different camera viewports.</li>
+              <li><b>Video Stylization:</b> Our approach applies style transfer across entire video sequences. Starting with an edited first frame, the model propagates the style consistently through the video, maintaining structural details as well as temporal coherence.</li>
+            </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+
+<!-- Image carousel -->
+<!-- <section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+       <div class="item">
+        <img src="static/images/carousel1.jpg" alt="MY ALT TEXT"/>
+        <h2 class="subtitle has-text-centered">
+          First image description.
+        </h2>
+      </div>
+      <div class="item">
+        <img src="static/images/carousel2.jpg" alt="MY ALT TEXT"/>
+        <h2 class="subtitle has-text-centered">
+          Second image description.
+        </h2>
+      </div>
+      <div class="item">
+        <img src="static/images/carousel3.jpg" alt="MY ALT TEXT"/>
+        <h2 class="subtitle has-text-centered">
+         Third image description.
+       </h2>
+     </div>
+     <div class="item">
+      <img src="static/images/carousel4.jpg" alt="MY ALT TEXT"/>
+      <h2 class="subtitle has-text-centered">
+        Fourth image description.
+      </h2>
+    </div>
+  </div>
+</div>
+</div>
+</section> -->
+<!-- End image carousel -->
+
+<!-- <section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3">Video Presentation</h2>
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          
+          <div class="publication-video">
+            <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+
+<!-- Video carousel -->
+<!-- <section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3">Another Carousel</h2>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-video1">
+          <video poster="" id="video1" autoplay controls muted loop height="100%">
+            <source src="static/videos/carousel1.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video2">
+          <video poster="" id="video2" autoplay controls muted loop height="100%">
+            <source src="static/videos/carousel2.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video3">
+          <video poster="" id="video3" autoplay controls muted loop height="100%">\
+            <source src="static/videos/carousel3.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+<!-- End video carousel -->
+<section class="hero is-small is-centered">
+  <br>
+
+  <h2 class="title is-3">Ours (Left) vs NeRV (Right) Comparison</h2>
+<div class="comparison-container" style="margin-left: 5%; margin-right: 5%;">
+  <div class="video-comparison" id="videoComparison3">
+      <div class="video-left-wrapper" id="videoLeftWrapper3">
+          <video class="video-left" id="leftVideo3" height="100%" autoplay loop muted>
+              <source src="static/videos/DL3DV_test6_ours.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+          </video>
+      </div>
+      <video class="video-right" id="rightVideo3" width="100%" height="auto" autoplay loop muted>
+          <source src="static/videos/DL3DV_test6_nerv.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+      </video>
+      <div class="slider" id="slider3">
+          <div class="slider-handle"></div>
+      </div>
+  </div>
+  <b>Comparison between our method (left) and NeRV (right) on a video from the DL3DV dataset.</b> Our approach demonstrates superior temporal consistency and preserves sharper edges with finer details. Notably, the trees on the left and right remain crisp and rendered cleanly in our reconstruction, while they appear blurry in the NeRV output.
+</div>
+
+<br>
+
+<div class="comparison-container" style="margin-left: 5%; margin-right: 5%;">
+  <div class="video-comparison" id="videoComparison4">
+      <div class="video-left-wrapper" id="videoLeftWrapper4">
+          <video class="video-left" id="leftVideo4" height="100%" autoplay loop muted>
+              <source src="static/videos/elephant_ours.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+          </video>
+      </div>
+      <video class="video-right" id="rightVideo4" width="100%" height="auto" autoplay loop muted>
+          <source src="static/videos/elephant_nerv.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+      </video>
+      <div class="slider" id="slider4">
+          <div class="slider-handle"></div>
+      </div>
+  </div>
+  <b>Comparison of our method and NeRV on another video from the DL3DV dataset.</b> While NeRV struggles with consistency and fails to reconstruct fine details—such as the wires on the rocks and the intricate features of the elephant—our approach excels, delivering a reconstruction that captures these elements with remarkable clarity and precision.
+</div>
+<br> 
+
+<div class="comparison-container" style="margin-left: 5%; margin-right: 5%;">
+  <div class="video-comparison" id="videoComparison10">
+      <div class="video-left-wrapper" id="videoLeftWrapper10">
+          <video class="video-left" id="leftVideo10" height="100%" autoplay loop muted>
+              <source src="static/videos/parkour_ours.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+          </video>
+      </div>
+      <video class="video-right" id="rightVideo10" width="100%" height="auto" autoplay loop muted>
+          <source src="static/videos/parkour_nerv.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+      </video>
+      <div class="slider" id="slider10">
+          <div class="slider-handle"></div>
+      </div>
+  </div>
+  <b>Comparison of our method and NeRV on yet another video from the DAVIS dataset.</b> NeRV exhibits significant inconsistencies, particularly evident in the lack of detail on the man’s face. In contrast, our method accurately preserves and reconstructs these fine details, demonstrating superior fidelity and consistency.
+</div>
+<br>
+<div class="comparison-container" style="margin-left: 5%; margin-right: 5%;">
+  <div class="video-comparison" id="videoComparison11">
+      <div class="video-left-wrapper" id="videoLeftWrapper11">
+          <video class="video-left" id="leftVideo11" height="100%" autoplay loop muted>
+              <source src="static/videos/boat_ours.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+          </video>
+      </div>
+      <video class="video-right" id="rightVideo11" width="100%" height="auto" autoplay loop muted>
+          <source src="static/videos/boat_nerv.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+      </video>
+      <div class="slider" id="slider11">
+          <div class="slider-handle"></div>
+      </div>
+  </div>
+  <b>Comparison of our method and NeRV on yet another video from the DAVIS dataset.</b> Much of the background of the NeRV video is blurry and inconsistent. Furthermore, many of the details on the top of the ship are also missing or barely visible. Meanwhile, our approach provides clear and detailed reconstructions of the whole scene.
+</div>
+<br>
+<div class="comparison-container" style="margin-left: 5%; margin-right: 5%;">
+  <div class="video-comparison" id="videoComparison12">
+      <div class="video-left-wrapper" id="videoLeftWrapper12">
+          <video class="video-left" id="leftVideo12" height="100%" autoplay loop muted>
+              <source src="static/videos/breakdance_ours.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+          </video>
+      </div>
+      <video class="video-right" id="rightVideo12" width="100%" height="auto" autoplay loop muted>
+          <source src="static/videos/breakdance_nerv.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+      </video>
+      <div class="slider" id="slider12">
+          <div class="slider-handle"></div>
+      </div>
+  </div>
+  <b>Comparison of our method and NeRV on yet another video from the DAVIS dataset.</b> Similar to the parkour video above, much of the detail of the person is missing in the NeRV video, while our method is able to properly reconstruct all of the detail.
+</div>
+</section>
+<section class="hero is-small is-centered  is-light">
+  <br><br>
+
+  <h2 class="title is-3" style="text-align: center;">Ours (Left) vs HNeRV (Right) Comparison</h2>
+  <div class="comparison-container" style="margin-left: 5%; margin-right: 5%;">
+    <div class="video-comparison" id="videoComparison5">
+        <div class="video-left-wrapper" id="videoLeftWrapper5">
+            <video class="video-left" id="leftVideo5" height="100%" autoplay loop muted>
+                <source src="static/videos/camel_ours.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <video class="video-right" id="rightVideo5" width="100%" height="auto" autoplay loop muted>
+            <source src="static/videos/camel_hnerv.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="slider" id="slider5">
+            <div class="slider-handle"></div>
+        </div>
+    </div>
+    <b>Comparison of our method and HNeRV on a video from the DAVIS dataset.</b> Similar to NeRV, HNeRV suffers from consistency issues throughout the video, particularly noticeable around edges and in the details of the bushes and trees in the background. In contrast, our method maintains stable and coherent reconstructions.
+  </div>
+
+  <br>
+
+  <div class="comparison-container" style="margin-left: 5%; margin-right: 5%;">
+    <div class="video-comparison" id="videoComparison6">
+        <div class="video-left-wrapper" id="videoLeftWrapper6">
+            <video class="video-left" id="leftVideo6" height="100%" autoplay loop muted>
+                <source src="static/videos/train_ours.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <video class="video-right" id="rightVideo6" width="100%" height="auto" autoplay loop muted>
+            <source src="static/videos/train_hnerv.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="slider" id="slider6">
+            <div class="slider-handle"></div>
+        </div>
+    </div>
+   <b>Comparison of our method and HNeRV on another video from the DAVIS dataset.</b> HNeRV struggles to render the rocks along the track clearly, resulting in a blurry and indistinct representation. In contrast, our method delivers a sharp and detailed reconstruction of the rocks, highlighting its superior ability to capture fine details.
+  </div>
+  <br>
+
+  <div class="comparison-container" style="margin-left: 5%; margin-right: 5%;">
+    <div class="video-comparison" id="videoComparison8">
+        <div class="video-left-wrapper" id="videoLeftWrapper8">
+            <video class="video-left" id="leftVideo8" height="100%" autoplay loop muted>
+                <source src="static/videos/koala_ours.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <video class="video-right" id="rightVideo8" width="100%" height="auto" autoplay loop muted>
+            <source src="static/videos/koala_hnerv.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="slider" id="slider8">
+            <div class="slider-handle"></div>
+        </div>
+    </div>
+    <b>Comparison of our method and HNeRV on another video from the DAVIS dataset.</b> As with the previous examples, the HNeRV video appears blurrier in several regions and exhibits less overall consistency compared to our method.
+  </div>
+  <br>
+  
+  <div class="comparison-container" style="margin-left: 5%; margin-right: 5%;">
+    <div class="video-comparison" id="videoComparison9">
+        <div class="video-left-wrapper" id="videoLeftWrapper9">
+            <video class="video-left" id="leftVideo9" height="100%" autoplay loop muted>
+                <source src="static/videos/pigs_ours.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <video class="video-right" id="rightVideo9" width="100%" height="auto" autoplay loop muted>
+            <source src="static/videos/pigs_hnerv.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="slider" id="slider9">
+            <div class="slider-handle"></div>
+        </div>
+    </div>
+    <b>Comparison of our method and HNeRV on another video from the DAVIS dataset.</b> The texture of the pigs is rendered more clearly in our video, whereas the HNeRV reconstruction smooths over these details, resulting in a loss of texture and fine features.
+  </div>
+  <br>
+  <div class="comparison-container" style="margin-left: 5%; margin-right: 5%;">
+    <div class="video-comparison" id="videoComparison13">
+        <div class="video-left-wrapper" id="videoLeftWrapper13">
+            <video class="video-left" id="leftVideo13" height="100%" autoplay loop muted>
+                <source src="static/videos/goldfish_ours.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <video class="video-right" id="rightVideo13" width="100%" height="auto" autoplay loop muted>
+            <source src="static/videos/goldfish_hnerv.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="slider" id="slider13">
+            <div class="slider-handle"></div>
+        </div>
+    </div>
+    <b>Comparison of our method and HNeRV on another video from the DAVIS dataset.</b> The HNeRV video is unable to fully reconstruct the fine textures of the fish, such as the scales, while our approach is able to handle very high detail in those locations.
+  </div>
+  </section>
+<script src="static/js/slider_script.js"></script>
+
+<section class="hero is-small is-centered">
+  <br><br>
+
+  <h2 class="title is-3" style="text-align: center;">Ours (Left) vs GaussianImage (Right) Comparison</h2>
+
+<div class="comparison-container" style="margin-left: 5%; margin-right: 5%;">
+  <div class="video-comparison" id="videoComparison2">
+      <div class="video-left-wrapper" id="videoLeftWrapper2">
+          <video class="video-left" id="leftVideo2" height="100%" autoplay loop muted>
+              <source src="static/videos/DL3DV_test4_ours.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+          </video>
+      </div>
+      <video class="video-right" id="rightVideo2" width="100%" height="auto" autoplay loop muted>
+          <source src="static/videos/DL3DV_test4_gaussianimage.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+      </video>
+      <div class="slider" id="slider2">
+          <div class="slider-handle"></div>
+      </div>
+  </div>
+ <b>Comparison of our method and GaussianImage on a video from the DL3DV dataset.</b> The sky in the GaussianImage video exhibits noticeable noise, whereas our method produces a smoother and more uniform sky, reflecting higher reconstruction quality.
+</div>
+<br>
+
+<div class="comparison-container" style="margin-left: 5%; margin-right: 5%;">
+  <div class="video-comparison" id="videoComparison7">
+      <div class="video-left-wrapper" id="videoLeftWrapper7">
+          <video class="video-left" id="leftVideo7" height="100%" autoplay loop muted>
+              <source src="static/videos/blackswan_ours.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+          </video>
+      </div>
+      <video class="video-right" id="rightVideo7" width="100%" height="auto" autoplay loop muted>
+          <source src="static/videos/DAVIS_blackswan_gaussianimage.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+      </video>
+      <div class="slider" id="slider7">
+          <div class="slider-handle"></div>
+      </div>
+  </div>
+  <b>Comparison of our method and GaussianImage on another video from the DAVIS dataset.</b> The concrete side of the water in the GaussianImage video displays noticeable noise, which is absent in our reconstruction, highlighting the superiority of our approach. 
+</div>
+</section>
+
+
+<section class="section hero is-light">
+<div class="container is-max-desktop" style="margin-left: 5%; margin-right: 5%;">
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-fifth-sixths">  
+    <h2 class="title is-3" style="text-align: center;">Semantic Tracking</h2>
+  <div class="column is-fourth-fifth">
+  <div class="content has-text-justified">
+      <p>Our approach demonstrates the ability to semantically track objects across a scene. To visualize this, we subsample 100K Gaussians from the original 400K used per video, shrinking their scaling matrix to a sphere of radius 1 and rendering their motion over time. This subsampling may reduce the visibility of some shapes, but it provides a clearer view of individual Gaussian behavior.
+      </p>
+      <br>
+        <p>
+          The Gaussians effectively remain stationary when representing static objects and exhibit expected semantic motions, such as buildings moving along their corresponding paths. In the campfire video, Gaussians with seemingly random colors—primarily in the sky—represent small-radius Gaussians that contribute to fine details. This behavior results from the use of a high number of Gaussians, emphasizing our method's capability for detailed and semantic motion representation.<br>
+      </p>
+  </div>
+  </div>
+  <br>
+  <div class="center" >
+  <video poster="" autoplay controls muted loop height="100%">
+    <source src="static/videos/campfire_semantic.mp4"
+    type="video/mp4">
+  </video>
+  </div>
+
+  <br>
+  <div class="center" >
+    <video poster="" autoplay controls muted loop height="100%">
+      <source src="static/videos/buildings_semantic.mp4"
+      type="video/mp4">
+    </video>
+    </div>
+      <br>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="section hero is-centered">
+<div class="container is-max-desktop" style="margin-left: 5%; margin-right: 5%;">
+  <div class="columns">
+    <div class="column is-fifth-sixths"> 
+  <h2 class="title is-3" style="text-align: center;">Frame Interpolation</h2>
+  <div>
+  <video poster="" autoplay controls muted loop height="100%">
+    <source src="static/videos/gold_fish_temporal_resampling.mp4"
+    type="video/mp4">
+  </video>
+  </div>
+  <div class="content has-text-justified">
+ <b>Frame interpolation results on a video from the DAVIS dataset.</b> The number of frames is doubled while maintaining the original framerate by interpolating seamlessly between the existing frames, preserving smooth motion and temporal consistency.
+  </div>
+  <br>
+  <div class="content has-text-justified">
+    <video poster="" autoplay controls muted loop height="100%">
+      <source src="static/videos/boat_temporal_resampling.mp4"
+      type="video/mp4">
+    </video>
+    </div>
+    <div class="justified">
+      <b>Frame interpolation results on another video from the DAVIS dataset.</b> The number of frames is doubled by interpolating between the existing frames, ensuring smooth transitions and maintaining the original framerate.
+      </div>
+      <br>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="section hero is-light">
+<div class="container is-max-desktop" style="margin-left: 5%; margin-right: 5%;">
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-fifth-sixths"> 
+  <h2 class="title is-3" style="text-align: center;">Spatial Resampling</h2>
+  <div class="content has-text-justified">
+    <p>Our method's inherent flexibility enables spatial resampling by modifying parameters such as scale, focal length, and principal points. Below, we demonstrate the capability to adjust resolution while preserving sharpness and structural details, even under significant transformations.</p>
+  </div>
+  <div class="center" >
+  <video poster="" autoplay controls muted loop height="100%">
+    <source src="static/videos/goldfish_spatial_resampling.mp4"
+    type="video/mp4">
+  </video>
+  </div>
+  <div class="content has-text-justified">
+  <b>Sample spatial resampling result.</b> The video is spatially resampled by doubling the height while halving the width, effectively demonstrating the flexibility of our method in adjusting resolution without compromising visual quality.</div>
+  <br>
+  <div class="center" >
+    <video poster="" autoplay controls muted loop height="100%">
+      <source src="static/videos/goldfish_spatial_resampling_v2.mp4"
+      type="video/mp4">
+    </video>
+    </div>
+    <div class="content has-text-justified">
+      <b>Another sample spatial resampling result.</b> The video is spatially resampled by doubling both the height and width, demonstrating the ability of our method to handle significant resolution adjustments while maintaining sharpness and detail.
+      </div>
+      <br>
+    </div></div></div>
+</section>
+
+<section class="hero is-small is-centered">
+<div class="container is-max-desktop" style="margin-left: 5%; margin-right: 5%;">
+<div class="columns is-centered has-text-centered">
+  <div class="column is-fifth-sixths"> 
+  <h2 class="title is-3" style="text-align: center;"><br>Video Stylization</h2>
+  <div class="content has-text-justified">
+  <p>
+    The stylization method we use is editing the first frame using an off-the-shelf editing model, and then training with a reconstruction loss against the first frame. Due to this, the editing quality heavily depends on the quality of the edited first frame.</p>
+</div>
+  <br>
+  <div class="center" >
+  <video poster="" autoplay controls muted loop height="100%">
+    <source src="static/videos/goldfish_muddywater_edit.mp4"
+    type="video/mp4">
+  </video>
+  </div>
+  <div class="center">
+  <b>A video stylization result</b>. The original video is edited using the description of making the water muddy.
+  </div>
+  <br>
+  <!-- <div class="center" >
+    <video poster="" autoplay controls muted loop height="100%">
+      <source src="static/videos/goldfish_spatial_resampling_v2.mp4"
+      type="video/mp4">
+    </video>
+    </div>
+    <div class="center">
+      Doubling both the height and width of the same video.
+      </div>
+      <br> -->
+  </div></div></div>
+</section>
+
+<!-- <script>
+  document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('videoComparison1');
+      const slider = document.getElementById('slider1');
+      const videoLeftWrapper = document.getElementById('videoLeftWrapper1');
+      const leftVideo = document.getElementById('leftVideo1');
+      const rightVideo = document.getElementById('rightVideo1');
+
+      function setVideoPosition(x) {
+          const containerWidth = container.offsetWidth;
+          const percentage = (x / containerWidth) * 100;
+          
+          videoLeftWrapper.style.width = `${percentage}%`;
+          slider.style.left = `${percentage}%`;
+      }
+
+      function handleMove(e) {
+          const containerRect = container.getBoundingClientRect();
+          const x = e.clientX - containerRect.left;
+          
+          // Constrain movement within container
+          const constrainedX = Math.max(0, Math.min(x, containerRect.width));
+          
+          setVideoPosition(constrainedX);
+      }
+
+      // Mouse events
+      slider.addEventListener('mousedown', (e) => {
+          e.preventDefault();
+          document.addEventListener('mousemove', handleMove);
+          document.addEventListener('mouseup', () => {
+              document.removeEventListener('mousemove', handleMove);
+          });
+      });
+
+      container.addEventListener('mousemove', handleMove);
+
+      // Ensure both videos play/pause together
+      leftVideo.addEventListener('play', () => {
+          rightVideo.play();
+      });
+      leftVideo.addEventListener('pause', () => {
+          rightVideo.pause();
+      });
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('videoComparison2');
+      const slider = document.getElementById('slider2');
+      const videoLeftWrapper = document.getElementById('videoLeftWrapper2');
+      const leftVideo = document.getElementById('leftVideo2');
+      const rightVideo = document.getElementById('rightVideo2');
+
+      function setVideoPosition(x) {
+          const containerWidth = container.offsetWidth;
+          const percentage = (x / containerWidth) * 100;
+          
+          videoLeftWrapper.style.width = `${percentage}%`;
+          slider.style.left = `${percentage}%`;
+      }
+
+      function handleMove(e) {
+          const containerRect = container.getBoundingClientRect();
+          const x = e.clientX - containerRect.left;
+          
+          // Constrain movement within container
+          const constrainedX = Math.max(0, Math.min(x, containerRect.width));
+          
+          setVideoPosition(constrainedX);
+      }
+
+      // Mouse events
+      slider.addEventListener('mousedown', (e) => {
+          e.preventDefault();
+          document.addEventListener('mousemove', handleMove);
+          document.addEventListener('mouseup', () => {
+              document.removeEventListener('mousemove', handleMove);
+          });
+      });
+
+      container.addEventListener('mousemove', handleMove);
+
+      // Ensure both videos play/pause together
+      leftVideo.addEventListener('play', () => {
+          rightVideo.play();
+      });
+      leftVideo.addEventListener('pause', () => {
+          rightVideo.pause();
+      });
+  });
+</script> -->
+
+
+<!-- Paper poster -->
+<!-- <section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title">Poster</h2>
+
+      <iframe  src="static/pdfs/sample.pdf" width="100%" height="550">
+          </iframe>
+        
+      </div>
+    </div>
+  </section> -->
+<!--End paper poster -->
+
+
+<!--BibTex citation -->
+  <!-- <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>BibTex Code Here</code></pre>
+    </div>
+</section> -->
+<!--End BibTex citation -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+  </body>
+  </html>
