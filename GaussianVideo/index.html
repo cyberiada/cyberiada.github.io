@@ -53,13 +53,13 @@
   <style>
     .comparison-container {
         position: relative;
-        max-width: 800px;
+        max-width: 90%;
         margin: 0 auto;
         overflow: hidden;
         user-select: none;
     }
     .video-comparison {
-        display: flex;
+        /* display: flex; */
         position: relative;
         width: 100%;
     }
@@ -211,7 +211,7 @@
 <div style="text-align: center;">
   <figure>
     <img src="static/images/teaser_figure.jpg" alt="Teaser Figure" style="width:80%;">  
-    <figcaption style="font-size: 7pt; margin-left: 5%; margin-right: 5%;">We present GaussianVideo -- a new Gaussian Splatting framework for representing videos that effectively models in-the-wild videos, while maintaining training efficiency and capturing semantic motions with minimal supervision. (a) We can render the 960x540 video at 93~FPS on an NVIDIA A40 GPU. (b) Our reconstruction PSNR on this video achieves 44.21 compared to NeRV at 29.36, representing a 50.6% improvement. (c) On the DAVIS dataset, our approach balances reconstruction quality with training time (dot size in log scale).</figcaption>
+    <figcaption style="font-size: 11pt; font-weight: bold; margin-left: 5%; margin-right: 5%;">We present GaussianVideo -- a new Gaussian Splatting framework for representing videos that effectively models in-the-wild videos, while maintaining training efficiency and capturing semantic motions with minimal supervision. (a) We can render the 960x540 video at 93~FPS on an NVIDIA A40 GPU. (b) Our reconstruction PSNR on this video achieves 44.21 compared to NeRV at 29.36, representing a 50.6% improvement. (c) On the DAVIS dataset, our approach balances reconstruction quality with training time (dot size in log scale).</figcaption>
   </figure>
 </div>
 <br>
@@ -219,7 +219,7 @@
 <div style="text-align: center;">
   <figure>
     <img src="static/images/method_figure.png", alt="Method Figure", style="width:80%"> <br>
-    <figcaption style="font-size: 7pt; margin-left: 5%; margin-right: 5%;">Overview of the GaussianVideo approach for neural video representation. Our method combines 3D Gaussian splatting with continuous camera motion modeling via Neural ODEs to handle dynamic scenes efficiently. The pipeline includes hierarchical learning strategies for both (a) spatial and (b) temporal domains, progressively refining Gaussians to capture fine details and smooth motion.</figcaption>
+    <figcaption style="font-size: 11pt; font-weight: bold; margin-left: 5%; margin-right: 5%;">Overview of the GaussianVideo approach for neural video representation. Our method combines 3D Gaussian splatting with continuous camera motion modeling via Neural ODEs to handle dynamic scenes efficiently. The pipeline includes hierarchical learning strategies for both (a) spatial and (b) temporal domains, progressively refining Gaussians to capture fine details and smooth motion.</figcaption>
   </figure>
   </div>
 <!-- Paper abstract -->
@@ -328,7 +328,7 @@
   </div>
 </section> -->
 <!-- End video carousel -->
-<section class="hero is-small is-centered">
+<section class="hero is-small is-centered" style="text-align: center;">
   <br>
 
   <h2 class="title is-3">Ours (Left) vs NeRV (Right) Comparison</h2>
@@ -582,7 +582,7 @@
 
 
 <section class="section hero is-light">
-<div class="container is-max-desktop" style="margin-left: 5%; margin-right: 5%;">
+<div class="container is-max-desktop">
   <div class="columns is-centered has-text-centered">
     <div class="column is-fifth-sixths">  
     <h2 class="title is-3" style="text-align: center;">Semantic Tracking</h2>
@@ -618,7 +618,7 @@
 </section>
 
 <section class="section hero is-centered">
-<div class="container is-max-desktop" style="margin-left: 5%; margin-right: 5%;">
+<div class="container is-max-desktop">
   <div class="columns">
     <div class="column is-fifth-sixths"> 
   <h2 class="title is-3" style="text-align: center;">Frame Interpolation</h2>
@@ -648,7 +648,7 @@
 </section>
 
 <section class="section hero is-light">
-<div class="container is-max-desktop" style="margin-left: 5%; margin-right: 5%;">
+<div class="container is-max-desktop">
   <div class="columns is-centered has-text-centered">
     <div class="column is-fifth-sixths"> 
   <h2 class="title is-3" style="text-align: center;">Spatial Resampling</h2>
@@ -678,7 +678,7 @@
 </section>
 
 <section class="hero is-small is-centered">
-<div class="container is-max-desktop" style="margin-left: 5%; margin-right: 5%;">
+<div class="container is-max-desktop">
 <div class="columns is-centered has-text-centered">
   <div class="column is-fifth-sixths"> 
   <h2 class="title is-3" style="text-align: center;"><br>Video Stylization</h2>
