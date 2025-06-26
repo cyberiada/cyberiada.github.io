@@ -4,30 +4,32 @@
   <meta charset="utf-8">
   <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
   <!-- Replace the content tag with appropriate information -->
-  <meta name="description" content="DESCRIPTION META TAG">
-  <meta property="og:title" content="SOCIAL MEDIA TITLE TAG"/>
-  <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION TAG TAG"/>
+  <meta name="description" content="TanDiT: A method for high-quality 360° panorama generation using a Tangent-Plane Diffusion Transformer.">
+  <meta property="og:title" content="TanDiT: Tangent-Plane Diffusion Transformer for High-Quality 360° Panorama Generation"/>
+  <meta property="og:description" content="We introduce TanDiT, a method that synthesizes panoramic scenes by generating grids of tangent-plane images covering the entire 360° view, leveraging a unified diffusion model."/>
   <meta property="og:url" content="URL OF THE WEBSITE"/>
   <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
-  <meta property="og:image" content="./static/image/your_banner_image.png" />
+  <meta property="og:image" content="./static/images/TanDiT-Training.png" />
   <meta property="og:image:width" content="1200"/>
   <meta property="og:image:height" content="630"/>
 
 
-  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
-  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
+  <meta name="twitter:title" content="TanDiT: Tangent-Plane Diffusion Transformer for High-Quality 360° Panorama Generation">
+  <meta name="twitter:description" content="We introduce TanDiT, a method for high-quality 360° panorama generation.">
   <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
-  <meta name="twitter:image" content="./static/images/your_twitter_banner_image.png">
+  <meta name="twitter:image" content="./static/images/TanDiT-Training.png">
   <meta name="twitter:card" content="summary_large_image">
   <!-- Keywords for your paper to be indexed by-->
-  <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
+  <meta name="keywords" content="360° panorama generation, diffusion models, transformers, generative models, computer vision, deep learning">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-  <title>Academic Project Page</title>
+  <title>TanDiT: High-Quality 360° Panorama Generation</title>
   <link rel="icon" type="image/x-icon" href="./static/images/favicon.ico">
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-  rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
 
   <link rel="stylesheet" href="./static/css/bulma.min.css">
   <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
@@ -47,121 +49,434 @@
   <link rel="stylesheet" href="./static/css/pannellum.css">
 
   <style>
+    :root {
+      --font-serif: 'PT Serif', serif;
+      --font-sans: 'Inter', sans-serif;
+
+      --color-bg-main: #f9f7f5; /* Lighter sand */
+      --color-bg-alt: #f5f2ef; /* Stone */
+      --color-text-main: #4a4a4a; /* Darker charcoal for better readability */
+      --color-text-heading: #2c2c2c;
+      --color-accent: #8a7967; /* Muted clay */
+      --color-accent-dark: #746554;
+      --color-border: #e5e0db;
+      --color-white: #ffffff;
+    }
+
+    body {
+        background-color: var(--color-bg-main);
+        color: var(--color-text-main);
+        font-family: var(--font-sans);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .title, .subtitle, h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-serif);
+        color: var(--color-text-heading);
+        font-weight: 700;
+    }
+
+    .content h2, .content h3 {
+        margin-top: 2.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .content p, .content li {
+        font-family: var(--font-sans);
+        line-height: 1.8;
+        max-width: 75ch; /* Optimal line width for readability */
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    a {
+        color: var(--color-accent);
+        text-decoration: none;
+        transition: color 0.3s ease;
+        font-weight: 500;
+    }
+
+    a:hover {
+        color: var(--color-accent-dark);
+        text-decoration: underline;
+    }
+    
+    .hero {
+        background-color: transparent;
+    }
+
+    .hero.is-light {
+        background-color: var(--color-bg-alt);
+    }
+
+    .section {
+        padding: 4rem 1.5rem;
+    }
+
+    .publication-title {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+    }
+
+    .publication-authors {
+        color: var(--color-text-main);
+        font-family: var(--font-sans);
+    }
+
+    .publication-links {
+        margin-top: 1.5rem;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .publication-links .button {
+        background-color: transparent;
+        border: 2px solid var(--color-accent);
+        color: var(--color-accent);
+        font-family: var(--font-sans);
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border-radius: 8px; /* Softer corners */
+    }
+
+    .publication-links .button:hover {
+        background-color: var(--color-accent);
+        color: var(--color-white);
+    }
+
+    .publication-links .button .icon {
+        color: var(--color-accent);
+        transition: color 0.3s ease;
+    }
+
+    .publication-links .button:hover .icon {
+        color: var(--color-white);
+    }
+
+    /* Abstract and other content sections */
+    .hero .content {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    /* Panorama Section Styling */
     .panorama-container {
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin: 20px 0;
+      margin: 2rem 0;
+      width: 100%;
     }
 
     .panorama-viewer {
-      width: 800px;
-      height: 400px;
-      border-radius: 10px;
+      width: 100%;
+      max-width: 1000px; /* Wider viewer */
+      height: 500px;
+      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      margin-bottom: 2rem;
+      border: 1px solid var(--color-border);
     }
 
     .panorama-controls {
       display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-bottom: 10px;
+      gap: 12px;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      margin-bottom: 2rem;
+      overflow-x: auto;
+      padding: 5px 0 15px 0; /* Add top padding for hover effect, bottom for scrollbar */
+      width: 100%;
+      max-width: 1000px; /* Match viewer width */
+      -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    }
+
+    /* Custom Scrollbar */
+    .panorama-controls::-webkit-scrollbar {
+      height: 8px;
+    }
+    .panorama-controls::-webkit-scrollbar-track {
+      background: var(--color-bg-alt);
+      border-radius: 10px;
+    }
+    .panorama-controls::-webkit-scrollbar-thumb {
+      background-color: var(--color-border);
+      border-radius: 10px;
+    }
+    .panorama-controls::-webkit-scrollbar-thumb:hover {
+      background-color: var(--color-accent);
     }
 
     .panorama-btn {
-      background-color: #3273dc;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
+      background-color: transparent;
+      color: var(--color-accent);
+      border: 1px solid var(--color-border);
+      padding: 8px 16px;
+      border-radius: 8px;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 13px;
+      font-family: var(--font-sans);
+      font-weight: 500;
       transition: all 0.3s ease;
-    }
-
-    .prompt-text {
-      font-style: italic;
-      color: #4a4a4a;
-      line-height: 1.5;
-      font-size: 15px;
-    }
-
-    .prompt-text-2 {
-      font-style: italic;
-      color: #4a4a4a;
-      line-height: 1.5;
-      font-size: 15px;
-    }
-
-    .prompt-description {
-      background-color: #f8f9fa;
-      border-left: 4px solid #3273dc;
-      padding: 15px 20px;
-      margin: 10px 0 20px 0;
-      border-radius: 0 8px 8px 0;
-      max-width: 800px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .prompt-label {
-      font-weight: bold;
-      color: #3273dc;
-      font-size: 14px;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      white-space: nowrap; /* Prevent text wrapping */
+      flex-shrink: 0; /* Prevent buttons from shrinking */
     }
 
     .panorama-btn:hover {
-      background-color: #2366d1;
+      background-color: var(--color-bg-alt);
+      border-color: var(--color-accent);
       transform: translateY(-2px);
     }
 
     .panorama-btn.active {
-      background-color: #23d160;
+      background-color: var(--color-accent);
+      color: var(--color-white);
+      border-color: var(--color-accent);
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
-    .panorama-btn:disabled {
-      background-color: #dbdbdb;
-      cursor: not-allowed;
-      transform: none;
+    .prompt-description {
+      background-color: var(--color-bg-alt);
+      border-left: 4px solid var(--color-accent);
+      padding: 20px 25px;
+      margin: 10px 0 20px 0;
+      border-radius: 0 8px 8px 0;
+      max-width: 1000px;
+      width: 100%;
+      box-sizing: border-box;
+      text-align: left;
+    }
+
+    .prompt-label {
+      font-weight: bold;
+      color: var(--color-accent-dark);
+      font-size: 12px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .prompt-text, .prompt-text-2 {
+        font-style: normal;
+        font-family: var(--font-sans);
+        color: var(--color-text-main);
+        line-height: 1.7;
+        font-size: 15px;
+    }
+    .prompt-text-2 {
+      font-weight: bold;
     }
 
     .section-title {
       text-align: center;
-      margin-bottom: 20px;
-      font-size: 1.5rem;
-      font-weight: bold;
+      margin-bottom: 3rem;
+      font-size: 2rem;
     }
 
-    @media screen and (max-width: 768px) {
-      .panorama-viewer {
+    /* Alternating section backgrounds */
+    .section.results-section {
+        background-color: var(--color-bg-main);
+    }
+    .section.baseline-section,
+    .section.ood-section,
+    .section.style-section {
+        background-color: var(--color-bg-alt);
+    }
+    #BibTeX.section {
+      background-color: var(--color-bg-main);
+    }
+
+    .footer {
+        background-color: var(--color-bg-alt);
+        padding: 3rem 1.5rem;
+        color: var(--color-text-main);
+        font-size: 0.9rem;
+    }
+    .footer .content p {
+        font-size: 0.9rem;
+        max-width: none;
+    }
+    .footer a {
+        color: var(--color-accent-dark);
+        font-weight: 600;
+    }
+
+    /* FANCY STUFF */
+
+    /* Sticky Header */
+    .header-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1rem 2rem;
+      transition: background-color 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header-nav.is-scrolled {
+      background-color: rgba(249, 247, 245, 0.85); /* Semi-transparent background */
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .nav-title {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--color-text-heading);
+    }
+    .nav-links a {
+      font-family: var(--font-sans);
+      font-weight: 500;
+      font-size: 0.95rem;
+      margin-left: 1.5rem;
+      color: var(--color-text-main);
+      position: relative;
+      padding-bottom: 4px;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--color-accent);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover::after {
         width: 100%;
-        max-width: 600px;
-        height: 300px;
-      }
-      
-      .panorama-btn {
-        padding: 8px 16px;
-        font-size: 12px;
-      }
+    }
 
-      .prompt-description {
-        max-width: 100%;
-        margin: 10px 15px 20px 15px;
-        padding: 12px 15px;
-      }
+    /* Nav Dropdown */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: rgba(249, 247, 245, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      min-width: 200px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+      z-index: 1;
+      border-radius: 8px;
+      padding: 0.5rem 0;
+      /* margin-top: 8px; */
+      top: 100%;
+    }
+    .dropdown-content a {
+      color: var(--color-text-main);
+      padding: 10px 20px;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+      margin-left: 0;
+      font-size: 0.9rem;
+    }
+    .dropdown-content a::after {
+        display: none; /* No underline in dropdown */
+    }
+    .dropdown-content a:hover {
+      background-color: var(--color-bg-alt);
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    .nav-links .dropdown > a {
+      cursor: default;
+    }
+    .nav-links .dropdown > a::after {
+      display: none; /* No underline for dropdown parent */
+    }
 
-      .prompt-text {
-        font-size: 14px;
-      }
-      .prompt-text-2 {
-        font-size: 14px;
-      }
+    /* Revert Hero Styles */
+    .hero .publication-title, .hero .publication-authors {
+        color: var(--color-text-heading);
+    }
+    .hero .publication-authors {
+        color: var(--color-text-main);
+    }
+    .hero .publication-links .button {
+        background-color: transparent;
+        border-color: var(--color-accent);
+        color: var(--color-accent);
+    }
+    .hero .publication-links .button:hover {
+        background-color: var(--color-accent);
+        color: var(--color-white);
+    }
+    .hero .publication-links .button .icon {
+        color: var(--color-accent);
+    }
+    .hero .publication-links .button:hover .icon {
+        color: var(--color-white);
+    }
+
+    /* Scroll Animations */
+    .fade-in-section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .fade-in-section.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero:not(.is-light) .hero-body {
+      padding-top: 8rem;
+    }
+
+    /* Panorama Navigation Arrows */
+    .controls-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      width: 100%;
+      max-width: 1100px;
+      margin-bottom: 2rem;
+    }
+
+    .nav-arrow {
+      background-color: transparent;
+      border: 1px solid var(--color-border);
+      color: var(--color-accent);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+
+    .nav-arrow:hover {
+      background-color: var(--color-accent);
+      color: var(--color-white);
+      border-color: var(--color-accent);
+      transform: scale(1.1);
+    }
+    
+    .panorama-controls {
+      flex: 1;
+      min-width: 0;
+      margin-bottom: 0 !important; /* Override Bulma */
     }
   </style>
 
@@ -181,7 +496,7 @@
   ];
 
   ood_prompts = [
-    "vibrant fireworks burst across the night sky, painting the heavens with shimmering trails of vivid colors. some fireworks transform into heart shapes before fading, adding a touch of elegance to the display. the camera focuses on explosive arcs and sparkling embers, capturing every brilliant flash against an infinite, celestial canvas. the city’s skyline stretches below, clearly visible as vibrant fireworks light up the night sky. the fireworks burst in various colors, scattering across the air, while their reflections shimmer on the glass windows of skyscrapers. the camera smoothly pans across the city, capturing the river and bridges, with distant car lights creating a flowing effect. a breathtaking city skyline stretches below, illuminated by countless lights reflecting off towering skyscrapers. the camera smoothly pans across the landscape, revealing a river winding through the metropolis and bridges glowing under streetlights. distant car headlights flow like streams of light, adding a dynamic rhythm to the urban nightscape.",
+    "vibrant fireworks burst across the night sky, painting the heavens with shimmering trails of vivid colors. some fireworks transform into heart shapes before fading, adding a touch of elegance to the display. the camera focuses on explosive arcs and sparkling embers, capturing every brilliant flash against an infinite, celestial canvas. the city's skyline stretches below, clearly visible as vibrant fireworks light up the night sky. the fireworks burst in various colors, scattering across the air, while their reflections shimmer on the glass windows of skyscrapers. the camera smoothly pans across the city, capturing the river and bridges, with distant car lights creating a flowing effect. a breathtaking city skyline stretches below, illuminated by countless lights reflecting off towering skyscrapers. the camera smoothly pans across the landscape, revealing a river winding through the metropolis and bridges glowing under streetlights. distant car headlights flow like streams of light, adding a dynamic rhythm to the urban nightscape.",
     "An expansive alien jungle glows with neon blue and green lights, with bioluminescent plants and floating spores. The stars are vivid and large across the night sky. In the distance, mysterious alien structures rise, partially hidden by glowing mist.",
     "Dozens of lush, floating islands drift above a calm, sparkling sea, some with waterfalls cascading off them. Sky bridges and airships connect the islands. In the distance, a massive central floating city glows with golden light beneath a vibrant sky.",
     "Rope bridges, huts, and platforms are woven through enormous ancient trees. Lanterns hang from branches, illuminating the foggy rainforest below. Monkeys and parrots move through the canopy alongside villagers.",
@@ -195,14 +510,14 @@
     "an upward view of the night sky. soft moonlight filters through wispy clouds, casting a serene glow over the winter landscape. from the snowy fields, a view toward a peaceful village nestled among snow-covered hills. warm lights glow from the windows of small wooden cabins, contrasting with the crisp, cold air under the moonlit sky. a high-angle view of snow-covered paths winding through the landscape. the fresh snow glistens under the moonlight, while the warm glow of lanterns and fireplaces reflects off the frosty roads, creating a cozy contrast against the cold night.",
     "an upward view from underwater, looking towards the surface where sunlight beams penetrate the clear ocean. gentle ripples create a shimmering effect, and the water transitions from deep blue to a lighter, almost turquoise hue near the surface. the light refracts beautifully, creating a dreamlike underwater glow. a stunning underwater scene filled with vibrant tropical fish swimming gracefully through the crystal-clear water. various species, from small neon-colored fish to larger, elegant ones, move in harmony. the environment is serene, with the water gently flowing and reflecting the sunlight from above. the clarity of the water highlights the intricate details of the marine life. a breathtaking top-down view of a colorful tropical coral reef. the ocean floor is covered with vibrant corals, ranging from bright orange and pink to deep purple and blue. small fish dart between the coral formations, while gentle waves create a mesmerizing play of light and shadow on the seabed. the details of the marine ecosystem are incredibly vivid, showing the beauty of underwater biodiversity.",
     "an upward view of the vast night sky above an open field, with scattered fireflies drifting gently, their faint glows blending with distant stars. a serene nighttime meadow, where countless fireflies flicker softly, casting a warm, golden light that dances over the swaying grass and wildflowers. a dramatic top-down view of a vast open field grass, where waves of grass ripple in the night breeze, dotted with countless fireflies drifting just above, their soft glow flickering across the landscape.",
-    "vibrant fireworks burst across the night sky, painting the heavens with shimmering trails of vivid colors. some fireworks transform into heart shapes before fading, adding a touch of elegance to the display. the camera focuses on explosive arcs and sparkling embers, capturing every brilliant flash against an infinite, celestial canvas. the city’s skyline stretches below, clearly visible as vibrant fireworks light up the night sky. the fireworks burst in various colors, scattering across the air, while their reflections shimmer on the glass windows of skyscrapers. the camera smoothly pans across the city, capturing the river and bridges, with distant car lights creating a flowing effect. a breathtaking city skyline stretches below, illuminated by countless lights reflecting off towering skyscrapers. the camera smoothly pans across the landscape, revealing a river winding through the metropolis and bridges glowing under streetlights. distant car headlights flow like streams of light, adding a dynamic rhythm to the urban nightscape.",
+    "vibrant fireworks burst across the night sky, painting the heavens with shimmering trails of vivid colors. some fireworks transform into heart shapes before fading, adding a touch of elegance to the display. the camera focuses on explosive arcs and sparkling embers, capturing every brilliant flash against an infinite, celestial canvas. the city's skyline stretches below, clearly visible as vibrant fireworks light up the night sky. the fireworks burst in various colors, scattering across the air, while their reflections shimmer on the glass windows of skyscrapers. the camera smoothly pans across the city, capturing the river and bridges, with distant car lights creating a flowing effect. a breathtaking city skyline stretches below, illuminated by countless lights reflecting off towering skyscrapers. the camera smoothly pans across the landscape, revealing a river winding through the metropolis and bridges glowing under streetlights. distant car headlights flow like streams of light, adding a dynamic rhythm to the urban nightscape.",
     "an upward view of the vast night sky above an open field, with scattered fireflies drifting gently, their faint glows blending with distant stars. a serene nighttime meadow, where countless fireflies flicker softly, casting a warm, golden light that dances over the swaying grass and wildflowers. a dramatic top-down view of a vast open field grass, where waves of grass ripple in the night breeze, dotted with countless fireflies drifting just above, their soft glow flickering across the landscape.",
-    "A densely packed, glittering cityscape illuminates the night, with high-rise buildings of varying heights and architectural styles glowing against a deep, dark blue sky. Behind the city, a continuous stretch of silhouetted mountains forms a textured backdrop, their dark forms extending from one end of the horizon to the other. The right side reveals a slightly brighter edge where distant city lights contrast subtly with the mountain’s darkness, while the left fades into an even more obscure and undetailed range. Above, faint cloud formations drift across the expansive sky, barely visible except where they catch dim ambient light. Below, the still water of the bay mirrors the city lights in shimmering detail—most intense near the buildings and slowly dissolving into darkness as the reflections ripple outward.",
+    "A densely packed, glittering cityscape illuminates the night, with high-rise buildings of varying heights and architectural styles glowing against a deep, dark blue sky. Behind the city, a continuous stretch of silhouetted mountains forms a textured backdrop, their dark forms extending from one end of the horizon to the other. The right side reveals a slightly brighter edge where distant city lights contrast subtly with the mountain's darkness, while the left fades into an even more obscure and undetailed range. Above, faint cloud formations drift across the expansive sky, barely visible except where they catch dim ambient light. Below, the still water of the bay mirrors the city lights in shimmering detail—most intense near the buildings and slowly dissolving into darkness as the reflections ripple outward.",
     "An expansive alien jungle glows with neon blue and green lights, with bioluminescent plants and floating spores. The stars are vivid and large across the night sky. In the distance, mysterious alien structures rise, partially hidden by glowing mist.",
     "Dozens of lush, floating islands drift above a calm, sparkling sea, some with waterfalls cascading off them. Sky bridges and airships connect the islands. In the distance, a massive central floating city glows with golden light beneath a vibrant sky.",
     "Dozens of lush, floating islands drift above a calm, sparkling sea, some with waterfalls cascading off them. Sky bridges and airships connect the islands. In the distance, a massive central floating city glows with golden light beneath a vibrant sky.",
-    "A sprawling open-air marketplace surrounded by brass-and-iron towers, steam-powered machinery, and airships docked overhead. Merchants in vintage clothing sell exotic goods. Dragons roost on the towers in the distance, integrated into the city’s ecosystem.",
-    "A sprawling open-air marketplace surrounded by brass-and-iron towers, steam-powered machinery, and airships docked overhead. Merchants in vintage clothing sell exotic goods. Dragons roost on the towers in the distance, integrated into the city’s ecosystem.",
+    "A sprawling open-air marketplace surrounded by brass-and-iron towers, steam-powered machinery, and airships docked overhead. Merchants in vintage clothing sell exotic goods. Dragons roost on the towers in the distance, integrated into the city's ecosystem.",
+    "A sprawling open-air marketplace surrounded by brass-and-iron towers, steam-powered machinery, and airships docked overhead. Merchants in vintage clothing sell exotic goods. Dragons roost on the towers in the distance, integrated into the city's ecosystem.",
     "A cosmic war zone littered with broken spacecraft, enormous alien bones, and crystallized shockwaves suspended in midair. Strange purple plants grow through the wreckage. The sky glows with multiple moons and distant fire trails.",
     "A panoramic arctic scene with a vast cracked ice sheet stretching to the horizon. Jagged icebergs catch the glow of vibrant auroras overhead. A lone research station glows warmly in the distance.",
     "A winding panoramic street filled with costumed dancers, floating animals, and surreal structures shaped like musical instruments. The sky blends rainbow clouds and starlight. Giant puppets tower above the crowd, operated by unseen forces.",
@@ -256,7 +571,7 @@
       "autoLoad": true,
       "compass": true,
       "northOffset": 0,
-      "autoRotate": -15,
+      "autoRotate": -2,
       "yaw": 180
     });
 
@@ -304,7 +619,7 @@
         "autoLoad": true,
         "compass": true,
         "northOffset": 0,
-        "autoRotate": -15,
+        "autoRotate": -2,
         "yaw": 180
       });
     } else {
@@ -329,10 +644,117 @@
       }
     });
   });
+
+  // FANCY STUFF SCRIPT
+  document.addEventListener('DOMContentLoaded', function() {
+    // Sticky Header
+    const nav = document.querySelector('.header-nav');
+    if (nav) {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          nav.classList.add('is-scrolled');
+        } else {
+          nav.classList.remove('is-scrolled');
+        }
+      });
+    }
+
+    // Scroll Animations
+    const sections = document.querySelectorAll('.fade-in-section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // Panorama Arrow Navigation
+    function handleNavArrowClick(event) {
+      const button = event.target.closest('.nav-arrow');
+      if (!button) return;
+
+      const viewerId = button.dataset.viewer;
+      const direction = button.classList.contains('prev-btn') ? -1 : 1;
+
+      const controlsContainer = document.querySelector(`.controls-wrapper [data-viewer="${viewerId}"]`).closest('.controls-wrapper').querySelector('.panorama-controls');
+      if (!controlsContainer) return;
+
+      const allButtons = Array.from(controlsContainer.querySelectorAll('.panorama-btn'));
+      const activeButton = controlsContainer.querySelector('.panorama-btn.active');
+      
+      if (!activeButton || allButtons.length === 0) return;
+
+      const currentIndex = allButtons.indexOf(activeButton);
+      let nextIndex = currentIndex + direction;
+
+      if (nextIndex < 0) {
+        nextIndex = allButtons.length - 1;
+      } else if (nextIndex >= allButtons.length) {
+        nextIndex = 0;
+      }
+
+      const nextButton = allButtons[nextIndex];
+      if (nextButton) {
+        nextButton.click();
+        // Scroll the button into view without scrolling the page
+        const containerWidth = controlsContainer.clientWidth;
+        const buttonLeft = nextButton.offsetLeft;
+        const buttonWidth = nextButton.clientWidth;
+
+        const newScrollLeft = buttonLeft - (containerWidth / 2) + (buttonWidth / 2);
+
+        controlsContainer.scrollTo({
+          left: newScrollLeft,
+          behavior: 'smooth'
+        });
+      }
+    }
+
+    document.addEventListener('click', handleNavArrowClick);
+  });
+  </script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-THKZCZQJPZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-THKZCZQJPZ');
   </script>
 </head>
 <body>
 
+  <nav class="header-nav">
+    <div class="nav-title">
+      TanDiT
+    </div>
+    <div class="nav-links">
+      <a href="#abstract">Abstract</a>
+      <a href="#training-overview">Training</a>
+      <a href="#inference-overview">Inference</a>
+      <div class="dropdown">
+        <a href="#panoramas">Panoramas <i class="fas fa-caret-down fa-xs" style="margin-left: 4px;"></i></a>
+        <div class="dropdown-content">
+          <a href="#panoramas">In-Domain Panoramas</a>
+          <a href="#baseline-comparisons">Baseline Comparisons</a>
+          <a href="#ood-panoramas">Out-of-Domain Panoramas</a>
+          <a href="#stylized-panoramas">Stylized Panoramas</a>
+        </div>
+      </div>
+      <a href="#BibTeX">Citation</a>
+      <a href="https://github.com/YOUR REPO HERE" target="_blank">Code <i class="fas fa-external-link-alt fa-xs"></i></a>
+    </div>
+  </nav>
 
   <section class="hero">
     <div class="hero-body">
@@ -348,10 +770,10 @@
                 <span class="author-block">
                   <a href="https://abond19.github.io">Andrew Bond</a><sup>*</sup><sup>1</sup>,</span>
                   <span class="author-block">
-                    <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Muhammed Burak Kizil</a><sup>1</sup>,
+                    <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Muhammed Burak Kızıl</a><sup>1</sup>,
                   </span>
                   <span class="author-block">
-                    <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Emir Göçen</a><sup>1</sup>,
+                    <a href="https://www.linkedin.com/in/egocen/" target="_blank">Emir Göcen</a><sup>1</sup>,
                   </span>
                   <span class="author-block">
                     <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Erkut Erdem</a>,<sup>2</sup>
@@ -420,14 +842,14 @@
 </section>
 
 <!-- Paper abstract -->
-<section class="section hero is-light">
+<section id="abstract" class="section hero is-light fade-in-section">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Recent advances in image generation have led to remarkable improvements in synthesizing perspective images. However, these models still struggle with panoramic image generation due to unique challenges, including varying levels of geometric distortion and the requirement for seamless loop-consistency. To address these issues while leveraging the strengths of the existing models, we introduce TanDiT, a method that synthesizes panoramic scenes by generating grids of tangent-plane images covering the entire 360&deg; view. Unlike previous methods relying on multiple diffusion branches, TanDiT utilizes a unified diffusion model trained to produce these tangent-plane images simultaneously within a single denoising iteration. Furthermore, we propose a model-agnostic post-processing step specifically designed to enhance global coherence across the generated panoramas. To accurately assess panoramic image quality, we also present two specialized metrics, TangentIS and TangentFID, and provide a comprehensive benchmark comprising captioned panoramic datasets and standardized evaluation scripts. Extensive experiments demonstrate that our method generalizes effectively beyond its training data, robustly interprets detailed and complex text prompts, and seamlessly integrates with various generative models to yield high-quality, diverse panoramic images.
+            Recent advances in image generation have led to remarkable improvements in synthesizing perspective images. However, these models still struggle with panoramic image generation due to unique challenges, including varying levels of geometric distortion and the requirement for seamless loop-consistency. To address these issues while leveraging the strengths of the existing models, we introduce <strong>TanDiT</strong>, a method that synthesizes panoramic scenes by generating grids of tangent-plane images covering the entire 360&deg; view. Unlike previous methods relying on multiple diffusion branches, TanDiT utilizes a unified diffusion model trained to produce these tangent-plane images simultaneously within a single denoising iteration. Furthermore, we propose a model-agnostic post-processing step specifically designed to enhance global coherence across the generated panoramas. To accurately assess panoramic image quality, we also present two specialized metrics, TangentIS and TangentFID, and provide a comprehensive benchmark comprising captioned panoramic datasets and standardized evaluation scripts. Extensive experiments demonstrate that our method generalizes effectively beyond its training data, robustly interprets detailed and complex text prompts, and seamlessly integrates with various generative models to yield high-quality, diverse panoramic images.
           </p>
         </div>
       </div>
@@ -436,36 +858,44 @@
 </section>
 <!-- End paper abstract -->
 
-<section class="hero is-small is-light">
+<section id="training-overview" class="hero is-small is-light fade-in-section">
   <div class="hero-body">
     <div class="container">
       <h2 class="title">Training Overview</h2>
 
-      <img src="static/images/TanDiT-Training.png">
+      <img src="static/images/TanDiT-Training.png" alt="Diagram of the TanDiT training process">
 
-      <i>Our method starts by decomposing a 360$^\circ$ panoramic image into a structured grid of tangent-plane projections via gnomonic projection. These projections are arranged into a single coherent grid image, ensuring adjacent placement of overlapping regions for spatial consistency. Given a dense textual caption describing the scene, the model is trained to reconstruct this grid using a standard denoising diffusion objective in the latent space.</i>
+      <div class="content has-text-centered" style="margin-top: 1rem;">
+      <i>Our method starts by decomposing a 360&deg; panoramic image into a structured grid of tangent-plane projections via gnomonic projection. These projections are arranged into a single coherent grid image, ensuring adjacent placement of overlapping regions for spatial consistency. Given a dense textual caption describing the scene, the model is trained to reconstruct this grid using a standard denoising diffusion objective in the latent space.</i>
+      </div>
       </div>
     </div>
   </section>
 
-  <section class="hero is-small is-light">
+  <section id="inference-overview" class="hero is-small is-light fade-in-section">
     <div class="hero-body">
       <div class="container">
         <h2 class="title">Inference Overview</h2>
   
-        <img src="static/images/TanDiT-Inference.png">
+        <img src="static/images/TanDiT-Inference.png" alt="Diagram of the TanDiT inference process">
   
         
+        <div class="content has-text-centered" style="margin-top: 1rem;">
         <i>At inference time, TanDiT first generates a grid of tangent views conditioned on a text prompt. These tangent views are enhanced using a super-resolution module and then reprojected to form an intermediate equirectangular panorama. To further improve global coherence and visual quality, the latent representation of this panorama is perturbed with noise and refined by a pre-trained DiT model, conditioned on the same text input, producing the final high-resolution 360&deg; image.</i>
+        </div>
         </div>
       </div>
     </section>
 
 
-<section class="section" style="background-color: #fff;">
+<section id="panoramas" class="section results-section fade-in-section">
   <div class="container is-max-desktop">
     <h2 class="section-title">In-Domain Generated 360° Panoramas</h2>
-    <div class="panorama-container" style="background-color: #fff;">
+    <div class="panorama-container">
+      <div class="controls-wrapper">
+        <button class="nav-arrow prev-btn" data-viewer="results-viewer">
+          <i class="fas fa-chevron-left"></i>
+        </button>
       <div class="panorama-controls">
         <button class="panorama-btn active" onclick="switchPanorama('results-viewer', './static/images/panoramic/in_domain/vignaioli_night_4k.png', 0, this)">Vignaioli Night</button>
         <button class="panorama-btn" onclick="switchPanorama('results-viewer', './static/images/panoramic/in_domain/warm_bar_4k.png', 1, this)">Warm Bar</button>
@@ -476,11 +906,15 @@
         <button class="panorama-btn" onclick="switchPanorama('results-viewer', './static/images/panoramic/in_domain/02929.png', 7, this)">Flickr360 2</button>
         <button class="panorama-btn" onclick="switchPanorama('results-viewer', './static/images/panoramic/in_domain/02957.png', 8, this)">Flickr360 3</button>
         <button class="panorama-btn" onclick="switchPanorama('results-viewer', './static/images/panoramic/in_domain/02961.png', 9, this)">Flickr360 4</button>
+        </div>
+        <button class="nav-arrow next-btn" data-viewer="results-viewer">
+          <i class="fas fa-chevron-right"></i>
+        </button>
       </div>
       <div id="results-viewer" class="panorama-viewer"></div>
       <div class="prompt-description">
         <div class="prompt-label">Generation Prompt:</div>
-        <div id="results-prompt" class="prompt-text">The image depicts a nighttime scene of a European town square. The square is paved with dark, glossy tiles that reflect the lights from the surrounding buildings and street lamps. The buildings are multi-storied and painted in various pastel colors, including shades of pink, yellow, and green. The architecture is traditional, with shuttered windows and balconies adorned with plants and flowers. In the center of the square, there is a fountain with water spouting from its top, surrounded by benches for people to sit and enjoy the view. The square is illuminated by several street lamps that cast a warm glow on the surroundings. There are also some bicycles parked along the edges of the square. The sky above is dark, indicating that it is nighttime. The overall atmosphere of the scene is peaceful and serene, with no people visible in the image.</div>
+        <div class="prompt-text">The image depicts a nighttime scene of a European town square. The square is paved with dark, glossy tiles that reflect the lights from the surrounding buildings and street lamps. The buildings are multi-storied and painted in various pastel colors, including shades of pink, yellow, and green. The architecture is traditional, with shuttered windows and balconies adorned with plants and flowers. In the center of the square, there is a fountain with water spouting from its top, surrounded by benches for people to sit and enjoy the view. The square is illuminated by several street lamps that cast a warm glow on the surroundings. There are also some bicycles parked along the edges of the square. The sky above is dark, indicating that it is nighttime. The overall atmosphere of the scene is peaceful and serene, with no people visible in the image.</div>
       </div>
       <p class="has-text-centered is-size-6 has-text-grey">
         Click the buttons above to switch between different generated panoramas
@@ -489,10 +923,14 @@
   </div>
 </section>
 
-<section class="section">
+<section id="baseline-comparisons" class="section baseline-section fade-in-section">
   <div class="container is-max-desktop">
-    <h2 class="section-title">Baseline Generated 360° Panoramas</h2>
+    <h2 class="section-title">Baseline Comparisons</h2>
     <div class="panorama-container">
+      <div class="controls-wrapper">
+        <button class="nav-arrow prev-btn" data-viewer="baseline-viewer">
+          <i class="fas fa-chevron-left"></i>
+        </button>
       <div class="panorama-controls">
         <button class="panorama-btn active" onclick="switchPanorama('baseline-viewer', './static/images/panoramic/baselines/panfusion_vignaioli_night.jpg', 0, this)">PanFusion Vignaioli Night</button>
         <button class="panorama-btn" onclick="switchPanorama('baseline-viewer', './static/images/panoramic/baselines/warm_bar_diff360.png', 1, this)">Diffusion360 Warm Bar</button>
@@ -503,11 +941,15 @@
         <button class="panorama-btn" onclick="switchPanorama('baseline-viewer', './static/images/panoramic/baselines/multidiff_02929.png', 7, this)">MultiDiffusion Flickr360 2</button>
         <button class="panorama-btn" onclick="switchPanorama('baseline-viewer', './static/images/panoramic/baselines/panfusion_02957.jpg', 8, this)">Panfusion Flickr360 3</button>
         <button class="panorama-btn" onclick="switchPanorama('baseline-viewer', './static/images/panoramic/baselines/panfusion_02961.jpg', 9, this)">PanFusion Flickr360 4</button>
+        </div>
+        <button class="nav-arrow next-btn" data-viewer="baseline-viewer">
+          <i class="fas fa-chevron-right"></i>
+        </button>
       </div>
       <div id="baseline-viewer" class="panorama-viewer"></div>
       <div class="prompt-description">
         <div class="prompt-label">Generation Prompt:</div>
-        <div id="baseline-prompt" class="prompt-text">The image depicts a nighttime scene of a European town square. The square is paved with dark, glossy tiles that reflect the lights from the surrounding buildings and street lamps. The buildings are multi-storied and painted in various pastel colors, including shades of pink, yellow, and green. The architecture is traditional, with shuttered windows and balconies adorned with plants and flowers. In the center of the square, there is a fountain with water spouting from its top, surrounded by benches for people to sit and enjoy the view. The square is illuminated by several street lamps that cast a warm glow on the surroundings. There are also some bicycles parked along the edges of the square. The sky above is dark, indicating that it is nighttime. The overall atmosphere of the scene is peaceful and serene, with no people visible in the image.</div>
+        <div class="prompt-text">The image depicts a nighttime scene of a European town square. The square is paved with dark, glossy tiles that reflect the lights from the surrounding buildings and street lamps. The buildings are multi-storied and painted in various pastel colors, including shades of pink, yellow, and green. The architecture is traditional, with shuttered windows and balconies adorned with plants and flowers. In the center of the square, there is a fountain with water spouting from its top, surrounded by benches for people to sit and enjoy the view. The square is illuminated by several street lamps that cast a warm glow on the surroundings. There are also some bicycles parked along the edges of the square. The sky above is dark, indicating that it is nighttime. The overall atmosphere of the scene is peaceful and serene, with no people visible in the image.</div>
       </div>
       <p class="has-text-centered is-size-6 has-text-grey">
         Click the buttons above to switch between different generated panoramas
@@ -517,10 +959,14 @@
 </section>
 
 
-<section class="section" style="background-color: #fff;">
+<section id="ood-panoramas" class="section ood-section fade-in-section">
   <div class="container is-max-desktop">
     <h2 class="section-title">Out-of-Domain Generated 360° Panoramas</h2>
-    <div class="panorama-container" style="background-color: #fff;">
+    <div class="panorama-container">
+      <div class="controls-wrapper">
+        <button class="nav-arrow prev-btn" data-viewer="ood-viewer">
+          <i class="fas fa-chevron-left"></i>
+        </button>
       <div class="panorama-controls">
         <button class="panorama-btn active" onclick="switchPanorama('ood-viewer', './static/images/panoramic/ood/fireworks_ood.png', 0, this)">Fireworks</button>
         <button class="panorama-btn" onclick="switchPanorama('ood-viewer', './static/images/panoramic/styles/cinematic_alien_world.png', 1, this)">Alien World</button>
@@ -529,12 +975,15 @@
         <button class="panorama-btn" onclick="switchPanorama('ood-viewer', './static/images/panoramic/styles/cinematic_northern_lights.png', 4, this)">Northern Lights</button>
         <button class="panorama-btn" onclick="switchPanorama('ood-viewer', './static/images/panoramic/styles/cinematic_twin_suns_desert.png', 5, this)">Twin Suns Desert</button>
         <button class="panorama-btn" onclick="switchPanorama('ood-viewer', './static/images/panoramic/styles/new/frozen_ships_realistic.png', 7, this)">Frozen Ship Graveyard</button>
-       
+        </div>
+        <button class="nav-arrow next-btn" data-viewer="ood-viewer">
+          <i class="fas fa-chevron-right"></i>
+        </button>
       </div>
       <div id="ood-viewer" class="panorama-viewer"></div>
       <div class="prompt-description">
         <div class="prompt-label">Generation Prompt:</div>
-        <div id="ood-prompt" class="prompt-text">vibrant fireworks burst across the night sky, painting the heavens with shimmering trails of vivid colors. some fireworks transform into heart shapes before fading, adding a touch of elegance to the display. the camera focuses on explosive arcs and sparkling embers, capturing every brilliant flash against an infinite, celestial canvas. the city’s skyline stretches below, clearly visible as vibrant fireworks light up the night sky. the fireworks burst in various colors, scattering across the air, while their reflections shimmer on the glass windows of skyscrapers. the camera smoothly pans across the city, capturing the river and bridges, with distant car lights creating a flowing effect. a breathtaking city skyline stretches below, illuminated by countless lights reflecting off towering skyscrapers. the camera smoothly pans across the landscape, revealing a river winding through the metropolis and bridges glowing under streetlights. distant car headlights flow like streams of light, adding a dynamic rhythm to the urban nightscape.</div>
+        <div class="prompt-text">vibrant fireworks burst across the night sky, painting the heavens with shimmering trails of vivid colors. some fireworks transform into heart shapes before fading, adding a touch of elegance to the display. the camera focuses on explosive arcs and sparkling embers, capturing every brilliant flash against an infinite, celestial canvas. the city's skyline stretches below, clearly visible as vibrant fireworks light up the night sky. the fireworks burst in various colors, scattering across the air, while their reflections shimmer on the glass windows of skyscrapers. the camera smoothly pans across the city, capturing the river and bridges, with distant car lights creating a flowing effect. a breathtaking city skyline stretches below, illuminated by countless lights reflecting off towering skyscrapers. the camera smoothly pans across the landscape, revealing a river winding through the metropolis and bridges glowing under streetlights. distant car headlights flow like streams of light, adding a dynamic rhythm to the urban nightscape.</div>
       </div>
       <p class="has-text-centered is-size-6 has-text-grey">
         Click the buttons above to switch between different generated panoramas
@@ -543,10 +992,14 @@
   </div>
 </section>
 
-<section class="section">
+<section id="stylized-panoramas" class="section style-section fade-in-section">
   <div class="container is-max-desktop">
     <h2 class="section-title">Stylized Generated 360° Panoramas</h2>
     <div class="panorama-container">
+      <div class="controls-wrapper">
+        <button class="nav-arrow prev-btn" data-viewer="style-viewer">
+          <i class="fas fa-chevron-left"></i>
+        </button>
       <div class="panorama-controls">
         <button class="panorama-btn active" onclick="switchPanorama('style-viewer', './static/images/panoramic/styles/anime_snow_village.png', 0, this)">Snow Village</button>
         <button class="panorama-btn" onclick="switchPanorama('style-viewer', './static/images/panoramic/styles/watercolor_underwater.png', 1, this)">Underwater</button>
@@ -565,13 +1018,17 @@
         <button class="panorama-btn" onclick="switchPanorama('style-viewer', './static/images/panoramic/styles/new/noir_graphic_novel_tokyo_night.png', 18, this)">Tokyo Night</button>
         <button class="panorama-btn" onclick="switchPanorama('style-viewer', './static/images/panoramic/styles/new/psychedelic_neon_jungle.png', 19, this)">Neon Jungle</button>
         <button class="panorama-btn" onclick="switchPanorama('style-viewer', './static/images/panoramic/styles/new/volcano_bazaar_chinese_painting.png', 20, this)">Volcano Bazaar</button>
+        </div>
+        <button class="nav-arrow next-btn" data-viewer="style-viewer">
+          <i class="fas fa-chevron-right"></i>
+        </button>
       </div>
       <div id="style-viewer" class="panorama-viewer"></div>
       <div class="prompt-description">
         <div class="prompt-label">Generation Prompt:</div>
         <div id="style-prompt" class="prompt-text">an upward view of the night sky. soft moonlight filters through wispy clouds, casting a serene glow over the winter landscape. from the snowy fields, a view toward a peaceful village nestled among snow-covered hills. warm lights glow from the windows of small wooden cabins, contrasting with the crisp, cold air under the moonlit sky. a high-angle view of snow-covered paths winding through the landscape. the fresh snow glistens under the moonlight, while the warm glow of lanterns and fireplaces reflects off the frosty roads, creating a cozy contrast against the cold night.</div>
-        <div class="prompt-label">Style:</div>
-        <div id="style-prompt" class="prompt-text-2">Anime</div>
+        <div class="prompt-label" style="margin-top: 1rem;">Style:</div>
+        <div class="prompt-text-2">Anime</div>
       </div>
       <p class="has-text-centered is-size-6 has-text-grey">
         Click the buttons above to switch between different generated panoramas
@@ -582,23 +1039,28 @@
 
 
 <!--BibTex citation -->
-  <section class="section" id="BibTeX">
+  <section class="section fade-in-section" id="BibTeX">
     <div class="container is-max-desktop content">
       <h2 class="title">BibTeX</h2>
-      <pre><code>BibTex Code Here</code></pre>
+      <pre><code>@inproceedings{capuk2024tandit,
+    title={{TanDiT}: Tangent-Plane Diffusion Transformer for High-Quality 360{\textdegree} Panorama Generation},
+    author={Hakan \c{C}apuk and Andrew Bond and Muhammed Burak K{\i}z{\i}l and Emir G{\"o}{\c{c}}en and Erkut Erdem and Aykut Erdem},
+    booktitle={arXiv},
+    year={2024}
+}</code></pre>
     </div>
 </section>
 <!--End BibTex citation -->
 
 
-  <footer class="footer">
+  <footer class="footer fade-in-section">
   <div class="container">
     <div class="columns is-centered">
       <div class="column is-8">
         <div class="content">
 
           <p>
-            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
             You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
             Commons Attribution-ShareAlike 4.0 International License</a>.
           </p>
