@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta charset="utf-8">
+  <meta name="description"
+        content="PhysVidBench: Physical Commonsense in Video Generation Models">
+  <meta name="keywords" content="Evaluation, Benchmark, Prompts, Dataset, Video Generation, Text-to-Video, Stable Diffusion, AIGC, Image Generation, Physical Commonsense, Benchmark">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PhysVidBench: Physical Commonsense in Video Generation Models</title>
+
+<!--   Global site tag (gtag.js) - Google Analytics-->
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+  <link rel="stylesheet" href="./assets/PhysVidBench/css/bulma.min.css">
+  <link rel="stylesheet" href="./assets/PhysVidBench/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./assets/PhysVidBench/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./assets/PhysVidBench/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./assets/PhysVidBench/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./assets/PhysVidBench/js/fontawesome.all.min.js"></script>
+  <script src="./assets/PhysVidBench/js/bulma-carousel.min.js"></script>
+  <script src="./assets/PhysVidBench/js/bulma-slider.min.js"></script>
+  <script src="./assets/PhysVidBench/js/index.js"></script>
+  <script>
+    /* --------------------------------------------------------------------
+       Map model-id ➜ array of video objects {src, caption}
+       Put your own sample mp4 paths & captions here
+    ---------------------------------------------------------------------*/
+    const MODEL_DEMOS = {
+      ltx: [
+        {src: "assets/PhysVidBench/images/videos/ltx/1short.mp4", caption: "A hand places a smartphone inside an empty drinking glass on a nightstand."},
+        {src: "assets/PhysVidBench/images/videos/ltx/1.mp4", caption: "A human hand grips the sides of a rigid, rectangular smartphone with smooth glass and metal surfaces. The hand carefully maneuvers the relatively thin but dense phone over the circular opening of an empty, transparent drinking glass made of rigid glass, which sits stably on the flat surface of a nightstand. The hand then lowers the smartphone vertically into the hollow space within the glass until the bottom edge of the phone makes contact with the inner bottom surface of the glass."},
+        {src: "assets/PhysVidBench/images/videos/ltx/49short.mp4", caption: "Hands squeeze an empty plastic water bottle, place the opening over an egg yolk in a bowl, and release the squeeze, sucking the yolk into the bottle, leaving the white behind."},
+        {src: "assets/PhysVidBench/images/videos/ltx/49.mp4", caption: "A pair of hands firmly grips the sides of a lightweight, empty plastic water bottle, its flexible walls yielding under pressure. The hands squeeze inwards, visibly deforming the bottle and forcing air out through its narrow circular opening. While maintaining the squeeze, the hands carefully maneuver the bottle downwards until the opening is positioned directly over a single, intact, spherical yellow egg yolk resting within the viscous, clear egg white in a smooth, hard bowl. The opening hovers just above the yolk's delicate surface. The hands then gradually relax their grip. The inherent elasticity of the plastic causes the bottle walls to spring back outwards, increasing the internal volume and creating a partial vacuum. The external air pressure consequently pushes the deformable yolk upwards through the opening and into the bottle, separating it from the egg white which remains largely behind in the bowl."},
+        {src: "assets/PhysVidBench/images/videos/ltx/377short.mp4", caption: "A person blows air into a trash bag, ties it off with a rubber band, creating a makeshift outdoor pillow."},
+        {src: "assets/PhysVidBench/images/videos/ltx/377.mp4", caption: "A person holds open the wide mouth of a large, clear plastic trash bag, its thin material rustling in their hands. They exhale deeply, inflating the bag with air, the plastic expanding and becoming taut. Once mostly full and balloon-like, they twist the bag's opening tightly to contain the air pressure. With their other hand, they stretch a brown rubber band, its elasticity allowing it to expand, and loop it several times around the twisted neck of the bag, securing it closed. The filled bag, now resembling a puffy, rectangular pillow, rests on the grassy ground outdoors."}
+      ],
+      vc: [
+        {src: "assets/PhysVidBench/images/videos/videocrafter2/1short.mp4", caption: "A hand places a smartphone inside an empty drinking glass on a nightstand."},
+        {src: "assets/PhysVidBench/images/videos/videocrafter2/1.mp4", caption: "A human hand grips the sides of a rigid, rectangular smartphone with smooth glass and metal surfaces. The hand carefully maneuvers the relatively thin but dense phone over the circular opening of an empty, transparent drinking glass made of rigid glass, which sits stably on the flat surface of a nightstand. The hand then lowers the smartphone vertically into the hollow space within the glass until the bottom edge of the phone makes contact with the inner bottom surface of the glass."},
+        {src: "assets/PhysVidBench/images/videos/videocrafter2/49short.mp4", caption: "Hands squeeze an empty plastic water bottle, place the opening over an egg yolk in a bowl, and release the squeeze, sucking the yolk into the bottle, leaving the white behind."},
+        {src: "assets/PhysVidBench/images/videos/videocrafter2/49.mp4", caption: "A pair of hands firmly grips the sides of a lightweight, empty plastic water bottle, its flexible walls yielding under pressure. The hands squeeze inwards, visibly deforming the bottle and forcing air out through its narrow circular opening. While maintaining the squeeze, the hands carefully maneuver the bottle downwards until the opening is positioned directly over a single, intact, spherical yellow egg yolk resting within the viscous, clear egg white in a smooth, hard bowl. The opening hovers just above the yolk's delicate surface. The hands then gradually relax their grip. The inherent elasticity of the plastic causes the bottle walls to spring back outwards, increasing the internal volume and creating a partial vacuum. The external air pressure consequently pushes the deformable yolk upwards through the opening and into the bottle, separating it from the egg white which remains largely behind in the bowl."},
+        {src: "assets/PhysVidBench/images/videos/videocrafter2/377short.mp4", caption: "A person blows air into a trash bag, ties it off with a rubber band, creating a makeshift outdoor pillow."},
+        {src: "assets/PhysVidBench/images/videos/videocrafter2/377.mp4", caption: "A person holds open the wide mouth of a large, clear plastic trash bag, its thin material rustling in their hands. They exhale deeply, inflating the bag with air, the plastic expanding and becoming taut. Once mostly full and balloon-like, they twist the bag's opening tightly to contain the air pressure. With their other hand, they stretch a brown rubber band, its elasticity allowing it to expand, and loop it several times around the twisted neck of the bag, securing it closed. The filled bag, now resembling a puffy, rectangular pillow, rests on the grassy ground outdoors."}
+      ],
+      magi: [
+        {src: "assets/PhysVidBench/images/videos/magi/1short.mp4", caption: "A hand places a smartphone inside an empty drinking glass on a nightstand."},
+        {src: "assets/PhysVidBench/images/videos/magi/1.mp4", caption: "A human hand grips the sides of a rigid, rectangular smartphone with smooth glass and metal surfaces. The hand carefully maneuvers the relatively thin but dense phone over the circular opening of an empty, transparent drinking glass made of rigid glass, which sits stably on the flat surface of a nightstand. The hand then lowers the smartphone vertically into the hollow space within the glass until the bottom edge of the phone makes contact with the inner bottom surface of the glass."},
+        {src: "assets/PhysVidBench/images/videos/magi/49short.mp4", caption: "Hands squeeze an empty plastic water bottle, place the opening over an egg yolk in a bowl, and release the squeeze, sucking the yolk into the bottle, leaving the white behind."},
+        {src: "assets/PhysVidBench/images/videos/magi/49.mp4", caption: "A pair of hands firmly grips the sides of a lightweight, empty plastic water bottle, its flexible walls yielding under pressure. The hands squeeze inwards, visibly deforming the bottle and forcing air out through its narrow circular opening. While maintaining the squeeze, the hands carefully maneuver the bottle downwards until the opening is positioned directly over a single, intact, spherical yellow egg yolk resting within the viscous, clear egg white in a smooth, hard bowl. The opening hovers just above the yolk's delicate surface. The hands then gradually relax their grip. The inherent elasticity of the plastic causes the bottle walls to spring back outwards, increasing the internal volume and creating a partial vacuum. The external air pressure consequently pushes the deformable yolk upwards through the opening and into the bottle, separating it from the egg white which remains largely behind in the bowl."},
+        {src: "assets/PhysVidBench/images/videos/magi/377short.mp4", caption: "A person blows air into a trash bag, ties it off with a rubber band, creating a makeshift outdoor pillow."},
+        {src: "assets/PhysVidBench/images/videos/magi/377.mp4", caption: "A person holds open the wide mouth of a large, clear plastic trash bag, its thin material rustling in their hands. They exhale deeply, inflating the bag with air, the plastic expanding and becoming taut. Once mostly full and balloon-like, they twist the bag's opening tightly to contain the air pressure. With their other hand, they stretch a brown rubber band, its elasticity allowing it to expand, and loop it several times around the twisted neck of the bag, securing it closed. The filled bag, now resembling a puffy, rectangular pillow, rests on the grassy ground outdoors."}
+      ],
+      cog2: [
+        {src: "assets/PhysVidBench/images/videos/cog2/1short.mp4", caption: "A hand places a smartphone inside an empty drinking glass on a nightstand."},
+        {src: "assets/PhysVidBench/images/videos/cog2/1.mp4", caption: "A human hand grips the sides of a rigid, rectangular smartphone with smooth glass and metal surfaces. The hand carefully maneuvers the relatively thin but dense phone over the circular opening of an empty, transparent drinking glass made of rigid glass, which sits stably on the flat surface of a nightstand. The hand then lowers the smartphone vertically into the hollow space within the glass until the bottom edge of the phone makes contact with the inner bottom surface of the glass."},
+        {src: "assets/PhysVidBench/images/videos/cog2/49short.mp4", caption: "Hands squeeze an empty plastic water bottle, place the opening over an egg yolk in a bowl, and release the squeeze, sucking the yolk into the bottle, leaving the white behind."},
+        {src: "assets/PhysVidBench/images/videos/cog2/49.mp4", caption: "A pair of hands firmly grips the sides of a lightweight, empty plastic water bottle, its flexible walls yielding under pressure. The hands squeeze inwards, visibly deforming the bottle and forcing air out through its narrow circular opening. While maintaining the squeeze, the hands carefully maneuver the bottle downwards until the opening is positioned directly over a single, intact, spherical yellow egg yolk resting within the viscous, clear egg white in a smooth, hard bowl. The opening hovers just above the yolk's delicate surface. The hands then gradually relax their grip. The inherent elasticity of the plastic causes the bottle walls to spring back outwards, increasing the internal volume and creating a partial vacuum. The external air pressure consequently pushes the deformable yolk upwards through the opening and into the bottle, separating it from the egg white which remains largely behind in the bowl."},
+        {src: "assets/PhysVidBench/images/videos/cog2/377short.mp4", caption: "A person blows air into a trash bag, ties it off with a rubber band, creating a makeshift outdoor pillow."},
+        {src: "assets/PhysVidBench/images/videos/cog2/377.mp4", caption: "A person holds open the wide mouth of a large, clear plastic trash bag, its thin material rustling in their hands. They exhale deeply, inflating the bag with air, the plastic expanding and becoming taut. Once mostly full and balloon-like, they twist the bag's opening tightly to contain the air pressure. With their other hand, they stretch a brown rubber band, its elasticity allowing it to expand, and loop it several times around the twisted neck of the bag, securing it closed. The filled bag, now resembling a puffy, rectangular pillow, rests on the grassy ground outdoors."}
+      ],
+      cog5: [
+        {src: "assets/PhysVidBench/images/videos/cog5/1short.mp4", caption: "A hand places a smartphone inside an empty drinking glass on a nightstand."},
+        {src: "assets/PhysVidBench/images/videos/cog5/1.mp4", caption: "A human hand grips the sides of a rigid, rectangular smartphone with smooth glass and metal surfaces. The hand carefully maneuvers the relatively thin but dense phone over the circular opening of an empty, transparent drinking glass made of rigid glass, which sits stably on the flat surface of a nightstand. The hand then lowers the smartphone vertically into the hollow space within the glass until the bottom edge of the phone makes contact with the inner bottom surface of the glass."},
+        {src: "assets/PhysVidBench/images/videos/cog5/49short.mp4", caption: "Hands squeeze an empty plastic water bottle, place the opening over an egg yolk in a bowl, and release the squeeze, sucking the yolk into the bottle, leaving the white behind."},
+        {src: "assets/PhysVidBench/images/videos/cog5/49.mp4", caption: "A pair of hands firmly grips the sides of a lightweight, empty plastic water bottle, its flexible walls yielding under pressure. The hands squeeze inwards, visibly deforming the bottle and forcing air out through its narrow circular opening. While maintaining the squeeze, the hands carefully maneuver the bottle downwards until the opening is positioned directly over a single, intact, spherical yellow egg yolk resting within the viscous, clear egg white in a smooth, hard bowl. The opening hovers just above the yolk's delicate surface. The hands then gradually relax their grip. The inherent elasticity of the plastic causes the bottle walls to spring back outwards, increasing the internal volume and creating a partial vacuum. The external air pressure consequently pushes the deformable yolk upwards through the opening and into the bottle, separating it from the egg white which remains largely behind in the bowl."},
+        {src: "assets/PhysVidBench/images/videos/cog5/377short.mp4", caption: "A person blows air into a trash bag, ties it off with a rubber band, creating a makeshift outdoor pillow."},
+        {src: "assets/PhysVidBench/images/videos/cog5/377.mp4", caption: "A person holds open the wide mouth of a large, clear plastic trash bag, its thin material rustling in their hands. They exhale deeply, inflating the bag with air, the plastic expanding and becoming taut. Once mostly full and balloon-like, they twist the bag's opening tightly to contain the air pressure. With their other hand, they stretch a brown rubber band, its elasticity allowing it to expand, and loop it several times around the twisted neck of the bag, securing it closed. The filled bag, now resembling a puffy, rectangular pillow, rests on the grassy ground outdoors."}
+      ],
+      wan1: [
+        {src: "assets/PhysVidBench/images/videos/wan13/1short.mp4", caption: "A hand places a smartphone inside an empty drinking glass on a nightstand."},
+        {src: "assets/PhysVidBench/images/videos/wan13/1.mp4", caption: "A human hand grips the sides of a rigid, rectangular smartphone with smooth glass and metal surfaces. The hand carefully maneuvers the relatively thin but dense phone over the circular opening of an empty, transparent drinking glass made of rigid glass, which sits stably on the flat surface of a nightstand. The hand then lowers the smartphone vertically into the hollow space within the glass until the bottom edge of the phone makes contact with the inner bottom surface of the glass."},
+        {src: "assets/PhysVidBench/images/videos/wan13/49short.mp4", caption: "Hands squeeze an empty plastic water bottle, place the opening over an egg yolk in a bowl, and release the squeeze, sucking the yolk into the bottle, leaving the white behind."},
+        {src: "assets/PhysVidBench/images/videos/wan13/49.mp4", caption: "A pair of hands firmly grips the sides of a lightweight, empty plastic water bottle, its flexible walls yielding under pressure. The hands squeeze inwards, visibly deforming the bottle and forcing air out through its narrow circular opening. While maintaining the squeeze, the hands carefully maneuver the bottle downwards until the opening is positioned directly over a single, intact, spherical yellow egg yolk resting within the viscous, clear egg white in a smooth, hard bowl. The opening hovers just above the yolk's delicate surface. The hands then gradually relax their grip. The inherent elasticity of the plastic causes the bottle walls to spring back outwards, increasing the internal volume and creating a partial vacuum. The external air pressure consequently pushes the deformable yolk upwards through the opening and into the bottle, separating it from the egg white which remains largely behind in the bowl."},
+        {src: "assets/PhysVidBench/images/videos/wan13/377short.mp4", caption: "A person blows air into a trash bag, ties it off with a rubber band, creating a makeshift outdoor pillow."},
+        {src: "assets/PhysVidBench/images/videos/wan13/377.mp4", caption: "A person holds open the wide mouth of a large, clear plastic trash bag, its thin material rustling in their hands. They exhale deeply, inflating the bag with air, the plastic expanding and becoming taut. Once mostly full and balloon-like, they twist the bag's opening tightly to contain the air pressure. With their other hand, they stretch a brown rubber band, its elasticity allowing it to expand, and loop it several times around the twisted neck of the bag, securing it closed. The filled bag, now resembling a puffy, rectangular pillow, rests on the grassy ground outdoors."}
+      ],
+      wan14: [
+        {src: "assets/PhysVidBench/images/videos/wan14/1short.mp4", caption: "A hand places a smartphone inside an empty drinking glass on a nightstand."},
+        {src: "assets/PhysVidBench/images/videos/wan14/1.mp4", caption: "A human hand grips the sides of a rigid, rectangular smartphone with smooth glass and metal surfaces. The hand carefully maneuvers the relatively thin but dense phone over the circular opening of an empty, transparent drinking glass made of rigid glass, which sits stably on the flat surface of a nightstand. The hand then lowers the smartphone vertically into the hollow space within the glass until the bottom edge of the phone makes contact with the inner bottom surface of the glass."},
+        {src: "assets/PhysVidBench/images/videos/wan14/49short.mp4", caption: "Hands squeeze an empty plastic water bottle, place the opening over an egg yolk in a bowl, and release the squeeze, sucking the yolk into the bottle, leaving the white behind."},
+        {src: "assets/PhysVidBench/images/videos/wan14/49.mp4", caption: "A pair of hands firmly grips the sides of a lightweight, empty plastic water bottle, its flexible walls yielding under pressure. The hands squeeze inwards, visibly deforming the bottle and forcing air out through its narrow circular opening. While maintaining the squeeze, the hands carefully maneuver the bottle downwards until the opening is positioned directly over a single, intact, spherical yellow egg yolk resting within the viscous, clear egg white in a smooth, hard bowl. The opening hovers just above the yolk's delicate surface. The hands then gradually relax their grip. The inherent elasticity of the plastic causes the bottle walls to spring back outwards, increasing the internal volume and creating a partial vacuum. The external air pressure consequently pushes the deformable yolk upwards through the opening and into the bottle, separating it from the egg white which remains largely behind in the bowl."},
+        {src: "assets/PhysVidBench/images/videos/wan14/377short.mp4", caption: "A person blows air into a trash bag, ties it off with a rubber band, creating a makeshift outdoor pillow."},
+        {src: "assets/PhysVidBench/images/videos/wan14/377.mp4", caption: "A person holds open the wide mouth of a large, clear plastic trash bag, its thin material rustling in their hands. They exhale deeply, inflating the bag with air, the plastic expanding and becoming taut. Once mostly full and balloon-like, they twist the bag's opening tightly to contain the air pressure. With their other hand, they stretch a brown rubber band, its elasticity allowing it to expand, and loop it several times around the twisted neck of the bag, securing it closed. The filled bag, now resembling a puffy, rectangular pillow, rests on the grassy ground outdoors."}
+      ],
+      cosmos7: [
+        {src: "assets/PhysVidBench/images/videos/cosmos7/1short.mp4", caption: "A hand places a smartphone inside an empty drinking glass on a nightstand."},
+        {src: "assets/PhysVidBench/images/videos/cosmos7/1.mp4", caption: "A human hand grips the sides of a rigid, rectangular smartphone with smooth glass and metal surfaces. The hand carefully maneuvers the relatively thin but dense phone over the circular opening of an empty, transparent drinking glass made of rigid glass, which sits stably on the flat surface of a nightstand. The hand then lowers the smartphone vertically into the hollow space within the glass until the bottom edge of the phone makes contact with the inner bottom surface of the glass."},
+        {src: "assets/PhysVidBench/images/videos/cosmos7/49short.mp4", caption: "Hands squeeze an empty plastic water bottle, place the opening over an egg yolk in a bowl, and release the squeeze, sucking the yolk into the bottle, leaving the white behind."},
+        {src: "assets/PhysVidBench/images/videos/cosmos7/49.mp4", caption: "A pair of hands firmly grips the sides of a lightweight, empty plastic water bottle, its flexible walls yielding under pressure. The hands squeeze inwards, visibly deforming the bottle and forcing air out through its narrow circular opening. While maintaining the squeeze, the hands carefully maneuver the bottle downwards until the opening is positioned directly over a single, intact, spherical yellow egg yolk resting within the viscous, clear egg white in a smooth, hard bowl. The opening hovers just above the yolk's delicate surface. The hands then gradually relax their grip. The inherent elasticity of the plastic causes the bottle walls to spring back outwards, increasing the internal volume and creating a partial vacuum. The external air pressure consequently pushes the deformable yolk upwards through the opening and into the bottle, separating it from the egg white which remains largely behind in the bowl."},
+        {src: "assets/PhysVidBench/images/videos/cosmos7/377short.mp4", caption: "A person blows air into a trash bag, ties it off with a rubber band, creating a makeshift outdoor pillow."},
+        {src: "assets/PhysVidBench/images/videos/cosmos7/377.mp4", caption: "A person holds open the wide mouth of a large, clear plastic trash bag, its thin material rustling in their hands. They exhale deeply, inflating the bag with air, the plastic expanding and becoming taut. Once mostly full and balloon-like, they twist the bag's opening tightly to contain the air pressure. With their other hand, they stretch a brown rubber band, its elasticity allowing it to expand, and loop it several times around the twisted neck of the bag, securing it closed. The filled bag, now resembling a puffy, rectangular pillow, rests on the grassy ground outdoors."}
+      ],
+      cosmos14: [
+        {src: "assets/PhysVidBench/images/videos/cosmos14/1short.mp4", caption: "A hand places a smartphone inside an empty drinking glass on a nightstand."},
+        {src: "assets/PhysVidBench/images/videos/cosmos14/1.mp4", caption: "A human hand grips the sides of a rigid, rectangular smartphone with smooth glass and metal surfaces. The hand carefully maneuvers the relatively thin but dense phone over the circular opening of an empty, transparent drinking glass made of rigid glass, which sits stably on the flat surface of a nightstand. The hand then lowers the smartphone vertically into the hollow space within the glass until the bottom edge of the phone makes contact with the inner bottom surface of the glass."},
+        {src: "assets/PhysVidBench/images/videos/cosmos14/49short.mp4", caption: "Hands squeeze an empty plastic water bottle, place the opening over an egg yolk in a bowl, and release the squeeze, sucking the yolk into the bottle, leaving the white behind."},
+        {src: "assets/PhysVidBench/images/videos/cosmos14/49.mp4", caption: "A pair of hands firmly grips the sides of a lightweight, empty plastic water bottle, its flexible walls yielding under pressure. The hands squeeze inwards, visibly deforming the bottle and forcing air out through its narrow circular opening. While maintaining the squeeze, the hands carefully maneuver the bottle downwards until the opening is positioned directly over a single, intact, spherical yellow egg yolk resting within the viscous, clear egg white in a smooth, hard bowl. The opening hovers just above the yolk's delicate surface. The hands then gradually relax their grip. The inherent elasticity of the plastic causes the bottle walls to spring back outwards, increasing the internal volume and creating a partial vacuum. The external air pressure consequently pushes the deformable yolk upwards through the opening and into the bottle, separating it from the egg white which remains largely behind in the bowl."},
+        {src: "assets/PhysVidBench/images/videos/cosmos14/377short.mp4", caption: "A person blows air into a trash bag, ties it off with a rubber band, creating a makeshift outdoor pillow."},
+        {src: "assets/PhysVidBench/images/videos/cosmos14/377.mp4", caption: "A person holds open the wide mouth of a large, clear plastic trash bag, its thin material rustling in their hands. They exhale deeply, inflating the bag with air, the plastic expanding and becoming taut. Once mostly full and balloon-like, they twist the bag's opening tightly to contain the air pressure. With their other hand, they stretch a brown rubber band, its elasticity allowing it to expand, and loop it several times around the twisted neck of the bag, securing it closed. The filled bag, now resembling a puffy, rectangular pillow, rests on the grassy ground outdoors."}
+      ],
+      sora: [
+        {src: "assets/PhysVidBench/images/videos/sora/1short.mp4", caption: "A hand places a smartphone inside an empty drinking glass on a nightstand."},
+        {src: "assets/PhysVidBench/images/videos/sora/1.mp4", caption: "A human hand grips the sides of a rigid, rectangular smartphone with smooth glass and metal surfaces. The hand carefully maneuvers the relatively thin but dense phone over the circular opening of an empty, transparent drinking glass made of rigid glass, which sits stably on the flat surface of a nightstand. The hand then lowers the smartphone vertically into the hollow space within the glass until the bottom edge of the phone makes contact with the inner bottom surface of the glass."},
+        {src: "assets/PhysVidBench/images/videos/sora/49short.mp4", caption: "Hands squeeze an empty plastic water bottle, place the opening over an egg yolk in a bowl, and release the squeeze, sucking the yolk into the bottle, leaving the white behind."},
+        {src: "assets/PhysVidBench/images/videos/sora/49.mp4", caption: "A pair of hands firmly grips the sides of a lightweight, empty plastic water bottle, its flexible walls yielding under pressure. The hands squeeze inwards, visibly deforming the bottle and forcing air out through its narrow circular opening. While maintaining the squeeze, the hands carefully maneuver the bottle downwards until the opening is positioned directly over a single, intact, spherical yellow egg yolk resting within the viscous, clear egg white in a smooth, hard bowl. The opening hovers just above the yolk's delicate surface. The hands then gradually relax their grip. The inherent elasticity of the plastic causes the bottle walls to spring back outwards, increasing the internal volume and creating a partial vacuum. The external air pressure consequently pushes the deformable yolk upwards through the opening and into the bottle, separating it from the egg white which remains largely behind in the bowl."},
+        {src: "assets/PhysVidBench/images/videos/sora/377short.mp4", caption: "A person blows air into a trash bag, ties it off with a rubber band, creating a makeshift outdoor pillow."},
+        {src: "assets/PhysVidBench/images/videos/sora/377.mp4", caption: "A person holds open the wide mouth of a large, clear plastic trash bag, its thin material rustling in their hands. They exhale deeply, inflating the bag with air, the plastic expanding and becoming taut. Once mostly full and balloon-like, they twist the bag's opening tightly to contain the air pressure. With their other hand, they stretch a brown rubber band, its elasticity allowing it to expand, and loop it several times around the twisted neck of the bag, securing it closed. The filled bag, now resembling a puffy, rectangular pillow, rests on the grassy ground outdoors."}
+      ],
+      veo2: [
+        {src: "assets/PhysVidBench/images/videos/veo2/1short.mp4", caption: "A hand places a smartphone inside an empty drinking glass on a nightstand."},
+        {src: "assets/PhysVidBench/images/videos/veo2/1.mp4", caption: "A human hand grips the sides of a rigid, rectangular smartphone with smooth glass and metal surfaces. The hand carefully maneuvers the relatively thin but dense phone over the circular opening of an empty, transparent drinking glass made of rigid glass, which sits stably on the flat surface of a nightstand. The hand then lowers the smartphone vertically into the hollow space within the glass until the bottom edge of the phone makes contact with the inner bottom surface of the glass."},
+        {src: "assets/PhysVidBench/images/videos/veo2/49short.mp4", caption: "Hands squeeze an empty plastic water bottle, place the opening over an egg yolk in a bowl, and release the squeeze, sucking the yolk into the bottle, leaving the white behind."},
+        {src: "assets/PhysVidBench/images/videos/veo2/49.mp4", caption: "A pair of hands firmly grips the sides of a lightweight, empty plastic water bottle, its flexible walls yielding under pressure. The hands squeeze inwards, visibly deforming the bottle and forcing air out through its narrow circular opening. While maintaining the squeeze, the hands carefully maneuver the bottle downwards until the opening is positioned directly over a single, intact, spherical yellow egg yolk resting within the viscous, clear egg white in a smooth, hard bowl. The opening hovers just above the yolk's delicate surface. The hands then gradually relax their grip. The inherent elasticity of the plastic causes the bottle walls to spring back outwards, increasing the internal volume and creating a partial vacuum. The external air pressure consequently pushes the deformable yolk upwards through the opening and into the bottle, separating it from the egg white which remains largely behind in the bowl."},
+        {src: "assets/PhysVidBench/images/videos/veo2/377short.mp4", caption: "A person blows air into a trash bag, ties it off with a rubber band, creating a makeshift outdoor pillow."},
+        {src: "assets/PhysVidBench/images/videos/veo2/377.mp4", caption: "A person holds open the wide mouth of a large, clear plastic trash bag, its thin material rustling in their hands. They exhale deeply, inflating the bag with air, the plastic expanding and becoming taut. Once mostly full and balloon-like, they twist the bag's opening tightly to contain the air pressure. With their other hand, they stretch a brown rubber band, its elasticity allowing it to expand, and loop it several times around the twisted neck of the bag, securing it closed. The filled bag, now resembling a puffy, rectangular pillow, rests on the grassy ground outdoors."}
+      ],
+      hunyuan: [
+        {src: "assets/PhysVidBench/images/videos/hunyuan/1short.mp4", caption: "A hand places a smartphone inside an empty drinking glass on a nightstand."},
+        {src: "assets/PhysVidBench/images/videos/hunyuan/1.mp4", caption: "A human hand grips the sides of a rigid, rectangular smartphone with smooth glass and metal surfaces. The hand carefully maneuvers the relatively thin but dense phone over the circular opening of an empty, transparent drinking glass made of rigid glass, which sits stably on the flat surface of a nightstand. The hand then lowers the smartphone vertically into the hollow space within the glass until the bottom edge of the phone makes contact with the inner bottom surface of the glass."},
+        {src: "assets/PhysVidBench/images/videos/hunyuan/49short.mp4", caption: "Hands squeeze an empty plastic water bottle, place the opening over an egg yolk in a bowl, and release the squeeze, sucking the yolk into the bottle, leaving the white behind."},
+        {src: "assets/PhysVidBench/images/videos/hunyuan/49.mp4", caption: "A pair of hands firmly grips the sides of a lightweight, empty plastic water bottle, its flexible walls yielding under pressure. The hands squeeze inwards, visibly deforming the bottle and forcing air out through its narrow circular opening. While maintaining the squeeze, the hands carefully maneuver the bottle downwards until the opening is positioned directly over a single, intact, spherical yellow egg yolk resting within the viscous, clear egg white in a smooth, hard bowl. The opening hovers just above the yolk's delicate surface. The hands then gradually relax their grip. The inherent elasticity of the plastic causes the bottle walls to spring back outwards, increasing the internal volume and creating a partial vacuum. The external air pressure consequently pushes the deformable yolk upwards through the opening and into the bottle, separating it from the egg white which remains largely behind in the bowl."},
+        {src: "assets/PhysVidBench/images/videos/hunyuan/377short.mp4", caption: "A person blows air into a trash bag, ties it off with a rubber band, creating a makeshift outdoor pillow."},
+        {src: "assets/PhysVidBench/images/videos/hunyuan/377.mp4", caption: "A person holds open the wide mouth of a large, clear plastic trash bag, its thin material rustling in their hands. They exhale deeply, inflating the bag with air, the plastic expanding and becoming taut. Once mostly full and balloon-like, they twist the bag's opening tightly to contain the air pressure. With their other hand, they stretch a brown rubber band, its elasticity allowing it to expand, and loop it several times around the twisted neck of the bag, securing it closed. The filled bag, now resembling a puffy, rectangular pillow, rests on the grassy ground outdoors."}
+      ],
+    };
+
+const PROMPTS = [
+  {
+    id: "b1",
+    label: "Example Base Prompt 1",
+    text: "A hand places a smartphone inside an empty drinking glass on a nightstand."
+  },
+  {
+    id: "b2",
+    label: "Example Base Prompt 2",
+    text: "Hands squeeze an empty plastic water bottle, place the opening over an egg yolk in a bowl, and release the squeeze, sucking the yolk into the bottle, leaving the white behind."
+  },
+  {
+    id: "b3",
+    label: "Example Base Prompt 3",
+    text: "A person blows air into a trash bag, ties it off with a rubber band, creating a makeshift outdoor pillow."
+  },
+  {
+    id: "u1",
+    label: "Example Upsampled Prompt 1",
+    text: "A human hand grips the sides of a rigid, rectangular smartphone with smooth glass and metal surfaces. The hand carefully maneuvers the relatively thin but dense phone over the circular opening of an empty, transparent drinking glass made of rigid glass, which sits stably on the flat surface of a nightstand. The hand then lowers the smartphone vertically into the hollow space within the glass until the bottom edge of the phone makes contact with the inner bottom surface of the glass."
+  },
+  {
+    id: "u2",
+    label: "Example Upsampled Prompt 2",
+    text: "A pair of hands firmly grips the sides of a lightweight, empty plastic water bottle, its flexible walls yielding under pressure. The hands squeeze inwards, visibly deforming the bottle and forcing air out through its narrow circular opening. While maintaining the squeeze, the hands carefully maneuver the bottle downwards until the opening is positioned directly over a single, intact, spherical yellow egg yolk resting within the viscous, clear egg white in a smooth, hard bowl. The opening hovers just above the yolk's delicate surface. The hands then gradually relax their grip. The inherent elasticity of the plastic causes the bottle walls to spring back outwards, increasing the internal volume and creating a partial vacuum. The external air pressure consequently pushes the deformable yolk upwards through the opening and into the bottle, separating it from the egg white which remains largely behind in the bowl."
+  },
+  {
+    id: "u3",
+    label: "Example Upsampled Prompt 3",
+    text: "A person holds open the wide mouth of a large, clear plastic trash bag, its thin material rustling in their hands. They exhale deeply, inflating the bag with air, the plastic expanding and becoming taut. Once mostly full and balloon-like, they twist the bag's opening tightly to contain the air pressure. With their other hand, they stretch a brown rubber band, its elasticity allowing it to expand, and loop it several times around the twisted neck of the bag, securing it closed. The filled bag, now resembling a puffy, rectangular pillow, rests on the grassy ground outdoors."
+  }
+];
+
+/* -------- hangi model + prompt ➜ video? -------- */
+const MODEL_PROMPT_VIDEOS = {
+  cog2: {
+    b1: "assets/PhysVidBench/images/videos/cog2/1short.mp4",
+    b2: "assets/PhysVidBench/images/videos/cog2/49short.mp4",
+    b3: "assets/PhysVidBench/images/videos/cog2/377short.mp4",
+    u1: "assets/PhysVidBench/images/videos/cog2/1.mp4",
+    u2: "assets/PhysVidBench/images/videos/cog2/49.mp4",
+    u3: "assets/PhysVidBench/images/videos/cog2/377.mp4"
+  },
+  cog5: {
+    b1: "assets/PhysVidBench/images/videos/cog5/1short.mp4",
+    b2: "assets/PhysVidBench/images/videos/cog5/49short.mp4",
+    b3: "assets/PhysVidBench/images/videos/cog5/377short.mp4",
+    u1: "assets/PhysVidBench/images/videos/cog5/1.mp4",
+    u2: "assets/PhysVidBench/images/videos/cog5/49.mp4",
+    u3: "assets/PhysVidBench/images/videos/cog5/377.mp4"
+  },
+  sora: {
+    b1: "assets/PhysVidBench/images/videos/sora/1short.mp4",
+    b2: "assets/PhysVidBench/images/videos/sora/49short.mp4",
+    b3: "assets/PhysVidBench/images/videos/sora/377short.mp4",
+    u1: "assets/PhysVidBench/images/videos/sora/1.mp4",
+    u2: "assets/PhysVidBench/images/videos/sora/49.mp4",
+    u3: "assets/PhysVidBench/images/videos/sora/377.mp4"
+  },
+  veo2: {
+    b1: "assets/PhysVidBench/images/videos/veo2/1short.mp4",
+    b2: "assets/PhysVidBench/images/videos/veo2/49short.mp4",
+    b3: "assets/PhysVidBench/images/videos/veo2/377short.mp4",
+    u1: "assets/PhysVidBench/images/videos/veo2/1.mp4",
+    u2: "assets/PhysVidBench/images/videos/veo2/49.mp4",
+    u3: "assets/PhysVidBench/images/videos/veo2/377.mp4"
+  },
+  cosmos7: {
+    b1: "assets/PhysVidBench/images/videos/cosmos7/1short.mp4",
+    b2: "assets/PhysVidBench/images/videos/cosmos7/49short.mp4",
+    b3: "assets/PhysVidBench/images/videos/cosmos7/377short.mp4",
+    u1: "assets/PhysVidBench/images/videos/cosmos7/1.mp4",
+    u2: "assets/PhysVidBench/images/videos/cosmos7/49.mp4",
+    u3: "assets/PhysVidBench/images/videos/cosmos7/377.mp4"
+  },
+  cosmos14: {
+    b1: "assets/PhysVidBench/images/videos/cosmos14/1short.mp4",
+    b2: "assets/PhysVidBench/images/videos/cosmos14/49short.mp4",
+    b3: "assets/PhysVidBench/images/videos/cosmos14/377short.mp4",
+    u1: "assets/PhysVidBench/images/videos/cosmos14/1.mp4",
+    u2: "assets/PhysVidBench/images/videos/cosmos14/49.mp4",
+    u3: "assets/PhysVidBench/images/videos/cosmos14/377.mp4"
+  },
+  hunyuan: {
+    b1: "assets/PhysVidBench/images/videos/hunyuan/1short.mp4",
+    b2: "assets/PhysVidBench/images/videos/hunyuan/49short.mp4",
+    b3: "assets/PhysVidBench/images/videos/hunyuan/377short.mp4",
+    u1: "assets/PhysVidBench/images/videos/hunyuan/1.mp4",
+    u2: "assets/PhysVidBench/images/videos/hunyuan/49.mp4",
+    u3: "assets/PhysVidBench/images/videos/hunyuan/377.mp4"
+  },
+  ltx: {
+    b1: "assets/PhysVidBench/images/videos/ltx/1short.mp4",
+    b2: "assets/PhysVidBench/images/videos/ltx/49short.mp4",
+    b3: "assets/PhysVidBench/images/videos/ltx/377short.mp4",
+    u1: "assets/PhysVidBench/images/videos/ltx/1.mp4",
+    u2: "assets/PhysVidBench/images/videos/ltx/49.mp4",
+    u3: "assets/PhysVidBench/images/videos/ltx/377.mp4"
+  },
+  magi: {
+    b1: "assets/PhysVidBench/images/videos/magi/1short.mp4",
+    b2: "assets/PhysVidBench/images/videos/magi/49short.mp4",
+    b3: "assets/PhysVidBench/images/videos/magi/377short.mp4",
+    u1: "assets/PhysVidBench/images/videos/magi/1.mp4",
+    u2: "assets/PhysVidBench/images/videos/magi/49.mp4",
+    u3: "assets/PhysVidBench/images/videos/magi/377.mp4"
+  },
+  videocrafter2: {
+    b1: "assets/PhysVidBench/images/videos/videocrafter2/1short.mp4",
+    b2: "assets/PhysVidBench/images/videos/videocrafter2/49short.mp4",
+    b3: "assets/PhysVidBench/images/videos/videocrafter2/377short.mp4",
+    u1: "assets/PhysVidBench/images/videos/videocrafter2/1.mp4",
+    u2: "assets/PhysVidBench/images/videos/videocrafter2/49.mp4",
+    u3: "assets/PhysVidBench/images/videos/videocrafter2/377.mp4"
+  },
+  wan13: {
+    b1: "assets/PhysVidBench/images/videos/wan13/1short.mp4",
+    b2: "assets/PhysVidBench/images/videos/wan13/49short.mp4",
+    b3: "assets/PhysVidBench/images/videos/wan13/377short.mp4",
+    u1: "assets/PhysVidBench/images/videos/wan13/1.mp4",
+    u2: "assets/PhysVidBench/images/videos/wan13/49.mp4",
+    u3: "assets/PhysVidBench/images/videos/wan13/377.mp4"
+  },
+  wan14: {
+    b1: "assets/PhysVidBench/images/videos/wan14/1short.mp4",
+    b2: "assets/PhysVidBench/images/videos/wan14/49short.mp4",
+    b3: "assets/PhysVidBench/images/videos/wan14/377short.mp4",
+    u1: "assets/PhysVidBench/images/videos/wan14/1.mp4",
+    u2: "assets/PhysVidBench/images/videos/wan14/49.mp4",
+    u3: "assets/PhysVidBench/images/videos/wan14/377.mp4"
+  },
+};
+
+
+    </script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const modal     = document.getElementById("modelModal");
+    const modalBg   = modal.querySelector(".modal-background");
+    const modalX    = modal.querySelector(".delete");
+    const modalBody = document.getElementById("modalBody");
+    const modalTitle= document.getElementById("modalTitle");
+  
+    // open
+    document.querySelectorAll(".model-link").forEach(link => {
+      link.addEventListener("click", () => {
+        const id   = link.dataset.model;
+        const demos= MODEL_DEMOS[id] || [];
+        modalTitle.textContent = link.textContent + " – sample outputs";
+  
+        // build body
+        modalBody.innerHTML = demos.map(d =>
+          `<div class="box" style="margin-bottom:1rem">
+             <video controls playsinline style="width:100%;border-radius:8px;">
+               <source src="${d.src}" type="video/mp4">
+             </video>
+             <p class="has-text-centered" style="margin-top:0.5rem">${d.caption}</p>
+           </div>`).join("");
+  
+        modal.classList.add("is-active");
+      });
+    });
+  
+    // close
+    [modalBg, modalX].forEach(el => el.addEventListener("click", () =>
+      modal.classList.remove("is-active")));
+      const compareBtn   = document.getElementById("compareBtn");
+const cmpModal     = document.getElementById("compareModal");
+const cmpBg        = cmpModal.querySelector(".modal-background");
+const cmpClose     = cmpModal.querySelector(".delete");
+const selM1        = document.getElementById("cmpModel1");
+const selM2        = document.getElementById("cmpModel2");
+const selPrompt    = document.getElementById("cmpPrompt");
+const cmpResult    = document.getElementById("cmpResult");
+const MODEL_LABELS = {
+  ltx:          "LTX-Video",
+  videocrafter2:           "VideoCrafter2",
+  cog2:         "CogVideoX (2B)",
+  cog5:         "CogVideoX (5B)",
+  wan13:         "Wan2.1 (1.3B)",
+  wan14:        "Wan2.1 (14B)",
+  magi:         "MAGI-1",
+  hunyuan:      "Hunyuan Video",
+  cosmos7:      "Cosmos (7B)",
+  cosmos14:     "Cosmos (14B)",
+  sora:         "Sora",
+  veo2:         "Veo-2"
+  /* yeni modeller ekleyince buraya yeter. */
+};  
+/* dropdown’ları doldur */
+const modelOptions = Object.keys(MODEL_PROMPT_VIDEOS);
+modelOptions.forEach(key => {
+  const label = MODEL_LABELS[key] ?? key;   // eşleşme yoksa anahtarı göster
+  selM1.innerHTML += `<option value="${key}">${label}</option>`;
+  selM2.innerHTML += `<option value="${key}">${label}</option>`;
+});
+PROMPTS.forEach(p =>
+  selPrompt.innerHTML += `<option value="${p.id}">${p.label}</option>`);
+
+/* Aç-kapa */
+compareBtn.addEventListener("click", () => {
+  cmpModal.classList.add("is-active");
+  renderCompare();         // varsayılan seçimle göster
+});
+[cmpBg, cmpClose].forEach(el =>
+  el.addEventListener("click", () => cmpModal.classList.remove("is-active")));
+
+/* Seçim değiştikçe yeniden çiz */
+[selM1, selM2, selPrompt].forEach(sel =>
+  sel.addEventListener("change", renderCompare));
+
+  function renderCompare(){
+  const m1  = selM1.value;
+  const m2  = selM2.value;
+  const pid = selPrompt.value;
+
+  const v1 = MODEL_PROMPT_VIDEOS[m1]?.[pid];
+  const v2 = MODEL_PROMPT_VIDEOS[m2]?.[pid];
+
+  const promptText = (PROMPTS.find(p => p.id === pid) || {}).text || "";
+
+  cmpResult.innerHTML = `
+    <div class="box has-background-light">
+      <p class="has-text-centered has-text-weight-semibold" style="font-size:0.95rem;">
+        ${promptText}
+      </p>
+    </div>
+
+    <div class="columns is-vcentered">
+      <div class="column">
+        <h4 class="title is-6 has-text-centered">${MODEL_LABELS[m1] ?? m1}</h4>
+        ${videoBox(v1)}
+      </div>
+      <div class="column">
+        <h4 class="title is-6 has-text-centered">${MODEL_LABELS[m2] ?? m2}</h4>
+        ${videoBox(v2)}
+      </div>
+    </div>`;
+}
+
+function videoBox(src){
+  return src
+    ? `<video controls playsinline style="width:100%;border-radius:8px;">
+         <source src="${src}" type="video/mp4">
+       </video>`
+    : `<p class="has-text-danger has-text-centered">Video yok</p>`;
+}
+
+    });
+  </script>
+      
+</head>
+<!-- Model-demo modal (re-used for all rows) -->
+<div id="modelModal" class="modal">
+  <div class="modal-background"></div>
+
+  <div class="modal-card" style="width: 90%; max-width: 1100px;">
+    <header class="modal-card-head">
+      <p id="modalTitle" class="modal-card-title"></p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+
+    <section id="modalBody" class="modal-card-body">
+      <!-- Video slots injected by JS -->
+    </section>
+  </div>
+</div>
+<body>
+
+<div id="compareModal" class="modal">
+    <div class="modal-background"></div>
+  
+    <div class="modal-card" style="width:92%;max-width:1250px;">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Model Comparison</p>
+        <button class="delete" aria-label="close"></button>
+      </header>
+  
+      <section class="modal-card-body">
+  
+        <!-- Seçim alanları -->
+        <div class="columns">
+          <div class="column">
+            <div class="field">
+              <label class="label">Model 1</label>
+              <div class="control">
+                <div class="select is-fullwidth">
+                  <select id="cmpModel1"></select>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="column">
+            <div class="field">
+              <label class="label">Model 2</label>
+              <div class="control">
+                <div class="select is-fullwidth">
+                  <select id="cmpModel2"></select>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="column">
+            <div class="field">
+              <label class="label">Prompt</label>
+              <div class="control">
+                <div class="select is-fullwidth">
+                  <select id="cmpPrompt"></select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Sonuç alanı -->
+        <div id="cmpResult" style="margin-top:1.2rem;"></div>
+      </section>
+    </div>
+</div>
+
+
+<!-- title -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title"><span style="color:#B9770E; font-weight: bold; font-style: italic">PhysVidBench</span> : Can Your Model Separate Yolks with a Water Bottle?<br>Physical Commonsense in Video Generation Models</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+
+              <span class="author-block">
+                  <a href="https://github.com/barissarpertezcan" target="_blank">Baris Sarper Tezcan</a><sup>1*</sup>,
+              </span>
+              <span class="author-block">
+                  <a href="https://github.com/ensanli" target="_blank">Enes Sanli</a><sup>1*</sup>,
+              </span>
+              <span class="author-block">
+                  <a href="https://scholar.google.com.tr/citations?user=eALwl74AAAAJ&hl=tr" target="_blank">Erkut Erdem</a><sup>2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://aykuterdem.github.io/" target="_blank">Aykut Erdem</a><sup>1</sup>
+              </span>
+
+          </div>
+          <!-- <br> -->
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">(* equal contributions) </span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <sup>1</sup>
+              Department of Computer Engineering, Koç University, Istanbul, Turkey &nbsp;&nbsp;
+              <br>
+              <sup>2</sup>
+              Department of Computer Engineering, Hacettepe University, Ankara, Turkey &nbsp;&nbsp;
+            </span>
+          </div>
+        <div class="column has-text-centered">
+          <div class="publication-links">
+            <span class="link-block">
+              <a href="https://arxiv.org/abs/DOLDUR" target="_blank"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <i class="ai ai-arxiv"></i>
+                </span>
+                <span>Paper(PhysVidBench)</span>
+              </a>
+            </span>
+            <!-- Video Link. -->
+
+            <!-- Code Link. -->
+            <span class="link-block">
+              <a href="https://github.com/ensanli/PhysVidBenchCode" target="_blank"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <i class="fab fa-github"></i>
+                </span>
+                <span>GitHub</span>
+              </a>
+            </span>            
+            <span class="link-block">
+              <a href="https://huggingface.co/datasets/Anonymousny/PhysVidBench" target="_blank"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <img src="assets/PhysVidBench/hf-logo.svg" style="display:block;width:330px;height:240px" />
+                </span>
+                <span>Huggingface Dataset</span>
+              </a>
+            </span>
+            <!-- Dataset Link. -->
+            <!-- <span class="link-block">
+              <a href="" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <i class="far fa-images"></i>
+                </span>
+                <span>Dataset</span>
+              </a> -->
+          </div>
+
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="padding-top: 1rem; padding-bottom: 2rem;">
+  <div class="container is-max-desktop">
+    <div class="columns is-vcentered">
+      
+      <!-- Left video -->
+      <div class="column has-text-centered">
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem;">Real-World</h3>
+        <video autoplay loop muted playsinline style="width:100%; max-width:500px; border:1px solid #ccc; border-radius:8px;">
+          <source src="assets/PhysVidBench/images/real_egg_yolk.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <!-- Right video -->
+      <div class="column has-text-centered">
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem;">Synthetically Generated</h3>
+        <video autoplay loop muted playsinline style="width:100%; max-width:500px; border:1px solid #ccc; border-radius:8px;">
+          <source src="assets/PhysVidBench/images/cosmos_egg_yolk.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+    </div>
+
+    <!-- Caption -->
+    <p class="has-text-justified" style="margin-top: 1rem;">
+      Hands squeeze an empty plastic water bottle, place the opening over an egg yolk in a bowl, and release the squeeze, sucking the yolk into the bottle, leaving the white behind.
+    </p>
+    <p class="has-text-justified">
+      <strong>Tested concepts:</strong>
+      fundamental physics <span>(<img src="assets/PhysVidBench/images/icons/FP.png" alt="FP" style="height:1em; vertical-align:middle;">)</span>,
+      object properties &amp; affordances <span>(<img src="assets/PhysVidBench/images/icons/OP.png" alt="OP" style="height:1em; vertical-align:middle;">)</span>,
+      spatial reasoning <span>(<img src="assets/PhysVidBench/images/icons/SR.png" alt="SR" style="height:1em; vertical-align:middle;">)</span>,
+      action &amp; procedural understanding <span>(<img src="assets/PhysVidBench/images/icons/AU.png" alt="AU" style="height:1em; vertical-align:middle;">)</span>,
+      force and motion <span>(<img src="assets/PhysVidBench/images/icons/FM.png" alt="FM" style="height:1em; vertical-align:middle;">)</span>
+    </p>
+    
+    
+  </div>
+</section>
+
+
+
+
+
+<section>
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered" style="margin-top: 10px; margin-bottom: 10px;">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 is-centered">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Recent progress in text-to-video (T2V) generation has enabled the synthesis of visually compelling and temporally coherent videos from natural language. However, these models often fall short in basic physical commonsense, producing outputs that violate intuitive expectations around causality, object behavior, and tool use. Addressing this gap, we present PhysVidBench, a benchmark designed to evaluate the physical reasoning capabilities of T2V systems. The benchmark includes 383 carefully curated prompts, emphasizing tool use, material properties, and procedural interactions, and domains where physical plausibility is crucial. For each prompt, we generate videos using diverse state-of-the-art models and adopt a three-stage evaluation pipeline: (1) formulate grounded physics questions from the prompt, (2) caption the generated video with a vision-language model, and (3) task a language model to answer several physics-involved questions using only the caption. This indirect strategy circumvents common hallucination issues in direct video-based evaluation. By highlighting affordances and tool-mediated actions, areas overlooked in current T2V evaluations, PhysVidBench provides a structured, interpretable framework for assessing physical commonsense in generative video models.        <br>
+          </div>
+      </div>
+      
+    </div>
+
+    <!-- <div class="columns is-centered has-text-centered">
+      <div class="column">
+        <div class="publication-img">
+          <img id="architecture" src="assets/PhysVidBench/images/Teaser.png" style="width:900px; margin-top:10px;margin-bottom:50px;"/>
+        </div>
+      </div>
+    </div> -->
+</section>
+
+<!-- <section class="hero teaser">
+  <div class="container is-max-desktop" style="width: 50%; max-width: none;">
+      <div class="hero-body">
+            <img src="assets/PhysVidBench/images/Concepts.png" style="width:100%; margin-bottom:10px" alt="Teaser."/>
+      <p style="margin-top: 0;">
+        <b>Physical commonsense dimensions tested in PhysVidBench</b>, each illustrated with a
+        video generated by Cosmos-14B. Prompts are designed to probe specific categories such as force and
+        motion, object affordance, spatial containment, temporal progression, and material interaction. Each
+        row shows sampled frames from one generated video paired with its corresponding prompt.
+      </p>
+    </div>
+  </div>
+</section> -->
+
+
+<!-- Gri Arka Planlı Başlık -->
+<div style="background-color: #f5f5f5; padding: 1rem; margin-top: 40px;">
+  <div class="container is-max-desktop has-text-centered">
+    <h2 class="title is-3">Physical Commonsense Dimensions</h2>
+  </div>
+</div>
+
+<!-- Beyaz Arka Planlı İçerik -->
+<section class="hero" style="background-color: white; padding-top: 2rem; padding-bottom: 2rem;">
+  <div class="container is-max-desktop">
+    
+    <!-- Carousel Alanı -->
+    <div id="results-carousel-face" class="carousel results-carousel" style="margin-bottom: 2rem;">
+
+      <div class="item item-puppet">
+        <div class="carousel-content">
+          <span class="video-tag-top" style="font-size: 1.1rem; font-weight: 600;">Force and Motion</span>
+          <video id="dimensions_fm" autoplay muted loop playsinline height="100%">
+            <source src="assets/PhysVidBench/images/commonsense_dimensions/fm.mp4" type="video/mp4">
+          </video>
+          <span class="video-tag-bottom" style="font-size: 0.85rem;">Prompt: Conditioner is applied to a finger with a stuck ring, allowing the ring to slide off smoothly.</span>
+        </div>
+      </div>
+
+      <div class="item item-round_bird">
+        <div class="carousel-content">
+          <span class="video-tag-top" style="font-size: 1.1rem; font-weight: 600;">Fundamental Physics</span>
+          <video id="dimensions_ac" autoplay muted loop playsinline height="100%">
+            <source src="assets/PhysVidBench/images/commonsense_dimensions/fundemental.mp4" type="video/mp4">
+          </video>
+          <span class="video-tag-bottom" style="font-size: 0.85rem;">Prompt: Hands place several sheets of white styrofoam into the bottom of a terracotta planter.</span>
+        </div>
+      </div>
+
+      <div class="item item-puppet">
+        <div class="carousel-content">
+          <span class="video-tag-top" style="font-size: 1.1rem; font-weight: 600;">Material Interaction and Transformation</span>
+          <video id="dimensions_rs" autoplay muted loop playsinline height="100%">
+            <source src="assets/PhysVidBench/images/commonsense_dimensions/material.mp4" type="video/mp4">
+          </video>
+          <span class="video-tag-bottom" style="font-size: 0.85rem;">Prompt: A person attaches a binder clip to the end of a toothpaste tube and squeezes it to get more toothpaste out.</span>
+        </div>
+      </div>
+
+      <div class="item item-round_bird">
+        <div class="carousel-content">
+          <span class="video-tag-top" style="font-size: 1.1rem; font-weight: 600;">Object Properties and Affordances</span>
+          <video id="dimensions_ac" autoplay muted loop playsinline height="100%">
+            <source src="assets/PhysVidBench/images/commonsense_dimensions/object.mp4" type="video/mp4">
+          </video>
+          <span class="video-tag-bottom" style="font-size: 0.85rem;">Prompt: Hands stuff dryer lint into cardboard toilet paper tubes.</span>
+        </div>
+      </div>
+
+      <div class="item item-puppet">
+        <div class="carousel-content">
+          <span class="video-tag-top" style="font-size: 1.1rem; font-weight: 600;">Spatial Reasoning</span>
+          <video id="dimensions_rs" autoplay muted loop playsinline height="100%">
+            <source src="assets/PhysVidBench/images/commonsense_dimensions/spatial.mp4" type="video/mp4">
+          </video>
+          <span class="video-tag-bottom" style="font-size: 0.85rem;">Prompt: Toothpaste is smeared onto the inner lens of swimming goggles and then wiped away with a soft cloth.</span>
+        </div>
+      </div>
+
+      <div class="item item-round_bird">
+        <div class="carousel-content">
+          <span class="video-tag-top" style="font-size: 1.1rem; font-weight: 600;">Temporal Dynamics</span>
+          <video id="dimensions_ats" autoplay muted loop playsinline height="100%">
+            <source src="assets/PhysVidBench/images/commonsense_dimensions/temporal.mp4" type="video/mp4">
+          </video>
+          <span class="video-tag-bottom" style="font-size: 0.85rem;">Prompt: Toothpicks are pushed through slices of bread, securing them against the cut edges of a leftover cake.</span>
+        </div>
+      </div>
+
+      <div class="item item-puppet">
+        <div class="carousel-content">
+          <span class="video-tag-top" style="font-size: 1.1rem; font-weight: 600;">Action & Procedural Understanding</span>
+          <video id="dimensions_ats" autoplay muted loop playsinline height="100%">
+            <source src="assets/PhysVidBench/images/commonsense_dimensions/au.mp4" type="video/mp4">
+          </video>
+          <span class="video-tag-bottom" style="font-size: 0.85rem;">Prompt: Hands tear pages from a book and place the crumpled pages under logs in a fire pit.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Açıklama Metni -->
+    <p style="font-size: 0.95rem; text-align: justify;">
+      Physical commonsense dimensions tested in PhysVidBench, illustrated through video examples generated by various state-of-the-art text-to-video (T2V) models. Prompts are designed to probe specific categories such as force and motion, object affordance, spatial containment, temporal progression, and material interaction.
+    </p>
+
+  </div>
+</section>
+
+
+
+
+<!-- Gri Arka Planlı Demo Video Başlığı -->
+<div style="background-color: #f5f5f5; padding: 1rem; margin-top: 40px;">
+  <div class="container is-max-desktop has-text-centered">
+    <h2 class="title is-3">Demo Video</h2>
+  </div>
+</div>
+
+<!-- Beyaz Arka Planlı Video İçeriği -->
+<section class="hero" style="background-color: white; padding-top: 1.5rem; padding-bottom: 2rem;">
+  <div class="container" style="max-width: 1500px; margin: 0 auto;">
+    <div class="columns is-centered has-text-centered">
+      <div class="column">
+        <div class="publication-video">
+          <video controls style="width: 100%; height: auto; display: block; margin: 0 auto; border-radius: 8px;">
+            <source src="assets/PhysVidBench/images/all_combined.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Gri Arka Planlı Başlık -->
+<div style="background-color: #f5f5f5; padding: 1rem; margin-top: 40px;">
+  <div class="container is-max-desktop has-text-centered">
+    <h2 class="title is-3">Video Generation Pipeline</h2>
+  </div>
+</div>
+
+<!-- Beyaz Arka Planlı İçerik -->
+<section class="hero" style="background-color: white; padding-top: 2rem; padding-bottom: 2rem;">
+  <div class="container is-max-desktop">
+    
+    <!-- Görsel olarak pipeline diyagramı -->
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <img src="assets/PhysVidBench/images/Benchmark.png" alt="Video Generation Pipeline" style="width: 100%; max-width: 1000px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+    </div>
+
+    <!-- Açıklama Metni -->
+    <p style="font-size: 0.95rem; text-align: justify;">
+      <strong>Video Generation Pipeline.</strong> An overview of the four-stage pipeline used to construct
+      PhysVidBench. We begin with correct solutions from the PIQA dataset and filter them using a large
+      language model (LLM) to identify instances of secondary tool use and object affordances (Stage 1).
+      These filtered solutions are converted into short, physically grounded video generation prompts via
+      another LLM pass (Stage 2). Each base prompt is further upsampled to enhance its physical specificity
+      and causal structure while preserving the original scene (Stage 3). Both base and upsampled prompts
+      are fed into a diverse set of state-of-the-art text-to-video generation models, resulting in videos that
+      probe tool interaction and physical commonsense (Stage 4).
+    </p>
+
+  </div>
+</section>
+
+
+<!-- Gri Arka Planlı Başlık -->
+<div style="background-color: #f5f5f5; padding: 1rem; margin-top: 40px;">
+  <div class="container is-max-desktop has-text-centered">
+    <h2 class="title is-3">Evaluation Pipeline</h2>
+  </div>
+</div>
+
+<!-- Beyaz Arka Planlı İçerik -->
+<section class="hero" style="background-color: white; padding-top: 2rem; padding-bottom: 2rem;">
+  <div class="container is-max-desktop">
+    
+    <!-- Görsel olarak evaluation diyagramı -->
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <img src="assets/PhysVidBench/images/eval_pipeline.png" alt="Evaluation Pipeline Diagram" style="width: 100%; max-width: 1000px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+    </div>
+
+    <!-- Açıklama Metni -->
+    <p style="font-size: 0.95rem; text-align: justify;">
+      <strong>Evaluation Pipeline.</strong> Overview of our three-stage evaluation framework designed to assess
+      physical commonsense in generated videos. Using the upsampled prompts, we generate yes/no
+      questions aligned with one or more of the seven physical commonsense dimensions in our ontology
+      (Stage 1). Each generated video is captioned using AuroraCap, which produces a general-purpose
+      and seven dimension-specific captions aimed at surfacing evidence relevant to different types of
+      physical reasoning (Stage 2). The LLM is prompted to answer the targeted physics question using
+      only the video captions (Stage 3).
+    </p>
+
+  </div>
+</section>
+
+<!-- Gri Arka Planlı Başlık -->
+<div style="background-color: #f5f5f5; padding: 1rem; margin-top: 40px;">
+  <div class="container is-max-desktop has-text-centered">
+    <h2 class="title is-3">PhysVidBench Evaluation Results</h2>
+  </div>
+</div>
+
+<!-- Beyaz Arka Planlı İçerik -->
+<section class="hero" style="background-color: white; padding-top: 2rem; padding-bottom: 2rem;">
+  <div class="container is-max-desktop">
+    <div class="hero-body" style="padding-top: 0px; padding-bottom: 10px;">
+      <div class="level" style="margin-bottom:1rem;">
+        <div class="level-item has-text-centered">
+          <button id="compareBtn" class="button is-primary is-small">
+            Compare Visually
+          </button>
+        </div>
+      </div>
+      <div class="table-container">
+        <table class="table is-bordered is-striped is-fullwidth is-hoverable is-size-7">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th><span>AU</span><img src="assets/PhysVidBench/images/icons/AU.png" alt="AU" style="height:16px;vertical-align:middle;margin-left:4px;"></th>
+              <th><span>FM</span><img src="assets/PhysVidBench/images/icons/FM.png" alt="FM" style="height:16px;vertical-align:middle;margin-left:4px;"></th>
+              <th><span>FP</span><img src="assets/PhysVidBench/images/icons/FP.png" alt="FP" style="height:16px;vertical-align:middle;margin-left:4px;"></th>
+              <th><span>MT</span><img src="assets/PhysVidBench/images/icons/MT.png" alt="MT" style="height:16px;vertical-align:middle;margin-left:4px;"></th>
+              <th><span>OP</span><img src="assets/PhysVidBench/images/icons/OP.png" alt="OP" style="height:16px;vertical-align:middle;margin-left:4px;"></th>
+              <th><span>SR</span><img src="assets/PhysVidBench/images/icons/SR.png" alt="SR" style="height:16px;vertical-align:middle;margin-left:4px;"></th>
+              <th><span>TD</span><img src="assets/PhysVidBench/images/icons/TD.png" alt="TD" style="height:16px;vertical-align:middle;margin-left:4px;"></th>
+              <th><span>Avg</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><a class="model-link" data-model="ltx">LTX-Video</a></td><td>20.6 (-4.2)</td> <td>19.7 (-3.4)</td> <td>18.0 (-2.1)</td> <td>16.4 (-1.5)</td> <td>24.3 (-4.4)</td> <td>17.1 (-2.4)</td> <td>14.1 (-4.8)</td> <td>20.7 (-2.8)</td></tr>
+            <tr><td><a class="model-link" data-model="vc">VideoCrafter2</a></td> <td>17.7 (-1.6)</td> <td>19.3 (-2.8)</td> <td>22.6 (-2.8)</td> <td>18.3 (-2.8)</td> <td>26.4 (-2.6)</td> <td>15.7 (-0.2)</td> <td>12.3 (-1.9)</td> <td>22.0 (-1.8)</td></tr>
+            <tr><td><a class="model-link" data-model="cog2">CogVideoX (2B)</a></td> <td>22.2 (-1.5)</td> <td>24.4 (-4.3)</td> <td>23.3 (-2.8)</td> <td>22.5 (-0.4)</td> <td>29.2 (-4.0)</td> <td>19.5 (-1.3)</td> <td>16.7 (-1.5)</td> <td>25.6 (-3.0)</td></tr>
+            <tr><td><a class="model-link" data-model="cog5">CogVideoX (5B)</a></td> <td>18.7 (-0.8)</td> <td>19.4 (-3.1)</td> <td>20.7 (-3.2)</td> <td>17.8 (-1.5)</td> <td>25.6 (-1.8)</td> <td>17.9 (-0.4)</td> <td>12.6 (+0.8)</td> <td>20.8 (-1.5)</td></tr>
+            <tr><td><a class="model-link" data-model="wan1">Wan2.1 (1.3B)</a></td> <td>30.0 (-3.6)</td> <td>28.9 (-5.3)</td> <td>28.2 (-3.3)</td> <td>28.5 (-2.0)</td> <td>35.1 (-3.9)</td> <td>27.3 (-3.3)</td> <td>19.0 (-0.0)</td> <td>30.5 (-3.2)</td></tr>
+            <tr><td><a class="model-link" data-model="wan14">Wan2.1 (14B)</a></td> <td>33.3 (-3.4)</td> <td>31.4 (-1.7)</td> <td>31.9 (-1.4)</td> <td>32.4 (-3.3)</td> <td>39.1 (-4.5)</td> <td>29.8 (-1.5)</td> <td>23.4 (-1.5)</td> <td>33.9 (-1.9)</td></tr>
+            <tr><td><a class="model-link" data-model="magi">MAGI-1</a></td> <td>27.2 (-6.0)</td> <td>26.3 (-3.8)</td> <td>28.8 (-1.6)</td> <td>27.7 (-4.6)</td> <td>37.3 (-5.7)</td> <td>30.3 (-5.3)</td> <td>19.3 (-8.1)</td> <td>32.5 (-5.5)</td></tr>
+            <tr><td><a class="model-link" data-model="hunyuan">Hunyuan Video</a></td> <td>26.4 (-0.6)</td> <td>25.8 (+0.5)</td> <td>27.7 (-0.1)</td> <td>31.9 (-4.8)</td> <td>35.7 (-1.9)</td> <td>23.9 (+2.2)</td> <td>21.6 (-5.2)</td> <td>30.1 (-1.2)</td></tr>
+            <tr><td><a class="model-link" data-model="cosmos7">Cosmos (7B)</a></td> <td>32.1 (-8.1)</td> <td>32.4 (-9.1)</td> <td>32.9 (-8.6)</td> <td>35.8 (-11.0)</td> <td>39.6 (-10.5)</td> <td>31.7 (-10.1)</td> <td>21.6 (-8.2)</td> <td>34.8 (-8.3)</td></tr>
+            <tr><td><a class="model-link" data-model="cosmos14">Cosmos (14B)</a></td> <td>35.7 (-6.0)</td> <td>33.3 (-6.1)</td> <td>30.9 (-4.0)</td> <td>36.8 (-6.0)</td> <td>41.0 (-9.8)</td> <td>32.7 (-5.6)</td> <td>20.8 (-0.3)</td> <td>36.1 (-7.1)</td></tr>
+            <tr><td><a class="model-link" data-model="sora">Sora</a></td> <td>28.6 (+2.4)</td> <td>30.0 (-1.1)</td> <td>29.9 (+0.2)</td> <td>33.1 (+0.3)</td> <td>37.0 (-1.1)</td> <td>24.8 (+1.7)</td> <td>16.7 (+2.6)</td> <td>31.4 (+0.3)</td></tr>
+            <tr><td><a class="model-link" data-model="veo2">Veo-2</a></td> <td>34.9 (-0.7)</td> <td>33.8 (-2.3)</td> <td>31.7 (-2.7)</td> <td>36.0 (-3.1)</td> <td>38.4 (-1.5)</td> <td>29.7 (+1.0)</td> <td>19.5 (+2.5)</td> <td>34.8 (-0.7)</td></tr>
+          </tbody>
+        </table>
+        
+      </div>
+
+      <p class="is-size-7" style="margin-top: 1em;">
+        <strong>AU</strong>: Action & Procedural Understanding, 
+        <strong>FM</strong>: Force and Motion, 
+        <strong>FP</strong>: Fundamental Physics, 
+        <strong>MT</strong>: Material Interaction & Transformation, 
+        <strong>OP</strong>: Object Properties & Affordances, 
+        <strong>SR</strong>: Spatial Reasoning, 
+        <strong>TD</strong>: Temporal Dynamics.
+      </p>
+
+    </div>
+
+    <p style="text-align: justify;">
+      We present evaluation results for 12 state-of-the-art video generation models using PhysVidBench, which measures physical commonsense understanding across seven fine-grained dimensions, Action Understanding, Force & Motion, Fundamental Physics, Material Interaction, Object Properties, Spatial Reasoning, and Temporal Dynamics, along with an overall average. Each model is tested under two prompt variants: base prompts derived directly from PIQA answer texts, and upsampled prompts that enrich physical details and causal structure.
+    
+      Across all models, upsampled prompts consistently yield higher scores, particularly in dimensions that benefit from explicit physical context, such as Object Properties, Force & Motion, and Material Interaction. This suggests that prompt engineering remains a critical factor in eliciting stronger physical reasoning from generative models. Despite these gains, most models still underperform in Spatial Reasoning and Temporal Dynamics, reflecting limitations in current architectures' ability to encode geometry, continuity, and causal flow over time.
+      
+      Interestingly, while larger models such as Wan2.1 14B and Cosmos 14B generally achieve higher scores, size alone does not guarantee robust physical understanding highlighting the need for improved objective functions, data, or inductive biases tailored to physical commonsense. Overall, PhysVidBench provides a clear and interpretable framework for diagnosing such gaps and benchmarking progress in physically grounded video generation.
+    </p>
+    
+
+
+
+    <!-- Spider Charts -->
+
+      <div class="section-title" style="margin-top: 1em;">
+        <h2 class="title is-3 is-centered"></h2>
+      </div>
+      
+      
+      <!-- <div class="columns is-centered has-text-centered">
+        <div class="column">
+              <div>
+
+
+              <div>                        <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+                <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.0.1.min.js"></script>                <div id="245301fd-5861-4abd-9ab2-e7b7636af89e" class="plotly-graph-div" style="height:750px; width:1000px;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("245301fd-5861-4abd-9ab2-e7b7636af89e")) {                    Plotly.newPlot(                        "245301fd-5861-4abd-9ab2-e7b7636af89e",                        [{"hovertemplate":"\u003cb\u003eLTX\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(229, 134, 6)","width":2.2},"mode":"lines","name":"LTX","r":[20.6,19.7,18.0,16.4,24.3,17.1,14.1,20.7,20.6],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"},{"hovertemplate":"\u003cb\u003eVideoCrafter2\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(93, 105, 177)","width":2.2},"mode":"lines","name":"VideoCrafter2","r":[17.7,19.3,22.6,18.3,26.4,15.7,12.3,22.0,17.7],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"},{"hovertemplate":"\u003cb\u003eCogVideoX (2B)\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(82, 188, 163)","width":2.2},"mode":"lines","name":"CogVideoX (2B)","r":[22.2,24.4,23.3,22.5,29.2,19.5,16.7,25.6,22.2],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"},{"hovertemplate":"\u003cb\u003eCogVideoX (5B)\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(153, 201, 69)","width":2.2},"mode":"lines","name":"CogVideoX (5B)","r":[18.7,19.4,20.7,17.8,25.6,17.9,12.6,20.8,18.7],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"},{"hovertemplate":"\u003cb\u003eWanAI 2.1 (1.3B)\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(204, 97, 176)","width":2.2},"mode":"lines","name":"WanAI 2.1 (1.3B)","r":[30.0,28.9,28.2,28.5,35.1,27.3,19.0,30.5,30.0],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"},{"hovertemplate":"\u003cb\u003eWanAI 2.1 (14B)\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(36, 121, 108)","width":2.2},"mode":"lines","name":"WanAI 2.1 (14B)","r":[33.3,31.4,31.9,32.4,39.1,29.8,23.4,33.9,33.3],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"},{"hovertemplate":"\u003cb\u003eMAGI\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(218, 165, 27)","width":2.2},"mode":"lines","name":"MAGI","r":[27.2,26.3,28.8,27.7,37.3,30.3,19.3,32.5,27.2],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"},{"hovertemplate":"\u003cb\u003eHunyuan\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(47, 138, 196)","width":2.2},"mode":"lines","name":"Hunyuan","r":[26.4,25.8,27.7,31.9,35.7,23.9,21.6,30.1,26.4],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"},{"hovertemplate":"\u003cb\u003eCosmos (7B)\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(118, 78, 159)","width":2.2},"mode":"lines","name":"Cosmos (7B)","r":[32.1,32.4,32.9,35.8,39.6,31.7,21.6,34.8,32.1],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"},{"hovertemplate":"\u003cb\u003eCosmos (14B)\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(237, 100, 90)","width":2.2},"mode":"lines","name":"Cosmos (14B)","r":[35.7,33.3,30.9,36.8,41.0,32.7,20.8,36.1,35.7],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"polar":{"radialaxis":{"tickfont":{"size":13},"range":[10,45],"tickvals":[10,15,20,25,30,35,40],"gridcolor":"rgba(128,128,128,0.2)","showticklabels":true,"ticks":"outside"},"angularaxis":{"tickfont":{"size":14},"direction":"clockwise","rotation":90}},"legend":{"orientation":"h","yanchor":"bottom","y":-0.18,"xanchor":"center","x":0.5,"itemwidth":70,"bgcolor":"rgba(255,255,255,0.8)"},"margin":{"l":60,"r":60,"t":80,"b":150},"title":{"text":"\u003cb\u003ePhysical Commonsense Evaluation\u003c\u002fb\u003e"},"paper_bgcolor":"rgb(248,248,255)","width":1000,"height":750},                        {"responsive": true}                    )                };            </script>        </div>
+
+        </div>
+      </div>
+        
+    </div>
+    <p style="margin-top: 0; margin-bottom: 5em;">
+      We visualize the evaluation results of 10 video generation models across 8 categories, including 7 dimension-specific scores and 1 overall average under upsampled prompt settings.
+              
+    </p> -->
+
+
+
+    <!-- <style>
+      .areaTooltip{
+        position:absolute;
+        pointer-events:none;
+        padding:4px 8px;
+        background:#fff;
+        border:1px solid #999;
+        border-radius:4px;
+        font:12px/1.3 'Open Sans',sans-serif;
+        opacity:0;
+      }
+    </style> -->
+
+    <head>
+      <meta charset="utf-8" />
+      <title>D3 Radar Chart – Tooltip + Alt Legend + Highlight</title>
+    
+      <!-- Google Fonts -->
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300|Raleway" rel="stylesheet">
+    
+      <!-- D3.js (v3) -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+    
+      <style>
+        /* body{
+          font-family:'Open Sans',sans-serif; font-size:11px; font-weight:300;
+          fill:#242424; text-align:center;
+          text-shadow:0 1px 0 #fff,1px 0 0 #fff,-1px 0 0 #fff,0 -1px 0 #fff;
+          margin:0;
+        } */
+        .legend{font-family:'Raleway',sans-serif; fill:#333}
+        .tooltip{fill:#333}
+    
+        /* Alan (blob) adını gösteren tooltip */
+        .areaTooltip{
+          position:absolute; pointer-events:none;
+          padding:4px 8px; background:#fff; border:1px solid #999; border-radius:4px;
+          font:12px/1.3 'Open Sans',sans-serif;
+          opacity:0; transition:opacity .2s; z-index:10;
+        }
+      </style>
+    </head>
+    <body>
+    
+      <div class="radar-chart-wrapper">
+        <div class="radarChart"></div>
+      </div>
+    
+      <!-- Radar Chart ana fonksiyonu -->
+      <script src="assets/PhysVidBench/js/radarChart.js"></script>
+    
+      <script>
+      /* Radar chart design: Nadieh Bremer – VisualCinnamon.com
+         Eklemeler: alan adı tooltip + altta legend + legend hover highlight */
+    
+      // Grafik boyutları
+      var margin = {top:130, right:100, bottom:100, left:100},
+          width  = Math.min(700, window.innerWidth  - 10) - margin.left - margin.right,
+          height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
+    
+      // Veri
+      var data = [
+        // [ // LTX-Video
+        //   {axis:"Action & Procedural Understanding", value:0.164},
+        //   {axis:"Force and Motion", value:0.163},
+        //   {axis:"Fundamental Physics", value:0.159},
+        //   {axis:"Material Interaction & Transformation", value:0.149},
+        //   {axis:"Object Properties & Affordances", value:0.199},
+        //   {axis:"Spatial Reasoning", value:0.147},
+        //   {axis:"Temporal Dynamics", value:0.093},
+        //   {axis:"Average", value:0.179}
+        // ],
+        // [ // VideoCrafter2
+        //   {axis:"Action & Procedural Understanding", value:0.161},
+        //   {axis:"Force and Motion", value:0.165},
+        //   {axis:"Fundamental Physics", value:0.198},
+        //   {axis:"Material Interaction & Transformation", value:0.155},
+        //   {axis:"Object Properties & Affordances", value:0.238},
+        //   {axis:"Spatial Reasoning", value:0.155},
+        //   {axis:"Temporal Dynamics", value:0.104},
+        //   {axis:"Average", value:0.202}
+        // ],
+        // [ // CogVideoX (2B)
+        //   {axis:"Action & Procedural Understanding", value:0.207},
+        //   {axis:"Force and Motion", value:0.201},
+        //   {axis:"Fundamental Physics", value:0.205},
+        //   {axis:"Material Interaction & Transformation", value:0.221},
+        //   {axis:"Object Properties & Affordances", value:0.252},
+        //   {axis:"Spatial Reasoning", value:0.182},
+        //   {axis:"Temporal Dynamics", value:0.152},
+        //   {axis:"Average", value:0.226}
+        // ],
+        // [ // CogVideoX (5B)
+        //   {axis:"Action & Procedural Understanding", value:0.179},
+        //   {axis:"Force and Motion", value:0.163},
+        //   {axis:"Fundamental Physics", value:0.175},
+        //   {axis:"Material Interaction & Transformation", value:0.163},
+        //   {axis:"Object Properties & Affordances", value:0.238},
+        //   {axis:"Spatial Reasoning", value:0.175},
+        //   {axis:"Temporal Dynamics", value:0.134},
+        //   {axis:"Average", value:0.193}
+        // ],
+        // [ // Wan2.1 (1.3B)
+        //   {axis:"Action & Procedural Understanding", value:0.264},
+        //   {axis:"Force and Motion", value:0.236},
+        //   {axis:"Fundamental Physics", value:0.249},
+        //   {axis:"Material Interaction & Transformation", value:0.265},
+        //   {axis:"Object Properties & Affordances", value:0.312},
+        //   {axis:"Spatial Reasoning", value:0.240},
+        //   {axis:"Temporal Dynamics", value:0.190},
+        //   {axis:"Average", value:0.273}
+        // ],
+        [ // Wan2.1 (14B)
+          {axis:"Action & Procedural Understanding", value:0.299},
+          {axis:"Force and Motion", value:0.297},
+          {axis:"Fundamental Physics", value:0.305},
+          {axis:"Material Interaction & Transformation", value:0.291},
+          {axis:"Object Properties & Affordances", value:0.346},
+          {axis:"Spatial Reasoning", value:0.283},
+          {axis:"Temporal Dynamics", value:0.219},
+          {axis:"Average", value:0.320}
+        ],
+        // [ // MAGI-1
+        //   {axis:"Action & Procedural Understanding", value:0.212},
+        //   {axis:"Force and Motion", value:0.225},
+        //   {axis:"Fundamental Physics", value:0.272},
+        //   {axis:"Material Interaction & Transformation", value:0.231},
+        //   {axis:"Object Properties & Affordances", value:0.316},
+        //   {axis:"Spatial Reasoning", value:0.250},
+        //   {axis:"Temporal Dynamics", value:0.112},
+        //   {axis:"Average", value:0.270}
+        // ],
+        [ // Hunyuan Video
+          {axis:"Action & Procedural Understanding", value:0.258},
+          {axis:"Force and Motion", value:0.263},
+          {axis:"Fundamental Physics", value:0.276},
+          {axis:"Material Interaction & Transformation", value:0.271},
+          {axis:"Object Properties & Affordances", value:0.338},
+          {axis:"Spatial Reasoning", value:0.261},
+          {axis:"Temporal Dynamics", value:0.164},
+          {axis:"Average", value:0.289}
+        ],
+        // [ // Cosmos (7B)
+        //   {axis:"Action & Procedural Understanding", value:0.240},
+        //   {axis:"Force and Motion", value:0.233},
+        //   {axis:"Fundamental Physics", value:0.243},
+        //   {axis:"Material Interaction & Transformation", value:0.248},
+        //   {axis:"Object Properties & Affordances", value:0.291},
+        //   {axis:"Spatial Reasoning", value:0.216},
+        //   {axis:"Temporal Dynamics", value:0.134},
+        //   {axis:"Average", value:0.265}
+        // ],
+        [ // Cosmos (14B)
+          {axis:"Action & Procedural Understanding", value:0.297},
+          {axis:"Force and Motion", value:0.272},
+          {axis:"Fundamental Physics", value:0.269},
+          {axis:"Material Interaction & Transformation", value:0.308},
+          {axis:"Object Properties & Affordances", value:0.409},
+          {axis:"Spatial Reasoning", value:0.271},
+          {axis:"Temporal Dynamics", value:0.205},
+          {axis:"Average", value:0.290}
+        ],
+        [ // Sora
+          {axis:"Action & Procedural Understanding", value:0.310},
+          {axis:"Force and Motion", value:0.289},
+          {axis:"Fundamental Physics", value:0.301},
+          {axis:"Material Interaction & Transformation", value:0.334},
+          {axis:"Object Properties & Affordances", value:0.359},
+          {axis:"Spatial Reasoning", value:0.265},
+          {axis:"Temporal Dynamics", value:0.193},
+          {axis:"Average", value:0.317}
+        ],
+        [ // Veo-2
+          {axis:"Action & Procedural Understanding", value:0.342},
+          {axis:"Force and Motion", value:0.315},
+          {axis:"Fundamental Physics", value:0.290},
+          {axis:"Material Interaction & Transformation", value:0.329},
+          {axis:"Object Properties & Affordances", value:0.369},
+          {axis:"Spatial Reasoning", value:0.307},
+          {axis:"Temporal Dynamics", value:0.220},
+          {axis:"Average", value:0.341}
+        ]
+      ];
+
+
+    
+      // Model adları (sırası data ile aynı)
+      var modelNames = [
+        // "LTX-Video",
+        // "VideoCrafter2",
+        // "CogVideoX (2B)",
+        // "CogVideoX (5B)",
+        // "Wan2.1 (1.3B)",
+        "Wan2.1 (14B)",
+        // "MAGI-1",
+        "Hunyuan Video",
+        // "Cosmos (7B)",
+        "Cosmos (14B)",
+        "Sora",
+        "Veo-2"
+      ];
+
+    
+      // Renk skalası
+      var color = d3.scale.ordinal()
+        .range([
+          // "#8dd3c7", // LTX-Video
+          // "#ffffb3", // VideoCrafter2
+          // "#bebada", // CogVideoX (2B)
+          // "#fb8072", // CogVideoX (5B)
+          // "#80b1d3", // Wan2.1 (1.3B)
+          "#fdb462", // Wan2.1 (14B)
+          // "#b3de69", // MAGI-1
+          "#e78ac3",  // Hunyuan
+          // "#a6cee3", // Cosmos (7B)
+          "#bc80bd", // Cosmos (14B)
+          "#66bb6a", // Sora
+          "#ffed6f"  // Veo-2
+        ]);
+
+    
+      // Grafiği çiz
+      RadarChart(".radarChart", data, {
+        w: width,
+        h: height,
+        margin: margin,
+        maxValue: 0.45,
+        levels: 5,
+        roundStrokes: true,
+        color: color,
+        labels: modelNames,      // tooltip + legend için gerekli
+        title: "Top 5 Model Scores on Base Prompts",   
+      });
+      </script>
+    </body>
+    </html>
+
+    <head>
+      <meta charset="utf-8" />
+      <title>D3 Radar Chart – Tooltip + Alt Legend + Highlight</title>
+    
+      <!-- Google Fonts -->
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300|Raleway" rel="stylesheet">
+    
+      <!-- D3.js (v3) -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script> -->
+    
+      <style>
+        /* body{
+          font-family:'Open Sans',sans-serif; font-size:11px; font-weight:300;
+          fill:#242424; text-align:center;
+          text-shadow:0 1px 0 #fff,1px 0 0 #fff,-1px 0 0 #fff,0 -1px 0 #fff;
+          margin:0;
+        } */
+        .legend{font-family:'Raleway',sans-serif; fill:#333}
+        .tooltip{fill:#333}
+    
+        /* Alan (blob) adını gösteren tooltip */
+        .areaTooltip{
+          position:absolute; pointer-events:none;
+          padding:4px 8px; background:#fff; border:1px solid #999; border-radius:4px;
+          font:12px/1.3 'Open Sans',sans-serif;
+          opacity:0; transition:opacity .2s; z-index:10;
+        }
+      </style>
+    </head>
+    <body>
+    
+      <div class="radar-chart-wrapper">
+        <div class="radarChart2"></div>
+      </div>
+    
+      <!-- Radar Chart ana fonksiyonu -->
+      <script src="assets/PhysVidBench/js/radarChart.js"></script>
+    
+      <script>
+      /* Radar chart design: Nadieh Bremer – VisualCinnamon.com
+         Eklemeler: alan adı tooltip + altta legend + legend hover highlight */
+    
+      // Grafik boyutları
+      var margin = {top:130, right:100, bottom:100, left:100},
+          width  = Math.min(700, window.innerWidth  - 10) - margin.left - margin.right,
+          height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
+    
+      // Veri
+      var data = [
+        // [ // LTX-Video
+        //   {axis:"Action & Procedural Understanding", value:0.206},
+        //   {axis:"Force and Motion", value:0.197},
+        //   {axis:"Fundamental Physics", value:0.180},
+        //   {axis:"Material Interaction & Transformation", value:0.164},
+        //   {axis:"Object Properties & Affordances", value:0.243},
+        //   {axis:"Spatial Reasoning", value:0.171},
+        //   {axis:"Temporal Dynamics", value:0.141},
+        //   {axis:"Average", value:0.207}
+        // ],
+        // [ // VideoCrafter2
+        //   {axis:"Action & Procedural Understanding", value:0.177},
+        //   {axis:"Force and Motion", value:0.193},
+        //   {axis:"Fundamental Physics", value:0.226},
+        //   {axis:"Material Interaction & Transformation", value:0.183},
+        //   {axis:"Object Properties & Affordances", value:0.264},
+        //   {axis:"Spatial Reasoning", value:0.157},
+        //   {axis:"Temporal Dynamics", value:0.123},
+        //   {axis:"Average", value:0.220}
+        // ],
+        // [ // CogVideoX (2B)
+        //   {axis:"Action & Procedural Understanding", value:0.222},
+        //   {axis:"Force and Motion", value:0.244},
+        //   {axis:"Fundamental Physics", value:0.233},
+        //   {axis:"Material Interaction & Transformation", value:0.225},
+        //   {axis:"Object Properties & Affordances", value:0.292},
+        //   {axis:"Spatial Reasoning", value:0.195},
+        //   {axis:"Temporal Dynamics", value:0.167},
+        //   {axis:"Average", value:0.256}
+        // ],
+        // [ // CogVideoX (5B)
+        //   {axis:"Action & Procedural Understanding", value:0.187},
+        //   {axis:"Force and Motion", value:0.194},
+        //   {axis:"Fundamental Physics", value:0.207},
+        //   {axis:"Material Interaction & Transformation", value:0.178},
+        //   {axis:"Object Properties & Affordances", value:0.256},
+        //   {axis:"Spatial Reasoning", value:0.179},
+        //   {axis:"Temporal Dynamics", value:0.126},
+        //   {axis:"Average", value:0.208}
+        // ],
+        // [ // Wan2.1 (1.3B)
+        //   {axis:"Action & Procedural Understanding", value:0.300},
+        //   {axis:"Force and Motion", value:0.289},
+        //   {axis:"Fundamental Physics", value:0.282},
+        //   {axis:"Material Interaction & Transformation", value:0.285},
+        //   {axis:"Object Properties & Affordances", value:0.351},
+        //   {axis:"Spatial Reasoning", value:0.273},
+        //   {axis:"Temporal Dynamics", value:0.190},
+        //   {axis:"Average", value:0.305}
+        // ],
+        [ // Wan2.1 (14B)
+          {axis:"Action & Procedural Understanding", value:0.333},
+          {axis:"Force and Motion", value:0.314},
+          {axis:"Fundamental Physics", value:0.319},
+          {axis:"Material Interaction & Transformation", value:0.324},
+          {axis:"Object Properties & Affordances", value:0.391},
+          {axis:"Spatial Reasoning", value:0.298},
+          {axis:"Temporal Dynamics", value:0.234},
+          {axis:"Average", value:0.339}
+        ],
+        // [ // MAGI-1
+        //   {axis:"Action & Procedural Understanding", value:0.272},
+        //   {axis:"Force and Motion", value:0.263},
+        //   {axis:"Fundamental Physics", value:0.288},
+        //   {axis:"Material Interaction & Transformation", value:0.277},
+        //   {axis:"Object Properties & Affordances", value:0.373},
+        //   {axis:"Spatial Reasoning", value:0.303},
+        //   {axis:"Temporal Dynamics", value:0.193},
+        //   {axis:"Average", value:0.325}
+        // ],
+        [ // Hunyuan Video
+          {axis:"Action & Procedural Understanding", value:0.264},
+          {axis:"Force and Motion", value:0.258},
+          {axis:"Fundamental Physics", value:0.277},
+          {axis:"Material Interaction & Transformation", value:0.319},
+          {axis:"Object Properties & Affordances", value:0.357},
+          {axis:"Spatial Reasoning", value:0.239},
+          {axis:"Temporal Dynamics", value:0.216},
+          {axis:"Average", value:0.301}
+        ],
+        // [ // Cosmos (7B)
+        //   {axis:"Action & Procedural Understanding", value:0.321},
+        //   {axis:"Force and Motion", value:0.324},
+        //   {axis:"Fundamental Physics", value:0.329},
+        //   {axis:"Material Interaction & Transformation", value:0.358},
+        //   {axis:"Object Properties & Affordances", value:0.396},
+        //   {axis:"Spatial Reasoning", value:0.317},
+        //   {axis:"Temporal Dynamics", value:0.216},
+        //   {axis:"Average", value:0.348}
+        // ],
+        [ // Cosmos (14B)
+          {axis:"Action & Procedural Understanding", value:0.357},
+          {axis:"Force and Motion", value:0.333},
+          {axis:"Fundamental Physics", value:0.309},
+          {axis:"Material Interaction & Transformation", value:0.368},
+          {axis:"Object Properties & Affordances", value:0.410},
+          {axis:"Spatial Reasoning", value:0.327},
+          {axis:"Temporal Dynamics", value:0.208},
+          {axis:"Average", value:0.361}
+        ],
+        [ // Sora
+          {axis:"Action & Procedural Understanding", value:0.286},
+          {axis:"Force and Motion", value:0.300},
+          {axis:"Fundamental Physics", value:0.299},
+          {axis:"Material Interaction & Transformation", value:0.331},
+          {axis:"Object Properties & Affordances", value:0.370},
+          {axis:"Spatial Reasoning", value:0.248},
+          {axis:"Temporal Dynamics", value:0.167},
+          {axis:"Average", value:0.314}
+        ],
+        [ // Veo-2
+          {axis:"Action & Procedural Understanding", value:0.349},
+          {axis:"Force and Motion", value:0.338},
+          {axis:"Fundamental Physics", value:0.317},
+          {axis:"Material Interaction & Transformation", value:0.360},
+          {axis:"Object Properties & Affordances", value:0.384},
+          {axis:"Spatial Reasoning", value:0.297},
+          {axis:"Temporal Dynamics", value:0.195},
+          {axis:"Average", value:0.348}
+        ]
+    ];
+
+    
+      // Model adları (sırası data ile aynı)
+      var modelNames = [
+        // "LTX-Video",
+        // "VideoCrafter2",
+        // "CogVideoX (2B)",
+        // "CogVideoX (5B)",
+        // "Wan2.1 (1.3B)",
+        "Wan2.1 (14B)",
+        // "MAGI-1",
+        "Hunyuan Video",
+        // "Cosmos (7B)",
+        "Cosmos (14B)",
+        "Sora",
+        "Veo-2"
+      ];
+
+    
+      // Renk skalası
+      var color = d3.scale.ordinal()
+        .range([
+          // "#8dd3c7", // LTX-Video
+          // "#ffffb3", // VideoCrafter2
+          // "#bebada", // CogVideoX (2B)
+          // "#fb8072", // CogVideoX (5B)
+          // "#80b1d3", // Wan2.1 (1.3B)
+          "#fdb462", // Wan2.1 (14B)
+          // "#b3de69", // MAGI-1
+          "#e78ac3",  // Hunyuan
+          // "#a6cee3", // Cosmos (7B)
+          "#bc80bd", // Cosmos (14B)
+          "#66bb6a", // Sora
+          "#ffed6f"  // Veo-2
+        ]);
+
+    
+      // Grafiği çiz
+      RadarChart(".radarChart2", data, {
+        w: width,
+        h: height,
+        margin: margin,
+        maxValue: 0.45,
+        levels: 5,
+        roundStrokes: true,
+        color: color,
+        labels: modelNames, // tooltip + legend için gerekli
+        title: "Top 5 Model Scores on Upsampled Prompts",
+      });
+      </script>
+    </body>
+    </html>
+
+
+
+    <!-- hard prompts results -->
+
+    <!-- <div class="columns is-centered has-text-centered">
+      <div class="column">
+         <div>
+            <div>                        <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+              <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.0.1.min.js"></script>                
+              <div id="hard-prompts" class="plotly-graph-div" style="height:750px; width:1000px;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                
+              if (document.getElementById("hard-prompts")) {                    
+                Plotly.newPlot("hard-prompts",
+                              [{"hovertemplate":"\u003cb\u003eLTX\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(229, 134, 6)","width":2.2},"mode":"lines",
+                              "name":"LTX","r":[28.8,34.4,23.3,28.3,27.8,24.2,19.3,26.6,28.8],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"},{"hovertemplate":"\u003cb\u003eVideoCrafter2\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(93, 105, 177)","width":2.2},"mode":"lines",
+                              "name":"VideoCrafter2","r":[17.7,19.3,22.6,18.3,26.4,15.7,12.3,22.0,17.7],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"},{"hovertemplate":"\u003cb\u003eCogVideoX (2B)\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(82, 188, 163)","width":2.2},"mode":"lines",
+                              "name":"CogVideoX (2B)","r":[22.2,24.4,23.3,22.5,29.2,19.5,16.7,25.6,22.2],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"},{"hovertemplate":"\u003cb\u003eCogVideoX (5B)\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(153, 201, 69)","width":2.2},"mode":"lines",
+                              "name":"CogVideoX (5B)","r":[18.7,19.4,20.7,17.8,25.6,17.9,12.6,20.8,18.7],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"},{"hovertemplate":"\u003cb\u003eWanAI 2.1 (1.3B)\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(204, 97, 176)","width":2.2},"mode":"lines",
+                              "name":"WanAI 2.1 (1.3B)","r":[30.0,28.9,28.2,28.5,35.1,27.3,19.0,30.5,30.0],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"},{"hovertemplate":"\u003cb\u003eWanAI 2.1 (14B)\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(36, 121, 108)","width":2.2},"mode":"lines",
+                              "name":"WanAI 2.1 (14B)","r":[33.3,31.4,31.9,32.4,39.1,29.8,23.4,33.9,33.3],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"},{"hovertemplate":"\u003cb\u003eMAGI\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(218, 165, 27)","width":2.2},"mode":"lines",
+                              "name":"MAGI","r":[27.2,26.3,28.8,27.7,37.3,30.3,19.3,32.5,27.2],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"},{"hovertemplate":"\u003cb\u003eHunyuan\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(47, 138, 196)","width":2.2},"mode":"lines",
+                              "name":"Hunyuan","r":[26.4,25.8,27.7,31.9,35.7,23.9,21.6,30.1,26.4],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"},{"hovertemplate":"\u003cb\u003eCosmos (7B)\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(118, 78, 159)","width":2.2},"mode":"lines",
+                              "name":"Cosmos (7B)","r":[32.1,32.4,32.9,35.8,39.6,31.7,21.6,34.8,32.1],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"},{"hovertemplate":"\u003cb\u003eCosmos (14B)\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(237, 100, 90)","width":2.2},"mode":"lines",
+                              "name":"Cosmos (14B)","r":[35.7,33.3,30.9,36.8,41.0,32.7,20.8,36.1,35.7],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"polar":{"radialaxis":{"tickfont":{"size":13},"range":[10,45],"tickvals":[10,15,20,25,30,35,40],"gridcolor":"rgba(128,128,128,0.2)","showticklabels":true,"ticks":"outside"},"angularaxis":{"tickfont":{"size":14},"direction":"clockwise","rotation":90}},"legend":{"orientation":"h","yanchor":"bottom","y":-0.18,"xanchor":"center","x":0.5,"itemwidth":70,"bgcolor":"rgba(255,255,255,0.8)"},"margin":{"l":60,"r":60,"t":80,"b":150},"title":{"text":"\u003cb\u003ePhysical Commonsense Evaluation\u003c\u002fb\u003e"},"paper_bgcolor":"rgb(248,248,255)","width":1000,"height":750},                        {"responsive": true}                    )                };            </script>        
+         </div>
+      </div>
+    </div>
+      
+  </div>
+  <p style="margin-top: 0; margin-bottom: 5em;">
+     We visualize the evaluation results of 10 video generation models across 8 categories, including 7 dimension-specific scores and 1 overall average, under both base and upsampled prompt settings.
+    We visualize the evaluation results of 10 video generation models across 8 categories, including 7 dimension-specific scores and 1 overall average under upsampled prompt settings.    
+  </p> 
+
+
+  // extra hard prompts results
+
+   <div class="columns is-centered has-text-centered">
+    <div class="column">
+       <div>
+          <div>                        <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+            <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.0.1.min.js"></script>                
+            <div id="extra-hard-prompts" class="plotly-graph-div" style="height:750px; width:1000px;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                
+            if (document.getElementById("extra-hard-prompts")) {                    
+              Plotly.newPlot("extra-hard-prompts",
+                            [{"hovertemplate":"\u003cb\u003eLTX\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(229, 134, 6)","width":2.2},"mode":"lines",
+                            
+                            "name":"LTX","r":[20.6,19.7,18.0,16.4,24.3,17.1,14.1,20.7,20.6],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"},{"hovertemplate":"\u003cb\u003eVideoCrafter2\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(93, 105, 177)","width":2.2},"mode":"lines",
+                            "name":"VideoCrafter2","r":[17.7,19.3,22.6,18.3,26.4,15.7,12.3,22.0,17.7],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"},{"hovertemplate":"\u003cb\u003eCogVideoX (2B)\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(82, 188, 163)","width":2.2},"mode":"lines",
+                            "name":"CogVideoX (2B)","r":[22.2,24.4,23.3,22.5,29.2,19.5,16.7,25.6,22.2],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"},{"hovertemplate":"\u003cb\u003eCogVideoX (5B)\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(153, 201, 69)","width":2.2},"mode":"lines",
+                            "name":"CogVideoX (5B)","r":[18.7,19.4,20.7,17.8,25.6,17.9,12.6,20.8,18.7],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"},{"hovertemplate":"\u003cb\u003eWanAI 2.1 (1.3B)\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(204, 97, 176)","width":2.2},"mode":"lines",
+                            "name":"WanAI 2.1 (1.3B)","r":[30.0,28.9,28.2,28.5,35.1,27.3,19.0,30.5,30.0],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"},{"hovertemplate":"\u003cb\u003eWanAI 2.1 (14B)\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(36, 121, 108)","width":2.2},"mode":"lines",
+                            "name":"WanAI 2.1 (14B)","r":[33.3,31.4,31.9,32.4,39.1,29.8,23.4,33.9,33.3],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"},{"hovertemplate":"\u003cb\u003eMAGI\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(218, 165, 27)","width":2.2},"mode":"lines",
+                            "name":"MAGI","r":[27.2,26.3,28.8,27.7,37.3,30.3,19.3,32.5,27.2],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"},{"hovertemplate":"\u003cb\u003eHunyuan\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(47, 138, 196)","width":2.2},"mode":"lines",
+                            "name":"Hunyuan","r":[26.4,25.8,27.7,31.9,35.7,23.9,21.6,30.1,26.4],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"},{"hovertemplate":"\u003cb\u003eCosmos (7B)\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(118, 78, 159)","width":2.2},"mode":"lines",
+                            "name":"Cosmos (7B)","r":[32.1,32.4,32.9,35.8,39.6,31.7,21.6,34.8,32.1],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"},{"hovertemplate":"\u003cb\u003eCosmos (14B)\u003c\u002fb\u003e\u003cbr\u003e%{theta}: %{r:.1f}\u003cextra\u003e\u003c\u002fextra\u003e","line":{"color":"rgb(237, 100, 90)","width":2.2},"mode":"lines",
+                            "name":"Cosmos (14B)","r":[35.7,33.3,30.9,36.8,41.0,32.7,20.8,36.1,35.7],"theta":["Action & Procedural\u003cbr\u003eUnderstanding","Force and Motion","Fundamental Physics","Material Interaction\u003cbr\u003e& Transformation","Object Properties\u003cbr\u003e& Affordances","Spatial Reasoning","Temporal Dynamics","Average","Action & Procedural\u003cbr\u003eUnderstanding"],"type":"scatterpolar"}],                        
+                            
+                            {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"polar":{"radialaxis":{"tickfont":{"size":13},"range":[10,45],"tickvals":[10,15,20,25,30,35,40],"gridcolor":"rgba(128,128,128,0.2)","showticklabels":true,"ticks":"outside"},"angularaxis":{"tickfont":{"size":14},"direction":"clockwise","rotation":90}},"legend":{"orientation":"h","yanchor":"bottom","y":-0.18,"xanchor":"center","x":0.5,"itemwidth":70,"bgcolor":"rgba(255,255,255,0.8)"},"margin":{"l":60,"r":60,"t":80,"b":150},"title":{"text":"\u003cb\u003ePhysical Commonsense Evaluation\u003c\u002fb\u003e"},"paper_bgcolor":"rgb(248,248,255)","width":1000,"height":750},                        {"responsive": true}                    )                };            </script>        
+       </div>
+    </div>
+  </div>
+    
+</div>
+<p style="margin-top: 0; margin-bottom: 5em;">
+  We visualize the evaluation results of 10 video generation models across 8 categories, including 7 dimension-specific scores and 1 overall average, under both base and upsampled prompt settings.
+  We visualize the evaluation results of 10 video generation models across 8 categories, including 7 dimension-specific scores and 1 overall average under upsampled prompt settings.    
+</p>
+-->
+
+
+
+<!-- <html>
+<head>
+  <meta charset="utf-8">
+  <title>Radar Chart with JSCharting</title>
+  <script src="https://code.jscharting.com/latest/jscharting.js"></script>
+</head>
+<body>
+
+  // Radar chart container
+  <div id="chartDiv1" class="chartDiv" style="max-width:1200px; height:800px; margin:0 auto"></div>
+  // <div id="chartDiv1" class="chartDiv" style="width: 100%; height: 90vh; margin: 0 auto;"></div>
+
+
+  <script>
+    // İkon tanımları
+    var icons = { 
+      teamwork: 'material/social/people', 
+      technicalKnowledge: 'material/action/build', 
+      communication: 'material/communication/chat', 
+      punctuality: 'material/device/access-time', 
+      problemSolving: 'material/action/lightbulb-outline', 
+      leadership: 'material/content/flag'
+    }; 
+
+    // Veri seti
+    var data = [ 
+      { 
+        name: 'Chris', 
+        teamwork: 8, 
+        technicalKnowledge: 9, 
+        communication: 9, 
+        punctuality: 6, 
+        problemSolving: 7, 
+        leadership: 5 
+      }, 
+      { 
+        name: 'Jane', 
+        teamwork: 9, 
+        technicalKnowledge: 7, 
+        communication: 8, 
+        punctuality: 4, 
+        problemSolving: 7, 
+        leadership: 8 
+      }, 
+      { 
+        name: 'Jordan', 
+        teamwork: 4, 
+        technicalKnowledge: 10, 
+        communication: 5, 
+        punctuality: 6, 
+        problemSolving: 9, 
+        leadership: 4 
+      },
+      { 
+        name: 'Ali', 
+        teamwork: 7, 
+        technicalKnowledge: 0, 
+        communication: 8, 
+        punctuality: 5, 
+        problemSolving: 3, 
+        leadership: 2 
+      }, 
+      { 
+        name: 'Veli', 
+        teamwork: 1, 
+        technicalKnowledge: 2, 
+        communication: 3, 
+        punctuality: 4, 
+        problemSolving: 5.3, 
+        leadership: 6 
+      }, 
+      { 
+        name: 'Ayşe', 
+        teamwork: 4, 
+        technicalKnowledge: 6, 
+        communication: 7, 
+        punctuality: 8, 
+        problemSolving: 9, 
+        leadership: 10 
+      },
+      
+    ]; 
+
+    // Grafik oluşturma
+    var chart1 = JSC.Chart('chartDiv1', { 
+      type: 'radar area', 
+      title: { 
+        label: { 
+          text: 'Employee Skills Analysis', 
+          style_fontSize: 20 
+        }, 
+        position: 'center'
+      }, 
+      chartArea_clipContent: false, 
+      legend: {
+        template: '%icon %name',
+        position: 'bottom',
+        layout: 'horizontal',
+        defaultEntry: { style_fontSize: 14 }
+      },
+      xAxis: { 
+        line_visible: false, 
+        defaultTick_label_maxWidth: 80 
+      }, 
+      yAxis: { 
+        defaultTick_label_visible: false, 
+        scale_range_max: 10, 
+        alternateGridFill: 'none'
+      }, 
+      defaultSeries: { 
+        line_width: 0, 
+        shape_padding: 0, 
+        opacity: 0.5 
+      }, 
+      defaultPoint: { 
+        marker_visible: false, 
+        xAxisTick_label_text: '<icon name=%icon size=18 margin_bottom=4 color=#BDBDBD><br>%xValue'
+      }, 
+      series: getSeries(data) 
+    }); 
+
+    // Veriyi seriye dönüştürme
+    function getSeries(data) { 
+      return data.map(function(v) { 
+        return { 
+          name: v.name, 
+          points: [ 
+            { x: 'Team Work', y: v.teamwork, attributes_icon: icons.teamwork }, 
+            { x: 'Tech Knowledge', y: v.technicalKnowledge, attributes_icon: icons.technicalKnowledge }, 
+            { x: 'Communication', y: v.communication, attributes_icon: icons.communication }, 
+            { x: 'Punctuality', y: v.punctuality, attributes_icon: icons.punctuality }, 
+            { x: 'Problem Solving', y: v.problemSolving, attributes_icon: icons.problemSolving }, 
+            { x: 'Leadership', y: v.leadership, attributes_icon: icons.leadership } 
+          ] 
+        }; 
+      }); 
+    } 
+  </script>
+
+</body>
+</html> -->
+
+
+
+  </section>
+<footer class="footer">
+
+
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://vchitect.github.io/DOLDUR">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/DOLDUR" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            Website source code based on the <a href="https://nerfies.github.io/"> Nerfies</a> project page. If you want to reuse their <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a>, please credit them appropriately.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
+
+
