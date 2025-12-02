@@ -1,0 +1,2426 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Pix2Video</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/slider.css">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+
+    <!-- Ek CSS -->
+    <style>
+        /* 1100px genişliğinde ortalanmış içerik */
+        .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Tam genişlikte renk bandı */
+        .section-band {
+            width: 100%;
+            padding: 40px 0;
+        }
+
+        .band-white {
+            background: #ffffff;
+        }
+
+        .band-pink {
+            background: #fff7fa; /* ReCamMaster tarzı çok açık pembe */
+        }
+
+        /* Prompt + video layout */
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 8px;
+            margin-top: 10px;
+        }
+
+        .prompt-block {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .prompt-text {
+            font-size: 18px;
+            font-family: Bradley Hand;
+            display: inline-block;
+            max-width: 80%;
+        }
+
+        .video-row {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .video-block {
+            text-align: center;
+        }
+
+        .video-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .video-block video {
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+        }
+
+        /* #content altındaki genel boşluk */
+        #content {
+            margin-bottom: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="body">
+
+        <h1 id="title"></h1>
+        <br>
+        <div id="author-list">
+        </div>
+        <br>
+        <div id="affiliation-list">
+        </div>
+        <div id="footnote">
+        </div>
+        <br>
+        <div id="conference">
+        </div>
+        <br>
+        <div id="content">
+            <div class="section-band band-white">
+
+            <!-- ===================== ÜST SLIDER (1100px içinde) ===================== -->
+            <div class="section-inner">
+                <div class="section-title">Prompt</div>
+                <div class="prompt-block">
+                    <span class="prompt-text">
+                        <span style="color:#009c3b">A large ship is slowly sailing to the right across a calm, open ocean under a soft golden sunset sky.</span> <span style="color:#1f78b4">The camera moves in a smooth counterclockwise quarter arc around the ship, gradually pulling away while keeping the vessel in focus.</span> Gentle waves ripple around the hull, and the sunlight reflects off the water’s surface, creating a warm, cinematic shimmer. <span style="color:#1f78b4">As the camera retreats, the vastness of the ocean and the ship’s steady motion evoke a sense of tranquility and scale.</span>                    </span>
+                </div>
+
+                <!-- Video titles + videos -->
+                <div class="video-row">
+
+                    <div class="video-block">
+                        <div class="video-title">Generated Trajectory</div>
+                        <video autoplay muted loop height="480">
+                            <source src="assets/traj/0036_cam0000_animation.mp4">
+                        </video>
+                    </div>
+
+                    <div class="video-block">
+                        <div class="video-title">Generated Video</div>
+                        <video autoplay muted loop height="480">
+                            <source src="assets/vace/36.mp4">
+                        </video>
+                    </div>
+
+                </div>
+            </div>
+            </div>
+
+            <!-- ===================== ABSTRACT (PINK BAND) ===================== -->
+            <div class="section-band band-pink">
+                <div class="section-inner">
+                    <div id='method'>
+                        <h2>Abstract</h2>
+                        <center>
+                            <p style="max-width:900px; font-size:18px; margin:auto; text-align: justify; margin-bottom: 1em;">
+                                Video generation has achieved remarkable progress in visual fidelity and controllability, enabling conditioning on text, layout, or motion. Among these, motion control -- specifying object dynamics and camera trajectories -- is essential for composing complex, cinematic scenes, yet existing interfaces remain limited. We introduce LAMP that leverages large language models~(LLMs) as motion planners to translate natural language descriptions into explicit 3D trajectories for dynamic objects and (relatively defined) cameras. LAMP defines a motion domain-specific language (DSL), inspired by cinematography conventions. By harnessing  program synthesis capabilities of LLMs, LAMP generates structured motion programs from natural language, which are deterministically mapped to 3D trajectories. We construct a large-scale procedural dataset pairing natural text descriptions with corresponding motion programs and 3D trajectories. Experiments demonstrate LAMP's improved performance in motion controllability and alignment with user intent compared to state-of-the-art alternatives, establishing the first framework for generating both object and camera motions directly from natural language specifications. Code and data will be released.
+                            </p>
+                        </center>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================== METHOD OVERVIEW (WHITE BAND) ===================== -->
+            <div class="section-band band-white">
+                <div class="section-inner">
+                    <div id='method'>
+                        <h2>Method Overview</h2>
+                        <p style="max-width:900px; font-size:18px; margin:auto; text-align: justify; margin-bottom: 1em;">
+                            A learned LLM acts as a motion planner, generating symbolic motion programs in a DSL format from textual descriptions of object and camera motion. These programs are deterministically converted into 3D trajectories, which are used to condition a pretrained video generator.
+                        </p>
+                        <img src="assets/imgs/pipeline.png" height="240">
+                    </div>
+                </div>
+            </div>
+            <div class="section-band band-pink">
+
+            <div class="section-inner">
+                <h2>Video Generation Process</h2>
+                <section class="slider-wrapper">
+                    <button class="slide-arrow slide-arrow-prev">
+                        &#8249;
+                    </button>
+                    <button class="slide-arrow slide-arrow-next">
+                        &#8250;
+                    </button>
+
+                    <ul class="slides-container">
+
+                        
+                        <li class="slide slide-3videos">
+                            <div class="prompt-2col-top">
+                                <div class="prompt-left">
+                                    <div class="prompt-label">Prompt</div>
+                                    <div class="prompt-left-text">
+                                        Inside a commercial airplane cabin, <span style="color:#009c3b">a man dressed in a flight attendant uniform walks steadily down the aisle, holding a large bird’s nest carefully in front of him. Behind him, another man wearing a Santa hat follows closely, adding a subtle touch of humor and surreal contrast.</span> <span style="color:#1f78b4">The camera faces them from the front, performing a smooth dolly-backward motion that leads the subjects down the aisle, maintaining a stable, cinematic flow with minimal shake.</span> Soft overhead cabin lighting casts natural highlights on the uniforms and seats, while the narrow perspective of the aisle enhances the depth and focus on their unusual yet composed procession.                                        
+                                    </div>
+                                </div>
+                                <div class="prompt-right">
+                                    <div class="prompt-label">DSL</div>
+                                    <div class="prompt-right-text">
+                                        <span style="color:#fb8072;">tail_track follow_style=soft follow_axis=z mirror_axis=no dolly=out_0.2 amp=all_0.5 lead=lead object=none jitter=none ease=in_out dutch=0 </span>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-row-3">
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Trajectory</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/traj/0001_cam0000_animation.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Guidance Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/guidance/projection_0001.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/vace/1.mp4">
+                                    </video>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="slide slide-3videos">
+                            <div class="prompt-2col-top">
+                                <div class="prompt-left">
+                                    <div class="prompt-label">Prompt</div>
+
+                                    <div class="prompt-left-text">
+                                        <span style="color:#009c3b;">A child rides a blue tricycle straight down a hallway, mostly centered and proceeding forward without notable interactions on either side;</span>
+                                        <span style="color:#1f78b4;">the camera follows from behind, moving forward with a noticeably unsteady motion and visible shake.</span> 
+                                    </div>
+                                </div>
+                                <div class="prompt-right">
+                                    <div class="prompt-label">DSL</div>
+                                    <div class="prompt-right-text">
+                                        <span style="color:#fb8072;">tail_track follow_style=hard follow_axis=z mirror_axis=no dolly=in_0.3 amp=all_1.5 lead=none object=none jitter=high ease=out dutch=0
+                                        </span>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-row-3">
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Trajectory</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/traj/0002_cam0000_animation.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Guidance Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/guidance/projection_0002.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/vace/2.mp4">
+                                    </video>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="slide slide-3videos">
+                            <div class="prompt-2col-top">
+                                <div class="prompt-left">
+                                    <div class="prompt-label">Prompt</div>
+
+                                    <div class="prompt-left-text">
+                                        <span style="color:#009c3b;">A biker rides straight ahead along a wet road through a misty landscape without interacting with anything,</span>
+                                        <span style="color:#1f78b4;">while the camera moves backward to lead from the front with a slightly unsteady motion that exhibits some shaking.</span> 
+                                    </div>
+                                </div>
+                                <div class="prompt-right">
+                                    <div class="prompt-label">DSL</div>
+                                    <div class="prompt-right-text">
+                                        <span style="color:#fb8072;">tail_track follow_style=soft follow_axis=z mirror_axis=no dolly=out_0.2 amp=all_0.8 lead=lead object=none jitter=low ease=in_out dutch=0
+                                        </span>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-row-3">
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Trajectory</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/traj/0014_cam0000_animation.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Guidance Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/guidance/projection_0014.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/vace/14.mp4">
+                                    </video>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="slide slide-3videos">
+                            <div class="prompt-2col-top">
+                                <div class="prompt-left">
+                                    <div class="prompt-label">Prompt</div>
+
+                                    <div class="prompt-left-text">
+                                        <span style="color:#009c3b;">A woman walks forward slowly through a dimly lit hallway, focused on something ahead,</span>
+                                        <span style="color:#1f78b4;">as the camera retreats to lead her from the front, its backward move slightly unsteady and showing some shaking.</span> 
+                                    </div>
+                                </div>
+                                <div class="prompt-right">
+                                    <div class="prompt-label">DSL</div>
+                                    <div class="prompt-right-text">
+                                        <span style="color:#fb8072;">tail_track follow_style=soft follow_axis=z mirror_axis=no dolly=out_0.2 amp=all_0.8 lead=lead object=none jitter=low ease=in_out dutch=0
+                                        </span>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-row-3">
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Trajectory</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/traj/0015_cam0000_animation.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Guidance Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/guidance/projection_0015.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/vace/15.mp4">
+                                    </video>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="slide slide-3videos">
+                            <div class="prompt-2col-top">
+                                <div class="prompt-left">
+                                    <div class="prompt-label">Prompt</div>
+                                     <div class="prompt-left-text">
+                                        <span style="color:#009c3b;">An airplane rolls forward along the runway, remaining the central focus without other interactions,</span>
+                                        <span style="color:#1f78b4;">while the camera smoothly tracks backward from the front and cranes upward around it so that the airplane gradually becomes smaller in the frame, all with very smooth, steady, shake-free motion.</span>
+                                       
+                                    </div>
+                                </div>
+                                <div class="prompt-right">
+                                    <div class="prompt-label">DSL</div>
+                                    <div class="prompt-right-text">
+                                        <span style="color:#fb8072;">orbit_track dir=ccw deg=180 plane_axis=x spiral=out_0.2 dutch=0 jitter=none ease=in_out object=none vertical_angle=aerial
+                                        </span>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-row-3">
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Trajectory</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/traj/0016_cam0000_animation.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Guidance Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/guidance/projection_0016.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/vace/16.mp4">
+                                    </video>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="slide slide-3videos">
+                            <div class="prompt-2col-top">
+                                <div class="prompt-left">
+                                    <div class="prompt-label">Prompt</div>
+                                     <div class="prompt-left-text">
+                                        <span style="color:#009c3b;">A person skates straight forward, staying centered with no significant interactions,</span>
+                                        <span style="color:#1f78b4;">while the camera tail-tracks from behind, moving forward consistently and smoothly panning right to keep them centered; as the follow continues the subject grows larger in the frame, with only minimal shaking.</span>
+
+                                    </div>
+                                </div>
+                                <div class="prompt-right">
+                                    <div class="prompt-label">DSL</div>
+                                    <div class="prompt-right-text">
+                                        <span style="color:#fb8072;">tail_track follow_style=soft follow_axis=z mirror_axis=no dolly=in_0.2 amp=all_0.5 lead=none object=right jitter=none ease=in_out dutch=0
+                                        </span>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-row-3">
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Trajectory</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/traj/0020_cam0000_animation.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Guidance Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/guidance/projection_0020.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/vace/20.mp4">
+                                    </video>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="slide slide-3videos">
+                            <div class="prompt-2col-top">
+                                <div class="prompt-left">
+                                    <div class="prompt-label">Prompt</div>
+
+                                    <div class="prompt-left-text">
+                                        <span style="color:#009c3b;">A man in a denim jacket walks toward the right through a green park, while another man sits casually on a bench behind him.</span>
+                                        <span style="color:#1f78b4;">The camera advances forward with a soft, steady dolly while panning right to maintain focus on the walking subject.</span>
+                                        The background trees and benches drift gently across the frame, highlighting the quiet, continuous flow of his motion through the scene.
+                                    </div>
+                                </div>
+                                <div class="prompt-right">
+                                    <div class="prompt-label">DSL</div>
+                                    <div class="prompt-right-text">
+                                        <span style="color:#fb8072;"> rotation_track rot_axis=pan push=in_0.2 local_offset=x_0.1 jitter=none ease=in_out dutch=0 vertical_angle=none
+                                        </span>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-row-3">
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Trajectory</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/traj/0028_cam0000_animation.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Guidance Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/guidance/projection_0028.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/vace/28.mp4">
+                                    </video>
+                                </div>
+                            </div>
+                        </li>
+
+
+                        <li class="slide slide-3videos">
+                            <div class="prompt-2col-top">
+                                <div class="prompt-left">
+                                    <div class="prompt-label">Prompt</div>
+                                    <div class="prompt-left-text">
+                                        <span style="color:#009c3b">A woman stands motionless in a lush garden filled with greenery and soft natural textures.</span> <span style="color:#1f78b4">The camera makes a full orbit around her, keeping her form perfectly centered while the environment slowly rotates behind her. The consistent distance and smooth circular motion create a serene sense of spatial completeness and contemplation.</span>                                        
+                                    </div>
+                                </div>
+                                <div class="prompt-right">
+                                    <div class="prompt-label">DSL</div>
+                                    <div class="prompt-right-text">
+                                        <span style="color:#fb8072;">orbit_track dir=cw deg=360 plane_axis=y spiral=no dutch=0 jitter=none ease=in_out object=none vertical_angle=none </span>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-row-3">
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Trajectory</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/traj/0030_cam0000_animation.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Guidance Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/guidance/projection_0030.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/vace/30.mp4">
+                                    </video>
+                                </div>
+                            </div>
+                        </li>
+
+
+
+                        <li class="slide slide-3videos">
+                            <div class="prompt-2col-top">
+                                <div class="prompt-left">
+                                    <div class="prompt-label">Prompt</div>
+                                    <div class="prompt-left-text">
+                                        <span style="color:#009c3b"> A ceramic vase is standing on a wooden table in a softly lit room.</span> <span style="color:#1f78b4">The camera slowly moves upward and slightly to the right, smoothly tracking the vase as it remains centered in the frame.</span> Natural light from a nearby window creates gentle reflections and shadows on the vase’s surface. The background gradually shifts, revealing subtle details of the tabletop and surrounding space, giving the shot a realistic and elegant cinematic feel.                                        
+                                    </div>
+                                </div>
+                                <div class="prompt-right">
+                                    <div class="prompt-label">DSL</div>
+                                    <div class="prompt-right-text">
+                                        <span style="color:#fb8072;">rotation_track rot_axis=full push=no local_offset=no truck_right_1_0.5 pedestal_up_1_0.3 goes_in_1_0.2 jitter=none ease=in_out dutch=0 </span>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-row-3">
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Trajectory</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/traj/0032_cam0000_animation.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Guidance Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/guidance/projection_0032.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/vace/32.mp4">
+                                    </video>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="slide slide-3videos">
+                            <div class="prompt-2col-top">
+                                <div class="prompt-left">
+                                    <div class="prompt-label">Prompt</div>
+                                    <div class="prompt-left-text">
+                                        A bear ambles toward a dense forest, its movements heavy and grounded.
+                                        <span style="color:#009c3b;">
+                                          A bear ambles toward a dense forest, its movements heavy and grounded.
+                                        </span>
+                                        <span style="color:#1f78b4;">
+                                          The camera follows along a smooth quarter arc, keeping the animal framed slightly off-center as trees gradually fill more of the background.
+                                        </span>
+                                        The gentle curve of motion captures both the bear’s mass and the quiet transition from open space to shadowed woodland.
+                                                                            </div>
+                                </div>
+                                <div class="prompt-right">
+                                    <div class="prompt-label">DSL</div>
+                                    <div class="prompt-right-text">
+                                        <span style="color:#fb8072;">orbit_track deg_90
+
+                                        </span>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-row-3">
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Trajectory</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/traj/0043_cam0000_animation.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Guidance Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/guidance/projection_0043.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/vace/43.mp4">
+                                    </video>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="slide slide-3videos">
+                            <div class="prompt-2col-top">
+                                <div class="prompt-left">
+                                    <div class="prompt-label">Prompt</div>
+                                    <div class="prompt-left-text">
+                                        A wild tiger runs straight toward the viewer across dense grass, muscles flexing beneath its fur.
+                                        <span style="color:#009c3b;">
+                                          A wild tiger runs straight toward the viewer across dense grass, muscles flexing beneath its fur.
+                                        </span>
+                                        <span style="color:#1f78b4;">
+                                          The camera leads the motion, moving slightly backward to maintain distance while keeping the predator centered.
+                                        </span>
+                                        The framing captures the animal’s power and momentum, amplifying the intensity as it closes in on the lens.
+                                        
+                                     </div>
+                                </div>
+                                <div class="prompt-right">
+                                    <div class="prompt-label">DSL</div>
+                                    <div class="prompt-right-text">
+                                        <span style="color:#fb8072;">
+                                            tail_track lead dolly_out_0.1
+
+                                        </span>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-row-3">
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Trajectory</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/traj/0047_cam0000_animation.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Guidance Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/guidance/projection_0047.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/vace/47.mp4">
+                                    </video>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="slide slide-3videos">
+                            <div class="prompt-2col-top">
+                                <div class="prompt-left">
+                                    <div class="prompt-label">Prompt</div>
+                                    <div class="prompt-left-text">
+                                        An astronaut walks forward inside a metallic spacecraft corridor lined with glowing panels and narrow passageways.
+                                        <span style="color:#009c3b;">
+                                          An astronaut walks forward inside a metallic spacecraft corridor lined with glowing panels and narrow passageways.
+                                        </span>
+                                        <span style="color:#1f78b4;">
+                                          The camera follows a gentle vertical counterclockwise arc, gradually moving closer as reflections shift across the surfaces.
+                                        </span>
+                                        The smooth, controlled motion reinforces the feeling of calm focus and precision within the confined environment.
+                                        
+                                     </div>
+                                </div>
+                                <div class="prompt-right">
+                                    <div class="prompt-label">DSL</div>
+                                    <div class="prompt-right-text">
+                                        <span style="color:#fb8072;">
+                                            orbit_track plane_axis_z deg_360 spiral_in_0.1
+
+                                        </span>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-row-3">
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Trajectory</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/traj/0046_cam0000_animation.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Guidance Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/guidance/projection_0046.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/vace/46.mp4">
+                                    </video>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="slide slide-3videos">
+                            <div class="prompt-2col-top">
+                                <div class="prompt-left">
+                                    <div class="prompt-label">Prompt</div>
+                                    <div class="prompt-left-text">
+                                        A playful cat chases a small dog as they both run to the right across a grassy backyard under bright daylight.
+                                        <span style="color:#009c3b;">
+                                          A playful cat chases a small dog as they both run to the right across a grassy backyard.
+                                        </span>
+                                        <span style="color:#1f78b4;">
+                                          The camera remains fixed in position, but smoothly pans right to track their movement across the frame.
+                                        </span>
+                                        The cat’s quick, agile strides contrast with the dog’s energetic sprint, creating a lively sense of motion. Grass and dust subtly blur in the foreground, and the natural lighting enhances the realistic, cheerful tone of the chase scene, giving it a cinematic and playful atmosphere.
+                                        
+                                     </div>
+                                </div>
+                                <div class="prompt-right">
+                                    <div class="prompt-label">DSL</div>
+                                    <div class="prompt-right-text">
+                                        <span style="color:#fb8072;">
+                                            rotation_track pan_only
+
+                                        </span>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-row-3">
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Trajectory</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/traj/0038_cam0000_animation.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Guidance Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/guidance/projection_0038.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/vace/38.mp4">
+                                    </video>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="slide slide-3videos">
+                            <div class="prompt-2col-top">
+                                <div class="prompt-left">
+                                    <div class="prompt-label">Prompt</div>
+                                    <div class="prompt-left-text">
+                                        A helicopter rises steadily into the sky, its rotors blurring as it gains height.
+                                        <span style="color:#009c3b;">
+                                          A helicopter rises steadily into the sky, its rotors blurring as it gains height.
+                                        </span>
+                                        <span style="color:#1f78b4;">
+                                          The camera performs a full horizontal circle around it, matching its altitude and maintaining continuous focus throughout the orbit.
+                                        </span>
+                                        The surrounding air and distant clouds subtly shift with the rotation, emphasizing the machine’s ascent and the vastness of open space.
+                                        
+                                     </div>
+                                </div>
+                                <div class="prompt-right">
+                                    <div class="prompt-label">DSL</div>
+                                    <div class="prompt-right-text">
+                                        <span style="color:#fb8072;">
+                                            orbit_track deg_360
+
+                                        </span>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-row-3">
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Trajectory</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/traj/0040_cam0000_animation.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Guidance Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/guidance/projection_0040.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/vace/40.mp4">
+                                    </video>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="slide slide-3videos">
+                            <div class="prompt-2col-top">
+                                <div class="prompt-left">
+                                    <div class="prompt-label">Prompt</div>
+                                    <div class="prompt-left-text">
+                                        An elderly woman climbs a flight of stairs slowly, her hand resting on the railing.
+                                        <span style="color:#009c3b;">
+                                          An elderly woman climbs a flight of stairs slowly, her hand resting on the railing.
+                                        </span>
+                                        <span style="color:#1f78b4;">
+                                          The camera stays fixed in position but tilts downward slightly, observing her progress from above with patient steadiness.
+                                        </span>
+                                        Each step she takes draws attention to her gradual ascent, the composition emphasizing effort and persistence in motion.
+                                        
+                                     </div>
+                                </div>
+                                <div class="prompt-right">
+                                    <div class="prompt-label">DSL</div>
+                                    <div class="prompt-right-text">
+                                        <span style="color:#fb8072;">
+                                            rotation_track tilt_only look_offset_y_-0.1
+
+                                        </span>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-row-3">
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Trajectory</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/traj/0042_cam0000_animation.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Guidance Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/guidance/projection_0042.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/vace/42.mp4">
+                                    </video>
+                                </div>
+                            </div>
+                        </li>
+
+
+
+
+
+
+
+
+
+                        <li class="slide slide-3videos">
+                            <div class="prompt-2col-top">
+                                <div class="prompt-left">
+                                    <div class="prompt-label">Prompt</div>
+                                    <div class="prompt-left-text">
+                                        <span style="color:#009c3b">A large ship is slowly sailing to the right across a calm, open ocean under a soft golden sunset sky.</span> <span style="color:#1f78b4">The camera moves in a smooth counterclockwise quarter arc around the ship, gradually pulling away while keeping the vessel in focus.</span> Gentle waves ripple around the hull, and the sunlight reflects off the water’s surface, creating a warm, cinematic shimmer. <span style="color:#1f78b4">As the camera retreats, the vastness of the ocean and the ship’s steady motion evoke a sense of tranquility and scale.</span>
+                                        
+                                    </div>
+                                </div>
+                                <div class="prompt-right">
+                                    <div class="prompt-label">DSL</div>
+                                    <div class="prompt-right-text" >
+                                        <span style="color:#fb8072;"> orbit_track deg_90 </br> spiral_out_0.5 </span>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-row-3">
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Trajectory</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/traj/0036_cam0000_animation.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Guidance Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/guidance/projection_0036.mp4">
+                                    </video>
+                                </div>
+                        
+                                <div class="video-block-3">
+                                    <div class="video-block-3-title">Generated Video</div>
+                                    <video autoplay muted loop>
+                                        <source src="assets/vace/36.mp4">
+                                    </video>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </section>
+            </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- ===================== 4 VIDEOS ===================== -->
+            <div class="section-band band-white">
+
+                <div class="section-inner">
+                    <h2>Comparisons</h2>
+                    <section class="slider-wrapper">
+                        <button class="slide-arrow slide-arrow-prev">
+                            &#8249;
+                        </button>
+                        <button class="slide-arrow slide-arrow-next">
+                            &#8250;
+                        </button>
+    
+                        <ul class="slides-container">
+    
+                            <li class="slide slide-4videos">
+
+                                <!-- ÜSTTE PROMPT -->
+                                <div class="prompt-full">
+                                    <div class="prompt-full-label">Prompt</div>
+                                    <div class="prompt-full-text">
+                                        A skateboarder stands at the top of a steep concrete ramp, crouched low in anticipation.
+                                        <span style="color:#009c3b;">
+                                          As they launch forward, the board glides smoothly down the slope, their body staying compact and balanced with precise, controlled movements.
+                                        </span>
+                                        <span style="color:#1f78b4;">
+                                          The camera trucks slightly to the left, capturing the dynamic motion and shifting perspective, then tilts downward quickly
+                                        </span>
+                                        <span style="color:#009c3b;">
+                                          as the skateboarder picks up speed.
+                                        </span>
+                                        <span style="color:#1f78b4;">
+                                          As they approach the bottom of the ramp, the camera moves backward in sync, tracking their descent and preparing for the landing.
+                                        </span>
+                                        The motion is fluid and stable, with minimal shake, creating a cinematic, high-energy shot that captures
+                                        <span style="color:#009c3b;">
+                                          the momentum, balance, and focus of the skateboarder’s ride.
+                                        </span>
+                                    </div>
+                                </div>
+                            
+                                <!-- ÜST 2 VİDEO -->
+                                <div class="video-row-2">
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">Our Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace/0.mp4">
+                                        </video>
+                                    </div>
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">Vace Without Guidance Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/wan/0.mp4">
+                                        </video>
+                                    </div>
+                            
+                                </div>
+                            
+                                <!-- ALT 2 VİDEO -->
+                                <div class="video-row-2">
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">GPT-DSL Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace_gpt/0.mp4">
+                                        </video>
+                                    </div>
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">GPT Trajectory Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace_gpt_new/0.mp4">
+                                        </video>
+                                    </div>
+                            
+                                </div>
+                            
+                            </li>    
+    
+                            
+                            <li class="slide slide-4videos">
+
+                                <!-- ÜSTTE PROMPT -->
+                                <div class="prompt-full">
+                                    <div class="prompt-full-label">Prompt</div>
+                                    <div class="prompt-full-text">
+                                        Inside a commercial airplane cabin,
+                                        <span style="color:#009c3b;;">a man dressed in a flight attendant uniform walks steadily down the aisle, holding a large bird’s nest carefully in front of him.</span>
+                                        Behind him,
+                                        <span style="color:#009c3b;;">another man wearing a Santa hat follows closely, adding a subtle touch of humor and surreal contrast.</span>
+                                        <span style="color:#1f78b4;">The camera faces them from the front, performing a smooth dolly-backward motion that leads the subjects down the aisle, maintaining a stable, cinematic flow with minimal shake.</span>
+                                        Soft overhead cabin lighting casts natural highlights on the uniforms and seats, while the narrow perspective of the aisle enhances the depth and focus on their unusual yet composed procession.                                    </div>
+                                </div>
+                            
+                                <!-- ÜST 2 VİDEO -->
+                                <div class="video-row-2">
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">Our Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace/1.mp4">
+                                        </video>
+                                    </div>
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">Vace Without Guidance Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/wan/1.mp4">
+                                        </video>
+                                    </div>
+                            
+                                </div>
+                            
+                                <!-- ALT 2 VİDEO -->
+                                <div class="video-row-2">
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">GPT-DSL Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace_gpt/1.mp4">
+                                        </video>
+                                    </div>
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">GPT Trajectory Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace_gpt_new/1.mp4">
+                                        </video>
+                                    </div>
+                            
+                                </div>
+                            
+                            </li>    
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+                            <li class="slide slide-4videos">
+
+                                <!-- ÜSTTE PROMPT -->
+                                <div class="prompt-full">
+                                    <div class="prompt-full-label">Prompt</div>
+                                    <div class="prompt-full-text">
+                                        <span style="color:#009c3b;">A child rides a blue tricycle straight down a hallway, mostly centered and proceeding forward without notable interactions on either side;</span>
+                                        <span style="color:#1f78b4;">the camera follows from behind, moving forward with a noticeably unsteady motion and visible shake.</span>                                    </div>
+                                </div>
+                            
+                                <!-- ÜST 2 VİDEO -->
+                                <div class="video-row-2">
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">Our Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace/2.mp4">
+                                        </video>
+                                    </div>
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">Vace Without Guidance Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/wan/2.mp4">
+                                        </video>
+                                    </div>
+                            
+                                </div>
+                            
+                                <!-- ALT 2 VİDEO -->
+                                <div class="video-row-2">
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">GPT-DSL Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace_gpt/2.mp4">
+                                        </video>
+                                    </div>
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">GPT Trajectory Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace_gpt_new/2.mp4">
+                                        </video>
+                                    </div>
+                            
+                                </div>
+                            
+                            </li>    
+                            <li class="slide slide-4videos">
+
+                                <!-- ÜSTTE PROMPT -->
+                                <div class="prompt-full">
+                                    <div class="prompt-full-label">Prompt</div>
+                                    <div class="prompt-full-text">
+                                        <span style="color:#009c3b;">A skateboarder glides along a sidewalk, performing a stunt that transitions into a crouched position while moving predominantly to the left.</span>
+                                        <span style="color:#1f78b4;">The camera dollies forward in a tail-follow motion, maintaining pursuit from behind while adding a subtle pan to the right during the stunt.</span>
+                                        <span style="color:#009c3b;">As the skateboarder progresses, they gradually appear smaller in the frame,</span>
+                                        <span style="color:#1f78b4;">and the camera movement retains a slightly unsteady, natural shake, enhancing the dynamic, street-level realism of the scene.</span>                                    </div>
+                                </div>
+                            
+                                <!-- ÜST 2 VİDEO -->
+                                <div class="video-row-2">
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">Our Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace/8.mp4">
+                                        </video>
+                                    </div>
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">Vace Without Guidance Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/wan/8.mp4">
+                                        </video>
+                                    </div>
+                            
+                                </div>
+                            
+                                <!-- ALT 2 VİDEO -->
+                                <div class="video-row-2">
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">GPT-DSL Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace_gpt/8.mp4">
+                                        </video>
+                                    </div>
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">GPT Trajectory Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace_gpt_new/8.mp4">
+                                        </video>
+                                    </div>
+                            
+                                </div>
+                            
+                            </li>    
+                            <li class="slide slide-4videos">
+
+                                <!-- ÜSTTE PROMPT -->
+                                <div class="prompt-full">
+                                    <div class="prompt-full-label">Prompt</div>
+                                    <div class="prompt-full-text">
+                                        <span style="color:#009c3b;">A biker rides straight ahead along a wet road through a misty landscape without interacting with anything,</span>
+                                        <span style="color:#1f78b4;">while the camera moves backward to lead from the front with a slightly unsteady motion that exhibits some shaking.</span>                                    </div>
+                                </div>
+                            
+                                <!-- ÜST 2 VİDEO -->
+                                <div class="video-row-2">
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">Our Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace/14.mp4">
+                                        </video>
+                                    </div>
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">Vace Without Guidance Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/wan/14.mp4">
+                                        </video>
+                                    </div>
+                            
+                                </div>
+                            
+                                <!-- ALT 2 VİDEO -->
+                                <div class="video-row-2">
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">GPT-DSL Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace_gpt/14.mp4">
+                                        </video>
+                                    </div>
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">GPT Trajectory Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace_gpt_new/14.mp4">
+                                        </video>
+                                    </div>
+                            
+                                </div>
+                            
+                            </li>    
+                            <li class="slide slide-4videos">
+
+                                <!-- ÜSTTE PROMPT -->
+                                <div class="prompt-full">
+                                    <div class="prompt-full-label">Prompt</div>
+                                    <div class="prompt-full-text">
+                                        <span style="color:#009c3b;">A woman walks forward slowly through a dimly lit hallway, focused on something ahead,</span>
+                                        <span style="color:#1f78b4;">as the camera retreats to lead her from the front, its backward move slightly unsteady and showing some shaking.</span>                                    </div>
+                                </div>
+                            
+                                <!-- ÜST 2 VİDEO -->
+                                <div class="video-row-2">
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">Our Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace/15.mp4">
+                                        </video>
+                                    </div>
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">Vace Without Guidance Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/wan/15.mp4">
+                                        </video>
+                                    </div>
+                            
+                                </div>
+                            
+                                <!-- ALT 2 VİDEO -->
+                                <div class="video-row-2">
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">GPT-DSL Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace_gpt/15.mp4">
+                                        </video>
+                                    </div>
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">GPT Trajectory Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace_gpt_new/15.mp4">
+                                        </video>
+                                    </div>
+                            
+                                </div>
+                            
+                            </li>    
+                            <li class="slide slide-4videos">
+
+                                <!-- ÜSTTE PROMPT -->
+                                <div class="prompt-full">
+                                    <div class="prompt-full-label">Prompt</div>
+                                    <div class="prompt-full-text">
+                                        <span style="color:#009c3b;">An airplane rolls forward along the runway, remaining the central focus without other interactions,</span>
+                                        <span style="color:#1f78b4;">while the camera smoothly tracks backward from the front and cranes upward around it so that the airplane gradually becomes smaller in the frame, all with very smooth, steady, shake-free motion.</span>                                    </div>
+                                </div>
+                            
+                                <!-- ÜST 2 VİDEO -->
+                                <div class="video-row-2">
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">Our Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace/16.mp4">
+                                        </video>
+                                    </div>
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">Vace Without Guidance Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/wan/16.mp4">
+                                        </video>
+                                    </div>
+                            
+                                </div>
+                            
+                                <!-- ALT 2 VİDEO -->
+                                <div class="video-row-2">
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">GPT-DSL Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace_gpt/16.mp4">
+                                        </video>
+                                    </div>
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">GPT Trajectory Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace_gpt_new/16.mp4">
+                                        </video>
+                                    </div>
+                            
+                                </div>
+                            
+                            </li>    
+                            <li class="slide slide-4videos">
+
+                                <!-- ÜSTTE PROMPT -->
+                                <div class="prompt-full">
+                                    <div class="prompt-full-label">Prompt</div>
+                                    <div class="prompt-full-text">
+                                        <span style="color:#009c3b;">A person skates straight forward, staying centered with no significant interactions,</span>
+                                        <span style="color:#1f78b4;">while the camera tail-tracks from behind, moving forward consistently and smoothly panning right to keep them centered; as the follow continues the subject grows larger in the frame, with only minimal shaking.</span>                                    </div>
+                                </div>
+                            
+                                <!-- ÜST 2 VİDEO -->
+                                <div class="video-row-2">
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">Our Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace/20.mp4">
+                                        </video>
+                                    </div>
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">Vace Without Guidance Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/wan/20.mp4">
+                                        </video>
+                                    </div>
+                            
+                                </div>
+                            
+                                <!-- ALT 2 VİDEO -->
+                                <div class="video-row-2">
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">GPT-DSL Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace_gpt/20.mp4">
+                                        </video>
+                                    </div>
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">GPT Trajectory Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace_gpt_new/20.mp4">
+                                        </video>
+                                    </div>
+                            
+                                </div>
+                            
+                            </li>    
+                            <li class="slide slide-4videos">
+
+                                <!-- ÜSTTE PROMPT -->
+                                <div class="prompt-full">
+                                    <div class="prompt-full-label">Prompt</div>
+                                    <div class="prompt-full-text">
+                                        <span style="color:#009c3b;">A coffee cup rests motionless</span> in the center of a table
+                                        <span style="color:#1f78b4;">as the camera, placed high above, moves forward and downward to approach it, then slightly tilts upward to level the view.</span>
+                                        The smooth descent reveals the tabletop’s texture and the warm tones of the surrounding environment. The movement feels natural but faintly handheld, creating the sense of a careful yet human observation of a static object.                                    </div>
+                                </div>
+                            
+                                <!-- ÜST 2 VİDEO -->
+                                <div class="video-row-2">
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">Our Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace/26.mp4">
+                                        </video>
+                                    </div>
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">Vace Without Guidance Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/wan/26.mp4">
+                                        </video>
+                                    </div>
+                            
+                                </div>
+                            
+                                <!-- ALT 2 VİDEO -->
+                                <div class="video-row-2">
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">GPT-DSL Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace_gpt/26.mp4">
+                                        </video>
+                                    </div>
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">GPT Trajectory Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace_gpt_new/26.mp4">
+                                        </video>
+                                    </div>
+                            
+                                </div>
+                            
+                            </li>    
+                            <li class="slide slide-4videos">
+
+                                <!-- ÜSTTE PROMPT -->
+                                <div class="prompt-full">
+                                    <div class="prompt-full-label">Prompt</div>
+                                    <div class="prompt-full-text">
+                                        <span style="color:#009c3b;">A man in a denim jacket walks toward the right through a green park, while another man sits casually on a bench behind him.</span>
+                                        <span style="color:#1f78b4;">The camera advances forward with a soft, steady dolly while panning right to maintain focus on the walking subject.</span>
+                                        The background trees and benches drift gently across the frame, highlighting the quiet, continuous flow of his motion through the scene.                                    </div>
+                                </div>
+                            
+                                <!-- ÜST 2 VİDEO -->
+                                <div class="video-row-2">
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">Our Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace/28.mp4">
+                                        </video>
+                                    </div>
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">Vace Without Guidance Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/wan/28.mp4">
+                                        </video>
+                                    </div>
+                            
+                                </div>
+                            
+                                <!-- ALT 2 VİDEO -->
+                                <div class="video-row-2">
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">GPT-DSL Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace_gpt/28.mp4">
+                                        </video>
+                                    </div>
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">GPT Trajectory Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace_gpt_new/28.mp4">
+                                        </video>
+                                    </div>
+                            
+                                </div>
+                            
+                            </li>    
+                            <li class="slide slide-4videos">
+
+                                <!-- ÜSTTE PROMPT -->
+                                <div class="prompt-full">
+                                    <div class="prompt-full-label">Prompt</div>
+                                    <div class="prompt-full-text">
+                                        <span style="color:#009c3b;">A woman stands motionless in a lush garden filled with greenery and soft natural textures.</span>
+                                        <span style="color:#1f78b4;">The camera makes a full orbit around her, keeping her form perfectly centered while the environment slowly rotates behind her.</span>
+                                        The consistent distance and smooth circular motion create a serene sense of spatial completeness and contemplation.                                    </div>
+                                </div>
+                            
+                                <!-- ÜST 2 VİDEO -->
+                                <div class="video-row-2">
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">Our Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace/30.mp4">
+                                        </video>
+                                    </div>
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">Vace Without Guidance Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/wan/30.mp4">
+                                        </video>
+                                    </div>
+                            
+                                </div>
+                            
+                                <!-- ALT 2 VİDEO -->
+                                <div class="video-row-2">
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">GPT-DSL Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace_gpt/30.mp4">
+                                        </video>
+                                    </div>
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">GPT Trajectory Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace_gpt_new/30.mp4">
+                                        </video>
+                                    </div>
+                            
+                                </div>
+                            
+                            </li>    
+                            <li class="slide slide-4videos">
+
+                                <!-- ÜSTTE PROMPT -->
+                                <div class="prompt-full">
+                                    <div class="prompt-full-label">Prompt</div>
+                                    <div class="prompt-full-text">
+                                        <span style="color:#009c3b;">A ceramic vase is standing</span> on a wooden table in a softly lit room.
+                                        <span style="color:#1f78b4;">The camera slowly moves upward and slightly to the right, smoothly tracking the vase as it remains centered in the frame.</span>
+                                        Natural light from a nearby window creates gentle reflections and shadows on the vase’s surface. The background gradually shifts, revealing subtle details of the tabletop and surrounding space, giving the shot a realistic and elegant cinematic feel.                                    </div>
+                                </div>
+                            
+                                <!-- ÜST 2 VİDEO -->
+                                <div class="video-row-2">
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">Our Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace/32.mp4">
+                                        </video>
+                                    </div>
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">Vace Without Guidance Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/wan/32.mp4">
+                                        </video>
+                                    </div>
+                            
+                                </div>
+                            
+                                <!-- ALT 2 VİDEO -->
+                                <div class="video-row-2">
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">GPT-DSL Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace_gpt/32.mp4">
+                                        </video>
+                                    </div>
+                            
+                                    <div class="video-block-2">
+                                        <div class="video-block-2-title">GPT Trajectory Result</div>
+                                        <video autoplay muted loop>
+                                            <source src="assets/vace_gpt_new/32.mp4">
+                                        </video>
+                                    </div>
+                            
+                                </div>
+                            
+                            </li>    
+                        
+                        </ul>
+                    </section>
+                </div>
+                </div>
+
+
+
+            <!-- ===================== MORE RESULTS (WHITE BAND) ===================== -->
+            <div class="section-band band-pink">
+                <div class="section-inner">
+                    <h2>Iterative Results</h2>
+                    <section class="slider-wrapper">
+                        <button class="slide-arrow slide-arrow-prev">
+                            &#8249;
+                        </button>
+                        <button class="slide-arrow slide-arrow-next">
+                            &#8250;
+                        </button>
+
+                        <ul class="slides-container">
+
+                            <!-- ============ ÖRNEK 1: ORBIT AÇISI ============ -->
+                            <li class="slide">
+                                <div class="iter-example-title">
+                                    Example 1
+                                </div>
+                    
+                                <div class="iter-steps">
+                    
+                                    <!-- Adım 1: Tam prompt + DSL + ilk resim -->
+                                    <div class="iter-step">
+                                        <div class="iter-step-header">
+                                            <div class="iter-step-badge">1</div>
+                                            <div>
+                                                <div class="iter-step-label">Initial prompt</div>
+                                                <div class="iter-step-sub">LLM input</div>
+                                            </div>
+                                        </div>
+                                        <div class="iter-prompt">
+                                            A person is walking forward - Camera makes a clockwise quarter arc around the person.
+                                        </div>
+                                        <div class="iter-dsl">
+                                            <span class="iter-dsl-label">DSL:</span>
+                                             orbit_track deg_90 cw
+
+                                        </div>
+                                        <img class="iter-image" src="assets/iter/00.png" alt="Initial 3D trajectory">
+                                    </div>
+                    
+                                    <!-- Adım 2: Sadece edit cümlesi + yeni DSL + yeni resim -->
+                                    <div class="iter-step">
+                                        <div class="iter-step-header">
+                                            <div class="iter-step-badge">2</div>
+                                            <div>
+                                                <div class="iter-step-label">Refinement</div>
+                                                <div class="iter-step-sub">LLM edit</div>
+                                            </div>
+                                        </div>
+                                        <div class="iter-edit">
+                                            “Make it 60 degree.”
+                                        </div>
+                                        <div class="iter-dsl">
+                                            <span class="iter-dsl-label">DSL:</span>
+                                            orbit_track deg_60 cw
+
+                                        </div>
+                                        <img class="iter-image" src="assets/iter/01.png" alt="60 degree trajectory">
+                                    </div>
+                    
+                                    <!-- Adım 3: Yine sadece edit + DSL + resim -->
+                                    <div class="iter-step">
+                                        <div class="iter-step-header">
+                                            <div class="iter-step-badge">3</div>
+                                            <div>
+                                                <div class="iter-step-label">Final tweak</div>
+                                                <div class="iter-step-sub">LLM edit</div>
+                                            </div>
+                                        </div>
+                                        <div class="iter-edit">
+                                            “Add a spiral out move to this 60 degree arc.”
+                                        </div>
+                                        <div class="iter-dsl">
+                                            <span class="iter-dsl-label">DSL:</span>
+                                            orbit_track deg_60 cw spiral_out_0.3
+                                        </div>
+                                        <img class="iter-image" src="assets/iter/02.png" alt="Final 3D trajectory">
+                                    </div>
+                    
+                                </div>
+                            </li>
+                    
+                            <!-- ============ ÖRNEK 2: DOLLY + SHAKE KONTROLÜ ============ -->
+                            <li class="slide">
+                                <div class="iter-example-title">
+                                    Example 2
+                                </div>
+                    
+                                <div class="iter-steps">
+                    
+                                    <div class="iter-step">
+                                        <div class="iter-step-header">
+                                            <div class="iter-step-badge">1</div>
+                                            <div>
+                                                <div class="iter-step-label">Initial prompt</div>
+                                                <div class="iter-step-sub">LLM input</div>
+                                            </div>
+                                        </div>
+                                        <div class="iter-prompt">
+                                            Woman goes right and in - Camera tracks the woman with huge delay.
+                                        </div>
+                                        <div class="iter-dsl">
+                                            <span class="iter-dsl-label">DSL:</span>
+                                            tail_track follow_style_lazy
+                                        </div>
+                                        <img class="iter-image" src="assets/iter/10.png" alt="Initial dolly trajectory">
+                                    </div>
+                    
+                                    <div class="iter-step">
+                                        <div class="iter-step-header">
+                                            <div class="iter-step-badge">2</div>
+                                            <div>
+                                                <div class="iter-step-label">Refinement</div>
+                                                <div class="iter-step-sub">LLM edit</div>
+                                            </div>
+                                        </div>
+                                        <div class="iter-edit">
+                                            “while lazily following, it can only move on x-axis.”
+                                        </div>
+                                        <div class="iter-dsl">
+                                            <span class="iter-dsl-label">DSL:</span>
+                                            tail_track follow_style_lazy follow_axis_x
+                                        </div>
+                                        <img class="iter-image" src="assets/iter/11.png" alt="Dolly with shake">
+                                    </div>
+                    
+                                    <div class="iter-step">
+                                        <div class="iter-step-header">
+                                            <div class="iter-step-badge">3</div>
+                                            <div>
+                                                <div class="iter-step-label">Final tweak</div>
+                                                <div class="iter-step-sub">LLM edit</div>
+                                            </div>
+                                        </div>
+                                        <div class="iter-edit">
+                                            “also it moves slightly less than woman horizontally.”
+                                        </div>
+                                        <div class="iter-dsl">
+                                            <span class="iter-dsl-label">DSL:</span>
+                                            tail_track follow_style_lazy follow_axis_x amp_x_0.8
+                                        </div>
+                                        <img class="iter-image" src="assets/iter/12.png" alt="Dolly with mild shake">
+                                    </div>
+                    
+                                </div>
+                            </li>
+                    
+                            <!-- ============ ÖRNEK 3: YÜKSEK AÇI + SPIRAL ============ -->
+                            <li class="slide">
+                                <div class="iter-example-title">
+                                    Example 3
+                                </div>
+                    
+                                <div class="iter-steps">
+                    
+                                    <div class="iter-step">
+                                        <div class="iter-step-header">
+                                            <div class="iter-step-badge">1</div>
+                                            <div>
+                                                <div class="iter-step-label">Initial prompt</div>
+                                                <div class="iter-step-sub">LLM input</div>
+                                            </div>
+                                        </div>
+                                        <div class="iter-prompt">
+                                            Man rushes to right while turning extensively left - Camera pans to track the man while slightly trucking right.
+                                        </div>
+                                        <div class="iter-dsl">
+                                            <span class="iter-dsl-label">DSL:</span>
+                                            tail_track follow_style_lazy follow_axis_x amp_x_0.8 dutch_cw_15
+
+                                        </div>
+                                        <img class="iter-image" src="assets/iter/20.png" alt="Eye-level orbit">
+                                    </div>
+                    
+                                    <div class="iter-step">
+                                        <div class="iter-step-header">
+                                            <div class="iter-step-badge">2</div>
+                                            <div>
+                                                <div class="iter-step-label">Refinement</div>
+                                                <div class="iter-step-sub">LLM edit</div>
+                                            </div>
+                                        </div>
+                                        <div class="iter-edit">
+                                            “Move camera more to rightward.”
+                                        </div>
+                                        <div class="iter-dsl">
+                                            <span class="iter-dsl-label">DSL:</span>
+                                            rotation_track trucks_right_1_0.1
+
+                                        </div>
+                                        <img class="iter-image" src="assets/iter/21.png" alt="Aerial orbit">
+                                    </div>
+                    
+                                    <div class="iter-step">
+                                        <div class="iter-step-header">
+                                            <div class="iter-step-badge">3</div>
+                                            <div>
+                                                <div class="iter-step-label">Final tweak</div>
+                                                <div class="iter-step-sub">LLM edit</div>
+                                            </div>
+                                        </div>
+                                        <div class="iter-edit">
+                                            “After moving extensively right, it should slightly pedestal up.”
+                                        </div>
+                                        <div class="iter-dsl">
+                                            <span class="iter-dsl-label">DSL:</span>
+                                            rotation_track truck_right_1_0.5 pedestal_up_2_0.1
+
+                                        </div>
+                                        <img class="iter-image" src="assets/iter/22.png" alt="Spiral aerial orbit">
+                                    </div>
+                    
+                                </div>
+                            </li>
+
+                            
+                            <li class="slide">
+                                <div class="iter-example-title">
+                                    Example 4
+                                </div>
+                    
+                                <div class="iter-steps">
+                    
+                                    <div class="iter-step">
+                                        <div class="iter-step-header">
+                                            <div class="iter-step-badge">1</div>
+                                            <div>
+                                                <div class="iter-step-label">Initial prompt</div>
+                                                <div class="iter-step-sub">LLM input</div>
+                                            </div>
+                                        </div>
+                                        <div class="iter-prompt">
+                                            Dog is running right - Camera remains static while yawing left.
+                                        </div>
+                                        <div class="iter-dsl">
+                                            <span class="iter-dsl-label">DSL:</span>
+                                            yaw_25
+
+                                        </div>
+                                        <img class="iter-image" src="assets/iter/30.png" alt="Eye-level orbit">
+                                    </div>
+                    
+                                    <div class="iter-step">
+                                        <div class="iter-step-header">
+                                            <div class="iter-step-badge">2</div>
+                                            <div>
+                                                <div class="iter-step-label">Refinement</div>
+                                                <div class="iter-step-sub">LLM edit</div>
+                                            </div>
+                                        </div>
+                                        <div class="iter-edit">
+                                            “Add small right move while keeping yaw right.”
+                                        </div>
+                                        <div class="iter-dsl">
+                                            <span class="iter-dsl-label">DSL:</span>
+                                            near_right yaw_25
+                                        </div>
+                                        <img class="iter-image" src="assets/iter/31.png" alt="Aerial orbit">
+                                    </div>
+                    
+                                    <div class="iter-step">
+                                        <div class="iter-step-header">
+                                            <div class="iter-step-badge">3</div>
+                                            <div>
+                                                <div class="iter-step-label">Final tweak</div>
+                                                <div class="iter-step-sub">LLM edit</div>
+                                            </div>
+                                        </div>
+                                        <div class="iter-edit">
+                                            “Add small pedestal up and tilt down after moving right and yawing right.”
+                                        </div>
+                                        <div class="iter-dsl">
+                                            <span class="iter-dsl-label">DSL:</span>
+                                            near_right yaw_25, near_up tilt_-40
+                                        </div>
+                                        <img class="iter-image" src="assets/iter/32.png" alt="Spiral aerial orbit">
+                                    </div>
+                    
+                                </div>
+                            </li>
+
+
+
+
+                            <li class="slide">
+                                <div class="iter-example-title">
+                                    Example 5
+                                </div>
+                    
+                                <div class="iter-steps">
+                    
+                                    <div class="iter-step">
+                                        <div class="iter-step-header">
+                                            <div class="iter-step-badge">1</div>
+                                            <div>
+                                                <div class="iter-step-label">Initial prompt</div>
+                                                <div class="iter-step-sub">LLM input</div>
+                                            </div>
+                                        </div>
+                                        <div class="iter-prompt">
+                                            A car goes forward - Camera slightly goes forward.
+                                        </div>
+                                        <div class="iter-dsl">
+                                            <span class="iter-dsl-label">DSL:</span>
+                                            in
+                                        </div>
+                                        <img class="iter-image" src="assets/iter/40.png" alt="Eye-level orbit">
+                                    </div>
+                    
+                                    <div class="iter-step">
+                                        <div class="iter-step-header">
+                                            <div class="iter-step-badge">2</div>
+                                            <div>
+                                                <div class="iter-step-label">Refinement</div>
+                                                <div class="iter-step-sub">LLM edit</div>
+                                            </div>
+                                        </div>
+                                        <div class="iter-edit">
+                                            “Make forward move faster.”
+                                        </div>
+                                        <div class="iter-dsl">
+                                            <span class="iter-dsl-label">DSL:</span>
+                                            far_in
+
+                                        </div>
+                                        <img class="iter-image" src="assets/iter/41.png" alt="Aerial orbit">
+                                    </div>
+                    
+                                    <div class="iter-step">
+                                        <div class="iter-step-header">
+                                            <div class="iter-step-badge">3</div>
+                                            <div>
+                                                <div class="iter-step-label">Final tweak</div>
+                                                <div class="iter-step-sub">LLM edit</div>
+                                            </div>
+                                        </div>
+                                        <div class="iter-edit">
+                                            “After forward move camera goes backward while yawing left.”
+                                        </div>
+                                        <div class="iter-dsl">
+                                            <span class="iter-dsl-label">DSL:</span>
+                                            far_in, far_out yaw_-30
+                                        </div>
+                                        <img class="iter-image" src="assets/iter/42.png" alt="Spiral aerial orbit">
+                                    </div>
+                    
+                                </div>
+                            </li>
+
+
+
+                        </ul>
+                    </section>
+                    <br>
+                </div>
+            </div>
+            <div class="section-band band-white">
+                <div class="section-inner">
+                    <h2>Multi Object Results</h2>
+                    <section class="slider-wrapper">
+                        <button class="slide-arrow slide-arrow-prev">
+                            &#8249;
+                        </button>
+                        <button class="slide-arrow slide-arrow-next">
+                            &#8250;
+                        </button>
+
+                        <ul class="slides-container">
+
+                            <li class="slide slide-1video">
+
+                                <!-- ÜSTTE PROMPT -->
+                                <div class="prompt-full">
+                                    <div class="prompt-full-label">Prompt</div>
+                                    <div class="prompt-full-text">
+                                        Nighttime quiet road illuminated by vehicle headlights and street lamps.
+                                        <span style="color:#009c3b;">
+                                          On the right, a sleek black motorcycle close to the camera speeds forward, engine humming, LED beam cutting the asphalt.
+                                        </span>
+                                        <span style="color:#009c3b;">
+                                          On the left, far in the background, a large yellow construction truck drives toward the camera, headlights casting wide warm cones.
+                                        </span>
+                                        <span style="color:#009c3b;">
+                                          Motorcycle moves away, truck grows larger, paths visually crossing.
+                                        </span>
+                                        <span style="color:#1f78b4;">
+                                          Camera rises gently and drifts forward, framing both vehicles, reflections on wet pavement, emphasizing contrast between fast, close motorcycle and slow, distant truck.
+                                        </span>
+                                    </div>
+                                </div>
+                            
+                                <!-- ALTA TEK VİDEO -->
+                                <div class="video-single">
+                                    <!--<div class="video-single-title">Our Result</div> -->
+                                    <video class="video-480" autoplay muted loop>
+                                        <source src="assets/multi_objects/4.mp4">
+                                    </video>
+                                </div>
+                            
+                            </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <li class="slide slide-1video">
+
+                                <!-- ÜSTTE PROMPT -->
+                                <div class="prompt-full">
+                                    <div class="prompt-full-label">Prompt</div>
+                                    
+                                    <div class="prompt-full-text">
+                                        Misty medieval forest. Three riders in formation on a narrow woodland path: king on a white horse in the center, two warriors slightly ahead on gray horses flanking him.
+                                        <span style="color:#009c3b;">
+                                          Steady forward ride.
+                                        </span>
+                                        Dense trees, drifting fog, pale sun shafts.
+                                        <span style="color:#1f78b4;">
+                                          Camera traveling with them at rider level, then slowly rising upward while moving forward, revealing treetops but keeping riders centered.
+                                        </span>
+                                        Noble, atmospheric, cinematic.
+                                    </div>
+                                </div>
+                            
+                                <!-- ALTA TEK VİDEO -->
+                                <div class="video-single">
+                                    <!--<div class="video-single-title">Our Result</div> -->
+                                    <video class="video-480" autoplay muted loop>
+                                        <source src="assets/multi_objects/3.mp4">
+                                    </video>
+                                </div>
+                            
+                            </li>
+                            <li class="slide slide-1video">
+
+                                <!-- ÜSTTE PROMPT -->
+                                <div class="prompt-full">
+                                    <div class="prompt-full-label">Prompt</div>
+                                    <div class="prompt-full-text">
+                                        Highway at early evening.
+                                        <span style="color:#009c3b;">
+                                          Right lane: sleek gray sedan speeding right→left, kicking subtle dust.
+                                        </span>
+                                        <span style="color:#009c3b;">
+                                          Left lane: bright yellow Lamborghini racing left→right with warm orange reflections.
+                                        </span>
+                                        Rugged rocky terrain with orange stones, light dust in air.
+                                        <span style="color:#1f78b4;">
+                                          Camera rises and pushes in, widening the view while keeping both cars in frame, revealing long road and dramatic warm shadows.
+                                        </span>
+                                        
+                                    </div>
+                                </div>
+                            
+                                <!-- ALTA TEK VİDEO -->
+                                <div class="video-single">
+                                    <!--<div class="video-single-title">Our Result</div> -->
+                                    <video class="video-480" autoplay muted loop>
+                                        <source src="assets/multi_objects/1.mp4">
+                                    </video>
+                                </div>
+                            
+                            </li>
+
+
+                            <li class="slide slide-1video">
+
+                                <!-- ÜSTTE PROMPT -->
+                                <div class="prompt-full">
+                                    <div class="prompt-full-label">Prompt</div>
+
+                                      
+                                    <div class="prompt-full-text">
+                                        Mystical realm with swirling ambient magic.
+                                        <span style="color:#009c3b;">
+                                          Armored knight on horseback riding forward;
+                                        </span>
+                                        <span style="color:#1f78b4;">
+                                          camera follows closely from behind, a few meters back.
+                                        </span>
+                                        Ahead: massive stone arcane gateway with glowing runes, flanked by two lion statues wrapped in blue-gold swirling magic. Dust rising under hooves, floating light particles around the portal.
+                                        <span style="color:#009c3b;">
+                                          Knight gallops toward the glowing gateway
+                                        </span>
+                                        <span style="color:#1f78b4;">
+                                          as camera glides forward with him.
+                                        </span>
+                                    </div>
+                                </div>
+                            
+                                <!-- ALTA TEK VİDEO -->
+                                <div class="video-single">
+                                    <!--<div class="video-single-title">Our Result</div> -->
+                                    <video class="video-480" autoplay muted loop>
+                                        <source src="assets/multi_objects/2.mp4">
+                                    </video>
+                                </div>
+                            
+                            </li>
+
+
+                            <li class="slide slide-1video">
+
+                                <!-- ÜSTTE PROMPT -->
+                                <div class="prompt-full">
+                                    <div class="prompt-full-label">Prompt</div>
+                                    <div class="prompt-full-text">
+                                        Dusty highway in a rocky orange landscape at late afternoon. Left side: old weathered metal service booth, stationary.
+                                        <span style="color:#009c3b;">
+                                          Right side: slightly rusted gray sedan speeding diagonally toward the booth, kicking up dust.
+                                        </span>
+                                        Warm sun, long shadows.
+                                        <span style="color:#1f78b4;">
+                                          Camera pulls back and rises slowly, keeping both car and booth in frame, revealing rocky terrain and drifting sunlit dust.
+                                        </span>
+                                        Cinematic.
+                                    </div>
+                                </div>
+                            
+                                <!-- ALTA TEK VİDEO -->
+                                <div class="video-single">
+                                    <!--<div class="video-single-title">Our Result</div> -->
+                                    <video class="video-480" autoplay muted loop>
+                                        <source src="assets/multi_objects/0.mp4">
+                                    </video>
+                                </div>
+                            
+                            </li>
+                        </ul>
+                    </section>
+                    <br>
+                </div>
+            </div>
+            <div class="section-band band-pink">
+                <div class="section-inner">
+                    <h2>Long Video Generation</h2>
+            
+                    <section class="slider-wrapper">
+                        <button class="slide-arrow slide-arrow-prev">&#8249;</button>
+                        <button class="slide-arrow slide-arrow-next">&#8250;</button>
+            
+                        <ul class="slides-container">
+            
+                            <!-- Slide 1 -->
+                            <li class="slide">
+                                <div class="slide-body long-video-slide">
+            
+                                    <div class="long-video-grid">
+
+                                        <div class="long-video-prompt">
+                                            <div class="prompt-label">Prompt</div>
+
+                                            A spacious, old stone hall with warm sunlight, tall archways, and a dusty stone floor.
+                                            <span style="color:#1f78b4;">Ball first drops and bounces repeatedly until settling,</span> <span style="color:#009c3b;">then it drops with a last bounce and rolls forward,</span> <span style="color:#fb8072;">finally it continues rolls across the floor.</span>
+                                            <span style="color:#1f78b4;">Camera first tilt tracks the ball,</span> <span style="color:#009c3b;">then it tilts and moves forward to follow the ball,</span> <span style="color:#fb8072;">finally it arcs smoothly around the ball’s right side.    </span>  
+
+
+
+                                            </div>
+
+
+
+                                        <!-- ÜST SAĞ: Object DSL -->
+                                        <div class="dsl-box">
+                                            <div class="dsl-title">Object DSL</div>
+                                            <div class="dsl-text">
+                                                <span style="color:#1f78b4">far_down, up, down, near_up</span><br>
+                                                <span style="color:#009c3b">near_down, near_up in, near_down in, in</span><br>
+                                                <span style="color:#fb8072">in</span>
+                                            </div>
+                                        </div>
+                                                <!-- ÜST SOL: Camera DSL -->
+                                        <div class="dsl-box">
+                                            <div class="dsl-title">Camera DSL</div>
+                                            <div class="dsl-text">
+                                                <span style="color:#1f78b4">rotation_track tilt_only low_angle</span><br>
+                                                <span style="color:#009c3b">in tilt:-15, in tilt: 10</span><br>
+                                                <span style="color:#fb8072">orbit_track deg_120</span>
+                                            </div>
+                                        </div>
+            
+
+            
+                                        <!-- ALT SOL: Trajectory Video -->
+                                        <div class="video-box long-video-video">
+                                            <div class="video-title">Generated Trajectory</div>
+                                            <video autoplay muted loop>
+                                                <source src="assets/long_video/1_traj.mp4">
+                                            </video>
+                                        </div>
+            
+                                        <!-- ALT SAĞ: Generated Video -->
+                                        <div class="video-box long-video-video">
+                                            <div class="video-title">Generated Video</div>
+                                            <video autoplay muted loop>
+                                                <source src="assets/long_video/1.mp4">
+                                            </video>
+                                        </div>
+                                    </div>
+            
+                                </div>
+                            </li>
+            
+                            <!-- Slide 2 -->
+                            <li class="slide">
+                                <div class="slide-body long-video-slide">
+            
+                                    <div class="long-video-grid">
+                                        <div class="long-video-prompt">
+                                            <div class="prompt-label">Prompt</div>
+                                            A warm, sunlit farmyard filled with drifting dust and a nostalgic, golden glow. 
+                                            <span style="color:#1f78b4;">Rooster first walks confidently across the ground,</span> <span style="color:#009c3b;">then it flaps its wings to hover slightly in midair,</span> <span style="color:#fb8072;">finally it bobs rhythmically and stretches its neck to crow. </span> 
+                                                <span style="color:#1f78b4;">Camera first follows from behind and arcs to the left,</span> <span style="color:#009c3b;">then it stays steady with minimal reactive movements,</span> <span style="color:#fb8072;">finally it performs a smooth, deliberate push-in.</span>                                         
+                                            
+                                        </div>
+                                        <!-- ÜST SOL: Camera DSL -->
+
+
+                                        <div class="dsl-box">
+                                            <div class="dsl-title">Object DSL</div>
+                                            <div class="dsl-text">
+                                                <span style="color:#1f78b4;">right near_in, right in</span><br>
+                                                <span style="color:#009c3b;">right near_in, right near_up</span><br>
+                                                <span style="color:#fb8072;">left near_up, left near_down, left up</span>
+                                            </div>
+                                        </div>
+            
+                                        <div class="dsl-box">
+                                            <div class="dsl-title">Camera DSL</div>
+                                            <div class="dsl-text">
+                                                <span style="color:#1f78b4;">orbit_track deg_90 cw</span><br>
+                                                <span style="color:#009c3b;">rotation_track goes_in</span><br>
+                                                <span style="color:#fb8072;">rotation_track push_in</span>
+                                            </div>
+                                        </div>
+            
+                                        <!-- ÜST SAĞ: Object DSL -->
+
+                                        <!-- ALT SOL: Trajectory Video -->
+                                        <div class="video-box long-video-video">
+                                            <div class="video-title">Generated Trajectory</div>
+                                            <video autoplay muted loop>
+                                                <source src="assets/long_video/2_traj.mp4">
+                                            </video>
+                                        </div>
+            
+                                        <!-- ALT SAĞ: Generated Video -->
+                                        <div class="video-box long-video-video">
+                                            <div class="video-title">Generated Video</div>
+                                            <video autoplay muted loop>
+                                                <source src="assets/long_video/2.mp4">
+                                            </video>
+                                        </div>
+                                    </div>
+            
+                                </div>
+                            </li>
+            
+                            <!-- Slide 3 -->
+                            <li class="slide">
+                                <div class="slide-body long-video-slide">
+            
+                                    <div class="long-video-grid">
+                                        
+                                        <div class="long-video-prompt">
+                                            <div class="prompt-label">Prompt</div>
+
+                                            A dense, humid Amazonian rainforest alive with dappled sunlight, massive ferns, ancient trees, and colorful birds flitting through the upper canopy.
+
+                                            <span style="color:#1f78b4;">The magnificent Bengal tiger first walks purposefully toward the viewer from the left,</span> <span style="color:#009c3b;">then it continues its steady advance through the foliage,</span> <span style="color:#fb8072;">finally it moves slightly away before performing an upward standing.</span>
+
+                                            <span style="color:#1f78b4;">Camera first pulls backward while tracking the tiger,</span> <span style="color:#009c3b;">then it executes a smooth arc to the left around the animal’s front,</span> <span style="color:#fb8072;">finally it slightly rises to a high overhead perspective to capture the tigers' standing.</span>
+                                        </div>
+                                        <!-- ÜST SOL: Camera DSL -->
+            
+                                        <!-- ÜST SAĞ: Object DSL -->
+                                        <div class="dsl-box">
+                                            <div class="dsl-title">Object DSL</div>
+                                            <div class="dsl-text">
+                                                <span style="color:#1f78b4;">out</span><br>
+                                                <span style="color:#009c3b;">out</span><br>
+                                                <span style="color:#fb8072;">right near_out, near_up</span>
+                                            </div>
+                                        </div>
+                                        <div class="dsl-box">
+                                            <div class="dsl-title">Camera DSL</div>
+                                            <div class="dsl-text">
+                                                <span style="color:#1f78b4;">tail_track object_left ease_in</span><br>
+                                                <span style="color:#009c3b;">orbit_track deg_60 cw ease_out</span><br>
+                                                <span style="color:#fb8072;">rotation_track goes_out pedestal_up</span>
+                                            </div>
+                                        </div>            
+                                        <!-- ALT SOL: Trajectory Video -->
+                                        <div class="video-box long-video-video">
+                                            <div class="video-title">Generated Trajectory</div>
+                                            <video autoplay muted loop>
+                                                <source src="assets/long_video/3_traj.mp4">
+                                            </video>
+                                        </div>
+            
+                                        <!-- ALT SAĞ: Generated Video -->
+                                        <div class="video-box long-video-video">
+                                            <div class="video-title">Generated Video</div>
+                                            <video autoplay muted loop>
+                                                <source src="assets/long_video/3.mp4">
+                                            </video>
+                                        </div>
+                                    </div>
+            
+                                </div>
+                            </li>
+            
+                        </ul>
+                    </section>
+                </div>
+            </div>
+<!--            <div class="section-band band-white">
+                <div class="section-inner">
+                    <h2>Failure Cases</h2>
+                    <section class="slider-wrapper">
+                        <button class="slide-arrow slide-arrow-prev">
+                            &#8249;
+                        </button>
+                        <button class="slide-arrow slide-arrow-next">
+                            &#8250;
+                        </button>
+
+                        <ul class="slides-container">
+                            <li class="slide">
+                                <center><span style="color: #009c3b;font-family: Bradley Hand;font-size:18px;">giraffe with space suit standing on the moon</span></center>
+                                <video autoplay muted loop height="300">
+                                    <source src="assets/origin/giraffe.mp4">
+                                </video>
+                                <video autoplay muted loop height="300">
+                                    <source src="assets/results_cfg/giraffe_edit2.mp4">
+                                </video>
+                            </li>
+                            <li class="slide">
+                                <center><span style="color: #009c3b;font-family: Bradley Hand;font-size:18px">2D vector animation of a group of flamingos standing near some rocks and water</span></center>
+                                <video autoplay muted loop height="300">
+                                    <source src="assets/origin/flamingo.mp4">
+                                </video>
+                                <video autoplay muted loop height="300">
+                                    <source src="assets/results_cfg/flamingo_edit2.mp4">
+                                </video>
+                            </li>
+                            <li class="slide">
+                                <center><span style="color: #009c3b;font-family: Bradley Hand;font-size:18px;">a car on a snow covered road in the countryside</span></center>
+                                <video autoplay muted loop height="300">
+                                    <source src="assets/origin/carturn.mp4">
+                                </video>
+                                <video autoplay muted loop height="300">
+                                    <source src="assets/results_cfg/carturn_edit1.mp4">
+                                </video>
+                            </li>
+                            <li class="slide">
+                                <center><span style="color: #009c3b;font-family: Bradley Hand;font-size:18px;">a crochet swan on the lake</span></center>
+                                <video autoplay muted loop height="300">
+                                    <source src="assets/origin/blackswan.mp4">
+                                </video>
+                                <video autoplay muted loop height="300">
+                                    <source src="assets/results_cfg/blackswan_edit3.mp4">
+                                </video>
+                            </li>
+                        </ul>
+                    </section>
+                    <br>
+                </div>
+            </div>
+        -->
+            <!-- ===================== BIBTEX (WHITE BAND) ===================== -->
+            <div class="section-band band-white">
+                <div class="section-inner">
+                    <p class="section">&nbsp;</p>
+                    <h2>Bibtex</h2>
+                    <table border="0">
+                        <tbody>
+                            <pre style=" display: block;
+                    background: #eee;
+                    white-space: pre;
+                    -webkit-overflow-scrolling: touch;
+                    max-width: 100%;
+                    min-width: 100px;
+                    border-radius: 20px;
+                    text-align: left
+                    ">
+
+                @inproceedings{Anonymous,
+                    author    = {Anonymous CVPR Submission},
+                    title     = {LAMP: Language-Assisted Motion Planning for Controllable Video Generation},
+                    year      = {2025},
+                }       
+                </pre>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div> <!-- /#content -->
+    </div> <!-- /#body -->
+
+    <script type="text/javascript" src="script.js"></script>
+</body>
