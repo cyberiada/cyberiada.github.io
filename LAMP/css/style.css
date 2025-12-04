@@ -1,0 +1,664 @@
+/* #body * {
+    border: 1px dashed blue;
+} */
+
+:root {
+    --text-color: #444;
+}
+
+* {
+    font-family: sans-serif;
+    color: var(--text-color);
+}
+
+#body {
+    text-align: center;
+    margin: auto;
+}
+
+#title {
+    text-align: center;
+    font-size: 2.25rem;
+    margin-bottom: 1.5rem;
+    max-width: 80%;
+    margin: auto;
+}
+
+#conference {
+    color: #666;
+    font-weight: 100;
+    font-size: 1.5rem;
+}
+
+#author-list {
+    margin: auto;
+    max-width: 80%;
+}
+
+#author-list a {
+    text-decoration: none;
+    font-size: 1.25rem;
+    color: #219bef;
+}
+#author-list a:hover {
+    text-decoration: underline;
+}
+
+#affiliation-list span {
+    font-size: 1.125rem;
+}
+
+#button-list {
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+}
+
+#button-list a {
+    margin:10px;
+    padding: .5rem .75rem .75rem .75rem;
+    background-color: var(--text-color);
+    border: 2px solid var(--text-color);
+    border-radius: 1.5rem;
+    text-decoration: none;
+    font-size: 1rem;
+    align-items: center;
+    height: 2rem;
+}
+
+#button-list a:hover {
+    background-color: white;
+    color: var(--text-color);
+}
+
+#button-list a img {
+    max-height: 1rem;
+    -webkit-filter: invert(100%);
+    vertical-align: middle;
+}
+
+#button-list a:hover img {
+    -webkit-filter: invert(18.75%);
+}
+
+#button-list a span {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    color: white;
+}
+
+#button-list a:hover span {
+    color: var(--text-color);
+}
+
+.landscape {
+    width: 960px;
+    margin: auto;
+}
+
+#abstract {
+    text-align: justify;
+    max-width: 960px;
+    margin:auto;
+}
+
+#abstract-container {
+    width: 65%;
+    margin: auto;
+}
+
+#video {
+    width: 420px;
+    height: 315px;
+}
+
+#bibtex-container {
+    position: relative;
+    width: 60%;
+    margin: auto;
+}
+
+#bibtex {
+    background-color: #F4F4F4;
+    margin: auto;
+    overflow-x: auto;
+    padding: 1rem;
+    text-align: left;
+    font-size: .75em;
+}
+
+#copy-button {
+    height: 24px;
+    width: 24px;
+    position: absolute;
+    right: 0;
+    margin: 5px;
+}
+
+#copy-button:hover {
+    cursor: pointer;
+}
+
+#copy-button img {
+    width: 100%;
+}
+
+#copy-button:hover img {
+    -webkit-filter: invert(100%);
+}
+
+#overview {
+    display: inline-block;
+    width: 60%;
+    min-width: 800px;
+    margin: auto;
+    border-right: 3px solid var(--shadow);
+    border-bottom: 3px solid var(--shadow);
+    border-radius: 1rem;
+    overflow: hidden;
+    background-color: white;
+}
+
+
+#stages {
+    margin: auto;
+}
+
+img {
+    max-width: 100%;
+}
+
+summary {
+    font-size: 1.25rem;
+    text-align: left;
+    margin-left: 5em;
+    user-select: none;
+}
+
+summary:hover{
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+details > *:not(summary) {
+    max-width: 600px;
+    margin: 1rem auto 1rem auto !important;
+}
+
+#full_steps {
+    max-width: 800px;
+}
+
+#full_steps div {
+    width: 15% !important;
+    display:inline-block
+}
+
+#full_steps div * {
+    width: 100%;
+}
+
+#data > .slider-wrapper {
+    max-width: 480px;
+    margin: 1rem auto;
+}
+
+#results > .slider-wrapper {
+    max-width: 960px;
+    margin: 1rem auto;
+}
+
+.video_label {
+    display: inline-block;
+    width: calc(25% - 1rem);
+}
+
+.video_label video {
+    display: block !important;
+    width: 100% !important;
+}
+
+#wind > .slider-wrapper {
+    max-width: 320px;
+    margin: 1rem auto;
+}
+
+#wind video {
+    max-width: 320px;
+}
+
+#qualitative {
+    max-width: 960px;
+    margin: 1rem auto;
+}
+
+#qualitative video {
+    width: calc(100% - 1rem);
+}
+
+#more {
+    max-width: 960px;
+    margin: 1rem auto;
+}
+
+#failures {
+    max-width: 640px;
+    margin: 1rem auto;
+}
+
+#failures video {
+    width: calc(100% - 1rem);
+}
+.section-block {
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+/* Her blok sırasına göre farklı renk */
+.section-block:nth-child(odd) {
+    background: #ffffff;   /* beyaz */
+}
+
+.section-block:nth-child(even) {
+    background: #fff7fa;   /* çok açık pembe (ReCamMaster) */
+}
+
+.slide-3videos {
+    padding: 20px 0;
+}
+
+
+.prompt-2col-top {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+
+}
+
+
+.prompt-2col-top {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+/* Sol blok: %75 genişlik */
+.prompt-left {
+    flex: 0 0 650px;
+}
+
+/* Sağ blok: %25 genişlik */
+.prompt-right {
+    flex: 0 0 450px;
+}
+
+.prompt-label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.prompt-left-text,
+.prompt-right-text {
+    font-family: Bradley Hand;
+
+    font-size: 18px;
+    line-height: 1.4;
+}
+
+.prompt-left-text {
+    font-family: Bradley Hand;
+}
+.prompt-right-text {
+    font-family: Bradley Hand;
+}
+span{
+    font-family: Bradley Hand;
+
+}
+/* altta 3 video */
+.video-row-3 {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.video-block-3 {
+    text-align: center;
+    flex: 1;
+    min-width: 260px;
+    max-width: 340px;
+}
+
+.video-block-3-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.video-block-3 video {
+    width: 100%;
+    height: auto;
+}
+
+.slide-4videos {
+    padding: 20px 0;
+}
+
+/* Prompt block (tek parça) */
+.prompt-full {
+
+    margin-bottom: 20px;
+}
+
+.prompt-full-label {
+
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.prompt-full-text {
+    font-size: 18px;
+    font-family: Bradley Hand;
+    line-height: 1.4;
+}
+
+/* Video rows (2 videos per row) */
+.video-row-2 {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.video-block-2 {
+    text-align: center;
+    flex: 1;
+    min-width: 260px;
+    max-width: 360px;
+}
+
+.video-block-2-title {
+    font-size: 17px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.video-block-2 video {
+    width: 100%;
+    height: auto;
+}
+
+
+
+
+
+
+
+
+
+
+.iter-example-title {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.iter-steps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.iter-step {
+    display: flex;
+    flex-direction: column;      /* ← kartı dikey flex container yapıyoruz */
+    justify-content: space-between; /* ← içerik yukarıda, resim en altta kalır */
+
+    flex: 1 1 250px;
+    max-width: 280px;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 14px 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    text-align: left;
+
+    /* kart yüksekliği sabit değil ama resim hep altta olacak */
+}
+
+.iter-step-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.iter-step-badge {
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    background: #fb8072;
+    color: #fff;
+    font-size: 13px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.iter-step-label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.iter-step-sub {
+    font-size: 13px;
+    opacity: 0.8;
+}
+
+.iter-prompt,
+.iter-edit {
+    font-size: 14px;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.iter-edit {
+    font-style: italic;
+    color: #444;
+}
+
+.iter-dsl {
+    font-size: 13px;
+    margin-bottom: 8px;
+    padding: 6px 8px;
+    border-radius: 10px;
+    background: #f7f7f7;
+    font-family: "Courier New", monospace;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+.iter-dsl-label {
+    font-weight: 600;
+    margin-right: 4px;
+}
+
+.iter-image {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    margin-top: auto;     /* ← büyücü hareket: kartın en altına iter */
+}
+
+/* Mobilde kartları alta alta diz */
+@media (max-width: 800px) {
+    .iter-step {
+        max-width: 100%;
+    }
+}
+
+
+
+/* General slide layout */
+.slide-body {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* DSL (Camera/Object) grid */
+.dsl-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.dsl-box {
+    padding: 12px 18px;
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: 0 0 6px rgba(0,0,0,0.1);
+}
+
+.dsl-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 15px;
+}
+
+.dsl-text {
+    font-size: 14px;
+    line-height: 1.45;
+}
+
+/* Video grid layout */
+.video-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+}
+
+.video-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.video-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+/* Video styling */
+video {
+    width: 480px;
+    border-radius: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+    .dsl-grid,
+    .video-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+.video-single {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.video-single-title {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+/* Video boyutunu düzenleyen sınıf */
+.video-480 {
+    max-height: 480px;
+    width: auto;
+    max-width: 100%;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
+    object-fit: contain; /* Videonun kırpılmasını engeller */
+}
+
+
+/* ==== LONG VIDEO SLIDE ÖZEL LAYOUT ==== */
+
+.long-video-slide {
+    padding: 20px 0;
+}
+
+/* 2x2 grid: 
+   1. satır: Camera DSL | Object DSL
+   2. satır: Video 1    | Video 2
+*/
+.long-video-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: auto;
+    gap: 24px 32px;
+    align-items: flex-start;
+}
+
+/* Üstteki kutular zaten .dsl-box ile stillenmişti,
+   burada istersen ufak oynamalar yapabilirsin */
+.long-video-grid .dsl-box {
+    padding: 12px 18px;
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: 0 0 6px rgba(0,0,0,0.1);
+}
+
+/* Video kutuları */
+.long-video-grid .video-box {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.long-video-grid .video-title {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+/* Global video { width:480px } kuralını burada override ediyoruz */
+.long-video-grid video {
+    width: 100%;
+    max-width: 100%;
+    max-height: 480px;
+    height: auto;
+    border-radius: 8px;
+    object-fit: contain;
+}
+
+/* Mobilde 2x1 yerine 1x4 (alt alta) olsun istersen: */
+@media (max-width: 900px) {
+    .long-video-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.long-video-prompt {
+    grid-column: 1 / -1;            /* tüm satır boyunca genişlet */
+    text-align: center;
+    font-size: 18px;
+    font-family: Bradley Hand, sans-serif;
+    margin-bottom: 14px;
+}
