@@ -121,6 +121,8 @@
         .tt {
             font-family: 'Courier New', Courier, monospace;
         }
+
+        
     </style>
 </head>
 
@@ -133,7 +135,7 @@
         <div id="author-list">
             <span class="author"><a href="https://scholar.google.com/citations?user=q5BcGdcAAAAJ&hl=en" target="_blank">M. Burak Kizil</a><sup>1,*</sup></span>
             <span class="author"><a href="https://github.com/ensanli" target="_blank">Enes Sanli</a><sup>1</sup></span>
-            <span class="author"><a href="https://research.adobe.com/person/niloy-mitra/" target="_blank">Niloy J. Mitra</a><sup>2,4</sup></span>
+            <span class="author"><a href="https://geometry.cs.ucl.ac.uk/" target="_blank">Niloy J. Mitra</a><sup>2,4</sup></span>
             <span class="author"><a href="https://web.cs.hacettepe.edu.tr/~erkut/" target="_blank">Erkut Erdem</a><sup>3</sup></span>
             <span class="author"><a href="https://aykuterdem.github.io/" target="_blank">Aykut Erdem</a><sup>1</sup></span>
             <span class="author"><a href="https://www.duygu-ceylan.com/" target="_blank">Duygu Ceylan</a><sup>4</sup></span>
@@ -2455,39 +2457,183 @@
             </div>
         -->
             <!-- ===================== BIBTEX (WHITE BAND) ===================== -->
-            <div class="section-band band-white">
-                <div class="section-inner">
-                    <p class="section">&nbsp;</p>
-                    <h2>Bibtex</h2>
-                    <table border="0">
-                        <tbody>
-                            <pre style=" display: block;
-                    background: #eee;
-                    white-space: pre;
-                    -webkit-overflow-scrolling: touch;
-                    max-width: 100%;
-                    min-width: 100px;
-                    border-radius: 20px;
-                    text-align: left
-                    ">
-
-                @misc{kizil2025lamplanguageassistedmotionplanning,
-                    title={LAMP: Language-Assisted Motion Planning for Controllable Video Generation}, 
-                    author={Muhammed Burak Kizil and Enes Sanli and Niloy J. Mitra and Erkut Erdem and Aykut Erdem and Duygu Ceylan},
-                    year={2025},
-                    eprint={2512.03619},
-                    archivePrefix={arXiv},
-                    primaryClass={cs.CV},
-                    url={https://arxiv.org/abs/2512.03619}, 
-                }      
-                </pre>
-                        </tbody>
-                    </table>
+<!-- ===================== REFERENCES & CITATION ===================== -->
+<div class="section-band band-white">
+    <div class="section-inner">
+        <p class="section">&nbsp;</p>
+        
+        <!-- PRIOR WORK / REFERENCES KISMI -->
+        <div class="bibtex-section">
+            <h2>References</h2>
+            
+            <!-- Referans 1 -->
+            <div class="ref-item">
+                <div class="ref-header">
+                    <div class="ref-title-group">
+                        <a href="https://arxiv.org/abs/2504.07083" target="_blank"><span class="ref-label">[GenDoP]</span></a>
+                        <span class="ref-text">Auto-regressive Camera Trajectory Generation as a Director of Photography, ICCV 2025.</span>
+                    </div>
+                    <button class="bibtex-btn" onclick="toggleRef('ref-gendop')">BibTeX</button>
+                </div>
+                <div id="ref-gendop" class="bibtex-code">
+                    @misc{zhang2025gendopautoregressivecameratrajectory,
+                        title={GenDoP: Auto-regressive Camera Trajectory Generation as a Director of Photography}, 
+                        author={Mengchen Zhang and Tong Wu and Jing Tan and Ziwei Liu and Gordon Wetzstein and Dahua Lin},
+                        year={2025},
+                        eprint={2504.07083},
+                        archivePrefix={arXiv},
+                        primaryClass={cs.CV},
+                        url={https://arxiv.org/abs/2504.07083}, 
+                  }
                 </div>
             </div>
+
+            <!-- Referans 2 -->
+            <div class="ref-item">
+                <div class="ref-header">
+                    <div class="ref-title-group">
+                        <a href="https://eccv.ecva.net/virtual/2024/poster/1401" target="_blank"><span class="ref-label">[ET]</a></span></a>
+                        <span class="ref-text">The Exceptional Trajectory: Text-to-camera-trajectory generation with character awareness, ECCV 2024.</span>
+                    </div>
+                    <button class="bibtex-btn" onclick="toggleRef('ref-et')">BibTeX</button>
+                </div>
+                <div id="ref-et" class="bibtex-code">
+                    @misc{courant2024etexceptionaltrajectoriestexttocameratrajectory,
+                        title={E.T. the Exceptional Trajectories: Text-to-camera-trajectory generation with character awareness}, 
+                        author={Robin Courant and Nicolas Dufour and Xi Wang and Marc Christie and Vicky Kalogeiton},
+                        year={2024},
+                        eprint={2407.01516},
+                        archivePrefix={arXiv},
+                        primaryClass={cs.CV},
+                        url={https://arxiv.org/abs/2407.01516}, 
+                  }
+                </div>
+            </div>
+
+            <div class="ref-item">
+                <div class="ref-header">
+                    <div class="ref-title-group">
+                        <a href="https://arxiv.org/abs/2406.17601" target="_blank"><span class="ref-label">[Director3D]</span></a>
+                        <span class="ref-text">Real-world Camera Trajectory and 3D Scene Generation from Text, NeurIPS 2024.</span>
+                    </div>
+                    <button class="bibtex-btn" onclick="toggleRef('ref-3d')">BibTeX</button>
+                </div>
+                <div id="ref-3d" class="bibtex-code">
+                    @inproceedings{NEURIPS2024_89566c18,
+                        author = {Li, Xinyang and Lai, Zhangyu and Xu, Linning and Qu, Yansong and Cao, Liujuan and Zhang, Shengchuan and Dai, Bo and Ji, Rongrong},
+                        booktitle = {Advances in Neural Information Processing Systems},
+                        doi = {10.52202/079017-2391},
+                        editor = {A. Globerson and L. Mackey and D. Belgrave and A. Fan and U. Paquet and J. Tomczak and C. Zhang},
+                        pages = {75125--75151},
+                        publisher = {Curran Associates, Inc.},
+                        title = {Director3D: Real-world Camera Trajectory and 3D Scene Generation from Text},
+                        url = {https://proceedings.neurips.cc/paper_files/paper/2024/file/89566c18d5b3e9836e8e16fde010b41d-Paper-Conference.pdf},
+                        volume = {37},
+                        year = {2024}
+                       }
+                       
+                </div>
+            </div>
+
+            <div class="ref-item">
+                <div class="ref-header">
+                    <div class="ref-title-group">
+                        <a href="https://arxiv.org/abs/2402.16143" target="_blank"><span class="ref-label">[CCD]</span></a>
+                        <span class="ref-text">Cinematographic Camera Diffusion Model, Eurographics 2024.</span>
+                    </div>
+                    <button class="bibtex-btn" onclick="toggleRef('ref-ccd')">BibTeX</button>
+                </div>
+                <div id="ref-ccd" class="bibtex-code">
+                    @misc{jiang2024cinematographiccameradiffusionmodel,
+                        title={Cinematographic Camera Diffusion Model}, 
+                        author={Hongda Jiang and Xi Wang and Marc Christie and Libin Liu and Baoquan Chen},
+                        year={2024},
+                        eprint={2402.16143},
+                        archivePrefix={arXiv},
+                        primaryClass={cs.GR},
+                        url={https://arxiv.org/abs/2402.16143}, 
+                  }
+                </div>
+            </div>
+
+
+            <div class="ref-item">
+                <div class="ref-header">
+                    <div class="ref-title-group">
+                        <a href="https://arxiv.org/abs/2503.07598" target="_blank"><span class="ref-label">[VACE]</span></a>
+                        <span class="ref-text">All-in-One Video Creation and Editing</span>
+                    </div>
+                    <button class="bibtex-btn" onclick="toggleRef('ref-vace')">BibTeX</button>
+                </div>
+                <div id="ref-vace" class="bibtex-code">
+                    @misc{jiang2025vaceallinonevideocreation,
+                        title={VACE: All-in-One Video Creation and Editing}, 
+                        author={Zeyinzi Jiang and Zhen Han and Chaojie Mao and Jingfeng Zhang and Yulin Pan and Yu Liu},
+                        year={2025},
+                        eprint={2503.07598},
+                        archivePrefix={arXiv},
+                        primaryClass={cs.CV},
+                        url={https://arxiv.org/abs/2503.07598}, 
+                  }
+                </div>
+            </div>
+        </div>
+
+        <!-- SENİN MAKALENİN ALINTISI (CITATION) -->
+        <div class="bibtex-section">
+            <h2>Citation</h2>
+            <div class="ref-item" style="border-bottom: none;">
+                <div class="ref-header">
+                    <div class="ref-title-group">
+                        <span class="ref-label">[LAMP]</span>
+                        <span class="ref-text">M. B. Kizil et al., <i>LAMP: Language-Assisted Motion Planning for Controllable Video Generation</i>, arXiv 2025.</span>
+                    </div>
+                    <button class="bibtex-btn"  onclick="toggleRef('ref-lamp')">BibTeX</button>
+                </div>
+                
+                <!-- Senin BibTeX'in (Başlangıçta gizli) -->
+                <div id="ref-lamp" class="bibtex-code" style="display: block">
+@misc{kizil2025lamplanguageassistedmotionplanning,
+title={LAMP: Language-Assisted Motion Planning for Controllable Video Generation}, 
+author={Muhammed Burak Kizil and Enes Sanli and Niloy J. Mitra and Erkut Erdem and Aykut Erdem and Duygu Ceylan},
+year={2025},
+eprint={2512.03619},
+archivePrefix={arXiv},
+primaryClass={cs.CV},
+url={https://arxiv.org/abs/2512.03619}, 
+}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 
         </div> <!-- /#content -->
     </div> <!-- /#body -->
 
     <script type="text/javascript" src="script.js"></script>
 </body>
+<script>
+    function toggleRef(id) {
+        var element = document.getElementById(id);
+        if (element.style.display === "block") {
+            element.style.display = "none";
+        } else {
+            element.style.display = "block";
+        }
+    }
+</script>
+<script>
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        // Eski zamanlayıcıyı temizle (üst üste binmesin)
+        clearTimeout(resizeTimer);
+        
+        // Boyutlandırma bittikten 250ms sonra sayfayı yenile
+        resizeTimer = setTimeout(function() {
+            location.reload();
+        }, 500);
+    });
+</script>
