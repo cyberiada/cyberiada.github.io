@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Pix2Video</title>
+    <title>LAMP: Language-Assisted Motion Planning for Controllable Video Generation</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/slider.css">
     <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
@@ -79,23 +79,86 @@
         #content {
             margin-bottom: 1em;
         }
+        /* Yazar isimleri */
+        .author {
+            font-family: 'Segoe UI';
+            font-size: 1.2rem;
+            font-weight: 500;
+            display: inline-block;
+            margin: 0 10px; /* Isimler arasi bosluk */
+            color: #0066cc; /* Link rengi gibi hafif mavi, istersen siyah yap */
+        }
+
+        /* Kurum isimleri */
+        .affiliation {
+            font-family: 'Segoe UI';
+            display: inline-block;
+            margin: 0 15px;
+            color: #555;
+            font-size: 1rem;
+        }
+
+        /* Superscript (ust simge) ayari */
+        sup {
+            font-size: 0.8em;
+            vertical-align: super;
+            margin-left: 2px;
+        }
+
+        /* Dipnot ve mailler */
+        #footnote {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #666;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Email kismi icin monospace font */
+        .tt {
+            font-family: 'Courier New', Courier, monospace;
+        }
     </style>
 </head>
 
 <body>
     <div id="body">
 
-        <h1 id="title"></h1>
+        <h1 id="title">LAMP: Language-Assisted Motion Planning for Controllable Video Generation</h1>
         <br>
+
         <div id="author-list">
+            <span class="author"><a href="https://scholar.google.com/citations?user=q5BcGdcAAAAJ&hl=en" target="_blank">M. Burak Kizil</a><sup>1,*</sup></span>
+            <span class="author"><a href="https://github.com/ensanli" target="_blank">Enes Sanli</a><sup>1</sup></span>
+            <span class="author"><a href="https://research.adobe.com/person/niloy-mitra/" target="_blank">Niloy J. Mitra</a><sup>2,4</sup></span>
+            <span class="author"><a href="https://web.cs.hacettepe.edu.tr/~erkut/" target="_blank">Erkut Erdem</a><sup>3</sup></span>
+            <span class="author"><a href="https://aykuterdem.github.io/" target="_blank">Aykut Erdem</a><sup>1</sup></span>
+            <span class="author"><a href="https://www.duygu-ceylan.com/" target="_blank">Duygu Ceylan</a><sup>4</sup></span>
         </div>
         <br>
+
         <div id="affiliation-list">
+            <span class="affiliation"><sup>1</sup>Koç University</span>
+            <span class="affiliation"><sup>2</sup>University College London</span>
+            <span class="affiliation"><sup>3</sup>Hacettepe University</span>
+            <span class="affiliation"><sup>4</sup>Adobe Research</span>
         </div>
+
         <div id="footnote">
+            <p><sup>*</sup>This work was partially done while Burak was an intern at Adobe Research.</p>
         </div>
-        <br>
-        <div id="conference">
+        <div id="button-list">
+            <a id="arxiv" href="http://arxiv.org/abs/2512.03619">
+                <img src="assets/logos/arXiv.png">
+                <span>arXiv</span>
+            </a>
+            <a id="code" href="#">
+                <img src="assets/logos/github-mark.svg">
+                <span>Code (Coming Soon)</span>
+            </a>
         </div>
         <br>
         <div id="content">
@@ -2408,11 +2471,15 @@
                     text-align: left
                     ">
 
-                @misc{LAMP,
-                    author    = {},
-                    title     = {LAMP: Language-Assisted Motion Planning for Controllable Video Generation},
-                    year      = {2025},
-                }       
+                @misc{kizil2025lamplanguageassistedmotionplanning,
+                    title={LAMP: Language-Assisted Motion Planning for Controllable Video Generation}, 
+                    author={Muhammed Burak Kizil and Enes Sanli and Niloy J. Mitra and Erkut Erdem and Aykut Erdem and Duygu Ceylan},
+                    year={2025},
+                    eprint={2512.03619},
+                    archivePrefix={arXiv},
+                    primaryClass={cs.CV},
+                    url={https://arxiv.org/abs/2512.03619}, 
+                }      
                 </pre>
                         </tbody>
                     </table>
