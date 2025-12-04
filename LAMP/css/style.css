@@ -269,51 +269,73 @@ details > *:not(summary) {
 }
 
 
+
+
 .prompt-2col-top {
     display: flex;
     gap: 30px;
     align-items: flex-start;
     margin-bottom: 20px;
+    font-family: Bradley Hand;
 
 }
 
-
-.prompt-2col-top {
-    display: flex;
-    gap: 30px;
-    align-items: flex-start;
-}
-
-/* Sol blok: %75 genişlik */
+/* Solda: ~%60, sağda: ~%40 */
 .prompt-left {
-    flex: 0 0 650px;
+    flex: 0 0 55%;
+    max-width: 55%;
+    font-family: Bradley Hand;
+
 }
 
-/* Sağ blok: %25 genişlik */
 .prompt-right {
-    flex: 0 0 450px;
+    flex: 0 0 35%;
+    max-width: 35%;
+    font-family: Bradley Hand;
+
 }
 
-.prompt-label {
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 6px;
-}
-
+/* Metni ortalamak için */
 .prompt-left-text,
 .prompt-right-text {
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+    text-align: center;   /* ← metin ortalanır */
     font-family: Bradley Hand;
 
-    font-size: 18px;
-    line-height: 1.4;
 }
 
-.prompt-left-text {
-    font-family: Bradley Hand;
+/* --- Küçük ekranlar için responsive düzen --- */
+@media (max-width: 1000px) {
+    .prompt-2col-top {
+        flex-direction: column;
+        gap: 12px;
+        align-items: center; /* ← kolonları ortalar */
+        font-family: Bradley Hand;
+
+    }
+
+    .prompt-left,
+    .prompt-right {
+        font-family: Bradley Hand;
+
+        flex: 1 1 auto;
+        max-width: 100%;
+        margin: 0 auto;     /* ← kutunun kendisini ortalar */
+        text-align: center; /* ← olası override'lara karşı garanti */
+    }
+
+    .slides-container {
+        font-family: Bradley Hand;
+
+        overflow-x: auto;
+        overflow-y: visible;
+    }
 }
-.prompt-right-text {
-    font-family: Bradley Hand;
-}
+
+
+
+
 span{
     font-family: Bradley Hand;
 
@@ -360,7 +382,12 @@ span{
     font-weight: bold;
     margin-bottom: 6px;
 }
+.prompt-label {
 
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
 .prompt-full-text {
     font-size: 18px;
     font-family: Bradley Hand;
@@ -661,4 +688,132 @@ video {
     font-size: 18px;
     font-family: Bradley Hand, sans-serif;
     margin-bottom: 14px;
+}
+
+.bibtex-section {
+    text-align: left;
+    margin-bottom: 2em;
+}
+
+.ref-item {
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.ref-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.ref-title-group {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Sol taraftaki kısa etiket (GenDoP vb.) */
+.ref-label {
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: bold;
+    color: #1f78b4; /* Sitedeki mavi tonu */
+    font-size: 1rem;
+}
+
+/* Referans metni */
+.ref-text {
+    font-family: 'Segoe UI', sans-serif;
+    color: #444;
+    font-size: 1rem;
+}
+
+.ref-text i {
+    font-style: italic;
+}
+
+/* Sağdaki BibTeX butonu */
+.bibtex-btn {
+    background-color: white;
+    color: #555;
+    border: 1px solid #ccc;
+    padding: 5px 12px;
+    border-radius: 15px; /* Yuvarlak hatlar */
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-family: 'Segoe UI', sans-serif;
+    transition: all 0.2s ease;
+}
+
+.bibtex-btn:hover {
+    background-color: #1f78b4;
+    color: white;
+    border-color: #1f78b4;
+}
+
+/* Gizli Kod Bloğu */
+.bibtex-code {
+    display: none; /* Varsayılan olarak GİZLİ */
+    margin-top: 15px;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #1f78b4;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.85rem;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    color: #333;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Kapsayıcı: Ana videonun boyutlarını referans alır */
+.video-container-inset {
+    position: relative;
+    display: block; /* Inline-block yerine block yaparak genişliği garantile */
+    width: 100%;    /* Bulunduğu kutuyu tamamen kaplasın */
+    overflow: hidden; /* Dışarı taşmaları engeller */
+    line-height: 0;   /* Videoların altındaki istenmeyen boşluğu siler */
+    border-radius: 8px; /* Ana videonun köşeleri yuvarlaksa bunu da ekle */
+}
+
+/* Küçük (Inset) Video: SAĞ ÜST KÖŞE */
+.inset-video {
+    position: absolute;
+    top: 3%;             /* Üstten %3 boşluk */
+    right: 3%;           /* Sağdan %3 boşluk (SOL DEĞİL SAĞ) */
+    width: 30% !important; /* Genişlik ana videonun %30'u olacak (Zorunlu kıldık) */
+    height: auto !important; /* En-boy oranını koruyarak küçülmesini sağlar */
+    z-index: 10;
+    
+    /* Görsellik */
+    border: 1.5px solid white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.6);
+    border-radius: 4px;
+    background: #000;
 }
