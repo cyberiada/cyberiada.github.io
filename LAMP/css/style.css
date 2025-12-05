@@ -784,36 +784,52 @@ video {
 
 
 
-
-
-
-
-
-
-
-
-/* Kapsayıcı: Ana videonun boyutlarını referans alır */
-.video-container-inset {
-    position: relative;
-    display: block; /* Inline-block yerine block yaparak genişliği garantile */
-    width: 100%;    /* Bulunduğu kutuyu tamamen kaplasın */
-    overflow: hidden; /* Dışarı taşmaları engeller */
-    line-height: 0;   /* Videoların altındaki istenmeyen boşluğu siler */
-    border-radius: 8px; /* Ana videonun köşeleri yuvarlaksa bunu da ekle */
+.prompt-left, 
+.prompt-right, 
+.video-block, 
+.video-block-2, 
+.video-block-3,
+.iter-step,
+.dsl-box,
+.video-box {
+    min-width: 0; 
 }
 
-/* Küçük (Inset) Video: SAĞ ÜST KÖŞE */
-.inset-video {
-    position: absolute;
-    top: 3%;             /* Üstten %3 boşluk */
-    right: 3%;           /* Sağdan %3 boşluk (SOL DEĞİL SAĞ) */
-    width: 30% !important; /* Genişlik ana videonun %30'u olacak (Zorunlu kıldık) */
-    height: auto !important; /* En-boy oranını koruyarak küçülmesini sağlar */
-    z-index: 10;
+/* 2. Slider genişliğini garantiye al */
+.slide {
+    min-width: 100%;
+    scroll-snap-align: center; /* Slider'ın düzgün durması için */
+}
+
+/* 3. Videoların orijinal boyutlarına dönüp sayfayı patlatmasını engelle */
+video {
+    max-width: 100%;
+    height: auto !important;
+}
+
+/* 4. Font kaynaklı taşmaları engelle (Bradley Hand Safari'de daha geniş render edilir) */
+.prompt-text, 
+.prompt-left-text, 
+.prompt-right-text {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* 5. Buton ikonlarının dikey hizalaması Safari'de bazen kayar */
+#button-list a {
+    display: inline-flex; /* DOĞRUSU BUDUR */
+    align-items: center;  /* inline-flex sayesinde çalışır ve dikey ortalar */
+    justify-content: center; /* inline-flex sayesinde çalışır */
+    gap: 8px; /* inline-flex sayesinde çalışır */
     
-    /* Görsellik */
-    border: 1.5px solid white;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.6);
-    border-radius: 4px;
-    background: #000;
+    /* Diğer stil özellikleriniz aynen kalabilir */
+    margin: 10px;
+    padding: .35rem .75rem;
+    background-color: var(--text-color);
+    border: 2px solid var(--text-color);
+    border-radius: 1.5rem;
+    text-decoration: none;
+    font-size: 1rem;
+    height: 2rem;
+    box-sizing: border-box; /* Padding ve border'ın boyuta dahil olması için */
 }
