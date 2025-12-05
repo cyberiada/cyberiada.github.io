@@ -2625,15 +2625,3 @@ url={https://arxiv.org/abs/2512.03619},
         }
     }
 </script>
-<script>
-    let resizeTimer;
-    window.addEventListener('resize', function() {
-        // Eski zamanlayıcıyı temizle (üst üste binmesin)
-        clearTimeout(resizeTimer);
-        
-        // Boyutlandırma bittikten 250ms sonra sayfayı yenile
-        resizeTimer = setTimeout(function() {
-            location.reload();
-        }, 500);
-    });
-</script>
