@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EeveeDark: Binary Neural Framework for Low-Light Video Enhancement</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <h1 class="title">EeveeDark</h1>
+        <h2 class="subtitle">A Binary Neural Framework for Low-Light Video Enhancement via Event-Guided Sensor-Level Fusion</h2>
+        <h1 class="venue">IEEE Robotics and Automation Letters (RA-L), 2026</h1>
+        
+        <div class="authors">
+            <a href="https://scholar.google.com/citations?user=Kd5h_WcAAAAJ" target="_blank">Onur Eker</a>
+            <a href="https://web.cs.hacettepe.edu.tr/~erkut/" target="_blank">Erkut Erdem</a>
+            <a href="https://aykuterdem.github.io/" target="_blank">Aykut Erdem</a>
+        </div>
+    </header>
+
+    <div class="links">
+        <a href="#" title="Paper PDF">
+            <i class="fa fa-file-pdf"></i>
+            <span>Paper</span>
+        </a>
+        <a href="#" title="arXiv">
+            <i class="fa fa-file-lines"></i>
+            <span>arXiv</span>
+        </a>
+        <a href="#" title="Code">
+            <i class="fab fa-github"></i>
+            <span>Code</span>
+        </a>
+        <!-- <a href="#" title="Dataset">
+            <i class="fa fa-database"></i>
+            <span>Dataset</span>
+        </a> -->
+    </div>
+
+    <section>
+        <h2>Abstract</h2>
+        <p class="abstract">
+            Enhancing videos under extreme low-light conditions remains challenging due to the difficulty of balancing restoration quality and computational efficiency in resource-constrained settings. This paper introduces <strong>EeveeDark</strong>, a low-light video enhancement framework that combines the spatial richness of sensor-level RAW data with the temporal precision of event streams. Central to our model is a Binary Neural Network (BNN) architecture that reduces computational overhead by quantizing weights and activations while preserving detail. EeveeDark incorporates (i) modality-specific binary encoders for processing RAW frames and event data, (ii) a lightweight fusion block for integrating spatial and temporal cues, and (iii) an event-guided skip gating mechanism for dynamic spatiotemporal refinement. Experiments on synthetic and real-world datasets show that EeveeDark outperforms prior BNN-based methods and offers a favorable performance-efficiency trade-off compared to full-precision models.
+        </p>
+    </section>
+
+    <section>
+        <h2>Method Overview</h2>
+        <div class="figure-container">
+            <img src="static/imgs/eeveedark3-1.png" alt="EeveeDark Architecture">
+            <p class="caption">
+                <strong>EeveeDark Architecture.</strong> Our framework processes RAW frames and event voxel grids through modality-specific binary encoders, fuses them via a lightweight fusion block, and employs an event-guided skip gating mechanism for spatiotemporal refinement.
+            </p>
+        </div>
+    </section>
+
+    <section>
+        <h2>Performance-Complexity Trade-off</h2>
+        <div class="side-by-side">
+            <div class="side-figure">
+                <img src="static/imgs/complexity_plot-1.png" alt="Performance-Complexity Trade-off">
+            </div>
+            <div class="side-text">
+                <p>EeveeDark achieves a compelling balance between restoration quality (PSNR) and computational efficiency (FLOPs).</p>
+                <p>Compared to <strong>BNN-based methods</strong> (BBCU, BRVE), our approach significantly improves visual quality while maintaining binary efficiency.</p>
+                <p>Against <strong>full-precision models</strong> like ShiftNet and EvLight, EeveeDark offers competitive performance with dramatically reduced computational demands—making it suitable for resource-constrained robotic platforms.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Qualitative Results</h2>
+        <div class="qualitative-grid">
+            <!-- Row 1: SDSD Dataset (pair36_5) -->
+            <div class="qual-row">
+                <img src="static/imgs/pair36_5/LQ_00000005.png" alt="Low Light Input">
+                <img src="static/imgs/pair36_5/Events_00000005.png" alt="Events">
+                <img src="static/imgs/pair36_5/BRVE_00000005.png" alt="BRVE">
+                <img src="static/imgs/pair36_5/BRVE_Ours_00000005.png" alt="EeveeDark (Ours)">
+                <img src="static/imgs/pair36_5/GT_00000005.png" alt="Reference">
+            </div>
+            <!-- Row 2: SDE Dataset (i_111)
+            <div class="qual-row">
+                <img src="static/imgs/i_111/LQ.png" alt="Low Light Input">
+                <img src="static/imgs/i_111/Events.png" alt="Events">
+                <img src="static/imgs/i_111/BRVE.png" alt="BRVE">
+                <img src="static/imgs/i_111/BRVE_Ours.png" alt="EeveeDark (Ours)">
+                <img src="static/imgs/i_111/GT.png" alt="Reference">
+            </div> -->
+            <!-- Labels -->
+            <div class="qual-labels">
+                <span>Low Light Input</span>
+                <span>Events</span>
+                <span>BRVE</span>
+                <span>EeveeDark (Ours)</span>
+                <span>Reference</span>
+            </div>
+        </div>
+        <p class="caption">
+            <strong>Qualitative comparisons on SDSD dataset.</strong> BRVE often blurs fine structures and amplifies noise in dark regions, whereas EeveeDark produces sharper edges and improved local contrast by effectively leveraging event information.
+        </p>
+    </section>
+
+    <section>
+        <h2>BibTeX</h2>
+        <div class="bibtex">
+<!-- <pre>@article{eker2026eeveedark,
+  title     = {EeveeDark: A Binary Neural Framework for Low-Light Video 
+               Enhancement via Event-Guided Sensor-Level Fusion},
+  author    = {Eker, Onur and Erdem, Erkut and Erdem, Aykut},
+  journal   = {IEEE Robotics and Automation Letters},
+  year      = {2026},
+  publisher = {IEEE}
+}</pre> -->
+        </div>
+    </section>
+
+    <section>
+        <h2>Acknowledgements</h2>
+        <p class="acknowledgements">
+            This work was supported by TUBITAK-1001 Program Award No. 121E454.
+        </p>
+    </section>
+
+    <section>
+        <p class="contact">
+            For questions, please contact <a href="mailto:onureker@hacettepe.edu.tr">onureker@hacettepe.edu.tr</a>
+        </p>
+    </section>
+
+</body>
+</html>
