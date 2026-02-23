@@ -52,7 +52,7 @@
         <div class="figure-container">
             <img src="static/imgs/eeveedark3-1.png" alt="EeveeDark Architecture">
             <p class="caption">
-                <strong>EeveeDark Architecture.</strong> Our framework processes RAW frames and event voxel grids through modality-specific binary encoders, fuses them via a lightweight fusion block, and employs an event-guided skip gating mechanism for spatiotemporal refinement.
+                <strong>Overview of EeveeDark.</strong> It comprises five key components: (1) <em>Preprocessing and modality-specific encoding</em>, where Bayer RAW frames and event data are separately encoded using binary encoders; (2) an <em>Efficient Multi-Modal Fusion Block</em> that integrates the spatial detail of RAW inputs with the temporal precision of event streams; (3) a <em>Shift Encoder</em> that propagates temporal information across frames and modulates features through Event-Guided Skip Gates (EGSG); (4) a <em>Shift Decoder</em> that refines and aligns features across temporal windows; and (5) a <em>Restoration Module</em> that reconstructs clean, temporally coherent enhanced RAW frames, which are subsequently converted to RGB format via a standard Image Signal Processor (ISP).
             </p>
         </div>
     </section>
@@ -82,14 +82,30 @@
                 <img src="static/imgs/pair36_5/BRVE_Ours_00000005.png" alt="EeveeDark (Ours)">
                 <img src="static/imgs/pair36_5/GT_00000005.png" alt="Reference">
             </div>
-            <!-- Row 2: SDE Dataset (i_111)
+            <!-- Row 2: SDE Dataset (i_111) -->
             <div class="qual-row">
                 <img src="static/imgs/i_111/LQ.png" alt="Low Light Input">
                 <img src="static/imgs/i_111/Events.png" alt="Events">
                 <img src="static/imgs/i_111/BRVE.png" alt="BRVE">
                 <img src="static/imgs/i_111/BRVE_Ours.png" alt="EeveeDark (Ours)">
                 <img src="static/imgs/i_111/GT.png" alt="Reference">
-            </div> -->
+            </div>
+            <!-- Row 3: pair60_10 -->
+            <div class="qual-row">
+                <img src="static/imgs/pair60_10/LQ_00000010.png" alt="Low Light Input">
+                <img src="static/imgs/pair60_10/Events_00000010.png" alt="Events">
+                <img src="static/imgs/pair60_10/BRVE_00000010.png" alt="BRVE">
+                <img src="static/imgs/pair60_10/BRVE_Ours_00000010.png" alt="EeveeDark (Ours)">
+                <img src="static/imgs/pair60_10/GT_00000010.png" alt="Reference">
+            </div>
+            <!-- Row 4: o_126 -->
+            <div class="qual-row">
+                <img src="static/imgs/o_126/LQ.png" alt="Low Light Input">
+                <img src="static/imgs/o_126/Events.png" alt="Events">
+                <img src="static/imgs/o_126/BRVE.png" alt="BRVE">
+                <img src="static/imgs/o_126/BRVE_Ours.png" alt="EeveeDark (Ours)">
+                <img src="static/imgs/o_126/GT.png" alt="Reference">
+            </div>
             <!-- Labels -->
             <div class="qual-labels">
                 <span>Low Light Input</span>
@@ -100,21 +116,20 @@
             </div>
         </div>
         <p class="caption">
-            <strong>Qualitative comparisons on SDSD dataset.</strong> BRVE often blurs fine structures and amplifies noise in dark regions, whereas EeveeDark produces sharper edges and improved local contrast by effectively leveraging event information.
+            <strong>Qualitative comparisons on SDE and SDSD RGB benchmarks.</strong> EeveeDark consistently outperforms the binary baseline BRVE: it restores finer structural details and improved local contrast, whereas BRVE tends to oversmooth edges and can amplify noise in dark regions. The improvement stems from effectively leveraging event data, which provides high-frequency temporal cues absent in RGB inputs. EeveeDark also exhibits superior frame-to-frame consistency and avoids the flickering artifacts observed in BRVE, while offering a compelling performance–efficiency trade-off at a fraction of the cost of full-precision models.
         </p>
     </section>
 
     <section>
         <h2>BibTeX</h2>
         <div class="bibtex">
-<!-- <pre>@article{eker2026eeveedark,
-  title     = {EeveeDark: A Binary Neural Framework for Low-Light Video 
-               Enhancement via Event-Guided Sensor-Level Fusion},
-  author    = {Eker, Onur and Erdem, Erkut and Erdem, Aykut},
-  journal   = {IEEE Robotics and Automation Letters},
-  year      = {2026},
-  publisher = {IEEE}
-}</pre> -->
+<pre>@article{eker2026eeveedark,
+  title={EeveeDark: A Binary Neural Framework for Low-Light Video Enhancement via Event-Guided Sensor-Level Fusion},
+  author={Eker, Onur and Erdem, Erkut and Erdem, Aykut},
+  journal={IEEE Robotics and Automation Letters},
+  year={2026},
+  publisher={IEEE}
+}</pre>
         </div>
     </section>
 

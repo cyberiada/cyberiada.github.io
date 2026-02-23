@@ -187,13 +187,14 @@ section h2 {
 .qual-row {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 8px;
-    margin-bottom: 8px;
+    gap: 6px;
+    margin-bottom: 6px;
 }
 
 .qual-row img {
     width: 100%;
-    height: auto;
+    height: 95px;
+    object-fit: cover;
     border-radius: 4px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.1);
     transition: transform 0.2s;
@@ -207,9 +208,9 @@ section h2 {
 .qual-labels {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 8px;
+    gap: 6px;
     text-align: center;
-    margin-top: 5px;
+    margin-top: 4px;
 }
 
 .qual-labels span {
