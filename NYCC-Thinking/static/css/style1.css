@@ -1,0 +1,386 @@
+/* 1. Register your custom New Yorker-style font.
+   Put your .ttf file at: assets/fonts/NewYorker.ttf
+   If the file name is different, change it below. */
+@font-face {
+  font-family: "NewYorkerSpecial";
+  src: url("../fonts/NewYorker-6Y46.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 2. Global styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* FORCE all titles/subtitles to use my custom font */
+h1, h2, h3, h4, h5, h6,
+.title,
+.subtitle,
+.publication-title,
+.hero .title,
+.hero .subtitle,
+.section .title,
+.section .subtitle,
+#BibTeX .title,
+.hero.is-light .title,
+.hero.is-light .subtitle {
+  font-family: "NewYorkerSpecial", Georgia, serif !important;
+  letter-spacing: 0.05em;
+}
+
+
+.paper-title-with-image.vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.paper-title-with-image.vertical img {
+  width: 150px;
+  height: auto;
+  margin-bottom: 1rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.title-icon-large {
+  width: 250px;
+  height: auto;
+  margin-bottom: 1rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+/* Reduce size of large figure images */
+.figure-medium {
+  max-width: 45%;     /* shrink width */
+  height: auto;
+  align-items: center;
+  display: block;
+  margin-left: auto;  /* center the image */
+  margin-right: auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+
+/* Make carousel items narrower instead of full-width */
+.carousel.results-carousel .item {
+  width: auto !important;        /* instead of 100% */
+  max-width: 650px;              /* adjust to your preference */
+  margin: 0 auto !important;     /* center it */
+  padding: 1rem 0;               /* optional spacing */
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.carousel .item img {
+  max-width: 550px !important;
+  height: auto;
+}
+
+
+body {
+  margin: 0;
+  background: #ffffff;
+  color: #111;
+  font-family: "NewYorkerSpecial";  /* body font */
+  line-height: 1.6;
+}
+
+
+
+/* 4. Main layout */
+.content {
+  max-width: 960px;
+  margin: 2rem auto 3rem;
+  padding: 0 1.5rem 3rem;
+}
+
+/* Article preview / hero block */
+.article-preview {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.article-title {
+  font-family: "NewYorkerSpecial";  /* custom font for big title */
+  font-size: 2rem;
+  font-weight: normal;
+  margin: 0 0 0.6rem;
+}
+
+.summary {
+  font-size: 1.05rem;
+  color: #333;
+  max-width: 720px;
+  margin: 0 0 0.4rem;
+}
+
+.byline {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* 5. Two-column layout */
+.two-column {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 2.2rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 800px) {
+  .two-column {
+    grid-template-columns: 1fr;
+  }
+}
+
+.two-column h3 {
+  font-family: "NewYorkerSpecial";
+  font-size: 1.35rem;
+  margin-top: 0;
+}
+
+/* Lists */
+ul {
+  padding-left: 1.2rem;
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+/* 6. Card grid (Code / Paper / Demo) */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 900px) {
+  .card-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 650px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  border-top: 1px solid #111;
+  padding-top: 1rem;
+}
+
+.card h3 {
+  font-family: "NewYorkerSpecial";
+  font-size: 1.2rem;
+  margin-top: 0;
+}
+
+.card p {
+  margin: 0.3rem 0 0.8rem;
+}
+
+.card-link {
+  font-size: 0.95rem;
+  text-decoration: none;
+  color: #004c8a;
+  border-bottom: 1px solid rgba(0, 76, 138, 0.3);
+}
+
+.card-link:hover {
+  border-bottom-color: rgba(0, 76, 138, 0.9);
+}
+
+/* 7. Other sections */
+.section-block {
+  border-top: 1px solid #eee;
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.section-block h3 {
+  font-family: "NewYorkerSpecial";
+  font-size: 1.25rem;
+}
+
+/* Code blocks */
+pre {
+  background: #111;
+  color: #f8f3ea;
+  padding: 0.8rem 1rem;
+  font-size: 0.9rem;
+  overflow-x: auto;
+}
+
+code {
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+/* Footer */
+.site-footer {
+  border-top: 1px solid #ddd;
+  padding: 1rem 1.5rem 2rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+
+
+
+/* --- THE CARTOONIST THEME --- */
+
+:root {
+  --ink-color: #1a1a1a;
+  --paper-color: #fdfbf7;    /* Classic 'New Yorker' off-white paper */
+  --accent-yellow: #fff176;  /* Highlighter yellow */
+  --panel-bg: #ffffff;
+}
+
+/* Typography Overrides */
+body {
+  background-color: #f8f8f8;
+  color: var(--ink-color);
+  line-height: 1.6;
+}
+
+.cartoon-font {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+}
+
+/* 1. HERO SECTION: The Canvas */
+.hero-cartoon {
+  background-color: var(--paper-color);
+  background-image: radial-gradient(#d1d1d1 0.5px, transparent 0.5px); /* Subtle paper texture */
+  background-size: 20px 20px;
+  border-bottom: 5px solid var(--ink-color);
+  padding: 6rem 0;
+}
+
+/* Highlighter Effect */
+.highlight {
+  background: linear-gradient(120deg, var(--accent-yellow) 0%, var(--accent-yellow) 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 0.35em;
+  background-position: 0 85%;
+  padding: 0 8px;
+}
+
+/* 2. COMIC PANELS: The Abstract */
+.comic-panel {
+  border: 3px solid var(--ink-color);
+  padding: 2rem 1.5rem;
+  background: var(--panel-bg);
+  height: 100%;
+  box-shadow: 10px 10px 0px var(--ink-color); /* The "Pop" Shadow */
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+}
+
+.comic-panel:hover {
+  transform: translate(-5px, -5px);
+  box-shadow: 15px 15px 0px var(--ink-color);
+}
+
+/* 'Typewritten' Labels */
+.panel-label {
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  font-size: 0.85rem;
+  background: var(--ink-color);
+  color: white;
+  padding: 4px 12px;
+  position: absolute;
+  top: -14px;
+  left: 20px;
+  transform: rotate(-1deg);
+}
+
+/* 3. BUTTONS: Hand-Drawn Feel */
+.cartoon-btn {
+  border: 2px solid var(--ink-color) !important;
+  box-shadow: 4px 4px 0px var(--ink-color);
+  font-weight: 700 !important;
+  transition: all 0.1s ease;
+  background: white !important;
+  color: var(--ink-color) !important;
+}
+
+.cartoon-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px var(--ink-color);
+  background: var(--ink-color) !important;
+  color: white !important;
+}
+
+/* 4. FIGURES & DIAGRAMS */
+.styled-fig {
+  border: 3px solid var(--ink-color);
+  border-radius: 4px;
+  background: white;
+  padding: 15px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  margin-bottom: 1.5rem;
+}
+
+.caption-box {
+  font-family: 'Georgia', serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: #444;
+  border-left: 4px solid var(--accent-yellow);
+  padding-left: 15px;
+  margin-top: 1.5rem;
+}
+
+/* 5. BIBTEX: The Manuscript */
+.bibtex-box {
+  background: #f1f1f1;
+  border: 2px dashed #bbb;
+  padding: 2rem;
+  position: relative;
+  overflow-x: auto;
+}
+
+.bibtex-box::before {
+  content: "SCIENTIFIC MANUSCRIPT";
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  font-size: 0.6rem;
+  color: #999;
+}
+
+/* Utilities for Layout */
+.italic-sub {
+  font-family: 'Georgia', serif;
+  font-style: italic;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .hero-cartoon {
+    padding: 3rem 1rem;
+  }
+}
