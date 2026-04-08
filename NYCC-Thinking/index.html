@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning to Think Like a Cartoon Captionist: IRS Framework</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link href="https://db.onlinewebfonts.com/c/1e44faec07b8b81f60a3215d76bd0086?family=Irvin-Heading" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="static/images/fvv.ico">
+</head>
+
+<body>
+
+    <nav class="ny-nav">
+        <div class="ny-nav-content">
+            <span class="nav-section">THE CARTOON ISSUE</span>
+            <div class="ny-masthead-logo">Koç University</div>
+            <div class="nav-menu">
+                <a href="#experiments" class="nav-link">Experiments</a>
+                <a href="#results" class="nav-link">Results</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="editorial-wrapper">
+        <header class="article-header">
+            <div class="header-illustration">
+                <img src="static/images/robocaptionist.png" alt="Illustration by the authors">
+            </div>
+
+            <div class="header-text">
+                <div class="category-tag">Artificial Intelligence</div>
+                <h1 class="article-title">
+                    Learning to Think Like a<br>
+                    Cartoon Captionist:<br>
+                </h1>
+                <p class="article-dek">
+                    Incongruity–Resolution Supervision (IRS) for Multimodal Humor Understanding.
+                </p>
+
+                <div class="byline-container">
+                    <div class="byline">
+                        BY <span class="author-name">H. Merve Vural</span>,
+                        <span class="author-name">Doga Kukul</span>,
+                        <span class="author-name">Ege Erdem Ozlu</span>,
+                        <span class="author-name">Demir Ekin Arikan</span>,
+                        <span class="author-name">Bob Mankoff</span>,
+                        <span class="author-name">Erkut Erdem</span>,
+                        AND <span class="author-name">Aykut Erdem</span>
+                    </div>
+                    <!-- <div class="article-date">COLM 2026</div> -->
+                </div>
+
+                <div class="header-buttons">
+                    <a href="static/pdfs/NYCC_COLM_2026.pdf" target="_blank" class="action-btn">
+                        <i class="fas fa-file-pdf"></i> Paper
+                    </a>
+                    <a href="https://huggingface.co/datasets/newyccku/caption_dataset_rl_v5" target="_blank"
+                        class="action-btn">
+                        <i class="fas fa-database"></i> Dataset
+                    </a>
+                </div>
+
+            </div>
+        </header>
+
+        <article class="article-body">
+            <p class="drop-cap-p">
+                <span class="drop-cap">H</span>umor is one of the few cognitive tasks where getting the reasoning right
+                matters as much as getting the answer right. While recent work evaluates
+                humor understanding on benchmarks such as the New Yorker Cartoon
+                Caption Contest (NYCC), it largely treats it as black-box prediction, overlooking
+                the structured reasoning processes underlying humor comprehension. We introduce
+                <em>IRS</em> (Incongruity-Resolution Supervision), a framework
+                that decomposes humor understanding into three components: <em>incongruity modeling</em>,
+                which identifies mismatches in the visual scene; <em>resolution modeling</em>,
+                which constructs coherent reinterpretations of these mismatches; and <em>preference alignment</em>,
+                which evaluates candidate interpretations under human judgments. Grounded
+                in incongruity-resolution theory and expert captionist practice, IRS supervises
+                intermediate reasoning process through structured traces that make the path from
+                visual perception to humorous interpretation explicit and learnable. Across 7B, 32B, and 72B
+                models on NYCC, IRS outperforms strong open and closed multimodal
+                baselines across caption matching and ranking tasks, with our largest model
+                approaching expert-level performance on ranking. Zero-shot transfer to external benchmarks
+                shows that IRS learns generalizable reasoning patterns. Our results suggest that supervising
+                reasoning structure, rather than scale alone, is key for reasoning-centric tasks.
+            </p>
+
+            <hr class="section-divider">
+
+            <h2 class="subhead" id="experiments">Incongruity Modeling via Domain-Adaptive Pretraining</h2>
+            <p>Recognizing humor-relevant incongruities requires background knowledge that is largely absent from
+                standard
+                pretraining corpora: stylistic conventions of cartoon humor, editorial heuristics for what makes a
+                caption
+                work, and culturally grounded expectations about narrative and visual surprise. In the IM stage, we
+                perform continual pretraining (CPT) on a curated corpus of captionist discussions, editorial analyses,
+                caption-writing guides, and complementary general-knowledge text. CPT biases the model’s representations
+                toward humor-relevant concepts, incongruity-resolution structure, lexical economy, and narrative
+                framing,
+                so that subsequent supervised training can build on a more appropriate prior. Models incorporating this
+                stage exhibit more stable and coherent reasoning during fine-tuning, suggesting that domain adaptation
+                meaningfully shapes what the model attends to rather than merely what it predicts.</p>
+
+            <div class="editorial-image-box">
+                <img src="static/images/overview-1.png" alt="IRS Overview">
+                <div class="image-credit">Figure 1: Overview of Incongruity-Resolution Supervision (IRS).</div>
+            </div>
+            <p>The IRS framework consists of three stages: Incongruity Modeling (IM) via domain adaptation, Resolution
+                Modeling (RM) via supervised learning on expert-derived reasoning traces, and Preference Alignment (PA)
+                via reinforcement learning with humor-aware rewards. This structured approach bridges cognitive theory
+                of incongruity-resolution with multimodal learning, moving beyond surface-level pattern matching.</p>
+
+            <h2 class="subhead">Resolution Modeling via Reasoning Traces</h2>
+            <div class="panel-slider">
+                <div class="tabs-wrapper">
+                    <button class="tab-btn active" data-target="reasoning-matching">Matching</button>
+                    <button class="tab-btn" data-target="reasoning-ranking">Ranking</button>
+                </div>
+                <div class="tab-content active" id="reasoning-matching">
+                    <img src="static/images/CoT-example-matching.png" alt="Matching Trace" class="panel-image">
+                </div>
+                <div class="tab-content" id="reasoning-ranking">
+                    <img src="static/images/CoT-example-ranking.png" alt="Ranking Trace" class="panel-image">
+                </div>
+            </div>
+            <div class="image-credit">Figure 2: Example captionist reasoning trace under IRS (matching/ranking).</div>
+
+
+            <p>The core of IRS is the supervision of resolution modeling—teaching the model how incongruities are
+                reinterpreted into coherent, humorous readings. We construct a dataset of captionist reasoning traces
+                following a fixed expert-derived template: scene reconstruction, incongruity identification, and
+                narrative resolution. These traces do not treat humor as abstract correctness alone; they attend to how
+                a caption works linguistically—highlighting effective wordplay, metaphor, and punchline placement.
+                Supervised learning on these traces (RM stage) encourages models to internalize structured reasoning
+                processes rather than relying on literal description or pattern matching.</p>
+
+
+
+            <div class="editorial-image-box">
+                <img src="static/images/groundtruth-references.png" alt="Visual References">
+                <div class="image-credit">Figure 3: Curated visual references for perception alignment in IRS.</div>
+            </div>
+
+            <h2 class="subhead">Preference Alignment via Humor-Aware Rewards</h2>
+            <div class="editorial-image-box">
+                <img src="static/images/rewards-1.png" alt="Reward Alignment">
+                <div class="image-credit">Figure 4: Preference alignment in IRS via judge-based rewards.</div>
+            </div>
+
+            <p>Resolution modeling provides structure, but does not ensure visual grounding or stylistic consistency.
+                We address this through preference alignment (PA) using reinforcement learning (RL) with humor-specific
+                rewards. Our composite reward integrates accuracy and format signals with two key humor-specific judges:
+                (1) Visual Perception reward, which ensures reasoning is grounded in salient visual elements and
+                incongruities, and (2) Style reward, which evaluates linguistic quality based on expert guidelines.
+                Conditioning these awards on correctness ensures they reinforce accurate, visually-grounded reasoning.
+            </p>
+
+
+            <h2 class="subhead" id="results">Quantitative Results</h2>
+            <div class="editorial-image-box results-table-container">
+                <img src="static/images/results-1.png" alt="Quantitative Results">
+                <div class="image-credit">Table 1: Main quantitative results comparison.</div>
+            </div>
+            <p>We evaluate Incongruity-Resolution Supervision (IRS) across four benchmark settings
+                spanning caption matching and humor ranking. Across all settings, IRS
+                consistently improves over strong open-weight multimodal baselines and substantially narrows the gap to
+                proprietary models.
+                On standard NYCC matching and ranking tasks, supervising intermediate reasoning via IRS leads to large
+                gains across 7B, 32B, and 72B scales. In particular, our 72B model achieves the strongest open-weight
+                results in our evaluation, approaching expert-level performance on the ranking task where selecting the
+                funnier caption requires subtle discrimination.
+                Harder preference-based benchmarks (10-vs-1000 and 30-vs-300) further highlight the benefits of our
+                approach. These tasks require distinguishing high-quality captions from mediocre ones, a challenge where
+                IRS-trained models show notably better robustness. This indicates that humor understanding
+                benefits from explicitly modeling the incongruity-resolution structure rather than relying
+                on surface correlations.
+                Ablation studies confirm that each stage of IRS—Incongruity Modeling, Resolution Modeling, and
+                Preference Alignment—contributes complementary gains, with the full pipeline consistently achieving
+                the best overall performance across tasks.</p>
+
+
+            <h2 class="subhead">Qualitative Results</h2>
+            <div class="panel-slider">
+                <div class="tabs-wrapper">
+                    <button class="tab-btn active" data-target="qualitative-1">Matching</button>
+                    <button class="tab-btn" data-target="qualitative-2">Ranking</button>
+                </div>
+                <div class="tab-content active" id="qualitative-1">
+                    <img src="static/images/response-example1.png" alt="Matching" class="panel-image">
+                </div>
+                <div class="tab-content" id="qualitative-2">
+                    <img src="static/images/response-example2.png" alt="Ranking" class="panel-image">
+                </div>
+            </div>
+            <p>Beyond accuracy, IRS models produce explanations that closely mirror how expert captionists reason about
+                cartoons. Generated reasoning traces reconstruct the visual scene, explicitly identify the central
+                incongruity, reject implausible interpretations, and justify the final caption choice using concise,
+                image-grounded arguments.
+                Compared to baseline multimodal models, which often rely on generic descriptions or loosely related
+                wordplay, IRS explanations are more selective and editorial in tone. They focus on the single visual or
+                conceptual twist that makes the cartoon funny and articulate why alternative captions fail.
+                On ranking tasks, IRS models favor captions that balance visual fidelity with linguistic economy,
+                matching the New Yorker's editorial style more closely than baselines. These examples illustrate that
+                the framework helps models internalize a reusable reasoning strategy for creative multimodal
+                understanding.</p>
+
+            <h2 class="subhead">Zero-shot Caption Generation</h2>
+            <div class="panel-slider">
+                <div class="tabs-wrapper">
+                    <button class="tab-btn active" data-target="generation-divine">Divine-Bureaucratic</button>
+                    <button class="tab-btn" data-target="generation-magic">Magic-Mundane</button>
+                    <button class="tab-btn" data-target="generation-role">Role-Reversal</button>
+                </div>
+                <div class="tab-content active" id="generation-divine">
+                    <img src="static/images/caption-generation-1.png" alt="Divine-Bureaucratic Incongruity"
+                        class="panel-image">
+                </div>
+                <div class="tab-content" id="generation-magic">
+                    <img src="static/images/caption-generation-2.png" alt="Magic-Mundane Incongruity"
+                        class="panel-image">
+                </div>
+                <div class="tab-content" id="generation-role">
+                    <img src="static/images/caption-generation-3.png" alt="Role-Reversal Incongruity"
+                        class="panel-image">
+                </div>
+            </div>
+            <p>Our framework's ability to model humor transfers to zero-shot caption generation. IRS-trained models
+                produce plausible, grounded, and humorous captions without being explicitly optimized for open-ended
+                generation tasks. By identifying salient visual incongruities and constructing coherent resolutions, the
+                models generate outputs that capture the spirit of New Yorker-style humor across various themes, from
+                bureaucratic-divine mismatches to magic and role-reversal scenarios. This generalization confirms that
+                supervising the underlying reasoning mechanism is key for creative multimodal tasks.</p>
+
+
+
+            <h2 class="subhead">Limitations</h2>
+            <div class="panel-slider">
+                <div class="tabs-wrapper">
+                    <button class="tab-btn active" data-target="limitations-culture">Culture</button>
+                    <button class="tab-btn" data-target="limitations-perception">Perception</button>
+                </div>
+                <div class="tab-content active" id="limitations-culture">
+                    <img src="static/images/limitations-culture.png" alt="Culture" class="panel-image">
+                </div>
+                <div class="tab-content" id="limitations-perception">
+                    <img src="static/images/limitations-perception.png" alt="Perception" class="panel-image">
+                </div>
+            </div>
+            <p>Despite these gains, our approach has several limitations. First, humor remains inherently subjective and
+                culturally situated. While our model aligns better with New Yorker-style humor, it may not generalize to
+                other comedic traditions or cultural contexts without additional adaptation.
+                Second, the framework depends on curated reasoning traces and judge-based reward models, which introduce
+                annotation and modeling overhead. Although we use lightweight supervision, scaling this approach to
+                entirely new creative domains would require comparable domain expertise.
+                Third, visual perception errors can still propagate into reasoning. When the model misidentifies key
+                visual elements, even well-structured reasoning may justify an incorrect interpretation. Finally,
+                reinforcement learning with LLM-as-judge rewards, while effective, inherits the biases and limitations
+                of the judging models themselves.
+                Addressing these limitations will require broader cultural coverage, more robust visual grounding, and
+                improved reward modeling for subjective reasoning tasks.</p>
+        </article>
+    </main>
+
+    <main class="editorial-wrapper">
+        <footer class="article-footer">
+            <div class="footer-rule"></div>
+            <h3 class="footer-label">CITATIONS</h3>
+            <div class="bibtex-container">
+                <pre>
+@article{Vural2026IRS,
+  title={Learning to Think Like a Cartoon Captionist},
+  author={Vural, Hatice Merve and others},
+  journal={arxiv},
+  year={2026}
+}</pre>
+            </div>
+        </footer>
+    </main>
+
+    <button id="scrollTopBtn" class="scroll-top-btn" title="Go to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    <script src="static/js/script.js"></script>
+</body>
+
+</html>
