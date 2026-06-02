@@ -1,0 +1,1667 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Auteur</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/slider.css">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+
+    <style>
+        /* Abstract Banner */
+        .abstract-banner {
+            width: 100%;
+            background: linear-gradient(135deg, #2e7d32, #66bb6a);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .abstract-banner-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .abstract-banner h2 {
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+
+        .abstract-banner p {
+            font-size: 18px;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+
+        /* Container for 1100px centered content */
+        .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Full width color bands */
+        .section-band {
+            width: 100%;
+            padding: 50px 0;
+        }
+
+        .band-white {
+            background: #ffffff;
+        }
+
+        .band-pink {
+            background: #fff7fa;
+        }
+
+        /* Typography & Headings */
+        h2.section-title {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        /* Slider Navigation Layout (Previous / Current / Next names) */
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-family: 'Segoe UI', sans-serif;
+            width: 100%;
+        }
+
+        .slide-side-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.3s;
+            user-select: none;
+            flex: 0 0 250px;
+        }
+
+        .slide-side-name.left {
+            text-align: left;
+        }
+
+        .slide-side-name.right {
+            text-align: right;
+        }
+
+        .slide-side-name:hover {
+            color: #009c3b;
+        }
+
+        .slide-current-name {
+            font-size: 28px;
+            font-weight: bold;
+            text-align: center;
+            color: #222;
+        }
+
+        /* --- DSL & Video Layout --- */
+        .slide-main-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .dsl-panel {
+            flex: 0 0 220px;
+            /* Sabit genişlik */
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-size: 13.5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+        }
+
+        .dsl-title {
+            font-weight: bold;
+            font-family: sans-serif;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            display: block;
+        }
+
+        .dsl-field {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        .dsl-label {
+            color: #111;
+            font-weight: 600;
+        }
+
+        .dsl-value {
+            color: #666;
+        }
+
+        /* Highlight Stili */
+        .highlight {
+            background-color: #fff3cd;
+            /* Hafif sarı */
+            color: #856404;
+            font-weight: bold;
+            border: 1px solid #ffeeba;
+        }
+        
+        .highlight .dsl-label, .highlight .dsl-value {
+            color: #856404;
+        }
+
+        .video-container {
+            flex: 1;
+            max-width: 700px;
+        }
+
+        .video-container video {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            display: block;
+        }
+
+        .slide-caption {
+            text-align: center;
+            margin: 20px auto;
+            max-width: 80%;
+            font-size: 18px;
+            font-family: "Courier New", Courier, monospace;
+            color: #444;
+            min-height: 54px;
+        }
+
+        /* Video Grid Layouts */
+        .video-grid-1,
+        .video-grid-2,
+        .video-grid-3 {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        /* Video Card Styling */
+        .video-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .video-item-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .video-item video {
+            width: 100%;
+            border-radius: 6px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .abstract-text {
+            text-align: justify;
+            text-justify: inter-word;
+            hyphens: auto;
+        }
+
+        /* Specific sizing for grids to maintain consistency */
+        .video-grid-1 .video-item {
+            max-width: 600px;
+        }
+
+        .video-grid-2 .video-item {
+            width: calc(50% - 15px);
+            max-width: 450px;
+        }
+
+        .video-grid-3 .video-item {
+            width: calc(33.333% - 15px);
+            max-width: 600px;
+        }
+    
+        .highlight-obj {
+            background-color: #fef08a;
+            color: #854d0e;
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-weight: 500;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .highlight-cam {
+            background-color: #e0e7ff;
+            color: #3730a3;
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-weight: 500;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .author {
+            font-family: 'Segoe UI';
+            font-size: 1.2rem;
+            font-weight: 500;
+            display: inline-block;
+            margin: 0 10px; /* Isimler arasi bosluk */
+            color: #0066cc; /* Link rengi gibi hafif mavi, istersen siyah yap */
+        }
+
+        /* Kurum isimleri */
+        .affiliation {
+            font-family: 'Segoe UI';
+            display: inline-block;
+            margin: 0 15px;
+            color: #555;
+            font-size: 1rem;
+        }
+
+        /* Superscript (ust simge) ayari */
+        sup {
+            font-size: 0.8em;
+            vertical-align: super;
+            margin-left: 2px;
+        }
+
+        /* Dipnot ve mailler */
+        #footnote {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #666;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Email kismi icin monospace font */
+        .tt {
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="body" style="padding-top: 50px;">
+        <h1 id="title" style="line-height: 1.3; text-align: center;">
+            <span style="color: #2e7d32;">Auteur: Language-Driven Cinematographic Framing for Human-Centric Video Generation</span>
+        </h1>
+                <br>
+
+        <div id="author-list">
+            <span class="author"><a href="https://scholar.google.com/citations?user=q5BcGdcAAAAJ&hl=en" target="_blank">M. Burak Kizil</a><sup>1</sup></span>
+            <span class="author"><a href="https://github.com/ensanli" target="_blank">Enes Sanli</a><sup>1</sup></span>
+            <span class="author"><a href="https://geometry.cs.ucl.ac.uk/" target="_blank">Niloy J. Mitra</a><sup>2,4</sup></span>
+            <span class="author"><a href="https://xuelin-chen.github.io/" target="_blank">Xuelin Chen</a><sup>4</sup></span>
+            <span class="author"><a href="https://web.cs.hacettepe.edu.tr/~erkut/" target="_blank">Erkut Erdem</a><sup>3</sup></span>
+            <span class="author"><a href="https://aykuterdem.github.io/" target="_blank">Aykut Erdem</a><sup>1</sup></span>
+            <span class="author"><a href="https://www.duygu-ceylan.com/" target="_blank">Duygu Ceylan</a><sup>4</sup></span>
+        </div>
+        <br>
+
+        <div id="affiliation-list">
+            <span class="affiliation"><sup>1</sup>Koç University</span>
+            <span class="affiliation"><sup>2</sup>University College London</span>
+            <span class="affiliation"><sup>3</sup>Hacettepe University</span>
+            <span class="affiliation"><sup>4</sup>Adobe Research</span>
+        </div>
+
+
+        <div id="button-list">
+            <a id="arxiv" href="http://arxiv.org/abs/2606.01900">
+                <img src="assets/logos/arxiv.svg">
+                <span>arXiv</span>
+            </a>
+            <a id="code" href="#">
+                <img src="assets/logos/github-mark.svg">
+                <span>Code (Coming Soon)</span>
+            </a>
+        </div>
+        <br>
+        <div class="section-band band-white">
+            <div class="section-inner" style="max-width: 1100px; margin: 0 auto; text-align: center; padding: 20px 0;">
+                <img src="assets/teaser.png" alt="Auteur Teaser" style="width: 100%; max-width: 1000px; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-bottom: 25px;" />
+                <p style="font-size: 18px; line-height: 1.6; color: #444; text-align: center; max-width: 900px; margin: 0 auto;">
+                    We replace world-space camera trajectories with actor-relative shot compositions: a cinematographic DSL and a fine-tuned LLM map natural language and human motion into camera keyframes that are geometrically consistent and narratively intentional.
+                </p>
+            </div>
+        </div>
+        <div id="content">
+
+            <div class="section-band band-pink">
+                <div class="section-inner">
+                    <h2 class="section-title">Motion and Framing Primitives</h2>
+
+                    <div class="slider-container" id="slider-primitives">
+                        <ul class="slides-container" id="primitives-list">
+
+<li class="slide">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-primitives')">&larr; Jitter</div>
+                                    <div class="slide-current-name">Arc</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-primitives')">Dolly in &rarr;</div>
+                                </div>
+                                <div class="slide-caption">
+                                    <span style="color:#1f78b4">The camera arcs from the left side to the front and
+                                        then right, shifting the perspective smoothly across the space.</span>
+                                </div>
+                                <div class="slide-main-content">
+                                    <div class="dsl-panel initial-dsl">
+                                        <span class="dsl-title">Initial DSL</span>
+                                        <div class="dsl-field" data-key="Orientation"><span class="dsl-label">Orientation:</span> <span class="dsl-value">Left</span></div>
+                                        <div class="dsl-field" data-key="Depth"><span class="dsl-label">Depth:</span> <span class="dsl-value">Medium</span></div>
+                                        <div class="dsl-field" data-key="Camera Level"><span class="dsl-label">Camera Level:</span> <span class="dsl-value">Eye</span></div>
+                                        <div class="dsl-field" data-key="Lookat Level"><span class="dsl-label">Lookat Level:</span> <span class="dsl-value">Eye</span></div>
+                                        <div class="dsl-field" data-key="Dutch Angle"><span class="dsl-label">Dutch Angle:</span> <span class="dsl-value">Normal</span></div>
+                                        <div class="dsl-field" data-key="Framing"><span class="dsl-label">Framing:</span> <span class="dsl-value">Center</span></div>
+                                    </div>
+                                <div class="video-grid-1" style="flex: 1;">
+                                    <div class="video-item">
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/arc_right_front_left.mp4" type="video/mp4">
+                                        </video>
+                                        <div style="display: flex; gap: 40px; margin-top: 15px; width: 100%; justify-content: center;">
+                                            <div class="dsl-panel" style="padding: 6px 16px; min-width: 140px; flex: unset;">
+                                                <div class="dsl-field" style="margin-bottom: 0;"><span class="dsl-label">Jitter:</span> <span class="dsl-value">None</span></div>
+                                            </div>
+                                            <div class="dsl-panel" style="padding: 6px 16px; min-width: 140px; flex: unset;">
+                                                <div class="dsl-field" style="margin-bottom: 0;"><span class="dsl-label">Ease:</span> <span class="dsl-value">None</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                    <div class="dsl-panel final-dsl">
+                                        <span class="dsl-title">Final DSL</span>
+                                        <div class="dsl-field" data-key="Orientation"><span class="dsl-label">Orientation:</span> <span class="dsl-value">Right</span></div>
+                                        <div class="dsl-field" data-key="Depth"><span class="dsl-label">Depth:</span> <span class="dsl-value">Medium</span></div>
+                                        <div class="dsl-field" data-key="Camera Level"><span class="dsl-label">Camera Level:</span> <span class="dsl-value">Eye</span></div>
+                                        <div class="dsl-field" data-key="Lookat Level"><span class="dsl-label">Lookat Level:</span> <span class="dsl-value">Eye</span></div>
+                                        <div class="dsl-field" data-key="Dutch Angle"><span class="dsl-label">Dutch Angle:</span> <span class="dsl-value">Normal</span></div>
+                                        <div class="dsl-field" data-key="Framing"><span class="dsl-label">Framing:</span> <span class="dsl-value">Center</span></div>
+                                    </div>
+                                </div>
+                            </li>
+
+<li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-primitives')">&larr; Arc</div>
+                                    <div class="slide-current-name">Dolly in</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-primitives')">Pedestal &rarr;</div>
+                                </div>
+                                <div class="slide-caption">
+                                    <span style="color:#1f78b4">The camera slowly dollies in towards the
+                                        character.</span>
+                                </div>
+                                <div class="slide-main-content">
+                                    <div class="dsl-panel initial-dsl">
+                                        <span class="dsl-title">Initial DSL</span>
+                                        <div class="dsl-field" data-key="Orientation"><span class="dsl-label">Orientation:</span> <span class="dsl-value">Front</span></div>
+                                        <div class="dsl-field" data-key="Depth"><span class="dsl-label">Depth:</span> <span class="dsl-value">Long</span></div>
+                                        <div class="dsl-field" data-key="Camera Level"><span class="dsl-label">Camera Level:</span> <span class="dsl-value">Eye</span></div>
+                                        <div class="dsl-field" data-key="Lookat Level"><span class="dsl-label">Lookat Level:</span> <span class="dsl-value">Eye</span></div>
+                                        <div class="dsl-field" data-key="Dutch Angle"><span class="dsl-label">Dutch Angle:</span> <span class="dsl-value">Normal</span></div>
+                                        <div class="dsl-field" data-key="Framing"><span class="dsl-label">Framing:</span> <span class="dsl-value">Center</span></div>
+                                    </div>
+                                <div class="video-grid-1" style="flex: 1;">
+                                    <div class="video-item">
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/dolly_in.mp4" type="video/mp4">
+                                        </video>
+                                        <div style="display: flex; gap: 40px; margin-top: 15px; width: 100%; justify-content: center;">
+                                            <div class="dsl-panel" style="padding: 6px 16px; min-width: 140px; flex: unset;">
+                                                <div class="dsl-field" style="margin-bottom: 0;"><span class="dsl-label">Jitter:</span> <span class="dsl-value">None</span></div>
+                                            </div>
+                                            <div class="dsl-panel" style="padding: 6px 16px; min-width: 140px; flex: unset;">
+                                                <div class="dsl-field" style="margin-bottom: 0;"><span class="dsl-label">Ease:</span> <span class="dsl-value">None</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                    <div class="dsl-panel final-dsl">
+                                        <span class="dsl-title">Final DSL</span>
+                                        <div class="dsl-field" data-key="Orientation"><span class="dsl-label">Orientation:</span> <span class="dsl-value">Front</span></div>
+                                        <div class="dsl-field" data-key="Depth"><span class="dsl-label">Depth:</span> <span class="dsl-value">Medium Full</span></div>
+                                        <div class="dsl-field" data-key="Camera Level"><span class="dsl-label">Camera Level:</span> <span class="dsl-value">Eye</span></div>
+                                        <div class="dsl-field" data-key="Lookat Level"><span class="dsl-label">Lookat Level:</span> <span class="dsl-value">Eye</span></div>
+                                        <div class="dsl-field" data-key="Dutch Angle"><span class="dsl-label">Dutch Angle:</span> <span class="dsl-value">Normal</span></div>
+                                        <div class="dsl-field" data-key="Framing"><span class="dsl-label">Framing:</span> <span class="dsl-value">Center</span></div>
+                                    </div>
+                                </div>
+                            </li>
+
+<li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-primitives')">&larr; Dolly in</div>
+                                    <div class="slide-current-name">Pedestal</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-primitives')">Tilt &rarr;</div>
+                                </div>
+                                <div class="slide-caption">
+                                    <span style="color:#1f78b4">The camera pedestals down slowly, physically lowering
+                                        its height.</span>
+                                </div>
+                                <div class="slide-main-content">
+                                    <div class="dsl-panel initial-dsl">
+                                        <span class="dsl-title">Initial DSL</span>
+                                        <div class="dsl-field" data-key="Orientation"><span class="dsl-label">Orientation:</span> <span class="dsl-value">Front</span></div>
+                                        <div class="dsl-field" data-key="Depth"><span class="dsl-label">Depth:</span> <span class="dsl-value">Full</span></div>
+                                        <div class="dsl-field" data-key="Camera Level"><span class="dsl-label">Camera Level:</span> <span class="dsl-value">Eye</span></div>
+                                        <div class="dsl-field" data-key="Lookat Level"><span class="dsl-label">Lookat Level:</span> <span class="dsl-value">Eye</span></div>
+                                        <div class="dsl-field" data-key="Dutch Angle"><span class="dsl-label">Dutch Angle:</span> <span class="dsl-value">Normal</span></div>
+                                        <div class="dsl-field" data-key="Framing"><span class="dsl-label">Framing:</span> <span class="dsl-value">Center</span></div>
+                                    </div>
+                                <div class="video-grid-1" style="flex: 1;">
+                                    <div class="video-item">
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/pedestal_down.mp4" type="video/mp4">
+                                        </video>
+                                        <div style="display: flex; gap: 40px; margin-top: 15px; width: 100%; justify-content: center;">
+                                            <div class="dsl-panel" style="padding: 6px 16px; min-width: 140px; flex: unset;">
+                                                <div class="dsl-field" style="margin-bottom: 0;"><span class="dsl-label">Jitter:</span> <span class="dsl-value">None</span></div>
+                                            </div>
+                                            <div class="dsl-panel" style="padding: 6px 16px; min-width: 140px; flex: unset;">
+                                                <div class="dsl-field" style="margin-bottom: 0;"><span class="dsl-label">Ease:</span> <span class="dsl-value">None</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                    <div class="dsl-panel final-dsl">
+                                        <span class="dsl-title">Final DSL</span>
+                                        <div class="dsl-field" data-key="Orientation"><span class="dsl-label">Orientation:</span> <span class="dsl-value">Front</span></div>
+                                        <div class="dsl-field" data-key="Depth"><span class="dsl-label">Depth:</span> <span class="dsl-value">Full</span></div>
+                                        <div class="dsl-field" data-key="Camera Level"><span class="dsl-label">Camera Level:</span> <span class="dsl-value">Ground</span></div>
+                                        <div class="dsl-field" data-key="Lookat Level"><span class="dsl-label">Lookat Level:</span> <span class="dsl-value">Eye</span></div>
+                                        <div class="dsl-field" data-key="Dutch Angle"><span class="dsl-label">Dutch Angle:</span> <span class="dsl-value">Normal</span></div>
+                                        <div class="dsl-field" data-key="Framing"><span class="dsl-label">Framing:</span> <span class="dsl-value">Center</span></div>
+                                    </div>
+                                </div>
+                            </li>
+
+<li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-primitives')">&larr; Pedestal</div>
+                                    <div class="slide-current-name">Tilt</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-primitives')">Dutch Angle &rarr;</div>
+                                </div>
+                                <div class="slide-caption">
+                                    <span style="color:#1f78b4">The camera tilts down smoothly from the face to body of
+                                        the character.</span>
+                                </div>
+                                <div class="slide-main-content">
+                                    <div class="dsl-panel initial-dsl">
+                                        <span class="dsl-title">Initial DSL</span>
+                                        <div class="dsl-field" data-key="Orientation"><span class="dsl-label">Orientation:</span> <span class="dsl-value">Front</span></div>
+                                        <div class="dsl-field" data-key="Depth"><span class="dsl-label">Depth:</span> <span class="dsl-value">Full</span></div>
+                                        <div class="dsl-field" data-key="Camera Level"><span class="dsl-label">Camera Level:</span> <span class="dsl-value">Eye</span></div>
+                                        <div class="dsl-field" data-key="Lookat Level"><span class="dsl-label">Lookat Level:</span> <span class="dsl-value">Eye</span></div>
+                                        <div class="dsl-field" data-key="Dutch Angle"><span class="dsl-label">Dutch Angle:</span> <span class="dsl-value">Normal</span></div>
+                                        <div class="dsl-field" data-key="Framing"><span class="dsl-label">Framing:</span> <span class="dsl-value">Center</span></div>
+                                    </div>
+                                <div class="video-grid-1" style="flex: 1;">
+                                    <div class="video-item">
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/tilt_down.mp4" type="video/mp4">
+                                        </video>
+                                        <div style="display: flex; gap: 40px; margin-top: 15px; width: 100%; justify-content: center;">
+                                            <div class="dsl-panel" style="padding: 6px 16px; min-width: 140px; flex: unset;">
+                                                <div class="dsl-field" style="margin-bottom: 0;"><span class="dsl-label">Jitter:</span> <span class="dsl-value">None</span></div>
+                                            </div>
+                                            <div class="dsl-panel" style="padding: 6px 16px; min-width: 140px; flex: unset;">
+                                                <div class="dsl-field" style="margin-bottom: 0;"><span class="dsl-label">Ease:</span> <span class="dsl-value">None</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                    <div class="dsl-panel final-dsl">
+                                        <span class="dsl-title">Final DSL</span>
+                                        <div class="dsl-field" data-key="Orientation"><span class="dsl-label">Orientation:</span> <span class="dsl-value">Front</span></div>
+                                        <div class="dsl-field" data-key="Depth"><span class="dsl-label">Depth:</span> <span class="dsl-value">Full</span></div>
+                                        <div class="dsl-field" data-key="Camera Level"><span class="dsl-label">Camera Level:</span> <span class="dsl-value">Eye</span></div>
+                                        <div class="dsl-field" data-key="Lookat Level"><span class="dsl-label">Lookat Level:</span> <span class="dsl-value">Knee</span></div>
+                                        <div class="dsl-field" data-key="Dutch Angle"><span class="dsl-label">Dutch Angle:</span> <span class="dsl-value">Normal</span></div>
+                                        <div class="dsl-field" data-key="Framing"><span class="dsl-label">Framing:</span> <span class="dsl-value">Center</span></div>
+                                    </div>
+                                </div>
+                            </li>
+
+<li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-primitives')">&larr; Tilt</div>
+                                    <div class="slide-current-name">Dutch Angle</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-primitives')">Lateral Truck &rarr;</div>
+                                </div>
+                                <div class="slide-caption">
+                                    <span style="color:#1f78b4">The camera rolls counter-clockwise into a Dutch angle,
+                                        creating a strong sense of unease and psychological disorientation.</span>
+                                </div>
+                                <div class="slide-main-content">
+                                    <div class="dsl-panel initial-dsl">
+                                        <span class="dsl-title">Initial DSL</span>
+                                        <div class="dsl-field" data-key="Orientation"><span class="dsl-label">Orientation:</span> <span class="dsl-value">Front</span></div>
+                                        <div class="dsl-field" data-key="Depth"><span class="dsl-label">Depth:</span> <span class="dsl-value">Medium Full</span></div>
+                                        <div class="dsl-field" data-key="Camera Level"><span class="dsl-label">Camera Level:</span> <span class="dsl-value">Eye</span></div>
+                                        <div class="dsl-field" data-key="Lookat Level"><span class="dsl-label">Lookat Level:</span> <span class="dsl-value">Eye</span></div>
+                                        <div class="dsl-field" data-key="Dutch Angle"><span class="dsl-label">Dutch Angle:</span> <span class="dsl-value">Normal</span></div>
+                                        <div class="dsl-field" data-key="Framing"><span class="dsl-label">Framing:</span> <span class="dsl-value">Center</span></div>
+                                    </div>
+                                <div class="video-grid-1" style="flex: 1;">
+                                    <div class="video-item">
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/dutch_ccw.mp4" type="video/mp4">
+                                        </video>
+                                        <div style="display: flex; gap: 40px; margin-top: 15px; width: 100%; justify-content: center;">
+                                            <div class="dsl-panel" style="padding: 6px 16px; min-width: 140px; flex: unset;">
+                                                <div class="dsl-field" style="margin-bottom: 0;"><span class="dsl-label">Jitter:</span> <span class="dsl-value">None</span></div>
+                                            </div>
+                                            <div class="dsl-panel" style="padding: 6px 16px; min-width: 140px; flex: unset;">
+                                                <div class="dsl-field" style="margin-bottom: 0;"><span class="dsl-label">Ease:</span> <span class="dsl-value">None</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                    <div class="dsl-panel final-dsl">
+                                        <span class="dsl-title">Final DSL</span>
+                                        <div class="dsl-field" data-key="Orientation"><span class="dsl-label">Orientation:</span> <span class="dsl-value">Front</span></div>
+                                        <div class="dsl-field" data-key="Depth"><span class="dsl-label">Depth:</span> <span class="dsl-value">Medium Full</span></div>
+                                        <div class="dsl-field" data-key="Camera Level"><span class="dsl-label">Camera Level:</span> <span class="dsl-value">Eye</span></div>
+                                        <div class="dsl-field" data-key="Lookat Level"><span class="dsl-label">Lookat Level:</span> <span class="dsl-value">Eye</span></div>
+                                        <div class="dsl-field" data-key="Dutch Angle"><span class="dsl-label">Dutch Angle:</span> <span class="dsl-value">CW</span></div>
+                                        <div class="dsl-field" data-key="Framing"><span class="dsl-label">Framing:</span> <span class="dsl-value">Center</span></div>
+                                    </div>
+                                </div>
+                            </li>
+
+<li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-primitives')">&larr; Dutch Angle</div>
+                                    <div class="slide-current-name">Lateral Truck</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-primitives')">Jitter &rarr;</div>
+                                </div>
+                                <div class="slide-caption">
+                                    <span style="color:#1f78b4">The camera trucks left.</span>
+                                </div>
+                                <div class="slide-main-content">
+                                    <div class="dsl-panel initial-dsl">
+                                        <span class="dsl-title">Initial DSL</span>
+                                        <div class="dsl-field" data-key="Orientation"><span class="dsl-label">Orientation:</span> <span class="dsl-value">Front</span></div>
+                                        <div class="dsl-field" data-key="Depth"><span class="dsl-label">Depth:</span> <span class="dsl-value">Medium Full</span></div>
+                                        <div class="dsl-field" data-key="Camera Level"><span class="dsl-label">Camera Level:</span> <span class="dsl-value">Eye</span></div>
+                                        <div class="dsl-field" data-key="Lookat Level"><span class="dsl-label">Lookat Level:</span> <span class="dsl-value">Eye</span></div>
+                                        <div class="dsl-field" data-key="Dutch Angle"><span class="dsl-label">Dutch Angle:</span> <span class="dsl-value">Normal</span></div>
+                                        <div class="dsl-field" data-key="Framing"><span class="dsl-label">Framing:</span> <span class="dsl-value">Left</span></div>
+                                    </div>
+                                <div class="video-grid-1" style="flex: 1;">
+                                    <div class="video-item">
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/truck_left.mp4" type="video/mp4">
+                                        </video>
+                                        <div style="display: flex; gap: 40px; margin-top: 15px; width: 100%; justify-content: center;">
+                                            <div class="dsl-panel" style="padding: 6px 16px; min-width: 140px; flex: unset;">
+                                                <div class="dsl-field" style="margin-bottom: 0;"><span class="dsl-label">Jitter:</span> <span class="dsl-value">None</span></div>
+                                            </div>
+                                            <div class="dsl-panel" style="padding: 6px 16px; min-width: 140px; flex: unset;">
+                                                <div class="dsl-field" style="margin-bottom: 0;"><span class="dsl-label">Ease:</span> <span class="dsl-value">None</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                    <div class="dsl-panel final-dsl">
+                                        <span class="dsl-title">Final DSL</span>
+                                        <div class="dsl-field" data-key="Orientation"><span class="dsl-label">Orientation:</span> <span class="dsl-value">Front</span></div>
+                                        <div class="dsl-field" data-key="Depth"><span class="dsl-label">Depth:</span> <span class="dsl-value">Medium Full</span></div>
+                                        <div class="dsl-field" data-key="Camera Level"><span class="dsl-label">Camera Level:</span> <span class="dsl-value">Eye</span></div>
+                                        <div class="dsl-field" data-key="Lookat Level"><span class="dsl-label">Lookat Level:</span> <span class="dsl-value">Eye</span></div>
+                                        <div class="dsl-field" data-key="Dutch Angle"><span class="dsl-label">Dutch Angle:</span> <span class="dsl-value">Normal</span></div>
+                                        <div class="dsl-field" data-key="Framing"><span class="dsl-label">Framing:</span> <span class="dsl-value">Right</span></div>
+                                    </div>
+                                </div>
+                            </li>
+
+<li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-primitives')">&larr; Lateral Truck</div>
+                                    <div class="slide-current-name">Jitter</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-primitives')">Arc &rarr;</div>
+                                </div>
+                                <div class="slide-caption">
+                                    <span style="color:#1f78b4">The camera maintains a static frame but includes
+                                        organic, handheld jitter to simulate motion and high intensity.</span>
+                                </div>
+                                <div class="slide-main-content">
+                                    <div class="dsl-panel initial-dsl">
+                                        <span class="dsl-title">Initial DSL</span>
+                                        <div class="dsl-field" data-key="Orientation"><span class="dsl-label">Orientation:</span> <span class="dsl-value">Front</span></div>
+                                        <div class="dsl-field" data-key="Depth"><span class="dsl-label">Depth:</span> <span class="dsl-value">Medium</span></div>
+                                        <div class="dsl-field" data-key="Camera Level"><span class="dsl-label">Camera Level:</span> <span class="dsl-value">Eye</span></div>
+                                        <div class="dsl-field" data-key="Lookat Level"><span class="dsl-label">Lookat Level:</span> <span class="dsl-value">Eye</span></div>
+                                        <div class="dsl-field" data-key="Dutch Angle"><span class="dsl-label">Dutch Angle:</span> <span class="dsl-value">Normal</span></div>
+                                        <div class="dsl-field" data-key="Framing"><span class="dsl-label">Framing:</span> <span class="dsl-value">Center</span></div>
+                                    </div>
+                                <div class="video-grid-1" style="flex: 1;">
+                                    <div class="video-item">
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/static_jitter.mp4" type="video/mp4">
+                                        </video>
+                                        <div style="display: flex; gap: 40px; margin-top: 15px; width: 100%; justify-content: center;">
+                                            <div class="dsl-panel highlight" style="padding: 6px 16px; min-width: 140px; flex: unset;">
+                                                <div class="dsl-field highlight" style="margin-bottom: 0;"><span class="dsl-label">Jitter:</span> <span class="dsl-value">Low</span></div>
+                                            </div>
+                                            <div class="dsl-panel" style="padding: 6px 16px; min-width: 140px; flex: unset;">
+                                                <div class="dsl-field" style="margin-bottom: 0;"><span class="dsl-label">Ease:</span> <span class="dsl-value">None</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                    <div class="dsl-panel final-dsl">
+                                        <span class="dsl-title">Final DSL</span>
+                                        <div class="dsl-field" data-key="Orientation"><span class="dsl-label">Orientation:</span> <span class="dsl-value">Front</span></div>
+                                        <div class="dsl-field" data-key="Depth"><span class="dsl-label">Depth:</span> <span class="dsl-value">Medium</span></div>
+                                        <div class="dsl-field" data-key="Camera Level"><span class="dsl-label">Camera Level:</span> <span class="dsl-value">Eye</span></div>
+                                        <div class="dsl-field" data-key="Lookat Level"><span class="dsl-label">Lookat Level:</span> <span class="dsl-value">Eye</span></div>
+                                        <div class="dsl-field" data-key="Dutch Angle"><span class="dsl-label">Dutch Angle:</span> <span class="dsl-value">Normal</span></div>
+                                        <div class="dsl-field" data-key="Framing"><span class="dsl-label">Framing:</span> <span class="dsl-value">Center</span></div>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-band band-white">
+                <div class="section-inner">
+                    <h2 class="section-title">Model Comparisons</h2>
+
+                    <div class="slider-container" id="slider-model-comparisons">
+                        <ul class="slides-container" style="list-style: none; padding: 0; margin: 0;">
+
+<li class="slide">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-model-comparisons')">&larr; Tail Track</div>
+                                    <div class="slide-current-name">Side Track</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-model-comparisons')">Dolly In &rarr;</div>
+                                </div>
+
+                                <div class="slide-caption">
+                                    <span style="color:#009c3b">A woman runs forward through the scene.</span> <span style="color:#1f78b4">The camera tracks from the right side and switches to left, maintaining a consistent side profile of the subject.</span>
+                                </div>
+                                <div class="video-grid-3">
+                                    <div class="video-item">
+                                        <div class="video-item-title">Pulp Motion</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/pulp_motion_4.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+
+                                    <div class="video-item">
+                                        <div class="video-item-title">LAMP</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/lamp_4.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+
+                                    <div class="video-item">
+                                        <div class="video-item-title">Auteur (Ours)</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/ours_4.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </li>
+
+<li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-model-comparisons')">&larr; Side Track</div>
+                                    <div class="slide-current-name">Dolly In</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-model-comparisons')">Arc &rarr;</div>
+                                </div>
+
+                                <div class="slide-caption">
+                                    <span style="color:#009c3b">A man stands still.</span> <span style="color:#1f78b4">The camera moves from front to front-right, pushing into a close-up with a counter-clockwise dutch angle.</span>
+                                </div>
+                                <div class="video-grid-3">
+                                    <div class="video-item">
+                                        <div class="video-item-title">Pulp Motion</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/pulp_motion_10.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+
+                                    <div class="video-item">
+                                        <div class="video-item-title">LAMP</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/lamp_10.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+
+                                    <div class="video-item">
+                                        <div class="video-item-title">Auteur (Ours)</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/ours_10.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </li>
+
+<li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-model-comparisons')">&larr; Dolly In</div>
+                                    <div class="slide-current-name">Arc</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-model-comparisons')">Late Track &rarr;</div>
+                                </div>
+
+                                <div class="slide-caption">
+                                    <span style="color:#009c3b">A person runs forward in a straight line.</span> <span style="color:#1f78b4">The camera performs an arc movement from the back to the left, while getting closer.</span>
+                                </div>
+                                <div class="video-grid-3">
+                                    <div class="video-item">
+                                        <div class="video-item-title">Pulp Motion</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/pulp_motion_11.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+
+                                    <div class="video-item">
+                                        <div class="video-item-title">LAMP</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/lamp_11.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+
+                                    <div class="video-item">
+                                        <div class="video-item-title">Auteur (Ours)</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/ours_11.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </li>
+
+<li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-model-comparisons')">&larr; Arc</div>
+                                    <div class="slide-current-name">Late Track</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-model-comparisons')">Truck &rarr;</div>
+                                </div>
+
+                                <div class="slide-caption">
+                                    <span style="color:#009c3b">A woman runs forward.</span> <span style="color:#1f78b4">Frontal tracking shot; the camera first stays static, then rises from hip to chest level, looking at the eyes with a smooth ease-out.</span>
+                                </div>
+                                <div class="video-grid-3">
+                                    <div class="video-item">
+                                        <div class="video-item-title">Pulp Motion</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/pulp_motion_12.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+
+                                    <div class="video-item">
+                                        <div class="video-item-title">LAMP</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/lamp_12.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+
+                                    <div class="video-item">
+                                        <div class="video-item-title">Auteur (Ours)</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/ours_12.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </li>
+
+<li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-model-comparisons')">&larr; Late Track</div>
+                                    <div class="slide-current-name">Truck</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-model-comparisons')">Pedestal Up &rarr;</div>
+                                </div>
+
+                                <div class="slide-caption">
+                                    <span style="color:#009c3b">A woman stands still in the center of the frame.</span> <span style="color:#1f78b4">The camera moves horizontally from center-right to center-left with a smooth ease-out.</span>
+                                </div>
+                                <div class="video-grid-3">
+                                    <div class="video-item">
+                                        <div class="video-item-title">Pulp Motion</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/pulp_motion_6.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+
+                                    <div class="video-item">
+                                        <div class="video-item-title">LAMP</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/lamp_6.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+
+                                    <div class="video-item">
+                                        <div class="video-item-title">Auteur (Ours)</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/ours_6.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </li>
+
+<li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-model-comparisons')">&larr; Truck</div>
+                                    <div class="slide-current-name">Pedestal Up</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-model-comparisons')">Aerial Track &rarr;</div>
+                                </div>
+
+                                <div class="slide-caption">
+                                    <span style="color:#009c3b">A man stands still, looking ahead.</span> <span style="color:#1f78b4">The camera moves vertically upward from knee level to eye level, keeping the shot level.</span>
+                                </div>
+                                <div class="video-grid-3">
+                                    <div class="video-item">
+                                        <div class="video-item-title">Pulp Motion</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/pulp_motion_8.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+
+                                    <div class="video-item">
+                                        <div class="video-item-title">LAMP</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/lamp_8.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+
+                                    <div class="video-item">
+                                        <div class="video-item-title">Auteur (Ours)</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/ours_8.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </li>
+
+<li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-model-comparisons')">&larr; Pedestal Up</div>
+                                    <div class="slide-current-name">Aerial Track</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-model-comparisons')">Lead Track &rarr;</div>
+                                </div>
+
+                                <div class="slide-caption">
+                                    <span style="color:#009c3b">A person runs forward on an open path.</span> <span style="color:#1f78b4">High-angle aerial shot from behind; the camera tracks the subject with a slight handheld jitter.</span>
+                                </div>
+                                <div class="video-grid-3">
+                                    <div class="video-item">
+                                        <div class="video-item-title">Pulp Motion</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/pulp_motion_5.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+
+                                    <div class="video-item">
+                                        <div class="video-item-title">LAMP</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/lamp_5.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+
+                                    <div class="video-item">
+                                        <div class="video-item-title">Auteur (Ours)</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/ours_5.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </li>
+
+<li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-model-comparisons')">&larr; Aerial Track</div>
+                                    <div class="slide-current-name">Lead Track</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-model-comparisons')">Tilt Up &rarr;</div>
+                                </div>
+
+                                <div class="slide-caption">
+                                    <span style="color:#009c3b">A person runs forward toward the camera.</span> <span style="color:#1f78b4">A smooth lead track camera moves backward, capturing the subject from the front.</span>
+                                </div>
+                                <div class="video-grid-3">
+                                    <div class="video-item">
+                                        <div class="video-item-title">Pulp Motion</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/pulp_motion_3.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+
+                                    <div class="video-item">
+                                        <div class="video-item-title">LAMP</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/lamp_3.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+
+                                    <div class="video-item">
+                                        <div class="video-item-title">Auteur (Ours)</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/ours_3.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </li>
+
+<li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-model-comparisons')">&larr; Lead Track</div>
+                                    <div class="slide-current-name">Tilt Up</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-model-comparisons')">Dolly Out &rarr;</div>
+                                </div>
+
+                                <div class="slide-caption">
+                                    <span style="color:#009c3b">A medium-full shot of a person standing still.</span> <span style="color:#1f78b4">The camera tilts upward from a ground-level view of the knees to reveal the face.</span>
+                                </div>
+                                <div class="video-grid-3">
+                                    <div class="video-item">
+                                        <div class="video-item-title">Pulp Motion</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/pulp_motion_7.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+
+                                    <div class="video-item">
+                                        <div class="video-item-title">LAMP</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/lamp_7.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+
+                                    <div class="video-item">
+                                        <div class="video-item-title">Auteur (Ours)</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/ours_7.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </li>
+
+<li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-model-comparisons')">&larr; Tilt Up</div>
+                                    <div class="slide-current-name">Dolly Out</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-model-comparisons')">Tail Track &rarr;</div>
+                                </div>
+
+                                <div class="slide-caption">
+                                    <span style="color:#009c3b">A person stands still facing the camera.</span> <span style="color:#1f78b4">The camera moves from front-right to the front, pulling back to a medium-full shot.</span>
+                                </div>
+                                <div class="video-grid-3">
+                                    <div class="video-item">
+                                        <div class="video-item-title">Pulp Motion</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/pulp_motion_9.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+
+                                    <div class="video-item">
+                                        <div class="video-item-title">LAMP</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/lamp_9.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+
+                                    <div class="video-item">
+                                        <div class="video-item-title">Auteur (Ours)</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/ours_9.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </li>
+
+<li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-model-comparisons')">&larr; Dolly Out</div>
+                                    <div class="slide-current-name">Tail Track</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-model-comparisons')">Side Track &rarr;</div>
+                                </div>
+
+                                <div class="slide-caption">
+                                    <span style="color:#009c3b">A man runs forward at a steady pace.</span> <span style="color:#1f78b4">The camera tracks the subject from behind, smoothly getting closer in a tail track motion.</span>
+                                </div>
+                                <div class="video-grid-3">
+                                    <div class="video-item">
+                                        <div class="video-item-title">Pulp Motion</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/pulp_motion_2.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+
+                                    <div class="video-item">
+                                        <div class="video-item-title">LAMP</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/lamp_2.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+
+                                    <div class="video-item">
+                                        <div class="video-item-title">Auteur (Ours)</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/model_comparison/ours_2.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="section-band band-pink">
+                <div class="section-inner">
+                    <h2 class="section-title">VerseCrafter Pipeline</h2>
+
+                    <div class="slider-container" id="slider-pipeline">
+                        <ul class="slides-container" style="list-style: none; padding: 0; margin: 0;">
+
+                            <li class="slide">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-pipeline')">&larr;
+                                        Tail Track</div>
+                                    <div class="slide-current-name">Over-the-Shoulder</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-pipeline')">Anchor Middle &rarr;</div>
+                                </div>
+
+                                <div class="slide-caption">
+                                    <span class="highlight-obj">A man and a woman are sitting faced to each other.</span>
+                                    <span class="highlight-cam">Camera changes from over-the-shoulder perspective to a close-up to person sitting in front.</span>
+                                </div>
+                                <div class="video-grid-2">
+                                    <div class="video-item">
+                                        <div class="video-item-title">Generated Trajectory / Guidance</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/scenes/scene_0.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="video-item">
+                                        <div class="video-item-title">Final Output</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/verse0.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-pipeline')">&larr;
+                                        Over-the-Shoulder</div>
+                                    <div class="slide-current-name">Anchor Middle</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-pipeline')">Anchor Right &rarr;</div>
+                                </div>
+
+                                <div class="slide-caption">
+                                    
+                                    <span class="highlight-obj">There is a prisoner in the middle and two policemen next to him.</span>
+                                    <span class="highlight-cam">Camera gets closer focusing on prisoner.</span>
+                                </div>
+                                <div class="video-grid-2">
+                                    <div class="video-item">
+                                        <div class="video-item-title">Generated Trajectory / Guidance</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/scenes/scene_1.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="video-item">
+                                        <div class="video-item-title">Final Output</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/verse1.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-pipeline')">&larr;
+                                        Anchor Middle</div>
+                                    <div class="slide-current-name">Anchor Right</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-pipeline')">Tail track &rarr;</div>
+                                </div>
+
+                                <div class="slide-caption">
+                                    <span class="highlight-obj">There is a prisoner in the middle and two policemen next to him.</span>
+                                    <span class="highlight-cam">Camera gets closer to the face of policemen to the left of prisoner.</span>
+                                </div>
+                                <div class="video-grid-2">
+                                    <div class="video-item">
+                                        <div class="video-item-title">Generated Trajectory / Guidance</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/scenes/scene_2.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="video-item">
+                                        <div class="video-item-title">Final Output</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/verse2.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-pipeline')">&larr;
+                                        Anchor Right</div>
+                                    <div class="slide-current-name">Tail track 1</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-pipeline')">Tail track &rarr;</div>
+                                </div>
+
+                                <div class="slide-caption">
+                                    <span class="highlight-obj">A man is walking forward across the corridor with minimal yaws.</span>
+                                    <span class="highlight-cam">Camera tail tracks him from chest level.</span>
+                                </div>
+                                <div class="video-grid-2">
+                                    <div class="video-item">
+                                        <div class="video-item-title">Generated Trajectory / Guidance</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/scenes/scene_3.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="video-item">
+                                        <div class="video-item-title">Final Output</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/verse3.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-pipeline')">&larr;
+                                        Tail track</div>
+                                    <div class="slide-current-name">Tail track 2</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-pipeline')">Quarter Arc &rarr;</div>
+                                </div>
+
+                                <div class="slide-caption">
+                                    <span class="highlight-obj">A man is running forward.</span>
+                                    <span class="highlight-cam">Camera tail tracks him from back-left side and hip level, while being tilted up.</span>
+                                </div>
+                                <div class="video-grid-2">
+                                    <div class="video-item">
+                                        <div class="video-item-title">Generated Trajectory / Guidance</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/scenes/scene_4.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="video-item">
+                                        <div class="video-item-title">Final Output</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/verse4.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-pipeline')">&larr;
+                                        Tail track</div>
+                                    <div class="slide-current-name">Quarter Arc</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-pipeline')">Close-Up &rarr;</div>
+                                </div>
+
+                                <div class="slide-caption">
+                                    <span class="highlight-obj">A woman is standing still.</span>
+                                    <span class="highlight-cam">Camera starts from left profile and do a quarter arc to capture from front, while slightly elevating to eye level.</span>
+                                </div>
+                                <div class="video-grid-2">
+                                    <div class="video-item">
+                                        <div class="video-item-title">Generated Trajectory / Guidance</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/scenes/scene_5.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="video-item">
+                                        <div class="video-item-title">Final Output</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/verse5.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-pipeline')">&larr;
+                                        Quarter Arc</div>
+                                    <div class="slide-current-name">Close-Up</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-pipeline')">Lead Track &rarr;</div>
+                                </div>
+
+                                <div class="slide-caption">
+                                    <span class="highlight-obj">A person is looking at the camera with no movement.</span>
+                                    <span class="highlight-cam">Camera gets to an extreme close-up shot.</span>
+                                </div>
+                                <div class="video-grid-2">
+                                    <div class="video-item">
+                                        <div class="video-item-title">Generated Trajectory / Guidance</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/scenes/scene_6.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="video-item">
+                                        <div class="video-item-title">Final Output</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/verse6.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-pipeline')">&larr;
+                                        Close-Up</div>
+                                    <div class="slide-current-name">Lead Track</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-pipeline')">Back Track &rarr;</div>
+                                </div>
+
+                                <div class="slide-caption">
+                                    <span class="highlight-obj">A woman is walking forward steadily.</span>
+                                    <span class="highlight-cam">Camera lead tracks her at the shoulder level and keeping the distance.</span>
+                                </div>
+                                <div class="video-grid-2">
+                                    <div class="video-item">
+                                        <div class="video-item-title">Generated Trajectory / Guidance</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/scenes/scene_7.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="video-item">
+                                        <div class="video-item-title">Final Output</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/verse7.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </li>
+
+
+
+                            <li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-pipeline')">&larr;
+                                        Scene 9</div>
+                                    <div class="slide-current-name">Back Track </div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-pipeline')">Dolly-and-Tilt &rarr;</div>
+                                </div>
+
+                                <div class="slide-caption">
+                                    <span class="highlight-obj">A woman is slowly getting a few steps back.</span>
+                                    <span class="highlight-cam">Camera rises from ground to eye level and gets closer.</span>
+                                </div>
+                                <div class="video-grid-2">
+                                    <div class="video-item">
+                                        <div class="video-item-title">Generated Trajectory / Guidance</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/scenes/scene_9.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="video-item">
+                                        <div class="video-item-title">Final Output</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/verse9.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-pipeline')">&larr;
+                                        Back Track</div>
+                                    <div class="slide-current-name">Dolly-and-Tilt</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-pipeline')">Dolly-and-Rise &rarr;</div>
+                                </div>
+
+                                <div class="slide-caption">
+                                    <span class="highlight-obj">A man is standing with no motion.</span>
+                                    <span class="highlight-cam">Camera gets closer keeping the hip level, looking at the face with an upward tilt.</span>
+                                </div>
+                                <div class="video-grid-2">
+                                    <div class="video-item">
+                                        <div class="video-item-title">Generated Trajectory / Guidance</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/scenes/scene_10.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="video-item">
+                                        <div class="video-item-title">Final Output</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/verse10.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-pipeline')">&larr;
+                                        Dolly-and-Tilt</div>
+                                    <div class="slide-current-name">Dolly-and-Rise</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-pipeline')">Over-the-Shoulder &rarr;</div>
+                                </div>
+
+                                <div class="slide-caption">
+                                    <span class="highlight-obj">A man is walking forward with pace.</span>
+                                    <span class="highlight-cam">Camera follows him while getting closer and elevating.</span>
+                                </div>
+                                <div class="video-grid-2">
+                                    <div class="video-item">
+                                        <div class="video-item-title">Generated Trajectory / Guidance</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/scenes/scene_11.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="video-item">
+                                        <div class="video-item-title">Final Output</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/verse11.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-band band-white">
+                <div class="section-inner">
+                    <h2 class="section-title">VACE</h2>
+
+                    <div class="slider-container" id="slider-generators">
+                        <ul class="slides-container" style="list-style: none; padding: 0; margin: 0;">
+                            <li class="slide">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-generators')">&larr; Over-the-Shoulder</div>
+                                    <div class="slide-current-name">Arc</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-generators')">Curved Path &rarr;</div>
+                                </div>
+
+                                <div class="slide-caption">
+                                    Wild West scene set in a vast sunlit desert town, with a rugged cowboy <span class="highlight-obj">standing still while adjusting his hat</span> in the exact center of the frame, wearing .... The background .... Golden sand drifts lightly across the ground while the warm afternoon sun casts long dramatic shadows. <span class="highlight-cam">The camera performs a smooth cinematic arc around the cowboy, beginning from his left side profile, slowly circling in front of him, then continuing toward his right side</span>, revealing more of the town and desert landscape as it moves.
+                                </div>
+                                <div class="video-grid-3">
+                                    <div class="video-item">
+                                        <div class="video-item-title">Control Video</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/vace1s.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="video-item">
+                                        <div class="video-item-title">Ours</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/vace1.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="video-item">
+                                        <div class="video-item-title">Without Guidance (T2V)</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/vace1b.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-generators')">&larr; Arc</div>
+                                    <div class="slide-current-name">Curved Path</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-generators')">Turn &rarr;</div>
+                                </div>
+
+                                <div class="slide-caption">
+                                    A chase sequence set deep inside a lush emerald-green forest, where <span class="highlight-obj">a man is sprinting forward along a narrow dirt trail that curves slightly to the right</span> through dense wilderness. Towering pine and moss-covered trees surround the path, their leaves ... The runner wears ... <span class="highlight-cam">The camera follows him from behind in a slightly elevated aerial tracking perspective, maintaining a constant distance</span> as if filmed by a lightweight drone or handheld stabilizer moving through the forest. The motion contains subtle realistic jitter and vibration from rapid pursuit, adding urgency and immersion without becoming shaky.
+                                </div>
+                                <div class="video-grid-3">
+                                    <div class="video-item">
+                                        <div class="video-item-title">Control Video</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/vace2s.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="video-item">
+                                        <div class="video-item-title">Ours</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/vace2.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="video-item">
+                                        <div class="video-item-title">Without Guidance (T2V)</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/vace2b.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-generators')">&larr; Curved Path</div>
+                                    <div class="slide-current-name">Turn</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-generators')">Chase &rarr;</div>
+                                </div>
+
+                                <div class="slide-caption">
+                                    A glamorous cinematic sequence featuring Marilyn Monroe in a luxurious vintage atmosphere, wearing ... <span class="highlight-obj">The scene begins with her standing completely still with her back facing the camera</span>. Soft ambient lighting wraps ... <span class="highlight-cam">The camera remains stationary at the start, creating a composed and dramatic frame focused on her from behind</span>. <span class="highlight-obj">After a brief pause, she slowly performs a graceful 180-degree turn toward the camera, her curls shifting naturally with the motion as her face is finally revealed</span> in a striking cinematic moment. Her expression is ... <span class="highlight-obj">Only after completing the turn does she begin walking forward toward the camera</span> . As she starts moving, <span class="highlight-cam">the camera transitions into a smooth lead tracking shot, dollying backward and getting further from her</span>.
+                                </div>
+                                <div class="video-grid-3">
+                                    <div class="video-item">
+                                        <div class="video-item-title">Control Video</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/vace3s.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="video-item">
+                                        <div class="video-item-title">Ours</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/vace3.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="video-item">
+                                        <div class="video-item-title">Without Guidance (T2V)</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/vace3b.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-generators')">&larr; Turn</div>
+                                    <div class="slide-current-name">Chase</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-generators')">Arc&rarr;</div>
+                                </div>
+
+                                <div class="slide-caption">
+                                    A  sci-fi desert sequence set during a sunset ... <span class="highlight-obj">In the right of the scene, a man wearing an advanced futuristic high-tech suit runs across the desert terrain, moving forward and slightly toward the right</span>. His suit has ... The shot begins from <span class="highlight-cam">his left side profile. The camera dynamically tracks alongside and behind him, gradually accelerating and pushing closer throughout the sequence</span>, tightening from a medium profile shot into an intense near-close cinematic pursuit shot. The closer the camera gets, the more visible the intricate textures ...
+                                </div>
+                                <div class="video-grid-3">
+                                    <div class="video-item">
+                                        <div class="video-item-title">Control Video</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/vace4s.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="video-item">
+                                        <div class="video-item-title">Ours</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/vace4.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="video-item">
+                                        <div class="video-item-title">Without Guidance (T2V)</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/vace4b.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-generators')">&larr; Chase</div>
+                                    <div class="slide-current-name">Over-the-Shoulder</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-generators')">Arc&rarr;</div>
+                                </div>
+
+                                <div class="slide-caption">
+                                    A darkly cinematic medieval battlefield scene inspired by the epic atmosphere of *Braveheart* ... The shot begins tightly <span class="highlight-obj">framed from behind the head of a Viking warrior in the foreground</span>, showing the back of his head ... frame <span class="highlight-obj">while beyond him, slightly to the left, another Viking warrior is walking directly toward the camera </span>. He wears ... <span class="highlight-cam">As the second warrior advances, the camera smoothly slides past the foreground warrior and transitions into a dramatic dutch angle </span>, creating tension ...
+                                </div>
+                                <div class="video-grid-3">
+                                    <div class="video-item">
+                                        <div class="video-item-title">Control Video</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/vace5s.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="video-item">
+                                        <div class="video-item-title">Ours</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/vace5.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="video-item">
+                                        <div class="video-item-title">Without Guidance (T2V)</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/vace5b.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        // Placeholder functions for slider logic. 
+        // You will need to implement an array of slide objects (names, prompts, video paths) 
+        // to dynamically update the DOM elements inside each specific slider container.
+
+        // Navigates to the previous slide
+        function slidePrev(sliderId) {
+            // Find the main container of the slider
+            let container = document.getElementById(sliderId);
+            if (!container) return;
+
+            // Get all slide elements within this container
+            let slides = container.querySelectorAll('.slide');
+            if (slides.length <= 1) return;
+
+            let currentIndex = -1;
+
+            // Find the currently visible slide
+            for (let i = 0; i < slides.length; i++) {
+                if (slides[i].style.display !== 'none') {
+                    currentIndex = i;
+                    break;
+                }
+            }
+
+            if (currentIndex !== -1) {
+                // Hide current slide
+                slides[currentIndex].style.display = 'none';
+
+                // Calculate previous index (with loop around)
+                let prevIndex = (currentIndex - 1 + slides.length) % slides.length;
+
+                // Show previous slide
+                slides[prevIndex].style.display = 'block';
+            }
+        }
+
+        // Navigates to the next slide
+        function slideNext(sliderId) {
+            // Find the main container of the slider
+            let container = document.getElementById(sliderId);
+            if (!container) return;
+
+            // Get all slide elements within this container
+            let slides = container.querySelectorAll('.slide');
+            if (slides.length <= 1) return;
+
+            let currentIndex = -1;
+
+            // Find the currently visible slide
+            for (let i = 0; i < slides.length; i++) {
+                if (slides[i].style.display !== 'none') {
+                    currentIndex = i;
+                    break;
+                }
+            }
+
+            if (currentIndex !== -1) {
+                // Hide current slide
+                slides[currentIndex].style.display = 'none';
+
+                // Calculate next index (with loop around)
+                let nextIndex = (currentIndex + 1) % slides.length;
+
+                // Show next slide
+                slides[nextIndex].style.display = 'block';
+            }
+        }
+
+        // Automatic DSL Highlighting
+        document.addEventListener('DOMContentLoaded', () => {
+            const mainContents = document.querySelectorAll('.slide-main-content');
+            mainContents.forEach(content => {
+                const initialDslFields = content.querySelectorAll('.initial-dsl .dsl-field');
+                const finalDslFields = content.querySelectorAll('.final-dsl .dsl-field');
+                
+                const initialMap = {};
+                initialDslFields.forEach(field => {
+                    const key = field.getAttribute('data-key');
+                    const val = field.querySelector('.dsl-value').textContent.trim();
+                    initialMap[key] = { value: val, element: field };
+                });
+
+                finalDslFields.forEach(field => {
+                    const key = field.getAttribute('data-key');
+                    const val = field.querySelector('.dsl-value').textContent.trim();
+                    if (initialMap[key] && initialMap[key].value !== val) {
+                        initialMap[key].element.classList.add('highlight');
+                        field.classList.add('highlight');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
