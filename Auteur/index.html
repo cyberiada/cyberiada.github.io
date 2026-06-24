@@ -187,6 +187,21 @@
             min-height: 54px;
         }
 
+        .section-note {
+            max-width: 900px;
+            margin: -12px auto 24px;
+            text-align: center;
+            color: #555;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-size: 15px;
+            line-height: 1.55;
+        }
+
+        .section-note strong {
+            color: #2e7d32;
+            font-weight: 700;
+        }
+
         /* Video Grid Layouts */
         .video-grid-1,
         .video-grid-2,
@@ -297,6 +312,47 @@
         .tt {
             font-family: 'Courier New', Courier, monospace;
         }
+        .trajectory-video-shell {
+            position: relative;
+            width: 100%;
+            line-height: 0;
+        }
+
+        .trajectory-video-shell video {
+            display: block;
+        }
+
+        .pipeline-pov-toggle {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            z-index: 2;
+            border: 1px solid rgba(255, 255, 255, 0.34);
+            border-radius: 999px;
+            background: rgba(25, 32, 28, 0.28);
+            color: #ffffff;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+            cursor: pointer;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0;
+            line-height: 1;
+            padding: 8px 12px;
+            backdrop-filter: blur(10px);
+            transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        .pipeline-pov-toggle:hover {
+            background: rgba(46, 125, 50, 0.38);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16);
+            transform: translateY(-1px);
+        }
+
+        .pipeline-pov-toggle.is-active {
+            background: rgba(31, 120, 180, 0.34);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16);
+        }
     </style>
 </head>
 
@@ -342,6 +398,9 @@
                 <img src="assets/teaser.png" alt="Auteur Teaser" style="width: 100%; max-width: 1000px; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-bottom: 25px;" />
                 <p style="font-size: 18px; line-height: 1.6; color: #444; text-align: center; max-width: 900px; margin: 0 auto;">
                     We replace world-space camera trajectories with actor-relative shot compositions: a cinematographic DSL and a fine-tuned LLM map natural language and human motion into camera keyframes that are geometrically consistent and narratively intentional.
+                </p>
+                <p class="section-note" style="margin-top: 16px; margin-bottom: 0;">
+                    The SOMA visualizations shown in this page are generated with <strong>Kimodo</strong>.
                 </p>
             </div>
         </div>
@@ -1076,6 +1135,9 @@
             <div class="section-band band-pink">
                 <div class="section-inner">
                     <h2 class="section-title">VerseCrafter Pipeline</h2>
+                    <p class="section-note">
+                        <strong>Inputs to VerseCrafter:</strong> object 3D Gaussians, motion trajectories, and the text prompt.
+                    </p>
 
                     <div class="slider-container" id="slider-pipeline">
                         <ul class="slides-container" style="list-style: none; padding: 0; margin: 0;">
@@ -1095,7 +1157,7 @@
                                 <div class="video-grid-2">
                                     <div class="video-item">
                                         <div class="video-item-title">Generated Trajectory / Guidance</div>
-                                        <video autoplay muted loop playsinline>
+                                        <video class="trajectory-video" data-default-src="assets/scenes/scene_0.mp4" data-pov-src="assets/scenes_pov/scene_0_pov.mp4" autoplay muted loop playsinline>
                                             <source src="assets/scenes/scene_0.mp4" type="video/mp4">
                                         </video>
                                     </div>
@@ -1124,7 +1186,7 @@
                                 <div class="video-grid-2">
                                     <div class="video-item">
                                         <div class="video-item-title">Generated Trajectory / Guidance</div>
-                                        <video autoplay muted loop playsinline>
+                                        <video class="trajectory-video" data-default-src="assets/scenes/scene_1.mp4" data-pov-src="assets/scenes_pov/scene_1_pov.mp4" autoplay muted loop playsinline>
                                             <source src="assets/scenes/scene_1.mp4" type="video/mp4">
                                         </video>
                                     </div>
@@ -1142,7 +1204,7 @@
                                     <div class="slide-side-name left" onclick="slidePrev('slider-pipeline')">&larr;
                                         Anchor Middle</div>
                                     <div class="slide-current-name">Anchor Right</div>
-                                    <div class="slide-side-name right" onclick="slideNext('slider-pipeline')">Tail track &rarr;</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-pipeline')">Lead track &rarr;</div>
                                 </div>
 
                                 <div class="slide-caption">
@@ -1152,7 +1214,7 @@
                                 <div class="video-grid-2">
                                     <div class="video-item">
                                         <div class="video-item-title">Generated Trajectory / Guidance</div>
-                                        <video autoplay muted loop playsinline>
+                                        <video class="trajectory-video" data-default-src="assets/scenes/scene_2.mp4" data-pov-src="assets/scenes_pov/scene_2_pov.mp4" autoplay muted loop playsinline>
                                             <source src="assets/scenes/scene_2.mp4" type="video/mp4">
                                         </video>
                                     </div>
@@ -1160,6 +1222,34 @@
                                         <div class="video-item-title">Final Output</div>
                                         <video autoplay muted loop playsinline>
                                             <source src="assets/verse2.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="slide" style="display: none;">
+                                <div class="slider-header">
+                                    <div class="slide-side-name left" onclick="slidePrev('slider-pipeline')">&larr;
+                                        Anchor Right</div>
+                                    <div class="slide-current-name">Lead track</div>
+                                    <div class="slide-side-name right" onclick="slideNext('slider-pipeline')">Tail track &rarr;</div>
+                                </div>
+
+                                <div class="slide-caption">
+                                    <span class="highlight-obj">A prisoner stands in the middle with two policemen beside him. The prisoner and the two policemen walk toward the camera.</span>
+                                    <span class="highlight-cam">The camera gradually moves closer, focusing on the prisoner while lead-tracking him. </span>
+                                </div>
+                                <div class="video-grid-2">
+                                    <div class="video-item">
+                                        <div class="video-item-title">Generated Trajectory / Guidance</div>
+                                        <video class="trajectory-video" data-default-src="assets/scenes/scene_12.mp4" data-pov-src="assets/scenes_pov/scene_12_pov.mp4" autoplay muted loop playsinline>
+                                            <source src="assets/scenes/scene_12.mp4" type="video/mp4">
+                                        </video>
+                                    </div>
+                                    <div class="video-item">
+                                        <div class="video-item-title">Final Output</div>
+                                        <video autoplay muted loop playsinline>
+                                            <source src="assets/verse12.mp4" type="video/mp4">
                                         </video>
                                     </div>
                                 </div>
@@ -1180,7 +1270,7 @@
                                 <div class="video-grid-2">
                                     <div class="video-item">
                                         <div class="video-item-title">Generated Trajectory / Guidance</div>
-                                        <video autoplay muted loop playsinline>
+                                        <video class="trajectory-video" data-default-src="assets/scenes/scene_3.mp4" data-pov-src="assets/scenes_pov/scene_3_pov.mp4" autoplay muted loop playsinline>
                                             <source src="assets/scenes/scene_3.mp4" type="video/mp4">
                                         </video>
                                     </div>
@@ -1208,7 +1298,7 @@
                                 <div class="video-grid-2">
                                     <div class="video-item">
                                         <div class="video-item-title">Generated Trajectory / Guidance</div>
-                                        <video autoplay muted loop playsinline>
+                                        <video class="trajectory-video" data-default-src="assets/scenes/scene_4.mp4" data-pov-src="assets/scenes_pov/scene_4_pov.mp4" autoplay muted loop playsinline>
                                             <source src="assets/scenes/scene_4.mp4" type="video/mp4">
                                         </video>
                                     </div>
@@ -1236,7 +1326,7 @@
                                 <div class="video-grid-2">
                                     <div class="video-item">
                                         <div class="video-item-title">Generated Trajectory / Guidance</div>
-                                        <video autoplay muted loop playsinline>
+                                        <video class="trajectory-video" data-default-src="assets/scenes/scene_5.mp4" data-pov-src="assets/scenes_pov/scene_5_pov.mp4" autoplay muted loop playsinline>
                                             <source src="assets/scenes/scene_5.mp4" type="video/mp4">
                                         </video>
                                     </div>
@@ -1264,7 +1354,7 @@
                                 <div class="video-grid-2">
                                     <div class="video-item">
                                         <div class="video-item-title">Generated Trajectory / Guidance</div>
-                                        <video autoplay muted loop playsinline>
+                                        <video class="trajectory-video" data-default-src="assets/scenes/scene_6.mp4" data-pov-src="assets/scenes_pov/scene_6_pov.mp4" autoplay muted loop playsinline>
                                             <source src="assets/scenes/scene_6.mp4" type="video/mp4">
                                         </video>
                                     </div>
@@ -1292,7 +1382,7 @@
                                 <div class="video-grid-2">
                                     <div class="video-item">
                                         <div class="video-item-title">Generated Trajectory / Guidance</div>
-                                        <video autoplay muted loop playsinline>
+                                        <video class="trajectory-video" data-default-src="assets/scenes/scene_7.mp4" data-pov-src="assets/scenes_pov/scene_7_pov.mp4" autoplay muted loop playsinline>
                                             <source src="assets/scenes/scene_7.mp4" type="video/mp4">
                                         </video>
                                     </div>
@@ -1322,7 +1412,7 @@
                                 <div class="video-grid-2">
                                     <div class="video-item">
                                         <div class="video-item-title">Generated Trajectory / Guidance</div>
-                                        <video autoplay muted loop playsinline>
+                                        <video class="trajectory-video" data-default-src="assets/scenes/scene_9.mp4" data-pov-src="assets/scenes_pov/scene_9_pov.mp4" autoplay muted loop playsinline>
                                             <source src="assets/scenes/scene_9.mp4" type="video/mp4">
                                         </video>
                                     </div>
@@ -1350,7 +1440,7 @@
                                 <div class="video-grid-2">
                                     <div class="video-item">
                                         <div class="video-item-title">Generated Trajectory / Guidance</div>
-                                        <video autoplay muted loop playsinline>
+                                        <video class="trajectory-video" data-default-src="assets/scenes/scene_10.mp4" data-pov-src="assets/scenes_pov/scene_10_pov.mp4" autoplay muted loop playsinline>
                                             <source src="assets/scenes/scene_10.mp4" type="video/mp4">
                                         </video>
                                     </div>
@@ -1378,7 +1468,7 @@
                                 <div class="video-grid-2">
                                     <div class="video-item">
                                         <div class="video-item-title">Generated Trajectory / Guidance</div>
-                                        <video autoplay muted loop playsinline>
+                                        <video class="trajectory-video" data-default-src="assets/scenes/scene_11.mp4" data-pov-src="assets/scenes_pov/scene_11_pov.mp4" autoplay muted loop playsinline>
                                             <source src="assets/scenes/scene_11.mp4" type="video/mp4">
                                         </video>
                                     </div>
@@ -1398,6 +1488,9 @@
             <div class="section-band band-white">
                 <div class="section-inner">
                     <h2 class="section-title">VACE</h2>
+                    <p class="section-note">
+                        <strong>Inputs to VACE:</strong> a Kimodo-generated control video and the text prompt.
+                    </p>
 
                     <div class="slider-container" id="slider-generators">
                         <ul class="slides-container" style="list-style: none; padding: 0; margin: 0;">
@@ -1574,6 +1667,16 @@
         // to dynamically update the DOM elements inside each specific slider container.
 
         // Navigates to the previous slide
+        function resetSlideVideos(slide) {
+            if (!slide) return;
+            slide.querySelectorAll('video').forEach(video => {
+                try {
+                    video.currentTime = 0;
+                    video.play().catch(() => {});
+                } catch (e) {}
+            });
+        }
+
         function slidePrev(sliderId) {
             // Find the main container of the slider
             let container = document.getElementById(sliderId);
@@ -1602,6 +1705,7 @@
 
                 // Show previous slide
                 slides[prevIndex].style.display = 'block';
+                resetSlideVideos(slides[prevIndex]);
             }
         }
 
@@ -1634,6 +1738,7 @@
 
                 // Show next slide
                 slides[nextIndex].style.display = 'block';
+                resetSlideVideos(slides[nextIndex]);
             }
         }
 
@@ -1660,6 +1765,58 @@
                     }
                 });
             });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pipeline = document.getElementById('slider-pipeline');
+            if (!pipeline) return;
+            let povActive = false;
+
+            const resetActivePipelineVideos = () => {
+                const activeSlide = Array.from(pipeline.querySelectorAll('.slide')).find(slide => slide.style.display !== 'none');
+                resetSlideVideos(activeSlide);
+            };
+
+            const updateToggleButtons = () => {
+                pipeline.querySelectorAll('.pipeline-pov-toggle').forEach(button => {
+                    button.textContent = povActive ? 'Camera View' : 'Scene View';
+                    button.classList.toggle('is-active', povActive);
+                    button.setAttribute('aria-pressed', String(povActive));
+                });
+            };
+
+            pipeline.querySelectorAll('.trajectory-video').forEach(video => {
+                if (!video.parentElement.classList.contains('trajectory-video-shell')) {
+                    const shell = document.createElement('div');
+                    shell.className = 'trajectory-video-shell';
+                    video.parentElement.insertBefore(shell, video);
+                    shell.appendChild(video);
+                }
+
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'pipeline-pov-toggle';
+                button.setAttribute('aria-label', 'Toggle POV view');
+                button.addEventListener('click', () => {
+                    povActive = !povActive;
+                    updateToggleButtons();
+
+                    pipeline.querySelectorAll('.trajectory-video').forEach(v => {
+                        const srcEl = v.querySelector('source');
+                        if (!srcEl) return;
+                        const defaultSrc = v.dataset.defaultSrc;
+                        const povSrc = v.dataset.povSrc || defaultSrc;
+                        srcEl.src = povActive ? povSrc : defaultSrc;
+                        try { v.load(); } catch (e) {}
+                    });
+
+                    resetActivePipelineVideos();
+                });
+                video.parentElement.appendChild(button);
+            });
+
+            updateToggleButtons();
         });
     </script>
 </body>
