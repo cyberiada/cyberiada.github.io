@@ -5,7 +5,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 	<title>SonicDiffusion: Audio-Driven Image Generation and Editing
-		with Pretrained Diffusion Models: Supplementary</title>
+		with Pretrained Diffusion Models: Supplementary (v1)</title>
 
 	<style>
 		.table th:not([align]) {
@@ -937,17 +937,6 @@
 				margin-bottom: 0.5rem;
 			}
 		}
-
-		.footer-github-link {
-			color: #1a56db;
-			text-decoration: underline;
-			text-underline-offset: 2px;
-			font-weight: 500;
-		}
-
-		.footer-github-link:hover {
-			color: #0d3d9a;
-		}
 	</style>
 
 </head>
@@ -957,7 +946,7 @@
 			<tr>
 				<td>
 					<center>
-						<h1 style="margin-top: 0%;"><img src="./images/icons/sonic-icon.svg"
+						<h1 style="margin-top: 0%;"><img src="../images/icons/sonic-icon.svg"
 								style="width:32px; height:32px;vertical-align: middle; margin-bottom: 2px;"></img>&nbsp;SonicDiffusion:
 							Audio-Driven Image Generation and Editing
 							with Pretrained Diffusion Models </h1>
@@ -970,7 +959,7 @@
 			<tr>
 				<td>
 					<center>
-						<img src="./v2_images/2012_v2_teaser_finalized_cut.png" style="width:100%; min-width: 50%"><br>
+						<img src="../images/teaser.png" style="width:100%; min-width: 50%"><br>
 					</center>
 				</td>
 			</tr>
@@ -993,7 +982,7 @@
 							diffusion model in a fashion similar to text tokens. We introduce additional audio-image cross
 							attention layers which we finetune while freezing the weights of the original layers of the
 							diffusion model. In addition to audio conditioned image generation, our method can also be utilized
-							in conjunction with diffusion based editing methods to enable audio conditioned image editing. We
+							in conjuction with diffusion based editing methods to enable audio conditioned image editing. We
 							demonstrate our method on a wide range of audio and image datasets. We perform extensive comparisons
 							with recent methods and show favorable performance.
 						</p>
@@ -1008,19 +997,18 @@
 				<td align="left" colspan="12">
 					<a id="model_architecture"></a>
 					<h2>1. Model Architecture</h2>
-					<p align="justify"><img src="./images/icons/sonic-icon.svg"
-							style="width:20px; height:20px; vertical-align: middle; margin-bottom: 2px;"></img>&nbsp;SonicDiffusion
-						utilizes a dual branch audio projector to predict embeddings in Stable Diffusion 3 text-embedding space,
-						and trains light-weight audio-condition layers in SD3 to enable audio to image generation.
-						Given a source image and target audio, we first encode the image into the SD3 latent space and map CLAP
-						audio features into SD3's conditioning space via the Audio Projector.
-						During inference, we apply a FlowEdit-style update in latent space by composing the unconditional and
-						audio-conditioned velocity fields of SD3 with audio adapters, yielding a modified trajectory that moves
-						toward the target audio manifold while preserving the structure of the source image.
-						The final latent state is decoded by the SD3 VAE to produce the edited image, whose appearance reflects
-						the semantics of the target sound.</p>
+					<p align="justify">In this work, we introduce <img src="../images/icons/sonic-icon.svg"
+							style="width:20px; height:20px; vertical-align: middle; margin-bottom: 2px;"></img>&nbsp;SonicDiffusion,
+						an approach that steers the process of image generation and editing using auditory inputs. As
+						depicted in the figures below, our proposed approach has two principal components. The first
+						module, termed the Audio Projector, is designed to transform features extracted from an audio
+						clip into a series of inner space tokens. These tokens are subsequently integrated into the
+						image generation model through newly incorporated audio-image cross-attention layers. Crucially,
+						we maintain the original configuration of the image generation model by freezing its existing
+						layer weights. This positions the added cross-attention layers as adapters, serving as a
+						parameter-efficient way to fuse the audio and visual modalities.</p>
 					<center>
-						<img src="./v2_images/v2_pipeline_figure_cut.png" style="width:90%;"><br>
+						<img src="../images/inference-overview2.png" style="width:90%;"><br>
 					</center>
 				</td>
 			</tr>
@@ -1033,7 +1021,7 @@
 					<a id="image_generation"></a>
 					<h2>2. Image Generation</h2>
 					<p justify="align">
-						<img src="./images/icons/sonic-icon.svg"
+						<img src="../images/icons/sonic-icon.svg"
 							style="width:20px; height:20px; vertical-align: middle; margin-bottom: 2px;"></img>&nbsp;SonicDiffusion
 						can be used to generate images from audio clips. We show some examples below.
 					</p>
@@ -1042,71 +1030,114 @@
 			</tr>
 			<tr>
 				<td align="center" colspan="4">
-					<img id="imageToSwap13" src="./v2_images/squishing water.png" height="250px"
+					<img id="imageToSwap13" src="../images/gen_figures/landscape/13/Squishing water 1.png" height="250px"
 						width="250px"><br>
 					<audio id="audioToSwap13" controls="" style="width: 250px;">
 						<source src="./audios/gen_audios/landscape/Squishing water 1.wav">
 					</audio>
 					<div>
-						<p style="display: inline;"><img src="./images/icons/water-icon.svg"
+						<p style="display: inline;"><img src="../images/icons/water-icon.svg"
 							style="vertical-align: middle; margin-bottom: 2px;" height="16px" width="16px">&nbsp;&nbsp;Squishing water&nbsp;&nbsp;</p>
+							<select id="switch13" title="Squishing water"
+							onchange="switchImage4(this);" style="display: inline;"  default-pos="1">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
 					</div>
 				</td>
 				<td align="center" colspan="4">
-					<img id="imageToSwap14" src="./v2_images/fire crackling.png" height="250px"
+					<img id="imageToSwap14" src="../images/gen_figures/landscape/14/Fire crackling 1.png" height="250px"
 						width="250px"><br>
 					<audio id="audioToSwap14" controls="" style="width: 250px;">
 						<source src="./audios/gen_audios/landscape/Fire crackling 1.wav">
 					</audio>
 					<div>
-						<p style="display: inline;"><img src="./images/icons/fire-icon.svg"
-							style="vertical-align: middle; margin-bottom: 2px;" height="16px" width="16px">&nbsp;&nbsp;Fire crackling&nbsp;&nbsp;</p>
+						<p style="display: inline;"><img src="../images/icons/fire-icon.svg"
+							style="vertical-align: middle; margin-bottom: 2px;" height="16px" width="16px">&nbsp;&nbsp;Fire crackling&nbsp;&nbsp;</p><select id="switch14" title="Fire crackling"
+							onchange="switchImage4(this);" style="display: inline;" default-pos="1">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
 					</div>
 				</td>
 				<td align="center" colspan="4">
-					<img id="imageToSwap15" src="./v2_images/snow.png" height="250px"
+					<img id="imageToSwap15" src="../images/gen_figures/landscape/15/Snow 1.png" height="250px"
 						width="250px"><br>
 					<audio id="audioToSwap15" controls="" style="width: 250px;">
 						<source src="./audios/gen_audios/landscape/Snow 1.wav">
 					</audio>
 					<div>
-						<p style="display: inline;"><img src="./images/icons/snow-icon.svg"
-							style="vertical-align: middle; margin-bottom: 2px;" height="16px" width="16px">&nbsp;&nbsp;Snow&nbsp;&nbsp;</p>
+						<p style="display: inline;"><img src="../images/icons/snow-icon.svg"
+							style="vertical-align: middle; margin-bottom: 2px;" height="16px" width="16px">&nbsp;&nbsp;Snow&nbsp;&nbsp;</p><select id="switch15" title="Snow"
+							onchange="switchImage4(this);" style="display: inline;" default-pos="1">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<td align="center" colspan="4">
-					<img id="imageToSwap16" src="./v2_images/waterfall.png" height="250px"
+					<img id="imageToSwap16" src="../images/gen_figures/landscape/16/Waterfall burbling 1.png" height="250px"
 						width="250px"><br>
 					<audio id="audioToSwap16" controls="" style="width: 250px;">
 						<source src="./audios/gen_audios/landscape/Waterfall burbling 1.wav">
 					</audio>
 					<div>
-						<p style="display: inline;"><img src="./images/icons/waterfall-icon.svg"
-							style="vertical-align: middle; margin-bottom: 2px;" height="16px" width="16px">&nbsp;&nbsp;Waterfall burbling&nbsp;&nbsp;</p>
+						<p style="display: inline;"><img src="../images/icons/waterfall-icon.svg"
+							style="vertical-align: middle; margin-bottom: 2px;" height="16px" width="16px">&nbsp;&nbsp;Waterfall burbling&nbsp;&nbsp;</p><select id="switch16" title="Waterfall burbling"
+							onchange="switchImage4(this);" style="display: inline;" default-pos="1">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
 					</div>
 				</td>
 				<td align="center" colspan="4">
-					<img id="imageToSwap17" src="./v2_images/forest.png" height="250px"
+					<img id="imageToSwap17" src="../images/gen_figures/landscape/17/Forest 1.png" height="250px"
 						width="250px"><br>
 					<audio id="audioToSwap17" controls="" style="width: 250px;">
 						<source src="./audios/gen_audios/landscape/Forest 1.wav">
 					</audio>
 					<div>
-						<p style="display: inline;"><img src="./images/icons/forest-icon.svg"
-							style="vertical-align: middle; margin-bottom: 2px;" height="16px" width="16px">&nbsp;&nbsp;Forest&nbsp;&nbsp;</p>
+						<p style="display: inline;"><img src="../images/icons/forest-icon.svg"
+							style="vertical-align: middle; margin-bottom: 2px;" height="16px" width="16px">&nbsp;&nbsp;Forest&nbsp;&nbsp;</p><select id="switch17" title="Forest"
+							onchange="switchImage4(this);" style="display: inline;" default-pos="1">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
 					</div>
 				</td>
 				<td align="center" colspan="4">
-					<img id="imageToSwap18" src="./v2_images/wind noise.png" height="250px"
+					<img id="imageToSwap18" src="../images/gen_figures/landscape/18/Wind 1.png" height="250px"
 						width="250px"><br>
 					<audio id="audioToSwap18" controls="" style="width: 250px;">
 						<source src="./audios/gen_audios/landscape/Wind 1.wav">
 					</audio>
 					<div>
-						<p style="display: inline;"><img src="./images/icons/wind-icon.svg"
-							style="vertical-align: middle; margin-bottom: 2px;" height="16px" width="16px">&nbsp;&nbsp;Wind&nbsp;&nbsp;</p>
+						<p style="display: inline;"><img src="../images/icons/wind-icon.svg"
+							style="vertical-align: middle; margin-bottom: 2px;" height="16px" width="16px">&nbsp;&nbsp;Wind&nbsp;&nbsp;</p><select id="switch18" title="Wind" 
+							onchange="switchImage4(this);" style="display: inline;" default-pos="1">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
 					</div>
 				</td>
 			</tr>
@@ -1118,71 +1149,113 @@
 		</tr>
 		<tbody>
 			<td align="center" colspan="4">
-				<img id="ghImage12" src="./v2_images/ceramic.png" height="250px"
+				<img id="ghImage12" src="../images/gen_figures/gh/12/Ceramic 1.png" height="250px"
 					width="250px"><br>
 				<audio id="ghAudio12" controls="" style="width: 250px;">
 					<source src="./audios/gen_audios/gh/Ceramic 1.wav">
 				</audio>
 				<div>
-					<p style="display: inline;"><img src="./images/icons/ceramic-icon.svg"
-						style="vertical-align: middle; margin-bottom: 2px;" height="16px" width="16px">&nbsp;&nbsp;Ceramic&nbsp;&nbsp;</p>
+					<p style="display: inline;"><img src="../images/icons/ceramic-icon.svg"
+						style="vertical-align: middle; margin-bottom: 2px;" height="16px" width="16px">&nbsp;&nbsp;Ceramic&nbsp;&nbsp;</p><select id="gh12" title="Ceramic"
+						onchange="switchImage5(this);" style="display: inline;">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					</select>
 				</div>
 			</td>
 			<td align="center" colspan="4">
-				<img id="ghImage13" src="./v2_images/wood.png" height="250px"
+				<img id="ghImage13" src="../images/gen_figures/gh/13/Wood 1.png" height="250px"
 					width="250px"><br>
 				<audio id="ghAudio13" controls="" style="width: 250px;">
 					<source src="./audios/gen_audios/gh/Wood 1.wav">
 				</audio>
 				<div>
-					<p style="display: inline;"><img src="./images/icons/wood-icon.svg"
-						style="vertical-align: middle; margin-bottom: 2px;" height="16px" width="16px">&nbsp;&nbsp;Wood&nbsp;&nbsp;</p>
+					<p style="display: inline;"><img src="../images/icons/wood-icon.svg"
+						style="vertical-align: middle; margin-bottom: 2px;" height="16px" width="16px">&nbsp;&nbsp;Wood&nbsp;&nbsp;</p><select id="gh13" title="Wood"
+						onchange="switchImage5(this);" style="display: inline;" default-pos="1">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					</select>
 				</div>
 			</td>
 			<td align="center" colspan="4">
-				<img id="ghImage14" src="./v2_images/paper.png" height="250px"
+				<img id="ghImage14" src="../images/gen_figures/gh/14/Paper 1.png" height="250px"
 					width="250px"><br>
 				<audio id="ghAudio14" controls="" style="width: 250px;">
 					<source src="./audios/gen_audios/gh/Paper 1.wav">
 				</audio>
 				<div>
-					<p style="display: inline;"><img src="./images/icons/paper-icon.svg"
-						style="vertical-align: middle; margin-bottom: 2px;" height="16px" width="16px">&nbsp;&nbsp;Paper&nbsp;&nbsp;</p>
+					<p style="display: inline;"><img src="../images/icons/paper-icon.svg"
+						style="vertical-align: middle; margin-bottom: 2px;" height="16px" width="16px">&nbsp;&nbsp;Paper&nbsp;&nbsp;</p><select id="gh14" title="Paper"
+						onchange="switchImage5(this);" style="display: inline;" default-pos="1">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					</select>
 				</div>
 			</td>
 		</tbody>
 		<tbody>
 			<td align="center" colspan="4">
-				<img id="ghImage15" src="./v2_images/metal.png" height="250px"
+				<img id="ghImage15" src="../images/gen_figures/gh/15/Metal 1.png" height="250px"
 					width="250px"><br>
 				<audio id="ghAudio15" controls="" style="width: 250px;">
 					<source src="./audios/gen_audios/gh/Metal 1.wav">
 				</audio>
 				<div>
-					<p style="display: inline;"><img src="./images/icons/metal-icon.svg"
-						style="vertical-align: middle; margin-bottom: 2px;" height="16px" width="16px">&nbsp;&nbsp;Metal&nbsp;&nbsp;</p>
+					<p style="display: inline;"><img src="../images/icons/metal-icon.svg"
+						style="vertical-align: middle; margin-bottom: 2px;" height="16px" width="16px">&nbsp;&nbsp;Metal&nbsp;&nbsp;</p><select id="gh15" title="Metal"
+						onchange="switchImage5(this);" style="display: inline;" default-pos="1">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					</select>
 				</div>
 			</td>
 			<td align="center" colspan="4">
-				<img id="ghImage16" src="./v2_images/leaf.png" height="250px"
+				<img id="ghImage16" src="../images/gen_figures/gh/16/Leaf 1.png" height="250px"
 					width="250px"><br>
 				<audio id="ghAudio16" controls="" style="width: 250px;">
 					<source src="./audios/gen_audios/gh/Leaf 1.wav">
 				</audio>
 				<div>
-					<p style="display: inline;"><img src="./images/icons/leaf-icon.svg"
-						style="vertical-align: middle; margin-bottom: 2px;" height="16px" width="16px">&nbsp;&nbsp;Leaf&nbsp;&nbsp;</p>
+					<p style="display: inline;"><img src="../images/icons/leaf-icon.svg"
+						style="vertical-align: middle; margin-bottom: 2px;" height="16px" width="16px">&nbsp;&nbsp;Leaf&nbsp;&nbsp;</p><select id="gh16" title="Leaf"
+						onchange="switchImage5(this);" style="display: inline;" default-pos="1">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					</select>
 				</div>
 			</td>
 			<td align="center" colspan="4">
-				<img id="ghImage17" src="./v2_images/water.png" height="250px"
+				<img id="ghImage17" src="../images/gen_figures/gh/17/Water 1.png" height="250px"
 					width="250px"><br>
 				<audio id="ghAudio17" controls="" style="width: 250px;">
 					<source src="./audios/gen_audios/gh/Water 1.wav">
 				</audio>
 				<div>
-					<p style="display: inline;"><img src="./images/icons/water-icon.svg"
-						style="vertical-align: middle; margin-bottom: 2px;" height="16px" width="16px">&nbsp;&nbsp;Water&nbsp;&nbsp;</p>
+					<p style="display: inline;"><img src="../images/icons/water-icon.svg"
+						style="vertical-align: middle; margin-bottom: 2px;" height="16px" width="16px">&nbsp;&nbsp;Water&nbsp;&nbsp;</p><select id="gh17" title="Water"
+						onchange="switchImage5(this);" style="display: inline;" default-pos="1">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					</select>
 				</div>
 			</td>
 		</tbody>
@@ -1195,36 +1268,57 @@
 		</tbody>
 		<tbody>
 			<td align="center" colspan="4">
-				<img id="ravdessImage1" src="./v2_images/angry.png" height="250px"
+				<img id="ravdessImage1" src="../images/gen_figures/ravdess/Angry 1.png" height="250px"
 					width="250px"><br>
 				<audio id="ravdessAudio1" controls="" style="width: 250px;">
-					<source src="./audios/gen_audios/ravdess/Angry 2.wav">
+					<source src="./audios/gen_audios/ravdess/Angry 1.wav">
 				</audio>
 				<div>
-					<p style="display: inline;"><img src="./images/icons/angry-icon.svg"
-						style="vertical-align: middle; margin-bottom: 2px;" height="16px" width="16px">&nbsp;&nbsp;Angry&nbsp;&nbsp;</p>
+					<p style="display: inline;"><img src="../images/icons/angry-icon.svg"
+						style="vertical-align: middle; margin-bottom: 2px;" height="16px" width="16px">&nbsp;&nbsp;Angry&nbsp;&nbsp;</p><select id="ravdess1" title="Angry"
+						onchange="switchImage6(this);" style="display: inline;" default-pos="1">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					</select>
 				</div>
 			</td>
 			<td align="center" colspan="4">
-				<img id="ravdessImage2" src="./v2_images/sad.png" height="250px"
+				<img id="ravdessImage2" src="../images/gen_figures/ravdess/Sad 1.png" height="250px"
 					width="250px"><br>
 				<audio id="ravdessAudio2" controls="" style="width: 250px;">
-					<source src="./audios/gen_audios/ravdess/Sad 2.wav">
+					<source src="./audios/gen_audios/ravdess/Sad 1.wav">
 				</audio>
 				<div>
-					<p style="display: inline;"><img src="./images/icons/sad-icon.svg"
-						style="vertical-align: middle; margin-bottom: 2px;" height="16px" width="16px">&nbsp;&nbsp;Sad&nbsp;&nbsp;</p>
+					<p style="display: inline;"><img src="../images/icons/sad-icon.svg"
+						style="vertical-align: middle; margin-bottom: 2px;" height="16px" width="16px">&nbsp;&nbsp;Sad&nbsp;&nbsp;</p><select id="ravdess2" title="Sad"
+						onchange="switchImage6(this);" style="display: inline;" default-pos="1">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					</select>
 				</div>
 			</td>
 			<td align="center" colspan="4">
-				<img id="ravdessImage3" src="./v2_images/happy.png" height="250px"
+				<img id="ravdessImage3" src="../images/gen_figures/ravdess/Happy 1.png" height="250px"
 					width="250px"><br>
 				<audio id="ravdessAudio3" controls="" style="width: 250px;">
-					<source src="./audios/gen_audios/ravdess/Happy 2.wav">
+					<source src="./audios/gen_audios/ravdess/Happy 1.wav">
 				</audio>
 				<div>
-					<p style="display: inline;"><img src="./images/icons/happy-icon.svg"
-						style="vertical-align: middle; margin-bottom: 2px;" height="16px" width="16px">&nbsp;&nbsp;Happy&nbsp;&nbsp;</p>
+					<p style="display: inline;"><img src="../images/icons/happy-icon.svg"
+						style="vertical-align: middle; margin-bottom: 2px;" height="16px" width="16px">&nbsp;&nbsp;Happy&nbsp;&nbsp;</p><select id="ravdess3" title="Happy"
+						onchange="switchImage6(this);" style="display: inline;" default-pos="1">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					</select>
 				</div>
 		</tbody>
 	</table>
@@ -1236,62 +1330,69 @@
 					<a id="sound_interpolation"></a>
 					<h2>3. Multi-Modal Image Generation</h2>
 					<p justify="align">
-						<img src="./images/icons/sonic-icon.svg"
+						<img src="../images/icons/sonic-icon.svg"
 							style="width:20px; height:20px; vertical-align: middle; margin-bottom: 2px;"></img>&nbsp;SonicDiffusion can generate images from audio clips and text descriptions. We show some examples below.
 					</p>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<img src="./v2_images/edit/text_audio_samples/chinese_painting_forest.png" height="250px"
+					<img src="../images/prompt_figures/Aurora Borealis Lights.png" height="250px"
 						width="250px"><br>
 					<audio controls="" style="width: 250px;">
-						<source src="./audios/edit_audios/general/Forest.wav">
+						<source src="./audios/prompt_audios/Aurora Borealis Lights.wav">
 					</audio>
-					<div><p style="display: inline;">Chinese Painting</p></div>
+					<div><p style="display: inline;"><img src="../images/icons/aurora-icon.svg"
+						style="width:20px; height:20px; vertical-align: middle; margin-bottom: 2px;"></img>&nbsp;Aurora Borealis Lights</p></div>
 				</td>
 				<td>
-					<img src="./v2_images/edit/text_audio_samples/ghibli_style_angry.png" height="250px"
+					<img src="../images/prompt_figures/Sleek Skateboard.png" height="250px"
 						width="250px"><br>
 					<audio controls="" style="width: 250px;">
-						<source src="./audios/gen_audios/ravdess/Angry 1.wav">
+						<source src="./audios/prompt_audios/Sleek Skateboard.wav">
 					</audio>
-					<div><p style="display: inline;">Ghibli Style</p></div>
+					<div><p style="display: inline;"><img src="../images/icons/skateboard-icon.svg"
+						style="width:20px; height:20px; vertical-align: middle; margin-bottom: 2px;"></img>&nbsp;Sleek Skateboard</p></div>
 				</td>
 				<td>
-					<img src="./v2_images/edit/text_audio_samples/low_polygon_splashing.png" height="250px"
+					<img src="../images/prompt_figures/Marble Sculpture.png" height="250px"
 						width="250px"><br>
 					<audio controls="" style="width: 250px;">
-						<source src="./audios/edit_audios/general/Splashing water.wav">
+						<source src="./audios/prompt_audios/Marble Sculpture.wav">
 					</audio>
-					<div><p style="display: inline;">Low Polygon</p></div>
+					<div><p style="display: inline;"><img src="../images/icons/sculpture-icon.svg"
+						style="width:20px; height:20px; vertical-align: middle; margin-bottom: 2px;"></img>&nbsp;Marble Sculpture</p></div>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<img src="./v2_images/edit/text_audio_samples/mosaic_art_happy.png" height="250px"
+					<img src="../images/prompt_figures/Lego Style.png" height="250px"
 						width="250px"><br>
 					<audio controls="" style="width: 250px;">
-						<source src="./audios/gen_audios/ravdess/Happy 4.wav">
+						<source src="./audios/prompt_audios/Lego Style.wav">
 					</audio>
-					<div><p style="display: inline;">Mosaic Art</p></div>
+					<div><p style="display: inline;"><img src="../images/icons/lego-icon.svg"
+						style="width:20px; height:20px; vertical-align: middle; margin-bottom: 2px;"></img>&nbsp;Lego Style</p></div>
 				</td>
 				<td>
-					<img src="./v2_images/edit/text_audio_samples/papercraft_fire.png" height="250px"
+					<img src="../images/prompt_figures/Glowing Crystal ball.png" height="250px"
 						width="250px"><br>
 					<audio controls="" style="width: 250px;">
-						<source src="./audios/edit_audios/general/Fire crackling.wav">
+						<source src="./audios/prompt_audios/Glowing Crystal ball.wav">
 					</audio>
-					<div><p style="display: inline;">Papercraft</p></div>
+					<div><p style="display: inline;"><img src="../images/icons/ball-icon.svg"
+						style="width:20px; height:20px; vertical-align: middle; margin-bottom: 2px;"></img>&nbsp;Glowing Crystal Ball</p></div>
 				</td>
 				<td>
-					<img src="./v2_images/edit/text_audio_samples/vangogh_snow.png" height="250px"
+					<img src="../images/prompt_figures/Watercolor Wash.png" height="250px"
 						width="250px"><br>
 					<audio controls="" style="width: 250px;">
-						<source src="./audios/edit_audios/general/Snow.wav">
+						<source src="./audios/prompt_audios/Watercolor Wash.wav">
 					</audio>
-					<div><p style="display: inline;">Vangogh Style Painting</p></div>
+					<div><p style="display: inline;"><img src="../images/icons/watercolor-icon.svg"
+						style="width:20px; height:20px; vertical-align: middle; margin-bottom: 2px;"></img>&nbsp;Watercolor Wash</p></div>
 				</td>
+
 			</tr>
 		</tbody>
 	</table>
@@ -1303,7 +1404,7 @@
 					<a id="image_manipulation"></a>
 					<h2>4. Image Manipulation</h2>
 					<p justify="align">
-						<img src="./images/icons/sonic-icon.svg"
+						<img src="../images/icons/sonic-icon.svg"
 							style="width:20px; height:20px; vertical-align: middle; margin-bottom: 2px;"></img>&nbsp;SonicDiffusion
 						can be used to edit images using audio clips. We show some examples below. The image on the left is the original image. The image on the right is the edited image. You can change the slider to see the effect of the audio clip on the image.
 					</p>
@@ -1314,9 +1415,9 @@
 				<td align="center" colspan="3">
 					<div id="container0" class="container">
 						<div id="image-container0" class="image-container">
-							<img class="image-before slider-image image-1" src="./v2_images/edit/ls_split_samples/sample_1_base.png" 
+							<img class="image-before slider-image image-1" src="../images/edit_figures/0/Source Image.png" 
 								onload="setAspectRatio(1)">
-							<img id="imageToSwap0" class="image-after slider-image image-2" src="./v2_images/edit/ls_split_samples/sample_1_underwater_bubbling.png" 
+							<img id="imageToSwap0" class="image-after slider-image image-2" src="../images/edit_figures/0/Underwater bubbling.png" 
 								onload="setAspectRatio(2)">
 						</div>
 						<input id="slider0" type="range" min="0" max="100" value="50" aria-label="Percentage of before photo shown"
@@ -1342,24 +1443,24 @@
 					<audio id="audioToSwap0" controls="" style="width: 250px;">
 						<source src="./audios/edit_audios/general/Underwater bubbling.wav">
 					</audio>
-					<select id="switch0" onchange="switchLsEdit(this);" default-pos="0">
+					<select id="switch0" onchange="switchImage(this);" default-pos="Source Image">
 						<option value='Underwater bubbling'>Underwater bubbling</option>
 						<option value='Fire crackling'>Fire crackling</option>
 						<option value='Waterfall burbling'>Waterfall burbling</option>
 						<option value='Squishing water'>Squishing water</option>
+						<option value='Thunder'>Thunder</option>
 						<option value='Splashing water'>Splashing water</option>
 						<option value='Forest'>Forest</option>
 						<option value='Snow'>Snow</option>
 						<option value='Rain'>Rain</option>
-						<option value='Wind noise'>Wind noise</option>
 					</select>
 				</td>
 				<td align="center" colspan="3">
 					<div id="container1" class="container">
 						<div id="image-container1" class="image-container">
-							<img class="image-before slider-image image-3" src="./v2_images/edit/ls_split_samples/sample_2_base.png" 
+							<img class="image-before slider-image image-3" src="../images/edit_figures/1/Source Image.png" 
 								onload="setAspectRatio(3)">
-							<img id="imageToSwap1" class="image-after slider-image image-4" src="./v2_images/edit/ls_split_samples/sample_2_underwater_bubbling.png" 
+							<img id="imageToSwap1" class="image-after slider-image image-4" src="../images/edit_figures/1/Underwater bubbling.png" 
 								onload="setAspectRatio(4)">
 						</div>
 						<input id="slider1" type="range" min="0" max="100" value="50" aria-label="Percentage of before photo shown"
@@ -1385,24 +1486,24 @@
 					<audio id="audioToSwap1" controls="" style="width: 250px;">
 						<source src="./audios/edit_audios/general/Underwater bubbling.wav">
 					</audio>
-					<select id="switch1" onchange="switchLsEdit(this);" default-pos="0">
+					<select id="switch1" onchange="switchImage(this);" default-pos="Source Image">
 						<option value='Underwater bubbling'>Underwater bubbling</option>
 						<option value='Fire crackling'>Fire crackling</option>
 						<option value='Waterfall burbling'>Waterfall burbling</option>
 						<option value='Squishing water'>Squishing water</option>
+						<option value='Thunder'>Thunder</option>
 						<option value='Splashing water'>Splashing water</option>
 						<option value='Forest'>Forest</option>
 						<option value='Snow'>Snow</option>
 						<option value='Rain'>Rain</option>
-						<option value='Wind noise'>Wind noise</option>
 					</select>
 				</td>
 				<td align="center" colspan="3">
 					<div id="container2" class="container">
 						<div id="image-container2" class="image-container">
-							<img class="image-before slider-image image-5" src="./v2_images/edit/ls_split_samples/sample_3_base.png" 
+							<img class="image-before slider-image image-5" src="../images/edit_figures/2/Source Image.png" 
 								onload="setAspectRatio(5)">
-							<img id="imageToSwap2" class="image-after slider-image image-6" src="./v2_images/edit/ls_split_samples/sample_3_underwater_bubbling.png" 
+							<img id="imageToSwap2" class="image-after slider-image image-6" src="../images/edit_figures/2/Underwater bubbling.png" 
 								onload="setAspectRatio(6)">
 						</div>
 						<input id="slider2" type="range" min="0" max="100" value="50" aria-label="Percentage of before photo shown"
@@ -1428,24 +1529,24 @@
 					<audio id="audioToSwap2" controls="" style="width: 250px;">
 						<source src="./audios/edit_audios/general/Underwater bubbling.wav">
 					</audio>
-					<select id="switch2" onchange="switchLsEdit(this);" default-pos="0">
+					<select id="switch2" onchange="switchImage(this);" default-pos="Source Image">
 						<option value='Underwater bubbling'>Underwater bubbling</option>
 						<option value='Fire crackling'>Fire crackling</option>
 						<option value='Waterfall burbling'>Waterfall burbling</option>
 						<option value='Squishing water'>Squishing water</option>
+						<option value='Thunder'>Thunder</option>
 						<option value='Splashing water'>Splashing water</option>
 						<option value='Forest'>Forest</option>
 						<option value='Snow'>Snow</option>
 						<option value='Rain'>Rain</option>
-						<option value='Wind noise'>Wind noise</option>
 					</select>
 				</td>
 				<td align="center" colspan="3">
 					<div id="container3" class="container">
 						<div id="image-container3" class="image-container">
-							<img class="image-before slider-image image-7" src="./v2_images/edit/ls_split_samples/sample_4_base.png" 
+							<img class="image-before slider-image image-7" src="../images/edit_figures/3/Source Image.png" 
 								onload="setAspectRatio(7)">
-							<img id="imageToSwap3" class="image-after slider-image image-8" src="./v2_images/edit/ls_split_samples/sample_4_underwater_bubbling.png" 
+							<img id="imageToSwap3" class="image-after slider-image image-8" src="../images/edit_figures/3/Underwater bubbling.png" 
 								onload="setAspectRatio(8)">
 						</div>
 						<input id="slider3" type="range" min="0" max="100" value="50" aria-label="Percentage of before photo shown"
@@ -1471,16 +1572,16 @@
 					<audio id="audioToSwap3" controls="" style="width: 250px;">
 						<source src="./audios/edit_audios/general/Underwater bubbling.wav">
 					</audio>
-					<select id="switch3" onchange="switchLsEdit(this);" default-pos="0">
+					<select id="switch3" onchange="switchImage(this);" default-pos="Source Image">
 						<option value='Underwater bubbling'>Underwater bubbling</option>
 						<option value='Fire crackling'>Fire crackling</option>
 						<option value='Waterfall burbling'>Waterfall burbling</option>
 						<option value='Squishing water'>Squishing water</option>
+						<option value='Thunder'>Thunder</option>
 						<option value='Splashing water'>Splashing water</option>
 						<option value='Forest'>Forest</option>
 						<option value='Snow'>Snow</option>
 						<option value='Rain'>Rain</option>
-						<option value='Wind noise'>Wind noise</option>
 					</select>
 				</td>
 			</tr>
@@ -1490,9 +1591,9 @@
 				<td align="center" colspan="3">
 					<div id="container4" class="container">
 						<div id="image-container4" class="image-container">
-							<img class="image-before slider-image image-9" src="./v2_images/edit/ls_split_samples/sample_5_base.png" 
+							<img class="image-before slider-image image-9" src="../images/edit_figures/set5/Source Image.png" 
 								onload="setAspectRatio(9)">
-							<img id="imageToSwap4" class="image-after slider-image image-10" src="./v2_images/edit/ls_split_samples/sample_5_underwater_bubbling.png" 
+							<img id="imageToSwap5" class="image-after slider-image image-10" src="../images/edit_figures/set5/Underwater bubbling.png" 
 								onload="setAspectRatio(10)">
 						</div>
 						<input id="slider4" type="range" min="0" max="100" value="50" aria-label="Percentage of before photo shown"
@@ -1515,27 +1616,27 @@
 							</svg>
 						</div>
 					</div>
-					<audio id="audioToSwap4" controls="" style="width: 250px;">
+					<audio id="audioToSwap5" controls="" style="width: 250px;">
 						<source src="./audios/edit_audios/general/Underwater bubbling.wav">
 					</audio>
-					<select id="switch4" onchange="switchLsEdit(this);" default-pos="0">
+					<select id="switch5" onchange="switchImage2(this);" default-pos="Source Image">
 						<option value='Underwater bubbling'>Underwater bubbling</option>
 						<option value='Fire crackling'>Fire crackling</option>
 						<option value='Waterfall burbling'>Waterfall burbling</option>
 						<option value='Squishing water'>Squishing water</option>
+						<option value='Thunder'>Thunder</option>
 						<option value='Splashing water'>Splashing water</option>
 						<option value='Forest'>Forest</option>
 						<option value='Snow'>Snow</option>
 						<option value='Rain'>Rain</option>
-						<option value='Wind noise'>Wind noise</option>
 					</select>
 				</td>
 				<td align="center" colspan="3">
 					<div id="container5" class="container">
 						<div id="image-container5" class="image-container">
-							<img class="image-before slider-image image-11" src="./v2_images/edit/ls_split_samples/sample_6_base.png" 
+							<img class="image-before slider-image image-11" src="../images/edit_figures/36/Source Image.png" 
 								onload="setAspectRatio(11)">
-							<img id="imageToSwap5" class="image-after slider-image image-12" src="./v2_images/edit/ls_split_samples/sample_6_underwater_bubbling.png" 
+							<img id="imageToSwap36" class="image-after slider-image image-12" src="../images/edit_figures/36/Underwater bubbling.png" 
 								onload="setAspectRatio(12)">
 						</div>
 						<input id="slider5" type="range" min="0" max="100" value="50" aria-label="Percentage of before photo shown"
@@ -1558,27 +1659,27 @@
 							</svg>
 						</div>
 					</div>
-					<audio id="audioToSwap5" controls="" style="width: 250px;">
+					<audio id="audioToSwap36" controls="" style="width: 250px;">
 						<source src="./audios/edit_audios/general/Underwater bubbling.wav">
 					</audio>
-					<select id="switch5" onchange="switchLsEdit(this);" default-pos="0">
+					<select id="switch36" onchange="switchImage(this);" default-pos="Source Image">
 						<option value='Underwater bubbling'>Underwater bubbling</option>
 						<option value='Fire crackling'>Fire crackling</option>
 						<option value='Waterfall burbling'>Waterfall burbling</option>
 						<option value='Squishing water'>Squishing water</option>
+						<option value='Thunder'>Thunder</option>
 						<option value='Splashing water'>Splashing water</option>
 						<option value='Forest'>Forest</option>
 						<option value='Snow'>Snow</option>
 						<option value='Rain'>Rain</option>
-						<option value='Wind noise'>Wind noise</option>
 					</select>
 				</td>
 				<td align="center" colspan="3">
 					<div id="container6" class="container">
 						<div id="image-container6" class="image-container">
-							<img class="image-before slider-image image-13" src="./v2_images/edit/ls_split_samples/sample_7_base.png" 
+							<img class="image-before slider-image image-13" src="../images/edit_figures/set7/Source Image.png" 
 								onload="setAspectRatio(13)">
-							<img id="imageToSwap6" class="image-after slider-image image-14" src="./v2_images/edit/ls_split_samples/sample_7_underwater_bubbling.png" 
+							<img id="imageToSwap7" class="image-after slider-image image-14" src="../images/edit_figures/set7/Underwater bubbling.png" 
 								onload="setAspectRatio(14)">
 						</div>
 						<input id="slider6" type="range" min="0" max="100" value="50" aria-label="Percentage of before photo shown"
@@ -1601,27 +1702,27 @@
 							</svg>
 						</div>
 					</div>
-					<audio id="audioToSwap6" controls="" style="width: 250px;">
+					<audio id="audioToSwap7" controls="" style="width: 250px;">
 						<source src="./audios/edit_audios/general/Underwater bubbling.wav">
 					</audio>
-					<select id="switch6" onchange="switchLsEdit(this);" default-pos="0">
+					<select id="switch7" onchange="switchImage2(this);" default-pos="Source Image">
 						<option value='Underwater bubbling'>Underwater bubbling</option>
 						<option value='Fire crackling'>Fire crackling</option>
 						<option value='Waterfall burbling'>Waterfall burbling</option>
 						<option value='Squishing water'>Squishing water</option>
+						<option value='Thunder'>Thunder</option>
 						<option value='Splashing water'>Splashing water</option>
 						<option value='Forest'>Forest</option>
 						<option value='Snow'>Snow</option>
 						<option value='Rain'>Rain</option>
-						<option value='Wind noise'>Wind noise</option>
 					</select>
 				</td>
 				<td align="center" colspan="3">
 					<div id="container7" class="container">
 						<div id="image-container7" class="image-container">
-							<img class="image-before slider-image image-15" src="./v2_images/edit/ls_split_samples/sample_8_base.png" 
+							<img class="image-before slider-image image-15" src="../images/edit_figures/set8/Source Image.png" 
 								onload="setAspectRatio(15)">
-							<img id="imageToSwap7" class="image-after slider-image image-16" src="./v2_images/edit/ls_split_samples/sample_8_underwater_bubbling.png" 
+							<img id="imageToSwap8" class="image-after slider-image image-16" src="../images/edit_figures/set8/Underwater bubbling.png" 
 								onload="setAspectRatio(16)">
 						</div>
 						<input id="slider7" type="range" min="0" max="100" value="50" aria-label="Percentage of before photo shown"
@@ -1644,22 +1745,199 @@
 							</svg>
 						</div>
 					</div>
-					<audio id="audioToSwap7" controls="" style="width: 250px;">
+					<audio id="audioToSwap8" controls="" style="width: 250px;">
 						<source src="./audios/edit_audios/general/Underwater bubbling.wav">
 					</audio>
-					<select id="switch7" onchange="switchLsEdit(this);" default-pos="0">
+					<select id="switch8" onchange="switchImage2(this);" default-pos="Source Image">
 						<option value='Underwater bubbling'>Underwater bubbling</option>
 						<option value='Fire crackling'>Fire crackling</option>
 						<option value='Waterfall burbling'>Waterfall burbling</option>
 						<option value='Squishing water'>Squishing water</option>
+						<option value='Thunder'>Thunder</option>
 						<option value='Splashing water'>Splashing water</option>
 						<option value='Forest'>Forest</option>
 						<option value='Snow'>Snow</option>
 						<option value='Rain'>Rain</option>
-						<option value='Wind noise'>Wind noise</option>
 					</select>
 				</td>
 			</tr>
+		</tbody>
+		<tbody>
+			<tr>
+				<td align="center" colspan="3">
+					<div id="container8" class="container">
+						<div id="image-container8" class="image-container">
+							<img class="image-before slider-image image-17" src="../images/edit_figures/set9/Source Image.png" 
+								onload="setAspectRatio(17)">
+							<img id="imageToSwap9" class="image-after slider-image image-18" src="../images/edit_figures/set9/Underwater bubbling.png" 
+								onload="setAspectRatio(18)">
+						</div>
+						<input id="slider8" type="range" min="0" max="100" value="50" aria-label="Percentage of before photo shown"
+							class="slider">
+						<div class="slider-line" aria-hidden="true"></div>
+						<div class="slider-button" aria-hidden="true">
+							<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+								viewBox="0 0 256 256">
+								<rect width="256" height="256" fill="none"></rect>
+								<line x1="128" y1="40" x2="128" y2="216" fill="none" stroke="currentColor" stroke-linecap="round"
+									stroke-linejoin="round" stroke-width="16"></line>
+								<line x1="96" y1="128" x2="16" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
+									stroke-linejoin="round" stroke-width="16"></line>
+								<polyline points="48 160 16 128 48 96" fill="none" stroke="currentColor" stroke-linecap="round"
+									stroke-linejoin="round" stroke-width="16"></polyline>
+								<line x1="160" y1="128" x2="240" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
+									stroke-linejoin="round" stroke-width="16"></line>
+								<polyline points="208 96 240 128 208 160" fill="none" stroke="currentColor" stroke-linecap="round"
+									stroke-linejoin="round" stroke-width="16"></polyline>
+							</svg>
+						</div>
+					</div>
+					<audio id="audioToSwap9" controls="" style="width: 250px;">
+						<source src="./audios/edit_audios/general/Underwater bubbling.wav">
+					</audio>
+					<select id="switch9" onchange="switchImage2(this);" default-pos="Source Image">
+						<option value='Underwater bubbling'>Underwater bubbling</option>
+						<option value='Fire crackling'>Fire crackling</option>
+						<option value='Waterfall burbling'>Waterfall burbling</option>
+						<option value='Squishing water'>Squishing water</option>
+						<option value='Thunder'>Thunder</option>
+						<option value='Splashing water'>Splashing water</option>
+						<option value='Forest'>Forest</option>
+						<option value='Snow'>Snow</option>
+						<option value='Rain'>Rain</option>
+					</select>
+				</td>
+				<td align="center" colspan="3">
+					<div id="container9" class="container">
+						<div id="image-container9" class="image-container">
+							<img class="image-before slider-image image-19" src="../images/edit_figures/37/Source Image.png" 
+								onload="setAspectRatio(19)">
+							<img id="imageToSwap37" class="image-after slider-image image-20" src="../images/edit_figures/37/Underwater bubbling.png" 
+								onload="setAspectRatio(20)">
+						</div>
+						<input id="slider9" type="range" min="0" max="100" value="50" aria-label="Percentage of before photo shown"
+							class="slider">
+						<div class="slider-line" aria-hidden="true"></div>
+						<div class="slider-button" aria-hidden="true">
+							<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+								viewBox="0 0 256 256">
+								<rect width="256" height="256" fill="none"></rect>
+								<line x1="128" y1="40" x2="128" y2="216" fill="none" stroke="currentColor" stroke-linecap="round"
+									stroke-linejoin="round" stroke-width="16"></line>
+								<line x1="96" y1="128" x2="16" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
+									stroke-linejoin="round" stroke-width="16"></line>
+								<polyline points="48 160 16 128 48 96" fill="none" stroke="currentColor" stroke-linecap="round"
+									stroke-linejoin="round" stroke-width="16"></polyline>
+								<line x1="160" y1="128" x2="240" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
+									stroke-linejoin="round" stroke-width="16"></line>
+								<polyline points="208 96 240 128 208 160" fill="none" stroke="currentColor" stroke-linecap="round"
+									stroke-linejoin="round" stroke-width="16"></polyline>
+							</svg>
+						</div>
+					</div>
+					<audio id="audioToSwap37" controls="" style="width: 250px;">
+						<source src="./audios/edit_audios/general/Underwater bubbling.wav">
+					</audio>
+					<select id="switch37" onchange="switchImage(this);" default-pos="Source Image">
+						<option value='Underwater bubbling'>Underwater bubbling</option>
+						<option value='Fire crackling'>Fire crackling</option>
+						<option value='Waterfall burbling'>Waterfall burbling</option>
+						<option value='Squishing water'>Squishing water</option>
+						<option value='Thunder'>Thunder</option>
+						<option value='Splashing water'>Splashing water</option>
+						<option value='Forest'>Forest</option>
+						<option value='Snow'>Snow</option>
+						<option value='Rain'>Rain</option>
+					</select>
+				</td>
+				<td align="center" colspan="3">
+					<div id="container10" class="container">
+						<div id="image-container10" class="image-container">
+							<img class="image-before slider-image image-21" src="../images/edit_figures/6/Source Image.png" 
+								onload="setAspectRatio(21)">
+							<img id="imageToSwap6" class="image-after slider-image image-22" src="../images/edit_figures/6/Underwater bubbling.png" 
+								onload="setAspectRatio(22)">
+						</div>
+						<input id="slider10" type="range" min="0" max="100" value="50" aria-label="Percentage of before photo shown"
+							class="slider">
+						<div class="slider-line" aria-hidden="true"></div>
+						<div class="slider-button" aria-hidden="true">
+							<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+								viewBox="0 0 256 256">
+								<rect width="256" height="256" fill="none"></rect>
+								<line x1="128" y1="40" x2="128" y2="216" fill="none" stroke="currentColor" stroke-linecap="round"
+									stroke-linejoin="round" stroke-width="16"></line>
+								<line x1="96" y1="128" x2="16" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
+									stroke-linejoin="round" stroke-width="16"></line>
+								<polyline points="48 160 16 128 48 96" fill="none" stroke="currentColor" stroke-linecap="round"
+									stroke-linejoin="round" stroke-width="16"></polyline>
+								<line x1="160" y1="128" x2="240" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
+									stroke-linejoin="round" stroke-width="16"></line>
+								<polyline points="208 96 240 128 208 160" fill="none" stroke="currentColor" stroke-linecap="round"
+									stroke-linejoin="round" stroke-width="16"></polyline>
+							</svg>
+						</div>
+					</div>
+					<audio id="audioToSwap6" controls="" style="width: 250px;">
+						<source src="./audios/edit_audios/general/Underwater bubbling.wav">
+					</audio>
+					<select id="switch6" onchange="switchImage(this);" default-pos="Source Image">
+						<option value='Underwater bubbling'>Underwater bubbling</option>
+						<option value='Fire crackling'>Fire crackling</option>
+						<option value='Waterfall burbling'>Waterfall burbling</option>
+						<option value='Squishing water'>Squishing water</option>
+						<option value='Thunder'>Thunder</option>
+						<option value='Splashing water'>Splashing water</option>
+						<option value='Forest'>Forest</option>
+						<option value='Snow'>Snow</option>
+						<option value='Rain'>Rain</option>
+					</select>
+				</td>
+				<td align="center" colspan="3">
+					<div id="container11" class="container">
+						<div id="image-container11" class="image-container">
+							<img class="image-before slider-image image-23" src="../images/edit_figures/11/Source Image.png" 
+								onload="setAspectRatio(23)">
+							<img id="imageToSwap11" class="image-after slider-image image-24" src="../images/edit_figures/11/Underwater bubbling.png" 
+								onload="setAspectRatio(24)">
+						</div>
+						<input id="slider11" type="range" min="0" max="100" value="50" aria-label="Percentage of before photo shown"
+							class="slider">
+						<div class="slider-line" aria-hidden="true"></div>
+						<div class="slider-button" aria-hidden="true">
+							<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+								viewBox="0 0 256 256">
+								<rect width="256" height="256" fill="none"></rect>
+								<line x1="128" y1="40" x2="128" y2="216" fill="none" stroke="currentColor" stroke-linecap="round"
+									stroke-linejoin="round" stroke-width="16"></line>
+								<line x1="96" y1="128" x2="16" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
+									stroke-linejoin="round" stroke-width="16"></line>
+								<polyline points="48 160 16 128 48 96" fill="none" stroke="currentColor" stroke-linecap="round"
+									stroke-linejoin="round" stroke-width="16"></polyline>
+								<line x1="160" y1="128" x2="240" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
+									stroke-linejoin="round" stroke-width="16"></line>
+								<polyline points="208 96 240 128 208 160" fill="none" stroke="currentColor" stroke-linecap="round"
+									stroke-linejoin="round" stroke-width="16"></polyline>
+							</svg>
+						</div>
+					</div>
+					<audio id="audioToSwap11" controls="" style="width: 250px;">
+						<source src="./audios/edit_audios/general/Underwater bubbling.wav">
+					</audio>
+					<select id="switch11" onchange="switchImage(this);" default-pos="Source Image">
+						<option value='Underwater bubbling'>Underwater bubbling</option>
+						<option value='Fire crackling'>Fire crackling</option>
+						<option value='Waterfall burbling'>Waterfall burbling</option>
+						<option value='Squishing water'>Squishing water</option>
+						<option value='Thunder'>Thunder</option>
+						<option value='Splashing water'>Splashing water</option>
+						<option value='Forest'>Forest</option>
+						<option value='Snow'>Snow</option>
+						<option value='Rain'>Rain</option>
+					</select>
+				</td>
+			</tr>
+		</tbody>
 	</table>
 
 	<table style="width:100%;text-align:center" border="0">
@@ -1670,177 +1948,11 @@
 		</tr>
 		<tbody>
 			<td align="center" colspan="3">
-				<div id="container8" class="container">
-					<div id="image-container8" class="image-container">
-						<img class="image-before slider-image image-17" src="./v2_images/edit/gh_split_samples/sample_1_base.png" 
-							onload="setAspectRatio(17)">
-						<img id="ghImage0" class="image-after slider-image image-18" src="./v2_images/edit/gh_split_samples/sample_1_plastic_bag.png" 
-							onload="setAspectRatio(18)">
-					</div>
-					<input id="slider8" type="range" min="0" max="100" value="50" aria-label="Percentage of before photo shown"
-						class="slider">
-					<div class="slider-line" aria-hidden="true"></div>
-					<div class="slider-button" aria-hidden="true">
-						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-							viewBox="0 0 256 256">
-							<rect width="256" height="256" fill="none"></rect>
-							<line x1="128" y1="40" x2="128" y2="216" fill="none" stroke="currentColor" stroke-linecap="round"
-								stroke-linejoin="round" stroke-width="16"></line>
-							<line x1="96" y1="128" x2="16" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
-								stroke-linejoin="round" stroke-width="16"></line>
-							<polyline points="48 160 16 128 48 96" fill="none" stroke="currentColor" stroke-linecap="round"
-								stroke-linejoin="round" stroke-width="16"></polyline>
-							<line x1="160" y1="128" x2="240" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
-								stroke-linejoin="round" stroke-width="16"></line>
-							<polyline points="208 96 240 128 208 160" fill="none" stroke="currentColor" stroke-linecap="round"
-								stroke-linejoin="round" stroke-width="16"></polyline>
-						</svg>
-					</div>
-				</div>
-				<audio id="ghAudio0" controls="" style="width: 250px;">
-					<source src="./audios/edit_audios/gh/Plastic.wav">
-				</audio>
-				<select id="gh0" onchange="switchGhEdit(this);" default-pos="0">
-					<option value='Plastic bag'>Plastic bag</option>
-					<option value='Metal'>Metal</option>
-					<option value='Rock'>Rock</option>
-					<option value='Gravel'>Gravel</option>
-					<option value='Grass'>Grass</option>
-					<option value='Cloth'>Cloth</option>
-					<option value='Water'>Water</option>
-				</select>
-			</td>
-			<td align="center" colspan="3">
-				<div id="container9" class="container">
-					<div id="image-container9" class="image-container">
-						<img class="image-before slider-image image-19" src="./v2_images/edit/gh_split_samples/sample_2_base.png" 
-							onload="setAspectRatio(19)">
-						<img id="ghImage1" class="image-after slider-image image-20" src="./v2_images/edit/gh_split_samples/sample_2_plastic_bag.png" 
-							onload="setAspectRatio(20)">
-					</div>
-					<input id="slider9" type="range" min="0" max="100" value="50" aria-label="Percentage of before photo shown"
-						class="slider">
-					<div class="slider-line" aria-hidden="true"></div>
-					<div class="slider-button" aria-hidden="true">
-						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-							viewBox="0 0 256 256">
-							<rect width="256" height="256" fill="none"></rect>
-							<line x1="128" y1="40" x2="128" y2="216" fill="none" stroke="currentColor" stroke-linecap="round"
-								stroke-linejoin="round" stroke-width="16"></line>
-							<line x1="96" y1="128" x2="16" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
-								stroke-linejoin="round" stroke-width="16"></line>
-							<polyline points="48 160 16 128 48 96" fill="none" stroke="currentColor" stroke-linecap="round"
-								stroke-linejoin="round" stroke-width="16"></polyline>
-							<line x1="160" y1="128" x2="240" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
-								stroke-linejoin="round" stroke-width="16"></line>
-							<polyline points="208 96 240 128 208 160" fill="none" stroke="currentColor" stroke-linecap="round"
-								stroke-linejoin="round" stroke-width="16"></polyline>
-						</svg>
-					</div>
-				</div>
-				<audio id="ghAudio1" controls="" style="width: 250px;">
-					<source src="./audios/edit_audios/gh/Plastic.wav">
-				</audio>
-				<select id="gh1" onchange="switchGhEdit(this);" default-pos="0">
-					<option value='Plastic bag'>Plastic bag</option>
-					<option value='Metal'>Metal</option>
-					<option value='Rock'>Rock</option>
-					<option value='Gravel'>Gravel</option>
-					<option value='Grass'>Grass</option>
-					<option value='Cloth'>Cloth</option>
-					<option value='Water'>Water</option>
-				</select>
-			</td>
-			<td align="center" colspan="3">
-				<div id="container10" class="container">
-					<div id="image-container10" class="image-container">
-						<img class="image-before slider-image image-21" src="./v2_images/edit/gh_split_samples/sample_3_base.png" 
-							onload="setAspectRatio(21)">
-						<img id="ghImage2" class="image-after slider-image image-22" src="./v2_images/edit/gh_split_samples/sample_3_plastic_bag.png" 
-							onload="setAspectRatio(22)">
-					</div>
-					<input id="slider10" type="range" min="0" max="100" value="50" aria-label="Percentage of before photo shown"
-						class="slider">
-					<div class="slider-line" aria-hidden="true"></div>
-					<div class="slider-button" aria-hidden="true">
-						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-							viewBox="0 0 256 256">
-							<rect width="256" height="256" fill="none"></rect>
-							<line x1="128" y1="40" x2="128" y2="216" fill="none" stroke="currentColor" stroke-linecap="round"
-								stroke-linejoin="round" stroke-width="16"></line>
-							<line x1="96" y1="128" x2="16" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
-								stroke-linejoin="round" stroke-width="16"></line>
-							<polyline points="48 160 16 128 48 96" fill="none" stroke="currentColor" stroke-linecap="round"
-								stroke-linejoin="round" stroke-width="16"></polyline>
-							<line x1="160" y1="128" x2="240" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
-								stroke-linejoin="round" stroke-width="16"></line>
-							<polyline points="208 96 240 128 208 160" fill="none" stroke="currentColor" stroke-linecap="round"
-								stroke-linejoin="round" stroke-width="16"></polyline>
-						</svg>
-					</div>
-				</div>
-				<audio id="ghAudio2" controls="" style="width: 250px;">
-					<source src="./audios/edit_audios/gh/Plastic.wav">
-				</audio>
-				<select id="gh2" onchange="switchGhEdit(this);" default-pos="0">
-					<option value='Plastic bag'>Plastic bag</option>
-					<option value='Metal'>Metal</option>
-					<option value='Rock'>Rock</option>
-					<option value='Gravel'>Gravel</option>
-					<option value='Grass'>Grass</option>
-					<option value='Cloth'>Cloth</option>
-					<option value='Water'>Water</option>
-				</select>
-			</td>
-			<td align="center" colspan="3">
-				<div id="container11" class="container">
-					<div id="image-container11" class="image-container">
-						<img class="image-before slider-image image-23" src="./v2_images/edit/gh_split_samples/sample_4_base.png" 
-							onload="setAspectRatio(23)">
-						<img id="ghImage3" class="image-after slider-image image-24" src="./v2_images/edit/gh_split_samples/sample_4_plastic_bag.png" 
-							onload="setAspectRatio(24)">
-					</div>
-					<input id="slider11" type="range" min="0" max="100" value="50" aria-label="Percentage of before photo shown"
-						class="slider">
-					<div class="slider-line" aria-hidden="true"></div>
-					<div class="slider-button" aria-hidden="true">
-						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-							viewBox="0 0 256 256">
-							<rect width="256" height="256" fill="none"></rect>
-							<line x1="128" y1="40" x2="128" y2="216" fill="none" stroke="currentColor" stroke-linecap="round"
-								stroke-linejoin="round" stroke-width="16"></line>
-							<line x1="96" y1="128" x2="16" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
-								stroke-linejoin="round" stroke-width="16"></line>
-							<polyline points="48 160 16 128 48 96" fill="none" stroke="currentColor" stroke-linecap="round"
-								stroke-linejoin="round" stroke-width="16"></polyline>
-							<line x1="160" y1="128" x2="240" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
-								stroke-linejoin="round" stroke-width="16"></line>
-							<polyline points="208 96 240 128 208 160" fill="none" stroke="currentColor" stroke-linecap="round"
-								stroke-linejoin="round" stroke-width="16"></polyline>
-						</svg>
-					</div>
-				</div>
-				<audio id="ghAudio3" controls="" style="width: 250px;">
-					<source src="./audios/edit_audios/gh/Plastic.wav">
-				</audio>
-				<select id="gh3" onchange="switchGhEdit(this);" default-pos="0">
-					<option value='Plastic bag'>Plastic bag</option>
-					<option value='Metal'>Metal</option>
-					<option value='Rock'>Rock</option>
-					<option value='Gravel'>Gravel</option>
-					<option value='Grass'>Grass</option>
-					<option value='Cloth'>Cloth</option>
-					<option value='Water'>Water</option>
-				</select>
-			</td>
-		</tbody>
-		<tbody>
-			<td align="center" colspan="3">
 				<div id="container12" class="container">
 					<div id="image-container12" class="image-container">
-						<img class="image-before slider-image image-25" src="./v2_images/edit/gh_split_samples/sample_5_base.png" 
+						<img class="image-before slider-image image-25" src="../images/edit_figures/gh/0/Source Image.png" 
 							onload="setAspectRatio(25)">
-						<img id="ghImage4" class="image-after slider-image image-26" src="./v2_images/edit/gh_split_samples/sample_5_plastic_bag.png" 
+						<img id="ghImage0" class="image-after slider-image image-26" src="../images/edit_figures/gh/0/Tile.png" 
 							onload="setAspectRatio(26)">
 					</div>
 					<input id="slider12" type="range" min="0" max="100" value="50" aria-label="Percentage of before photo shown"
@@ -1863,25 +1975,28 @@
 						</svg>
 					</div>
 				</div>
-				<audio id="ghAudio4" controls="" style="width: 250px;">
-					<source src="./audios/edit_audios/gh/Plastic.wav">
+				<audio id="ghAudio0" controls="" style="width: 250px;">
+					<source src="./audios/edit_audios/gh/Tile.wav">
 				</audio>
-				<select id="gh4" onchange="switchGhEdit(this);" default-pos="0">
-					<option value='Plastic bag'>Plastic bag</option>
-					<option value='Metal'>Metal</option>
-					<option value='Rock'>Rock</option>
-					<option value='Gravel'>Gravel</option>
-					<option value='Grass'>Grass</option>
-					<option value='Cloth'>Cloth</option>
+				<select id="gh0" onchange="switchImage3(this);" default-pos="Source Image">
+					<option value='Tile'>Tile</option>
+					<option value='Dirt'>Dirt</option>
 					<option value='Water'>Water</option>
+					<option value='Paper'>Paper</option>
+					<option value='Wood'>Wood</option>
+					<option value='Rock'>Rock</option>
+					<option value='Plastic'>Plastic</option>
+					<option value='Cloth'>Cloth</option>
+					<option value='Leaf'>Leaf</option>
+					<option value='Metal'>Metal</option>
 				</select>
 			</td>
 			<td align="center" colspan="3">
 				<div id="container13" class="container">
 					<div id="image-container13" class="image-container">
-						<img class="image-before slider-image image-27" src="./v2_images/edit/gh_split_samples/sample_6_base.png" 
+						<img class="image-before slider-image image-27" src="../images/edit_figures/gh/1/Source Image.png" 
 							onload="setAspectRatio(27)">
-						<img id="ghImage5" class="image-after slider-image image-28" src="./v2_images/edit/gh_split_samples/sample_6_plastic_bag.png" 
+						<img id="ghImage1" class="image-after slider-image image-28" src="../images/edit_figures/gh/1/Tile.png" 
 							onload="setAspectRatio(28)">
 					</div>
 					<input id="slider13" type="range" min="0" max="100" value="50" aria-label="Percentage of before photo shown"
@@ -1904,25 +2019,28 @@
 						</svg>
 					</div>
 				</div>
-				<audio id="ghAudio5" controls="" style="width: 250px;">
-					<source src="./audios/edit_audios/gh/Plastic.wav">
+				<audio id="ghAudio1" controls="" style="width: 250px;">
+					<source src="./audios/edit_audios/gh/Tile.wav">
 				</audio>
-				<select id="gh5" onchange="switchGhEdit(this);" default-pos="0">
-					<option value='Plastic bag'>Plastic bag</option>
-					<option value='Metal'>Metal</option>
-					<option value='Rock'>Rock</option>
-					<option value='Gravel'>Gravel</option>
-					<option value='Grass'>Grass</option>
-					<option value='Cloth'>Cloth</option>
+				<select id="gh1" onchange="switchImage3(this);" default-pos="Source Image">
+					<option value='Tile'>Tile</option>
+					<option value='Dirt'>Dirt</option>
 					<option value='Water'>Water</option>
+					<option value='Paper'>Paper</option>
+					<option value='Wood'>Wood</option>
+					<option value='Rock'>Rock</option>
+					<option value='Plastic'>Plastic</option>
+					<option value='Cloth'>Cloth</option>
+					<option value='Leaf'>Leaf</option>
+					<option value='Metal'>Metal</option>
 				</select>
 			</td>
 			<td align="center" colspan="3">
 				<div id="container14" class="container">
 					<div id="image-container14" class="image-container">
-						<img class="image-before slider-image image-29" src="./v2_images/edit/gh_split_samples/sample_7_base.png" 
+						<img class="image-before slider-image image-29" src="../images/edit_figures/gh/2/Source Image.png" 
 							onload="setAspectRatio(29)">
-						<img id="ghImage6" class="image-after slider-image image-30" src="./v2_images/edit/gh_split_samples/sample_7_plastic_bag.png" 
+						<img id="ghImage2" class="image-after slider-image image-30" src="../images/edit_figures/gh/2/Tile.png" 
 							onload="setAspectRatio(30)">
 					</div>
 					<input id="slider14" type="range" min="0" max="100" value="50" aria-label="Percentage of before photo shown"
@@ -1945,20 +2063,422 @@
 						</svg>
 					</div>
 				</div>
-				<audio id="ghAudio6" controls="" style="width: 250px;">
-					<source src="./audios/edit_audios/gh/Plastic.wav">
+				<audio id="ghAudio2" controls="" style="width: 250px;">
+					<source src="./audios/edit_audios/gh/Tile.wav">
 				</audio>
-				<select id="gh6" onchange="switchGhEdit(this);" default-pos="0">
-					<option value='Plastic bag'>Plastic bag</option>
-					<option value='Metal'>Metal</option>
-					<option value='Rock'>Rock</option>
-					<option value='Gravel'>Gravel</option>
-					<option value='Grass'>Grass</option>
-					<option value='Cloth'>Cloth</option>
+				<select id="gh2" onchange="switchImage3(this);" default-pos="Source Image">
+					<option value='Tile'>Tile</option>
+					<option value='Dirt'>Dirt</option>
 					<option value='Water'>Water</option>
+					<option value='Paper'>Paper</option>
+					<option value='Wood'>Wood</option>
+					<option value='Rock'>Rock</option>
+					<option value='Plastic'>Plastic</option>
+					<option value='Cloth'>Cloth</option>
+					<option value='Leaf'>Leaf</option>
+					<option value='Metal'>Metal</option>
 				</select>
 			</td>
-			<td align="center" colspan="3"></td>
+			<td align="center" colspan="3">
+				<div id="container15" class="container">
+					<div id="image-container15" class="image-container">
+						<img class="image-before slider-image image-31" src="../images/edit_figures/gh/3/Source Image.png" 
+							onload="setAspectRatio(31)">
+						<img id="ghImage3" class="image-after slider-image image-32" src="../images/edit_figures/gh/3/Tile.png" 
+							onload="setAspectRatio(32)">
+					</div>
+					<input id="slider15" type="range" min="0" max="100" value="50" aria-label="Percentage of before photo shown"
+						class="slider">
+					<div class="slider-line" aria-hidden="true"></div>
+					<div class="slider-button" aria-hidden="true">
+						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+							viewBox="0 0 256 256">
+							<rect width="256" height="256" fill="none"></rect>
+							<line x1="128" y1="40" x2="128" y2="216" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></line>
+							<line x1="96" y1="128" x2="16" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></line>
+							<polyline points="48 160 16 128 48 96" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></polyline>
+							<line x1="160" y1="128" x2="240" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></line>
+							<polyline points="208 96 240 128 208 160" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></polyline>
+						</svg>
+					</div>
+				</div>
+				<audio id="ghAudio3" controls="" style="width: 250px;">
+					<source src="./audios/edit_audios/gh/Tile.wav">
+				</audio>
+				<select id="gh3" onchange="switchImage3(this);" default-pos="Source Image">
+					<option value='Tile'>Tile</option>
+					<option value='Dirt'>Dirt</option>
+					<option value='Water'>Water</option>
+					<option value='Paper'>Paper</option>
+					<option value='Wood'>Wood</option>
+					<option value='Rock'>Rock</option>
+					<option value='Plastic'>Plastic</option>
+					<option value='Cloth'>Cloth</option>
+					<option value='Leaf'>Leaf</option>
+					<option value='Metal'>Metal</option>
+				</select>
+			</td>
+		</tbody>
+		<tbody>
+			<td align="center" colspan="3">
+				<div id="container16" class="container">
+					<div id="image-container16" class="image-container">
+						<img class="image-before slider-image image-33" src="../images/edit_figures/gh/4/Source Image.png" 
+							onload="setAspectRatio(33)">
+						<img id="ghImage4" class="image-after slider-image image-34" src="../images/edit_figures/gh/4/Tile.png" 
+							onload="setAspectRatio(34)">
+					</div>
+					<input id="slider16" type="range" min="0" max="100" value="50" aria-label="Percentage of before photo shown"
+						class="slider">
+					<div class="slider-line" aria-hidden="true"></div>
+					<div class="slider-button" aria-hidden="true">
+						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+							viewBox="0 0 256 256">
+							<rect width="256" height="256" fill="none"></rect>
+							<line x1="128" y1="40" x2="128" y2="216" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></line>
+							<line x1="96" y1="128" x2="16" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></line>
+							<polyline points="48 160 16 128 48 96" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></polyline>
+							<line x1="160" y1="128" x2="240" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></line>
+							<polyline points="208 96 240 128 208 160" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></polyline>
+						</svg>
+					</div>
+				</div>
+				<audio id="ghAudio4" controls="" style="width: 250px;">
+					<source src="./audios/edit_audios/gh/Tile.wav">
+				</audio>
+				<select id="gh4" onchange="switchImage3(this);" default-pos="Source Image">
+					<option value='Tile'>Tile</option>
+					<option value='Dirt'>Dirt</option>
+					<option value='Water'>Water</option>
+					<option value='Paper'>Paper</option>
+					<option value='Wood'>Wood</option>
+					<option value='Rock'>Rock</option>
+					<option value='Plastic'>Plastic</option>
+					<option value='Cloth'>Cloth</option>
+					<option value='Leaf'>Leaf</option>
+					<option value='Metal'>Metal</option>
+				</select>
+			</td>
+			<td align="center" colspan="3">
+				<div id="container17" class="container">
+					<div id="image-container17" class="image-container">
+						<img class="image-before slider-image image-35" src="../images/edit_figures/gh/5/Source Image.png" 
+							onload="setAspectRatio(35)">
+						<img id="ghImage5" class="image-after slider-image image-36" src="../images/edit_figures/gh/5/Tile.png" 
+							onload="setAspectRatio(36)">
+					</div>
+					<input id="slider17" type="range" min="0" max="100" value="50" aria-label="Percentage of before photo shown"
+						class="slider">
+					<div class="slider-line" aria-hidden="true"></div>
+					<div class="slider-button" aria-hidden="true">
+						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+							viewBox="0 0 256 256">
+							<rect width="256" height="256" fill="none"></rect>
+							<line x1="128" y1="40" x2="128" y2="216" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></line>
+							<line x1="96" y1="128" x2="16" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></line>
+							<polyline points="48 160 16 128 48 96" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></polyline>
+							<line x1="160" y1="128" x2="240" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></line>
+							<polyline points="208 96 240 128 208 160" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></polyline>
+						</svg>
+					</div>
+				</div>
+				<audio id="ghAudio5" controls="" style="width: 250px;">
+					<source src="./audios/edit_audios/gh/Tile.wav">
+				</audio>
+				<select id="gh5" onchange="switchImage3(this);" default-pos="Source Image">
+					<option value='Tile'>Tile</option>
+					<option value='Dirt'>Dirt</option>
+					<option value='Water'>Water</option>
+					<option value='Paper'>Paper</option>
+					<option value='Wood'>Wood</option>
+					<option value='Rock'>Rock</option>
+					<option value='Plastic'>Plastic</option>
+					<option value='Cloth'>Cloth</option>
+					<option value='Leaf'>Leaf</option>
+					<option value='Metal'>Metal</option>
+				</select>
+			</td>
+			<td align="center" colspan="3">
+				<div id="container18" class="container">
+					<div id="image-container18" class="image-container">
+						<img class="image-before slider-image image-37" src="../images/edit_figures/gh/6/Source Image.png" 
+							onload="setAspectRatio(37)">
+						<img id="ghImage6" class="image-after slider-image image-38" src="../images/edit_figures/gh/6/Tile.png" 
+							onload="setAspectRatio(38)">
+					</div>
+					<input id="slider18" type="range" min="0" max="100" value="50" aria-label="Percentage of before photo shown"
+						class="slider">
+					<div class="slider-line" aria-hidden="true"></div>
+					<div class="slider-button" aria-hidden="true">
+						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+							viewBox="0 0 256 256">
+							<rect width="256" height="256" fill="none"></rect>
+							<line x1="128" y1="40" x2="128" y2="216" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></line>
+							<line x1="96" y1="128" x2="16" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></line>
+							<polyline points="48 160 16 128 48 96" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></polyline>
+							<line x1="160" y1="128" x2="240" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></line>
+							<polyline points="208 96 240 128 208 160" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></polyline>
+						</svg>
+					</div>
+				</div>
+				<audio id="ghAudio6" controls="" style="width: 250px;">
+					<source src="./audios/edit_audios/gh/Tile.wav">
+				</audio>
+				<select id="gh6" onchange="switchImage3(this);" default-pos="Source Image">
+					<option value='Tile'>Tile</option>
+					<option value='Dirt'>Dirt</option>
+					<option value='Water'>Water</option>
+					<option value='Paper'>Paper</option>
+					<option value='Wood'>Wood</option>
+					<option value='Rock'>Rock</option>
+					<option value='Plastic'>Plastic</option>
+					<option value='Cloth'>Cloth</option>
+					<option value='Leaf'>Leaf</option>
+					<option value='Metal'>Metal</option>
+				</select>
+			</td>
+			<td align="center" colspan="3">
+				<div id="container19" class="container">
+					<div id="image-container19" class="image-container">
+						<img class="image-before slider-image image-39" src="../images/edit_figures/gh/7/Source Image.png" 
+							onload="setAspectRatio(39)">
+						<img id="ghImage7" class="image-after slider-image image-40" src="../images/edit_figures/gh/7/Tile.png" 
+							onload="setAspectRatio(40)">
+					</div>
+					<input id="slider19" type="range" min="0" max="100" value="50" aria-label="Percentage of before photo shown"
+						class="slider">
+					<div class="slider-line" aria-hidden="true"></div>
+					<div class="slider-button" aria-hidden="true">
+						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+							viewBox="0 0 256 256">
+							<rect width="256" height="256" fill="none"></rect>
+							<line x1="128" y1="40" x2="128" y2="216" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></line>
+							<line x1="96" y1="128" x2="16" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></line>
+							<polyline points="48 160 16 128 48 96" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></polyline>
+							<line x1="160" y1="128" x2="240" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></line>
+							<polyline points="208 96 240 128 208 160" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></polyline>
+						</svg>
+					</div>
+				</div>
+				<audio id="ghAudio7" controls="" style="width: 250px;">
+					<source src="./audios/edit_audios/gh/Tile.wav">
+				</audio>
+				<select id="gh7" onchange="switchImage3(this);" default-pos="Source Image">
+					<option value='Tile'>Tile</option>
+					<option value='Dirt'>Dirt</option>
+					<option value='Water'>Water</option>
+					<option value='Paper'>Paper</option>
+					<option value='Wood'>Wood</option>
+					<option value='Rock'>Rock</option>
+					<option value='Plastic'>Plastic</option>
+					<option value='Cloth'>Cloth</option>
+					<option value='Leaf'>Leaf</option>
+					<option value='Metal'>Metal</option>
+				</select>
+			</td>
+		</tbody>
+		<tbody>
+			<td align="center" colspan="3">
+				<div id="container20" class="container">
+					<div id="image-container20" class="image-container">
+						<img class="image-before slider-image image-41" src="../images/edit_figures/gh/8/Source Image.png" 
+							onload="setAspectRatio(41)">
+						<img id="ghImage8" class="image-after slider-image image-42" src="../images/edit_figures/gh/8/Tile.png" 
+							onload="setAspectRatio(42)">
+					</div>
+					<input id="slider20" type="range" min="0" max="100" value="50" aria-label="Percentage of before photo shown"
+						class="slider">
+					<div class="slider-line" aria-hidden="true"></div>
+					<div class="slider-button" aria-hidden="true">
+						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+							viewBox="0 0 256 256">
+							<rect width="256" height="256" fill="none"></rect>
+							<line x1="128" y1="40" x2="128" y2="216" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></line>
+							<line x1="96" y1="128" x2="16" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></line>
+							<polyline points="48 160 16 128 48 96" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></polyline>
+							<line x1="160" y1="128" x2="240" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></line>
+							<polyline points="208 96 240 128 208 160" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></polyline>
+						</svg>
+					</div>
+				</div>
+				<audio id="ghAudio8" controls="" style="width: 250px;">
+					<source src="./audios/edit_audios/gh/Tile.wav">
+				</audio>
+				<select id="gh8" onchange="switchImage3(this);" default-pos="Source Image">
+					<option value='Tile'>Tile</option>
+					<option value='Dirt'>Dirt</option>
+					<option value='Water'>Water</option>
+					<option value='Paper'>Paper</option>
+					<option value='Wood'>Wood</option>
+					<option value='Rock'>Rock</option>
+					<option value='Plastic'>Plastic</option>
+					<option value='Cloth'>Cloth</option>
+					<option value='Leaf'>Leaf</option>
+					<option value='Metal'>Metal</option>
+				</select>
+			</td>
+			<td align="center" colspan="3">
+				<div id="container21" class="container">
+					<div id="image-container21" class="image-container">
+						<img class="image-before slider-image image-43" src="../images/edit_figures/gh/9/Source Image.png" 
+							onload="setAspectRatio(43)">
+						<img id="ghImage9" class="image-after slider-image image-44" src="../images/edit_figures/gh/9/Tile.png" 
+							onload="setAspectRatio(44)">
+					</div>
+					<input id="slider21" type="range" min="0" max="100" value="50" aria-label="Percentage of before photo shown"
+						class="slider">
+					<div class="slider-line" aria-hidden="true"></div>
+					<div class="slider-button" aria-hidden="true">
+						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+							viewBox="0 0 256 256">
+							<rect width="256" height="256" fill="none"></rect>
+							<line x1="128" y1="40" x2="128" y2="216" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></line>
+							<line x1="96" y1="128" x2="16" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></line>
+							<polyline points="48 160 16 128 48 96" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></polyline>
+							<line x1="160" y1="128" x2="240" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></line>
+							<polyline points="208 96 240 128 208 160" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></polyline>
+						</svg>
+					</div>
+				</div>
+				<audio id="ghAudio9" controls="" style="width: 250px;">
+					<source src="./audios/edit_audios/gh/Tile.wav">
+				</audio>
+				<select id="gh9" onchange="switchImage3(this);" default-pos="Source Image">
+					<option value='Tile'>Tile</option>
+					<option value='Dirt'>Dirt</option>
+					<option value='Water'>Water</option>
+					<option value='Paper'>Paper</option>
+					<option value='Wood'>Wood</option>
+					<option value='Rock'>Rock</option>
+					<option value='Plastic'>Plastic</option>
+					<option value='Cloth'>Cloth</option>
+					<option value='Leaf'>Leaf</option>
+					<option value='Metal'>Metal</option>
+				</select>
+			</td>
+			<td align="center" colspan="3">
+				<div id="container22" class="container">
+					<div id="image-container22" class="image-container">
+						<img class="image-before slider-image image-45" src="../images/edit_figures/gh/10/Source Image.png" 
+							onload="setAspectRatio(45)">
+						<img id="ghImage10" class="image-after slider-image image-46" src="../images/edit_figures/gh/10/Tile.png" 
+							onload="setAspectRatio(46)">
+					</div>
+					<input id="slider22" type="range" min="0" max="100" value="50" aria-label="Percentage of before photo shown"
+						class="slider">
+					<div class="slider-line" aria-hidden="true"></div>
+					<div class="slider-button" aria-hidden="true">
+						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+							viewBox="0 0 256 256">
+							<rect width="256" height="256" fill="none"></rect>
+							<line x1="128" y1="40" x2="128" y2="216" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></line>
+							<line x1="96" y1="128" x2="16" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></line>
+							<polyline points="48 160 16 128 48 96" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></polyline>
+							<line x1="160" y1="128" x2="240" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></line>
+							<polyline points="208 96 240 128 208 160" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></polyline>
+						</svg>
+					</div>
+				</div>
+				<audio id="ghAudio10" controls="" style="width: 250px;">
+					<source src="./audios/edit_audios/gh/Tile.wav">
+				</audio>
+				<select id="gh10" onchange="switchImage3(this);" default-pos="Source Image">
+					<option value='Tile'>Tile</option>
+					<option value='Dirt'>Dirt</option>
+					<option value='Water'>Water</option>
+					<option value='Paper'>Paper</option>
+					<option value='Wood'>Wood</option>
+					<option value='Rock'>Rock</option>
+					<option value='Plastic'>Plastic</option>
+					<option value='Cloth'>Cloth</option>
+					<option value='Leaf'>Leaf</option>
+					<option value='Metal'>Metal</option>
+				</select>
+			</td>
+			<td align="center" colspan="3">
+				<div id="container23" class="container">
+					<div id="image-container23" class="image-container">
+						<img class="image-before slider-image image-47" src="../images/edit_figures/gh/11/Source Image.png" 
+							onload="setAspectRatio(47)">
+						<img id="ghImage11" class="image-after slider-image image-48" src="../images/edit_figures/gh/11/Tile.png" 
+							onload="setAspectRatio(48)">
+					</div>
+					<input id="slider23" type="range" min="0" max="100" value="50" aria-label="Percentage of before photo shown"
+						class="slider">
+					<div class="slider-line" aria-hidden="true"></div>
+					<div class="slider-button" aria-hidden="true">
+						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+							viewBox="0 0 256 256">
+							<rect width="256" height="256" fill="none"></rect>
+							<line x1="128" y1="40" x2="128" y2="216" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></line>
+							<line x1="96" y1="128" x2="16" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></line>
+							<polyline points="48 160 16 128 48 96" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></polyline>
+							<line x1="160" y1="128" x2="240" y2="128" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></line>
+							<polyline points="208 96 240 128 208 160" fill="none" stroke="currentColor" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="16"></polyline>
+						</svg>
+					</div>
+				</div>
+				<audio id="ghAudio11" controls="" style="width: 250px;">
+					<source src="./audios/edit_audios/gh/Tile.wav">
+				</audio>
+				<select id="gh11" onchange="switchImage3(this);" default-pos="Source Image">
+					<option value='Tile'>Tile</option>
+					<option value='Dirt'>Dirt</option>
+					<option value='Water'>Water</option>
+					<option value='Paper'>Paper</option>
+					<option value='Wood'>Wood</option>
+					<option value='Rock'>Rock</option>
+					<option value='Plastic'>Plastic</option>
+					<option value='Cloth'>Cloth</option>
+					<option value='Leaf'>Leaf</option>
+					<option value='Metal'>Metal</option>
+				</select>
+			</td>
 		</tbody>
 	</table>
 
@@ -1969,7 +2489,7 @@
 					<a id="sound_interpolation"></a>
 					<h2>5. Sound Interpolation</h2>
 					<p justify="align">
-						By the interpolation of the embeddings of two audio clips, <img src="./images/icons/sonic-icon.svg"
+						By the interpolation of the embeddings of two audio clips, <img src="../images/icons/sonic-icon.svg"
 							style="width:20px; height:20px; vertical-align: middle; margin-bottom: 2px;"></img>&nbsp;SonicDiffusion
 						can generate a sequence of images that smoothly interpolates from one image to another. We show some
 						examples below.
@@ -1979,16 +2499,35 @@
 			<tr>
 				<td>
 				<center>
-					<img src="./v2_images/v2_interpolate_cut.png" width="100%"><br>
+					<img src="../images/interpolation-volume1.png" width="100%"><br>
 				</center>
 				<div style="display: inline; float: inline-start">
 					<audio controls="" style="width: 250px; height: 40px">
-						<source src="./audios/gen_audios/ravdess/Happy 4.wav">
+						<source src="./audios/interpolation_audios/0320_11933.wav">
 					</audio>
 				</div>
-				<div style="display: inline; float: inline-end">
+
+				<div style="display: inline; float: inline-end;">
 					<audio controls="" style="width: 250px; height: 40px">
-						<source src="./audios/gen_audios/ravdess/Sad 4.wav">
+						<source src="./audios/interpolation_audios/vu-xeuqXflE011.wav">
+					</audio>
+				</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+				<center>
+					<img src="../images/interpolation-volume2.png" width="100%"><br>
+				</center>
+				<div style="display: inline; float:inline-start">
+					<audio controls="" style="width: 250px; height: 40px">
+						<source src="./audios/interpolation_audios/0320_11933.wav">
+					</audio>
+				</div>
+
+				<div style="display: inline; float:inline-end">
+					<audio controls="" style="width: 250px; height: 40px">
+						<source src="./audios/interpolation_audios/0556_433.wav">
 					</audio>
 				</div>
 				</td>
@@ -2002,7 +2541,7 @@
 					<a id="volume_adjustment"></a>
 					<h2>6. Volume Adjustment </h2>
 					<p justify="align">
-						<img src="./images/icons/sonic-icon.svg"
+						<img src="../images/icons/sonic-icon.svg"
 							style="width:20px; height:20px; vertical-align: middle; margin-bottom: 2px;"></img>&nbsp;SonicDiffusion
 						can generate images according to the intensity of the input volume in the audio clip. We show some
 						examples below.
@@ -2012,17 +2551,38 @@
 			<tr>
 				<td>
 					<center>
-						<img src="./v2_images/1712_v2_main_volume_cut.png" width="100%"><br>
-						<audio controls="" style="width: 250px; height: 40px; margin: 0 auto; display: block;">
-							<source src="./audios/gen_audios/landscape/Snow 3.wav">
-						</audio>
+						<img src="../images/interpolation-volume3.png" width="100%"><br>
 					</center>
+					<div style="display:inline; float:left">
+						<audio controls="" style="width: 250px; height: 40px">
+							<source src="./audios/volume_audios/waterfall_40.wav">
+						</audio>
+					</div>
+					<div style="display:inline; float:right">
+						<audio controls="" style="width: 250px; height: 40px">
+							<source src="./audios/volume_audios/waterfall_5.wav">
+						</audio>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<center>
+						<img src="../images/interpolation-volume4.png" width="100%"><br>
+					</center>
+					<div style="display:inline; float:left">
+						<audio controls="" style="width: 250px; height: 40px">
+							<source src="./audios/volume_audios/snow_40.wav">
+						</audio>
+					</div>
+					<div style="display:inline; float:right">
+						<audio controls="" style="width: 250px; height: 40px">
+							<source src="./audios/volume_audios/snow_5.wav">
+						</audio>
+					</div>
 				</td>
 			</tr>
 	</table>
-	<div style="text-align: center; padding: 20px 16px 32px; color: #666; font-family: 'lucida grande', tahoma, verdana, arial, sans-serif; font-size: 12px;">
-		<strong>Update</strong> (<em>June 2026</em>): We recently upgraded our backbone from U-Net (SD2.1) to DiT (SD3). If you need the old weights, you can still find them on <a class="footer-github-link" href="https://github.com/BurakCanBiner/SonicDiffusion" target="_blank" rel="noopener noreferrer">GitHub</a>.
-	</div>
 	<script>
         function setAspectRatio(imageNumber) {
             const imageElement = document.querySelector(`.image-${imageNumber}`);
@@ -2040,65 +2600,6 @@
 				}
 			}
 		}, true);
-
-		function switchGhEdit(selectObject) {
-			var sample = parseInt(selectObject.id.substring(2), 10) + 1;
-			var idx = sample - 1;
-			var image = document.getElementById('ghImage' + idx);
-			var audio = document.getElementById('ghAudio' + idx);
-			var suffixMap = {
-				'Plastic bag': 'plastic_bag',
-				'Metal': 'metal',
-				'Rock': 'rock',
-				'Gravel': 'gravel',
-				'Grass': 'grass',
-				'Cloth': 'cloth',
-				'Water': 'water'
-			};
-			var audioMap = {
-				'Plastic bag': './audios/edit_audios/gh/Plastic.wav',
-				'Metal': './audios/edit_audios/gh/Metal.wav',
-				'Rock': './audios/edit_audios/gh/Rock.wav',
-				'Gravel': './audios/edit_audios/gh/Dirt.wav',
-				'Grass': './audios/edit_audios/gh/Leaf.wav',
-				'Cloth': './audios/edit_audios/gh/Cloth.wav',
-				'Water': './audios/edit_audios/gh/Water.wav'
-			};
-			var suffix = suffixMap[selectObject.value];
-			image.src = './v2_images/edit/gh_split_samples/sample_' + sample + '_' + suffix + '.png';
-			audio.src = audioMap[selectObject.value];
-		}
-
-		function switchLsEdit(selectObject) {
-			var sample = parseInt(selectObject.id.substring(6), 10) + 1;
-			var image = document.getElementById('imageToSwap' + (sample - 1));
-			var audio = document.getElementById('audioToSwap' + (sample - 1));
-			var suffixMap = {
-				'Underwater bubbling': 'underwater_bubbling',
-				'Fire crackling': 'fire_crackling',
-				'Waterfall burbling': 'waterfall_burbling',
-				'Squishing water': 'squishing_water',
-				'Splashing water': 'splashing_water',
-				'Forest': 'forest',
-				'Snow': 'snow',
-				'Rain': 'rain',
-				'Wind noise': 'wind_noise'
-			};
-			var audioMap = {
-				'Underwater bubbling': './audios/edit_audios/general/Underwater bubbling.wav',
-				'Fire crackling': './audios/edit_audios/general/Fire crackling.wav',
-				'Waterfall burbling': './audios/edit_audios/general/Waterfall burbling.wav',
-				'Squishing water': './audios/edit_audios/general/Squishing water.wav',
-				'Splashing water': './audios/edit_audios/general/Splashing water.wav',
-				'Forest': './audios/edit_audios/general/Forest.wav',
-				'Snow': './audios/edit_audios/general/Snow.wav',
-				'Rain': './audios/edit_audios/general/Rain.wav',
-				'Wind noise': './audios/gen_audios/landscape/Wind 1.wav'
-			};
-			var suffix = suffixMap[selectObject.value];
-			image.src = './v2_images/edit/ls_split_samples/sample_' + sample + '_' + suffix + '.png';
-			audio.src = audioMap[selectObject.value];
-		}
 
 		function switchImage(selectObject) {
 			var id = selectObject.id;
@@ -2166,14 +2667,12 @@
 		}
 		window.onload = fix_selectors_positions;
 
-		for(var i = 0; i < 15; i++) {
+		for(var i = 0; i < 24; i++) {
 			const slider = document.getElementById('slider'+i);
 			const container = document.getElementById('container'+i);
-			if (slider && container) {
-				slider.addEventListener('input', function (e) {
-					container.style.setProperty('--position', e.target.value + '%');
-				});
-			}
+			slider.addEventListener('input', function (e) {
+				container.style.setProperty('--position', e.target.value + '%');
+			});
 		}
         
 	</script>
