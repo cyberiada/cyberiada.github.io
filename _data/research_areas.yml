@@ -1,0 +1,36 @@
+- key: generative-modeling
+  number: "01"
+  title: Generative modeling
+  url: /research/generative-modeling/
+  image: /images/research/diffusion-forward.webp
+  image_width: 520
+  image_height: 184
+  description: Controllable image and video generation, editing, motion planning, and diffusion.
+
+- key: multimodal-reasoning
+  number: "02"
+  title: Multimodal reasoning
+  url: /research/multimodal-reasoning/
+  image: /images/research/vilma-overview.png
+  image_width: 1600
+  image_height: 900
+  description: Grounding, compositional generalization, and evaluation across vision and language.
+
+- key: structured-video
+  number: "03"
+  title: Structured video
+  url: /research/structured-video/
+  image: /images/research/gaussian-video-motion.png
+  image_width: 1687
+  image_height: 615
+  description: Continuous, compact representations for coherent motion, reconstruction, and editing.
+
+- key: spherical-vision
+  number: "04"
+  title: Spherical visual intelligence
+  short_title: Spherical vision
+  url: /research/spherical-vision/
+  image: /images/research/spherical-audio-fixations.png
+  image_width: 1320
+  image_height: 550
+  description: Geometry-aware 360° perception, visual attention, eye tracking, and spatial audio.

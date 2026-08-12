@@ -1,0 +1,34 @@
+- name: Aykut Erdem
+  photo: aerdem.jpg
+  info: Associate Professor
+  role: pi
+  email: aerdem@ku.edu.tr
+  website: "https://aykuterdem.github.io/"
+  scholar: "https://scholar.google.com/citations?user=-xA1_OAAAAAJ&hl=en"
+  orcid: "https://orcid.org/0000-0002-6280-8422"
+  linkedin: ""
+  affiliations:
+    - title: Department of Computer Engineering
+      institution: Koç University, Istanbul, TR
+      dates: 2020 – Present
+      note: co-affiliated with KUIS AI Center
+    - title: Department of Computer Engineering
+      institution: Hacettepe University, Ankara, TR
+      dates: 2011 – 2020
+
+- name: Erkut Erdem
+  photo: eerdem.png
+  info: Associate Professor
+  role: pi
+  email: erkut@cs.hacettepe.edu.tr
+  website: "https://web.cs.hacettepe.edu.tr/~erkut/"
+  scholar: "https://scholar.google.com.tr/citations?user=eALwl74AAAAJ"
+  orcid: "https://orcid.org/0000-0002-6744-8614"
+  linkedin: ""
+  affiliations:
+    - title: Department of Computer Engineering
+      institution: Hacettepe University
+      dates: 2010 – Present
+      note: co-affiliated with KUIS AI Center
+
+

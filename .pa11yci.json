@@ -1,0 +1,25 @@
+{
+  "defaults": {
+    "standard": "WCAG2AA",
+    "timeout": 30000,
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "chromeLaunchConfig": {
+      "args": ["--no-sandbox", "--disable-setuid-sandbox"]
+    }
+  },
+  "urls": [
+    "http://127.0.0.1:4000/",
+    "http://127.0.0.1:4000/team/",
+    "http://127.0.0.1:4000/vacancies",
+    "http://127.0.0.1:4000/publications/",
+    "http://127.0.0.1:4000/research/",
+    "http://127.0.0.1:4000/research/generative-modeling/",
+    "http://127.0.0.1:4000/research/multimodal-reasoning/",
+    "http://127.0.0.1:4000/research/structured-video/",
+    "http://127.0.0.1:4000/research/spherical-vision/",
+    "http://127.0.0.1:4000/allnews.html"
+  ]
+}

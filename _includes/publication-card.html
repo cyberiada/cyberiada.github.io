@@ -1,0 +1,45 @@
+{% assign publication = include.publication %}
+{% assign variant = include.variant | default: "catalog" %}
+{% assign project_url = publication.project %}
+{% if publication.project_slug %}
+  {% assign project_path = publication.project_slug | append: "/" %}
+  {% assign project_url = project_path | prepend: "/" | prepend: site.project_pages_url %}
+{% endif %}
+{% if variant == "catalog" %}
+<article class="pub-card">
+  <div class="pub-img">
+    {% assign publication_image = publication.image | default: "placeholder.png" %}
+    <img src="{{ '/images/pubpic/' | append: publication_image | relative_url }}" alt="Visual overview of {{ publication.title }}" loading="lazy">
+  </div>
+  <div class="pub-text">
+    <div class="pub-title">{{ publication.title }}</div>
+    {% if publication.topic %}<div class="pub-topic">{{ publication.topic | escape }}</div>{% endif %}
+    <div class="pub-authors">{{ publication.authors }}</div>
+    <div class="pub-venue">{{ publication.venue }}</div>
+    {% if publication.description %}<p class="pub-description">{{ publication.description }}</p>{% endif %}
+    {% include publication-links.html publication=publication variant="buttons" %}
+  </div>
+</article>
+{% elsif variant == "featured" %}
+<article class="home-featured-card">
+  <a class="home-featured-card__image" href="{{ project_url | default: publication.arxiv | default: publication.pdf }}" target="_blank" rel="noopener">
+    <img src="{{ '/images/pubpic/' | append: publication.image | relative_url }}" alt="Visual overview of {{ publication.title }}" loading="lazy">
+  </a>
+  <div class="home-featured-card__body">
+    <p class="home-featured-card__venue">{{ publication.venue }}</p>
+    <h3>{{ publication.title }}</h3>
+    <p>{{ publication.description }}</p>
+    {% include publication-links.html publication=publication variant="home-featured-card__links" %}
+  </div>
+</article>
+{% elsif variant == "research" %}
+<article class="research-publication">
+  <img src="{{ '/images/pubpic/' | append: publication.image | relative_url }}" alt="" loading="lazy" width="240" height="150">
+  <div>
+    <p class="research-publication__meta">{{ publication.year }} · {{ publication.venue }}</p>
+    <h3>{{ publication.title }}</h3>
+    <p>{{ publication.description }}</p>
+    {% include publication-links.html publication=publication variant="research-publication__links" %}
+  </div>
+</article>
+{% endif %}

@@ -1,0 +1,10 @@
+{% assign area = include.area %}
+<a class="research-card" href="{{ area.url | relative_url }}">
+  <span class="research-card__number">{{ area.number }}</span>
+  <img src="{{ area.image | relative_url }}" alt="" width="{{ area.image_width }}" height="{{ area.image_height }}"{% unless area.number == "01" or area.number == "02" %} loading="lazy"{% endunless %}>
+  <span class="research-card__body">
+    <strong>{{ area.title }}</strong>
+    <span>{{ area.description }}</span>
+    <span class="research-card__link">Explore this area <span aria-hidden="true">→</span></span>
+  </span>
+</a>

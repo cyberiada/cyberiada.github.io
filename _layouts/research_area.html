@@ -1,0 +1,65 @@
+---
+layout: default
+---
+<article class="research-area">
+  <nav class="research-area__breadcrumb" aria-label="Breadcrumb">
+    <a href="{{ '/research/' | relative_url }}">Research</a>
+    <span aria-hidden="true">/</span>
+    <span>{{ page.short_title | default: page.title }}</span>
+  </nav>
+
+  <header class="research-area__hero">
+    <p class="research-area__eyebrow">Research area</p>
+    <h1>{{ page.title }}</h1>
+    <p class="research-area__lead">{{ page.lead }}</p>
+  </header>
+
+  <figure class="research-area__figure{% if page.figure_contain %} research-area__figure--contain{% endif %}{% if page.figure_kind %} research-area__figure--{{ page.figure_kind }}{% endif %}{% if page.figure_secondary %} research-area__figure--pair{% endif %}">
+    {% if page.figure_secondary %}
+    <div class="research-area__figure-grid">
+      <div class="research-area__figure-panel">
+        <p>{{ page.figure_label }}</p>
+        <img src="{{ page.figure | relative_url }}" alt="{{ page.figure_alt }}" width="{{ page.figure_width }}" height="{{ page.figure_height }}" decoding="async">
+      </div>
+      <div class="research-area__figure-panel">
+        <p>{{ page.figure_secondary_label }}</p>
+        <img src="{{ page.figure_secondary | relative_url }}" alt="{{ page.figure_secondary_alt }}" width="{{ page.figure_secondary_width }}" height="{{ page.figure_secondary_height }}" decoding="async">
+      </div>
+    </div>
+    {% else %}
+    <img src="{{ page.figure | relative_url }}" alt="{{ page.figure_alt }}" width="{{ page.figure_width }}" height="{{ page.figure_height }}" {% unless page.figure_animated %}loading="eager"{% endunless %} decoding="async">
+    {% endif %}
+    <figcaption>{{ page.figure_caption }}{% if page.figure_credit_url %} <a href="{{ page.figure_credit_url }}" rel="noopener">Figure source</a>.{% endif %}</figcaption>
+  </figure>
+
+  <div class="research-area__body">
+    {{ content }}
+  </div>
+
+  {% if page.publication_titles %}
+  <section class="research-area__publications" aria-labelledby="selected-publications">
+    <div class="research-area__section-heading">
+      <p class="research-area__eyebrow">From the lab</p>
+      <h2 id="selected-publications">Selected publications</h2>
+    </div>
+    <div class="research-publication-list">
+      {% for publication_title in page.publication_titles %}
+        {% assign publication = site.data.publist | where: "title", publication_title | first %}
+        {% if publication %}
+        {% include publication-card.html publication=publication variant="research" %}
+        {% endif %}
+      {% endfor %}
+    </div>
+    <a class="research-area__all-publications" href="{{ '/publications/' | relative_url }}">Browse all publications <span aria-hidden="true">→</span></a>
+  </section>
+  {% endif %}
+
+  <nav class="research-area__next" aria-label="Research areas">
+    <p>Explore another direction</p>
+    <div>
+      {% for area in site.data.research_areas %}
+      <a href="{{ area.url | relative_url }}">{{ area.short_title | default: area.title }}</a>
+      {% endfor %}
+    </div>
+  </nav>
+</article>

@@ -1,0 +1,12 @@
+{
+  "name": "cyberiad-lab-website",
+  "private": true,
+  "scripts": {
+    "check:html": "html-validate '_site/**/*.html'",
+    "check:accessibility": "pa11y-ci --config .pa11yci.json"
+  },
+  "devDependencies": {
+    "html-validate": "11.6.2",
+    "pa11y-ci": "4.1.1"
+  }
+}
