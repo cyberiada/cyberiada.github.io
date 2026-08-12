@@ -1,0 +1,51 @@
+- date: "Mar<br>2026"
+  headline: "[LAMP](https://cyberiada.github.io/LAMP/), our language-assisted motion planning framework for controllable video generation, was accepted to CVPR 2026."
+
+- date: "Jan<br>2026"
+  headline: We received an NVIDIA Academic Grant to support our research in generative and multimodal visual intelligence.
+
+- date: "Aug<br>2025"
+  headline: "Our work on spherical vision transformers for audio-visual saliency prediction in 360-degree videos was accepted for publication in IEEE TPAMI."
+
+- date: "Jan<br>2025"
+  headline: "We released [GaussianVideo](https://arxiv.org/abs/2501.04782), an efficient video representation based on hierarchical Gaussian splatting."
+
+- date: "Nov<br>2024"
+  headline: Awarded funding from TUBITAK 2247-A National Outstanding Researchers Program on generative AI approaches to visual data generation.
+
+- date: "Sep<br>2024"
+  headline: Our work on diffusion-based object removal from images accepted to NeurIPS 2024 as a poster presentation.
+
+- date: "Sep<br>2024"
+  headline: Our work on a GAN-based unified framework for domain adaptation, image synthesis and manipulation accepted to SIGGRAPH Asia 2024.
+
+- date: "Mar<br>2024"
+  headline: Our work on sequential compositional generalization in multimodal models accepted to NAACL 2024 as an oral presentation.
+
+- date: "Jan<br>2024"
+  headline: Our work on evaluating zero-shot linguistic and temporal understanding capabilities of video-language models accepted to ICLR 2024.
+
+- date: "Aug<br>2023"
+  headline: Our work on 360-degree video saliency prediction accepted to BMVC 2023.
+
+- date: "Jul<br>2023"
+  headline: >-
+    Our paper on video editing is accepted to [ICCV 2023](https://openaccess.thecvf.com/content/ICCV2023/html/Ali_VidStyleODE_Disentangled_Video_Editing_via_StyleGAN_and_NeuralODEs_ICCV_2023_paper.html): *VidStyleODE: Disentangled Video Editing via StyleGAN and NeuralODEs*. Read more about our paper at our [project website](https://cyberiada.github.io/VidStyleODE/).
+
+- date: "Jul<br>2023"
+  headline: Our work on StyleGAN and CLIP-based text-guided image manipulation has been accepted for publication in ACM Transactions on Graphics. We will be presenting our work at SIGGRAPH Asia 2023 at Sydney.
+
+- date: "Jun<br>2023"
+  headline: I received a gift fund from [Adobe Research](https://research.adobe.com/) to work on text-guided image synthesis and editing. I will be collaborating with Duygu Ceylan of Adobe Research and Erkut Erdem in this exciting project. Thanks Adobe!
+
+- date: "May<br>2023"
+  headline: We are organizing the first [Workshop on Multimodal, Multilingual NLG (MM-NLG)](https://synalp.gitlabpages.inria.fr/mmnlg2023/) at INLG/SIGDial 2023 in September 2023.
+
+- date: "Apr<br>2023"
+  headline: "[BIG-bench](https://arxiv.org/abs/2206.04615) paper has been accepted for publication in Transactions on Machine Learning Research."
+
+- date: "Feb<br>2022"
+  headline: Our work on omnidirectional image quality assessment got accepted to ICASSP 2023.
+
+- date: "Nov<br>2022"
+  headline: We ranked 2nd in the euphemism detection shared task organized by the Figurative Language Processing workshop at EMNLP 2022.

@@ -1,0 +1,58 @@
+---
+layout: default
+---
+<div id="team-page" class="col-sm-12">
+  <section id="principal-investigators" class="team-section">
+    <h2 class="team-section__title team-section__title--pi">Principal investigators</h2>
+    <div class="team-grid team-grid--pi">
+      {% for member in site.data.team_members %}
+        {% if member.role == "pi" %}{% include member-card.html member=member variant="pi" %}{% endif %}
+      {% endfor %}
+    </div>
+  </section>
+
+  <section id="phd-students" class="team-section">
+    <h2 class="team-section__title">PhD students</h2>
+    <div class="team-grid team-grid--member">
+      {% for member in site.data.students %}
+        {% if member.role == "phd" %}{% include member-card.html member=member %}{% endif %}
+      {% endfor %}
+    </div>
+  </section>
+
+  <hr class="team-divider">
+
+  <section id="msc-students" class="team-section">
+    <h2 class="team-section__title">MSc students</h2>
+    <div class="team-grid team-grid--member">
+      {% for member in site.data.students %}
+        {% if member.role == "msc" %}{% include member-card.html member=member %}{% endif %}
+      {% endfor %}
+    </div>
+  </section>
+
+  <hr class="team-divider">
+
+  <section id="alumni" class="team-section">
+    <h2 class="team-section__title">Alumni</h2>
+    <p class="team-section__subtitle">Former PhD and MSc students supervised by the Cyberiad Lab principal investigators.</p>
+    <div class="alumni-directory">
+      {% assign alumni_degrees = "PhD,MSc" | split: "," %}
+      {% for degree in alumni_degrees %}
+      <section aria-labelledby="{{ degree | downcase }}-alumni-title">
+        <h3 id="{{ degree | downcase }}-alumni-title" class="alumni-list__heading">{{ degree }} alumni</h3>
+        <ul class="alumni-list__grid">
+          {% for alumnus in site.data.alumni %}
+            {% if alumnus.degree == degree %}
+            <li class="alumni-list__item">
+              <a href="{{ alumnus.url }}" target="_blank" rel="noopener">{{ alumnus.name }}</a>
+              <span>{{ alumnus.degree }} · {{ alumnus.year }}</span>
+            </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </section>
+      {% endfor %}
+    </div>
+  </section>
+</div>

@@ -1,0 +1,360 @@
+- title: "LAMP: Language-Assisted Motion Planning for Controllable Video Generation"
+  image: lamp.png
+  description: We introduce an LLM-driven motion planner that translates natural-language descriptions into explicit 3D object and camera trajectories for controllable video generation.
+  authors: Muhammed Burak Kizil, Enes Sanli, Niloy J. Mitra, Erkut Erdem, Aykut Erdem, Duygu Ceylan
+  venue: "CVPR (2026)"
+  year: 2026
+  topic: "Generative Visual Media"
+  arxiv: https://arxiv.org/abs/2512.03619
+  project_slug: LAMP
+  code: https://github.com/mbkizil/LAMP/
+  highlight: 1
+
+- title: "Spherical Vision Transformers for Audio-Visual Saliency Prediction in 360-Degree Videos"
+  image: spherical-vision.png
+  description: We introduce the YT360-EyeTracking dataset and spherical geometry-aware vision transformers that combine visual and spatial-audio cues for saliency prediction in 360-degree video.
+  authors: Mert Cokelek, Halit Ozsoy, Nevrez Imamoglu, Cagri Ozcinar, Inci Ayhan, Erkut Erdem, Aykut Erdem
+  venue: "IEEE Transactions on Pattern Analysis and Machine Intelligence (2025)"
+  year: 2025
+  topic: "Visual Perception"
+  arxiv: https://arxiv.org/abs/2508.20221
+  project_slug: SalViT360-AV
+  highlight: 1
+
+- title: "GaussianVideo: Efficient Video Representation via Hierarchical Gaussian Splatting"
+  image: gaussian-video.png
+  description: We combine 3D Gaussian splatting, Neural ODE camera modeling, and hierarchical spatiotemporal learning for fast, memory-efficient, and temporally consistent video representation.
+  authors: Andrew Bond, Jui-Hsien Wang, Long Mai, Erkut Erdem, Aykut Erdem
+  venue: "arXiv preprint (2025)"
+  year: 2025
+  topic: "Generative Visual Media"
+  arxiv: https://arxiv.org/abs/2501.04782
+  project_slug: GaussianVideo
+  highlight: 1
+
+- title: "HyperGAN-CLIP: A Unified Framework for Domain Adaptation, Image Synthesis and Manipulation"
+  image: HyperGAN-CLIP.png
+  description: We present a unified framework that leverages HyperNetworks and CLIP for domain adaptation, image synthesis, and manipulation tasks using StyleGAN.
+  authors: Abdul Basit Anees, Ahmet Canberk Baykal, Muhammed Burak Kizil, Duygu Ceylan, Erkut Erdem, Aykut Erdem
+  venue: "SIGGRAPH Asia (2024)"
+  year: 2024
+  topic: "Generative Visual Media"
+  pdf: https://cyberiada.github.io/HyperGAN-CLIP/static/docs/HyperGANCLIP.pdf
+  project_slug: HyperGAN-CLIP
+  highlight: 1
+
+- title: "CLIPAway: Harmonizing Focused Embeddings for Removing Objects via Diffusion Models"
+  image: clipaway.png
+  description: We propose CLIPAway, a method that harmonizes focused embeddings from CLIP to guide diffusion models for seamless object removal from images.
+  authors: Yigit Ekin, Ahmet Burak Yildirim, Erdem Eren Caglar, Aykut Erdem, Erkut Erdem, Aysegul Dundar
+  venue: "NeurIPS (2024)"
+  year: 2024
+  topic: "Generative Visual Media"
+  arxiv: https://arxiv.org/abs/2406.09368
+  project: https://yigitekin.github.io/CLIPAway/
+  highlight: 1
+
+- title: "Sequential Compositional Generalization in Multimodal Models"
+  image: compact.png
+  description: We investigate sequential compositional generalization capabilities in multimodal models, introducing the CompAct benchmark.
+  authors: Semih Yagcioglu, Osman Batur Ince, Aykut Erdem, Erkut Erdem, Desmond Elliott, Deniz Yuret
+  venue: "NAACL (2024, oral)"
+  year: 2024
+  topic: "Multimodal Learning"
+  pdf: https://aclanthology.org/2024.naacl-long.311.pdf
+  project_slug: CompAct
+  highlight: 1
+
+- title: "HyperE2VID: Improving Event-Based Video Reconstruction via Hypernetworks"
+  image: hypere2vid.jpg
+  description: We improve event-based video reconstruction by employing hypernetworks that dynamically generate network parameters conditioned on event statistics.
+  authors: Burak Ercan, Onur Eker, Canberk Saglam, Aykut Erdem, Erkut Erdem
+  venue: "IEEE Trans. Image Processing (2024)"
+  year: 2024
+  topic: "Computational Imaging"
+  arxiv: https://arxiv.org/abs/2305.06382
+  project: https://ercanburak.github.io/HyperE2VID.html
+  highlight: 1
+
+- title: "ViLMA: A Zero-Shot Benchmark for Linguistic and Temporal Grounding in Video-Language Models"
+  image: vilma-iclr24.jpg
+  description: We introduce ViLMA, a zero-shot benchmark designed to evaluate linguistic and temporal grounding capabilities of video-language models.
+  authors: Ilker Kesen, Andrea Pedrotti, Mustafa Dogan, Michele Cafagna, Emre Can Acikgoz, Letitia Parcalabescu, Iacer Calixto, Anette Frank, Albert Gatt, Aykut Erdem, Erkut Erdem
+  venue: "ICLR (2024)"
+  year: 2024
+  topic: "Multimodal Learning"
+  arxiv: https://arxiv.org/abs/2311.07022
+  project_slug: ViLMA
+  highlight: 1
+
+- title: "Harnessing Dataset Cartography for Improved Compositional Generalization in Transformers"
+  image: findings-emnlp23.jpg
+  description: We leverage dataset cartography to improve compositional generalization in Transformer models.
+  authors: Osman Ince, Tanin Zeraati, Semih Yagcioglu, Yadollah Yaghoobzadeh, Erkut Erdem, Aykut Erdem
+  venue: "Findings of EMNLP (2023)"
+  year: 2023
+  topic: "Multimodal Learning"
+  pdf: https://aclanthology.org/2023.findings-emnlp.867/
+  project_slug: Cartography-for-Compositionality
+  highlight: 0
+
+- title: "VidStyleODE: Disentangled Video Editing via StyleGAN and NeuralODEs"
+  image: vidstyleode-iccv23.jpg
+  description: We propose VidStyleODE, a method for disentangled video editing that combines StyleGAN with Neural ODEs for temporally consistent video manipulation.
+  authors: Moayed Haji Ali, Andrew Bond, Tolga Birdal, Duygu Ceylan, Levent Karacan, Erkut Erdem, Aykut Erdem
+  venue: "ICCV (2023)"
+  year: 2023
+  topic: "Generative Visual Media"
+  pdf: https://cyberiada.github.io/VidStyleODE/static/docs/VidStyleODE.pdf
+  project_slug: VidStyleODE
+  highlight: 1
+
+- title: "CLIP-guided StyleGAN Inversion for Text-driven Real Image Editing"
+  image: CLIPInverter.jpg
+  description: We present CLIPInverter, a method that uses CLIP guidance for StyleGAN inversion, enabling text-driven editing of real images.
+  authors: Ahmet Canberk Baykal, Abdul Basit Anees, Duygu Ceylan, Erkut Erdem, Aykut Erdem, Deniz Yuret
+  venue: "ACM Trans. Graphics 42(5) (2023)"
+  year: 2023
+  topic: "Generative Visual Media"
+  pdf: https://dl.acm.org/doi/10.1145/3610287
+  project_slug: CLIPInverter
+  highlight: 1
+
+- title: "Burst Photography for Learning to Enhance Extremely Dark Images"
+  image: dark-burst.jpg
+  description: We propose a burst photography approach to enhance extremely dark images using learned multi-frame processing.
+  authors: Ahmet Serdar Karadeniz, Erkut Erdem, Aykut Erdem
+  venue: "IEEE Trans. Image Processing (2021)"
+  year: 2021
+  topic: "Computational Imaging"
+  pdf: https://web.cs.hacettepe.edu.tr/~erkut/publications/dark-burst-photography.pdf
+  project: https://hucvl.github.io/dark-burst-photography/
+  highlight: 1
+
+- title: "SLAMP: Stochastic Latent Appearance and Motion Prediction"
+  image: slamp.jpg
+  description: We introduce SLAMP, a stochastic video prediction model that disentangles appearance and motion in a latent space.
+  authors: Adil Kaan Akan, Erkut Erdem, Aykut Erdem, Fatma Guney
+  venue: "ICCV (2021)"
+  year: 2021
+  topic: "Generative Visual Media"
+  pdf: https://openaccess.thecvf.com/content/ICCV2021/papers/Akan_SLAMP_Stochastic_Latent_Appearance_and_Motion_Prediction_ICCV_2021_paper.pdf
+  project: https://kuis-ai.github.io/slamp/
+  highlight: 1
+
+- title: "mustGAN: multi-stream Generative Adversarial Networks for MR Image Synthesis"
+  image: mustgan.png
+  description: We propose mustGAN, a multi-stream GAN architecture for synthesizing MR images across different contrast types.
+  authors: Mahmut Yurt, Salman UH Dar, Aykut Erdem, Erkut Erdem, Kader K. Oguz, Tolga Cukur
+  venue: "Medical Image Analysis 70 (2021)"
+  year: 2021
+  topic: "Computational Imaging"
+  pdf: https://www.sciencedirect.com/science/article/abs/pii/S136184152030308X
+  highlight: 0
+
+- title: "Cross-lingual Visual Pre-training for Multimodal Machine Translation"
+  image: vtlm.png
+  description: We introduce a cross-lingual visual pre-training approach to improve multimodal machine translation.
+  authors: Ozan Caglayan, Menekse Kuyu, Mustafa Sercan Amac, Pranava Madhyastha, Erkut Erdem, Aykut Erdem, Lucia Specia
+  venue: "EACL (2021)"
+  year: 2021
+  topic: "Multimodal Learning"
+  pdf: https://hucvl.github.io/VTLM/paper.pdf
+  project: https://hucvl.github.io/VTLM/
+  highlight: 1
+
+- title: "Belief Regulated Dual Propagation Nets for Learning Action Effects on Articulated Multi-Part Objects"
+  image: icra20.png
+  description: We propose belief-regulated dual propagation networks for learning the effects of actions on articulated multi-part objects.
+  authors: Ahmet E. Tekden, Aykut Erdem, Erkut Erdem, Mert Imre, M. Yunus Seker, Emre Ugur
+  venue: "ICRA (2020)"
+  year: 2020
+  topic: "Robotics & Machine Learning"
+  arxiv: https://arxiv.org/abs/1909.08859
+  video: https://www.youtube.com/watch?v=uWPr7IFT_9k
+  highlight: 0
+
+- title: "Manipulating Attributes of Natural Scenes via Hallucination"
+  image: attribute_hallucination.png
+  description: We present an approach for manipulating attributes of natural scene images by hallucinating new visual content.
+  authors: Levent Karacan, Zeynep Akata, Aykut Erdem, Erkut Erdem
+  venue: "ACM Trans. Graphics 39(1) (2020)"
+  year: 2020
+  topic: "Generative Visual Media"
+  pdf: https://hucvl.github.io/attribute_hallucination/attribute_hallucination.pdf
+  project: https://hucvl.github.io/attribute_hallucination/
+  video: https://www.youtube.com/watch?v=MPdj8KGZHa0
+  highlight: 1
+
+- title: "Procedural Reasoning Networks for Understanding Multimodal Procedures"
+  image: prn.png
+  description: We introduce Procedural Reasoning Networks for understanding multimodal procedural content such as cooking recipes.
+  authors: Mustafa Sercan Amac, Semih Yagcioglu, Aykut Erdem, Erkut Erdem
+  venue: "CoNLL (2019)"
+  year: 2019
+  topic: "Multimodal Learning"
+  arxiv: https://arxiv.org/pdf/1909.08859.pdf
+  project: https://hucvl.github.io/prn/
+  highlight: 1
+
+- title: "Image Synthesis in Multi-Contrast MRI with Conditional Generative Adversarial Networks"
+  image: mri_gan.png
+  description: We propose a conditional GAN approach for synthesizing multi-contrast MRI images.
+  authors: Salman Ul Hassan Dar, Mahmut Yurt, Levent Karacan, Aykut Erdem, Erkut Erdem, Tolga Cukur
+  venue: "IEEE Trans. Medical Imaging 38(10) (2019)"
+  year: 2019
+  topic: "Computational Imaging"
+  pdf: https://www.icon.bilkent.edu.tr/docs/Dar-2019.pdf
+  highlight: 0
+
+- title: "RecipeQA: A Challenge Dataset for Multimodal Comprehension of Cooking Recipes"
+  image: recipeqa.png
+  description: We introduce RecipeQA, a challenge dataset for evaluating multimodal comprehension of cooking recipes.
+  authors: Semih Yagcioglu, Aykut Erdem, Erkut Erdem, Nazli Ikizler-Cinbis
+  venue: "EMNLP (2018)"
+  year: 2018
+  topic: "Multimodal Learning"
+  project: https://hucvl.github.io/recipeqa/
+  highlight: 1
+
+- title: "Spatio-Temporal Saliency Networks for Dynamic Saliency Prediction"
+  image: placeholder.png
+  description: We propose spatio-temporal saliency networks for predicting dynamic visual saliency in videos.
+  authors: Cagdas Bak, Aysun Kocak, Erkut Erdem, Aykut Erdem
+  venue: "IEEE Trans. Multimedia 20(7) (2018)"
+  year: 2018
+  topic: "Visual Perception"
+  pdf: https://ieeexplore.ieee.org/document/8187649
+  highlight: 0
+
+- title: "Re-evaluating Automatic Metrics for Image Captioning"
+  image: eacl17.png
+  description: We systematically re-evaluate automatic evaluation metrics for image captioning and analyze their correlation with human judgments.
+  authors: Mert Kilickaya, Aykut Erdem, Nazli Ikizler-Cinbis, Erkut Erdem
+  venue: "EACL (2017)"
+  year: 2017
+  topic: "Multimodal Learning"
+  pdf: https://aclanthology.org/E17-1019/
+  highlight: 1
+
+- title: "TasvirEt: A Benchmark Dataset for Automatic Turkish Description Generation from Images"
+  image: tasviret.png
+  description: We introduce TasvirEt, a benchmark dataset for automatic Turkish image description generation.
+  authors: Mesut Erhan Unal, Begum Citamak, Semih Yagcioglu, Aykut Erdem, Erkut Erdem, Nazli Ikizler Cinbis, Ruket Cakici
+  venue: "SIU (2016)"
+  year: 2016
+  topic: "Multimodal Learning"
+  project: https://semihyagcioglu.com/projects/tasviret
+  highlight: 0
+
+- title: "Learning to Generate Images of Outdoor Scenes from Attributes and Semantic Layouts"
+  image: al-cgan.png
+  description: We propose a method to generate images of outdoor scenes conditioned on attributes and semantic layouts.
+  authors: Levent Karacan, Zeynep Akata, Aykut Erdem, Erkut Erdem
+  venue: "arXiv preprint (2016)"
+  year: 2016
+  topic: "Generative Visual Media"
+  arxiv: https://arxiv.org/pdf/1612.00215v1.pdf
+  highlight: 0
+
+- title: "Deformable Part-based Tracking by Coupled Global and Local Correlation Filters"
+  image: jvcir16.png
+  description: We present a deformable part-based tracking method using coupled global and local correlation filters.
+  authors: Osman Akin, Erkut Erdem, Aykut Erdem, Krystian Mikolajczyk
+  venue: "J. Visual Communication and Image Representation (2016)"
+  year: 2016
+  topic: "Visual Perception"
+  pdf: https://www.sciencedirect.com/science/article/pii/S1047320316301924
+  highlight: 0
+
+- title: "An Objective Deghosting Quality Metric for HDR Images"
+  image: eg16.png
+  description: We propose an objective quality metric for evaluating deghosting algorithms in HDR imaging.
+  authors: Okan Tarhan Tursun, Ahmet Oguz Akyuz, Aykut Erdem, Erkut Erdem
+  venue: "Eurographics (2016)"
+  year: 2016
+  topic: "Computational Imaging"
+  project: https://www.ceng.metu.edu.tr/~akyuz/files/eg2016/index.html
+  highlight: 0
+
+- title: "Image Matting with KL-Divergence Based Sparse Sampling"
+  image: KL-sparse-matting.png
+  description: We propose a sparse sampling approach for image matting based on KL-divergence.
+  authors: Levent Karacan, Aykut Erdem, Erkut Erdem
+  venue: "ICCV (2015)"
+  year: 2015
+  topic: "Computational Imaging"
+  project: https://web.cs.hacettepe.edu.tr/~karacan/projects/klsparsematting/
+  highlight: 1
+
+- title: "A Distributed Representation Based Query Expansion Approach for Image Captioning"
+  image: acl15.png
+  description: We propose a distributed representation based query expansion approach for generating image captions.
+  authors: Semih Yagcioglu, Erkut Erdem, Aykut Erdem, Ruket Cakici
+  venue: "ACL (2015)"
+  year: 2015
+  topic: "Multimodal Learning"
+  project: https://www.semihyagcioglu.com/projects/imagecaptioning
+  highlight: 1
+
+- title: "Predicting Memorability of Images Using Attention-driven Spatial Pooling and Image Semantics"
+  image: memorability.png
+  description: We predict image memorability using attention-driven spatial pooling combined with image semantics.
+  authors: Bora Celikkale, Aykut Erdem, Erkut Erdem
+  venue: "Image and Vision Computing (2015)"
+  year: 2015
+  topic: "Visual Perception"
+  pdf: https://www.sciencedirect.com/science/article/pii/S0262885615000827
+  highlight: 0
+
+- title: "The State of the Art in HDR Deghosting: A Survey and Evaluation"
+  image: hdr-deghosting-star.png
+  description: We provide a comprehensive survey and evaluation of the state of the art in HDR deghosting.
+  authors: Okan Tarhan Tursun, Ahmet Oguz Akyuz, Aykut Erdem, Erkut Erdem
+  venue: "Eurographics STAR (2015)"
+  year: 2015
+  topic: "Computational Imaging"
+  project: https://user.ceng.metu.edu.tr/~akyuz/files/eg2015/index.html
+  highlight: 0
+
+- title: "Top down saliency estimation via superpixel-based discriminative dictionaries"
+  image: bmvc14.png
+  description: We propose a top-down saliency estimation method using superpixel-based discriminative dictionaries.
+  authors: Aysun Kocak, Kemal Cizmeciler, Aykut Erdem, Erkut Erdem
+  venue: "BMVC (2014)"
+  year: 2014
+  topic: "Visual Perception"
+  project: https://vision.cs.hacettepe.edu.tr/~erdem/top_down_sal/index.html
+  highlight: 0
+
+- title: "Structure-Preserving Image Smoothing via Region Covariances"
+  image: siggraphasia13.png
+  description: We present a structure-preserving image smoothing method based on region covariances.
+  authors: Levent Karacan, Erkut Erdem, Aykut Erdem
+  venue: "SIGGRAPH Asia (2013)"
+  year: 2013
+  topic: "Computational Imaging"
+  project: https://web.cs.hacettepe.edu.tr/~karacan/projects/regcovsmoothing/
+  highlight: 1
+
+- title: "Visual saliency estimation by nonlinearly integrating features using region covariances"
+  image: jov.png
+  description: We propose a visual saliency estimation method that nonlinearly integrates features using region covariances.
+  authors: Erkut Erdem, Aykut Erdem
+  venue: "Journal of Vision (2013)"
+  year: 2013
+  topic: "Visual Perception"
+  pdf: https://jov.arvojournals.org/article.aspx?articleid=2121371
+  code: https://web.cs.hacettepe.edu.tr/~erkut/projects/CovSal/
+  highlight: 0
+
+- title: "Graph Transduction as a Non-Cooperative Game"
+  image: gtg.png
+  description: We formulate graph transduction as a non-cooperative game and derive efficient algorithms for semi-supervised learning.
+  authors: Aykut Erdem, Marcello Pelillo
+  venue: "Neural Computation (2012)"
+  year: 2012
+  topic: "Robotics & Machine Learning"
+  pdf: https://direct.mit.edu/neco/article/24/3/700/7706
+  code: https://web.cs.hacettepe.edu.tr/~aykut/codes/gtg.m
+  highlight: 0

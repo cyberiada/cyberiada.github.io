@@ -1,0 +1,19 @@
+- label: Home
+  url: /
+  exact: true
+
+- label: Team
+  url: /team/
+  exact: true
+
+- label: Vacancies
+  url: /vacancies
+  exact: true
+
+- label: Publications
+  url: /publications/
+  exact: true
+
+- label: Research
+  url: /research/
+  prefix: /research/

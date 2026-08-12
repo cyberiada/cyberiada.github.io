@@ -1,0 +1,30 @@
+{% assign member = include.member %}
+{% assign variant = include.variant | default: "portrait" %}
+<article class="team-card team-card--{{ variant }}">
+  <div class="team-card__photo-wrap">
+    {% if member.photo and member.photo != "" %}
+    <img src="{{ '/images/teampic/' | append: member.photo | relative_url }}" alt="Portrait of {{ member.name }}" class="team-card__photo" loading="lazy" width="132" height="132">
+    {% else %}
+    <div class="team-card__photo team-card__photo--placeholder" aria-hidden="true">{{ member.name | slice: 0 }}</div>
+    {% endif %}
+  </div>
+  <div class="team-card__body">
+    <h3 class="team-card__name">{{ member.name }}</h3>
+    <p class="team-card__role">{{ member.info }}</p>
+    {% if member.affiliations %}
+    <div class="team-card__affiliations">
+      {% for affiliation in member.affiliations %}
+      <div class="team-card__affiliation">
+        <div class="team-card__affiliation-row">
+          <span class="team-card__affiliation-title">{{ affiliation.title }}</span>
+          {% if affiliation.dates %}<span class="team-card__affiliation-dates">{{ affiliation.dates }}</span>{% endif %}
+        </div>
+        {% if affiliation.institution %}<div class="team-card__affiliation-inst">{{ affiliation.institution }}</div>{% endif %}
+        {% if affiliation.note %}<div class="team-card__affiliation-note">{{ affiliation.note }}</div>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% include social-links.html person=member %}
+  </div>
+</article>

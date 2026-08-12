@@ -1,0 +1,2 @@
+# Override the production origin so HTMLProofer can resolve local site paths.
+url: ""

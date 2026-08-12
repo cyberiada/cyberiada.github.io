@@ -1,0 +1,81 @@
+name: Site quality
+
+on:
+  push:
+    branches: [main, gh-pages]
+  pull_request:
+    branches: [main, gh-pages]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Build, links, images, and accessibility
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Install accessibility tools
+        run: npm ci
+
+      - name: Validate publication images
+        run: ruby scripts/check_publication_images.rb
+
+      - name: Validate destination project pages
+        run: ruby scripts/check_project_pages.rb
+
+      - name: Build Jekyll site
+        run: bundle exec jekyll build --config _config.yml,.github/jekyll-ci.yml --trace
+        env:
+          JEKYLL_ENV: production
+
+      - name: Check internal links and assets
+        run: bundle exec ruby scripts/check_internal_links.rb _site
+
+      - name: Check generated images and scripts
+        run: >-
+          bundle exec htmlproofer ./_site
+          --disable-external
+          --no-enforce-https
+          --ignore-files
+          '/(360-degree-SSSL|Auteur|CLIPInverter|Cartography-for-Compositionality|CompAct|DiCoMoGAN|EeveeDark|GaussianVideo|Hippocrates|HyperGAN-CLIP|LAMP|NYCC-Thinking|PhysVidBench|SalViT360-AV|SalViT360|SonicDiffusion|TanDiT|ViLMA|VidStyleODE)/'
+
+      - name: Validate HTML structure
+        run: npm run check:html
+
+      - name: Run WCAG 2 AA accessibility checks
+        run: |
+          bundle exec jekyll serve --config _config.yml,.github/jekyll-ci.yml --no-watch --host 127.0.0.1 --port 4000 > /tmp/jekyll-server.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true; wait "$server_pid" 2>/dev/null || true' EXIT
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:4000/ > /dev/null; then
+              break
+            fi
+            sleep 1
+          done
+          curl --fail --silent http://127.0.0.1:4000/ > /dev/null
+          npm run check:accessibility
+        env:
+          JEKYLL_ENV: production

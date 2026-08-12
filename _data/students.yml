@@ -1,0 +1,47 @@
+- name: Deniz Bilge Akkoc
+  info: PhD Student
+  role: phd
+
+- name: Andrew Yong Xern Bond
+  info: PhD Student
+  role: phd
+
+- name: Hakan Capuk
+  info: PhD Student
+  role: phd
+
+- name: Ismail Cetin
+  info: PhD Student
+  role: phd
+
+- name: Muhammed Burak Kizil
+  info: PhD Student
+  role: phd
+
+- name: Ali Kerem Ozturk
+  info: PhD Student
+  role: phd
+
+- name: Enes Sanli
+  info: PhD Student
+  role: phd
+  number_educ: 2
+  education1: PhD, Computer Science, Koç University
+  education2: BSc, Computer Engineering, Middle East Technical University
+
+- name: Yusuf Bayindir
+  photo: ybayindir23.jpg
+  info: MSc Student
+  role: msc
+  email: ybayindir23@ku.edu.tr
+  number_educ: 2
+  education1: MSc, Computer Science, Koç University
+  education2: BSc, Computer Engineering & Physics, Bogazici University
+
+- name: Doga Kukul
+  info: MSc Student
+  role: msc
+
+- name: Merve Vural
+  info: MSc Student
+  role: msc

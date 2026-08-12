@@ -1,0 +1,51 @@
+---
+layout: default
+---
+<div id="gridid" class="col-sm-12">
+
+<h1>Publications</h1>
+<p class="page-intro">Selected publications from the Cyberiad Lab across generative AI, multimodal learning, computational imaging, and visual intelligence.</p>
+
+{% assign publication_topics = "Generative Visual Media|Multimodal Learning|Computational Imaging|Visual Perception|Robotics & Machine Learning" | split: "|" %}
+<div class="pub-topic-filter" role="group" aria-label="Filter publications by research topic">
+  <button class="pub-topic-filter__button is-active" type="button" data-topic-filter="all" aria-pressed="true">All topics</button>
+  {% for topic in publication_topics %}
+  <button class="pub-topic-filter__button" type="button" data-topic-filter="{{ topic | slugify }}" aria-pressed="false">{{ topic | escape }}</button>
+  {% endfor %}
+</div>
+<p class="pub-filter-status" aria-live="polite"></p>
+
+{% assign defined_years = "2026,2025,2024,2023,2022,2021,2020,2019,2018,2017,2016,2015,2014,2013,2012" | split: "," %}
+
+<nav class="pub-year-nav" aria-label="Publication years" aria-describedby="pub-year-nav-hint">
+{% for y in defined_years %}
+{% assign nav_year = y | plus: 0 %}
+{% assign nav_pubs = site.data.publist | where: "year", nav_year %}
+{% if nav_pubs.size > 0 %}<a href="#publications-{{ y }}">{{ y }}</a>{% endif %}
+{% endfor %}
+</nav>
+<p class="pub-year-nav__hint" id="pub-year-nav-hint">Swipe horizontally to see more years.</p>
+
+{% for y in defined_years %}
+{% assign year = y | plus: 0 %}
+{% assign year_pubs = site.data.publist | where: "year", year %}
+{% if year_pubs.size > 0 %}
+
+<section class="pub-year-section" id="publications-{{ y }}" aria-labelledby="publications-{{ y }}-title">
+  <h2 class="pub-year-heading" id="publications-{{ y }}-title">{{ year }}</h2>
+
+  <div class="row pub-year-grid">
+    {% for publi in year_pubs %}
+    <div class="col-sm-6 pub-card-column" data-publication-topic="{{ publi.topic | slugify }}">
+      {% include publication-card.html publication=publi variant="catalog" %}
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% endif %}
+{% endfor %}
+
+</div>
+
+<script src="{{ '/js/publications.js' | relative_url }}" defer></script>

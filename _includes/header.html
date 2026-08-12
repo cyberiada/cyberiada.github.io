@@ -1,0 +1,26 @@
+<nav class="navbar navbar-default navbar-fixed-top" aria-label="Primary navigation">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+				data-target="#navbar-collapse-1" aria-expanded="false" aria-controls="navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+
+			<a class="navbar-brand" href="{{ '/' | relative_url }}"><span class="navbar-brand__mark" aria-hidden="true">C</span><span>Cyberiad Lab</span></a>
+		</div>
+		<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			{% assign current_url = page.url | replace:'index.html','' %}
+			<ul class="nav navbar-nav">
+				{% for item in site.data.navigation %}
+				{% assign is_active = false %}
+				{% if item.exact and current_url == item.url %}{% assign is_active = true %}{% endif %}
+				{% if item.prefix and current_url contains item.prefix %}{% assign is_active = true %}{% endif %}
+				<li{% if is_active %} class="active"{% endif %}><a href="{{ item.url | relative_url }}">{{ item.label }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+</nav>

@@ -1,0 +1,15 @@
+---
+title: "News"
+layout: textlay
+excerpt: "Koç University & İş Bank Artificial Intelligence Center (KUIS AI)."
+permalink: /allnews.html
+---
+
+<h1 id="highlights-and-news">Highlights and News</h1>
+
+{% for article in site.data.news %}
+<div class="news-archive-item">
+<div class="news-archive-date">{{ article.date }}</div>
+<div class="news-archive-body">{{ article.headline | markdownify }}</div>
+</div>
+{% endfor %}

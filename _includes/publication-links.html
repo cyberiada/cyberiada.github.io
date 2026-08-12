@@ -1,0 +1,20 @@
+{% assign publication = include.publication %}
+{% assign variant = include.variant | default: "buttons" %}
+{% assign project_url = publication.project %}
+{% if publication.project_slug %}
+  {% assign project_path = publication.project_slug | append: "/" %}
+  {% assign project_url = project_path | prepend: "/" | prepend: site.project_pages_url %}
+{% endif %}
+<div class="{% if variant == 'buttons' %}pub-links{% else %}{{ variant }}{% endif %}">
+  {% if variant == "buttons" %}
+    {% if publication.arxiv %}<a href="{{ publication.arxiv }}" target="_blank" rel="noopener"><span class="pub-link-btn">arXiv</span></a>{% endif %}
+    {% if publication.pdf %}<a href="{{ publication.pdf }}" target="_blank" rel="noopener"><span class="pub-link-btn">PDF</span></a>{% endif %}
+  {% elsif publication.arxiv %}
+    <a href="{{ publication.arxiv }}" target="_blank" rel="noopener">Paper</a>
+  {% elsif publication.pdf %}
+    <a href="{{ publication.pdf }}" target="_blank" rel="noopener">Paper</a>
+  {% endif %}
+  {% if publication.code %}<a href="{{ publication.code }}" target="_blank" rel="noopener">{% if variant == "buttons" %}<span class="pub-link-btn">Code</span>{% else %}Code{% endif %}</a>{% endif %}
+  {% if project_url %}<a href="{{ project_url }}" target="_blank" rel="noopener">{% if variant == "buttons" %}<span class="pub-link-btn">Project</span>{% else %}Project{% endif %}</a>{% endif %}
+  {% if publication.video %}<a href="{{ publication.video }}" target="_blank" rel="noopener">{% if variant == "buttons" %}<span class="pub-link-btn">Video</span>{% else %}Video{% endif %}</a>{% endif %}
+</div>
