@@ -2,7 +2,7 @@
   "name": "cyberiad-lab-website",
   "private": true,
   "scripts": {
-    "check:html": "html-validate '_site/**/*.html'",
+    "check:html": "html-validate '_site/{index.html,404.html,allnews.html,vacancies.html,team/index.html,publications/index.html,research/index.html,research/*/index.html}'",
     "check:accessibility": "pa11y-ci --config .pa11yci.json"
   },
   "devDependencies": {

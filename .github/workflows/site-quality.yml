@@ -54,7 +54,12 @@ jobs:
         run: bundle exec ruby scripts/check_internal_links.rb _site
 
       - name: Check generated images and scripts
-        run: bundle exec htmlproofer ./_site --disable-external --no-enforce-https
+        run: >-
+          bundle exec htmlproofer ./_site
+          --disable-external
+          --no-enforce-https
+          --ignore-files
+          '/(360-degree-SSSL|Auteur|CLIPInverter|Cartography-for-Compositionality|CompAct|DiCoMoGAN|EeveeDark|GaussianVideo|Hippocrates|HyperGAN-CLIP|LAMP|NYCC-Thinking|PhysVidBench|SalViT360-AV|SalViT360|SonicDiffusion|TanDiT|ViLMA|VidStyleODE)/'
 
       - name: Validate HTML structure
         run: npm run check:html

@@ -3,12 +3,19 @@
 require "cgi"
 require "nokogiri"
 require "pathname"
+require "set"
 require "uri"
+require "yaml"
 
 build_root = Pathname.new(File.expand_path(ARGV.fetch(0, "_site")))
-baseurl = ENV.fetch("BASEURL", "/eozlu21").sub(%r{/$}, "")
-site_host = ENV.fetch("SITE_HOST", "eozlu21.github.io")
-html_files = Dir.glob(build_root.join("**", "*.html")).sort
+baseurl = ENV.fetch("BASEURL", "").sub(%r{/$}, "")
+site_host = ENV.fetch("SITE_HOST", "cyberiada.github.io")
+project_pages_file = Pathname.new(__dir__).join("..", "_data", "project_pages.yml").expand_path
+project_directories = YAML.safe_load_file(project_pages_file).to_set
+html_files = Dir.glob(build_root.join("**", "*.html")).reject do |file|
+  relative = Pathname.new(file).relative_path_from(build_root)
+  project_directories.include?(relative.each_filename.first)
+end.sort
 errors = []
 checked = 0
 

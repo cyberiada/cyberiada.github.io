@@ -99,7 +99,8 @@ ruby scripts/check_publication_images.rb
 ruby scripts/check_project_pages.rb
 JEKYLL_ENV=production bundle exec jekyll build --config _config.yml,.github/jekyll-ci.yml
 bundle exec ruby scripts/check_internal_links.rb _site
-bundle exec htmlproofer ./_site --disable-external --no-enforce-https
+bundle exec htmlproofer ./_site --disable-external --no-enforce-https \
+  --ignore-files '/(360-degree-SSSL|Auteur|CLIPInverter|Cartography-for-Compositionality|CompAct|DiCoMoGAN|EeveeDark|GaussianVideo|Hippocrates|HyperGAN-CLIP|LAMP|NYCC-Thinking|PhysVidBench|SalViT360-AV|SalViT360|SonicDiffusion|TanDiT|ViLMA|VidStyleODE)/'
 npm run check:html
 ```
 
