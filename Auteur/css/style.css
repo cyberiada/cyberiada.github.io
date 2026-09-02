@@ -3,11 +3,11 @@
 } */
 
 :root {
-    --text-color: #444;
+    --text-color: #1a1d24;
 }
 
 * {
-    font-family: sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     color: var(--text-color);
 }
 
@@ -24,6 +24,15 @@
     margin: auto;
 }
 
+/* Keep the title in Inter even though the broad span{} rule sets mono for DSL captions */
+#title,
+#title span,
+#author-list .author,
+#author-list a,
+#affiliation-list span {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
 #conference {
     color: #666;
     font-weight: 100;
@@ -38,7 +47,8 @@
 #author-list a {
     text-decoration: none;
     font-size: 1.25rem;
-    color: #219bef;
+    font-weight: 600;
+    color: var(--text-color);
 }
 #author-list a:hover {
     text-decoration: underline;
@@ -261,7 +271,7 @@ details > *:not(summary) {
 }
 
 .section-block:nth-child(even) {
-    background: #fff7fa;   /* çok açık pembe (ReCamMaster) */
+    background: var(--surface, #f6f7f9);
 }
 
 .slide-3videos {
@@ -323,7 +333,7 @@ details > *:not(summary) {
 
 
 span{
-    font-family: "Courier New", Courier, monospace;
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
 }
 /* altta 3 video */
@@ -371,7 +381,7 @@ span{
 
 .prompt-full-text {
     font-size: 18px;
-    font-family: "Courier New", Courier, monospace;
+    font-family: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
     line-height: 1.4;
 }
 
@@ -667,7 +677,7 @@ video {
     grid-column: 1 / -1;            /* tüm satır boyunca genişlet */
     text-align: center;
     font-size: 18px;
-    font-family: "Courier New", Courier, monospace;
+    font-family: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
     margin-bottom: 14px;
 }
 
@@ -697,7 +707,7 @@ video {
 
 /* Sol taraftaki kısa etiket (GenDoP vb.) */
 .ref-label {
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-weight: bold;
     color: #1f78b4; /* Sitedeki mavi tonu */
     font-size: 1rem;
@@ -705,7 +715,7 @@ video {
 
 /* Referans metni */
 .ref-text {
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Inter', sans-serif;
     color: #444;
     font-size: 1rem;
 }
@@ -723,7 +733,7 @@ video {
     border-radius: 15px; /* Yuvarlak hatlar */
     cursor: pointer;
     font-size: 0.85rem;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Inter', sans-serif;
     transition: all 0.2s ease;
 }
 
@@ -741,7 +751,7 @@ video {
     padding: 15px;
     border-radius: 8px;
     border-left: 4px solid #1f78b4;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
     font-size: 0.85rem;
     overflow-x: auto;
     white-space: pre-wrap;
