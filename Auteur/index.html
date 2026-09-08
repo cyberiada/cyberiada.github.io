@@ -26,12 +26,12 @@
         }
 
         .abstract-banner h2 {
-            font-size: 30px;
+            font-size: 28px;
             margin-bottom: 20px;
         }
 
         .abstract-banner p {
-            font-size: 18px;
+            font-size: 28px;
             line-height: 1.6;
             opacity: 0.95;
         }
@@ -554,8 +554,8 @@
             height: 34px;
             border-radius: 9px;
             margin-bottom: 0.7rem;
-            font-size: 18px;
-            background: linear-gradient(135deg, var(--brand), var(--brand-light));
+            font-size: 28px;
+            background: linear-gradient(335deg, var(--brand-light), var(--line));
         }
 
         .contrib-card h3 {
@@ -856,7 +856,7 @@
         <span id="top"></span>
         <p style="display: inline-block; text-transform: uppercase; letter-spacing: 0.08em; font-size: 12.5px; font-weight: 600; color: var(--brand); background: rgba(232, 89, 12, 0.12); padding: 0.35rem 0.8rem; border-radius: 999px; margin: 0 0 18px;">Language-driven cinematographic camera control</p>
         <h1 id="title" style="line-height: 1.14; text-align: center; font-weight: 800; letter-spacing: -0.02em;">
-            <span style="color: var(--brand);">Auteur: Language-Driven Cinematographic Framing for Human-Centric Video Generation</span>
+            <span style="color: var(--brand);">Auteur: Language-Driven Cinematographic Framing for <br>Human-Centric Video Generation</span>
         </h1>
                 <br>
 
@@ -884,23 +884,27 @@
                 <img src="assets/logos/arxiv.svg" >
                 <span>arXiv</span>
             </a>
-            <a id="code" href="#">
+            <a id="dataset" href="https://huggingface.co/datasets/burakkizil/Auteur-Dataset">
+                <img src="assets/hf-logo.svg" >
+                <span>Dataset</span>
+            </a>
+            <a id="code" href="https://github.com/mbkizil/Generate-Camera-Trajectory">
                 <img src="assets/logos/github-mark.svg">
-                <span>Code (Coming Soon)</span>
+                <span>Demo</span>
             </a>
         </div>
         <br>
         <div class="section-band band-white" id="teaser-section">
-            <div class="section-inner reveal" style="max-width: 1100px; margin: 0 auto; text-align: center; padding: 20px 0;">
-                <img src="assets/teaser.png" alt="Auteur Teaser" style="width: 100%; max-width: 1000px; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-bottom: 18px;" />
+            <div class="section-inner reveal" style="max-width: 1500px; margin: 0 auto; text-align: center; padding: 20px 0;">
+                <img src="assets/teaser.png" alt="Auteur Teaser" style="width: 100%; max-width: 700px; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-bottom: 18px;" />
                 <p class="fig-caption">
                     <strong>Auteur turns language into actor-relative camera framing.</strong> Given a natural-language
-                    description and coarse human motion, a fine-tuned multimodal LLM acts as a virtual director:
+                    description, a fine-tuned LLM acts as a virtual director:
                     it first predicts a sparse actor-motion program, then a camera-framing program expressed in our
-                    cinematographic DSL. The DSL is deterministically decoded into a continuous 6-DoF trajectory that
+                    cinematographic DSL. The DSL is decoded into a 6-DoF trajectory that
                     keeps the subject correctly framed and can drive a range of downstream video generators.
                 </p>
-                <p style="font-size: 18px; line-height: 1.6; color: #444; text-align: center; max-width: 900px; margin: 22px auto 0;">
+                <p style="font-size: 20px; line-height: 1.6; color: #444; text-align: center; max-width: 1250px; margin: 22px auto 0;">
                     We replace world-space camera trajectories with actor-relative shot compositions: a cinematographic DSL and a fine-tuned LLM map natural language and human motion into camera keyframes that are geometrically consistent and narratively intentional.
                 </p>
                 <p class="section-note" style="margin-top: 16px; margin-bottom: 0;">
