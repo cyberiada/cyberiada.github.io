@@ -10,13 +10,41 @@ $(document).ready(function () {
     autoplaySpeed: 3000,
   });
 
+  function loadVideo(video) {
+    const source = video.querySelector("source[data-src]");
+    if (!source) {
+      return;
+    }
+
+    source.src = source.dataset.src;
+    source.removeAttribute("data-src");
+    video.load();
+  }
+
   if (!("IntersectionObserver" in window)) {
-    document.querySelectorAll("video[autoplay] source[data-src]").forEach((source) => {
-      source.src = source.dataset.src;
-      source.removeAttribute("data-src");
-      source.parentElement.load();
+    document.querySelectorAll("video[autoplay]").forEach((video) => {
+      loadVideo(video);
     });
     return;
+  }
+
+  const carousel = document.getElementById("results-carousel-face");
+  if (carousel) {
+    const carouselObserver = new IntersectionObserver(
+      (entries, observer) => {
+        if (!entries.some((entry) => entry.isIntersecting)) {
+          return;
+        }
+
+        carousel.querySelectorAll("video[autoplay]").forEach((video) => {
+          loadVideo(video);
+        });
+        observer.unobserve(carousel);
+      },
+      { rootMargin: "600px 0px" },
+    );
+
+    carouselObserver.observe(carousel);
   }
 
   const videoObserver = new IntersectionObserver(
@@ -25,13 +53,7 @@ $(document).ready(function () {
         const video = entry.target;
 
         if (entry.isIntersecting) {
-          const source = video.querySelector("source[data-src]");
-          if (source) {
-            source.src = source.dataset.src;
-            source.removeAttribute("data-src");
-            video.load();
-          }
-
+          loadVideo(video);
           video.play().catch(() => {});
         } else {
           video.pause();
