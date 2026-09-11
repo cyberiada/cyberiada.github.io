@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="SLICEChat: Progressive In-Encoder Token Pruning for Whole-Slide Pathology Language Models. Efficient multimodal reasoning over gigapixel whole-slide images.">
+  <meta name="theme-color" content="#ffffff">
+  <title>SLICEChat | Whole-Slide Pathology Language Models</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/index.css?v=2">
+</head>
+<body>
+  <a class="skip-link" href="#abstract">Skip to content</a>
+  <main>
+    <header class="publication-header container">
+      <h1><span class="project-name">SLICEChat</span>: Progressive In-Encoder Token Pruning for Whole-Slide Pathology Language Models</h1>
+
+      <!-- TODO: Replace the author names and affiliations; add author homepage links when available. -->
+      <div class="publication-authors">
+        <span class="author">Ali Kerem Bozkurt<sup>1,2</sup></span>,
+        <span class="author">Barış Cem Bakay<sup>1,2</sup></span>,
+        <span class="author">İbrahim Kulaç<sup>1</sup></span>,
+        <span class="author">Çiğdem Gündüz-Demir<sup>1,2</sup></span>,
+        <span class="author">Erkut Erdem<sup>2,3</sup></span>
+        <span class="author">Aykut Erdem<sup>1,2</sup></span>
+      </div>
+      <div class="publication-affiliations">
+        <span><sup>1</sup>Koç University, Istanbul, Turkey</span>
+        <span><sup>2</sup>KUIS AI Center, Istanbul, Turkey</span>
+        <span><sup>3</sup>Hacettepe University, Ankara, Turkey</span>
+      </div>
+
+      <nav class="publication-links" aria-label="Project resources">
+        <!-- TODO: Replace XXXX.XXXXX with the paper's arXiv ID, then remove the placeholder title. -->
+        <a class="resource-link" href="https://arxiv.org/abs/XXXX.XXXXX" title="Placeholder — arXiv link coming soon">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v5h4M9 12h6M9 16h6"/></svg>
+          <span>arXiv</span>
+        </a>
+        <a class="resource-link" href="https://github.com/ali-kerem/SLICEChat">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 .8a11.2 11.2 0 0 0-3.54 21.83c.56.1.77-.24.77-.54v-2.1c-3.12.68-3.78-1.32-3.78-1.32-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.72 1.16 1.72 1.16 1 .1.69 2.5 3.26 1.13.1-.72.39-1.21.71-1.49-2.49-.28-5.1-1.25-5.1-5.54 0-1.22.44-2.22 1.15-3-.12-.28-.5-1.42.11-2.95 0 0 .94-.3 3.08 1.15a10.7 10.7 0 0 1 5.6 0c2.14-1.45 3.07-1.15 3.07-1.15.62 1.53.23 2.67.12 2.95.72.78 1.15 1.78 1.15 3 0 4.3-2.62 5.26-5.12 5.54.4.35.76 1.03.76 2.08v2.88c0 .3.2.65.77.54A11.2 11.2 0 0 0 12 .8Z"/></svg>
+          <span>Code</span>
+        </a>
+        <a class="resource-link" href="https://huggingface.co/alike01b/SLICEChat">
+          <span class="huggingface-icon" aria-hidden="true">🤗</span>
+          <span>Model</span>
+        </a>
+      </nav>
+    </header>
+
+    <section class="teaser container" aria-label="SLICEChat overview">
+      <figure>
+        <a class="figure-link" href="./assets/images/overview.png" aria-label="View the SLICEChat architecture figure at full resolution">
+          <img src="./assets/images/overview.png" width="2400" height="666" alt="SLICEChat architecture: whole-slide patches are encoded with CONCH v1.5, progressively pruned inside a hybrid Mamba–Transformer slide encoder, and projected into a multimodal language model." fetchpriority="high">
+        </a>
+        <figcaption class="teaser-caption"><strong>SLICEChat</strong> learns which regions to keep <em>during</em> slide encoding, building compact visual representations for <strong>accurate and efficient whole-slide reasoning</strong>.</figcaption>
+      </figure>
+    </section>
+
+    <section class="section shaded" id="abstract" aria-labelledby="abstract-title">
+      <div class="container narrow">
+        <h2 id="abstract-title">Abstract</h2>
+        <p class="abstract-text">Whole-slide pathology images (WSIs) contain gigapixel-scale visual content, creating a major scalability challenge for slide-level multimodal large language models (MLLMs). Existing approaches process thousands of patch tokens and typically apply compression only after slide encoding, leaving multimodal attention computationally expensive. We introduce <strong>SLICEChat</strong>, a slide-level MLLM that integrates progressive token pruning within a hybrid Mamba–Transformer slide encoder. Mamba layers enable efficient long-range propagation, while Transformer layers preserve global interactions as the sequence is progressively shortened. Between stages, language-supervised, region-aware pruning removes spatially coherent low-utility regions under a controlled keep-rate schedule, producing compact slide representations before multimodal fusion. On SlideBench VQA, SLICEChat achieves <strong>79.84% accuracy on TCGA</strong> and <strong>59.09% on BCNB</strong> cohorts, outperforming the evaluated prior slide-level pathology MLLMs in overall accuracy. It also achieves the highest overall WSI-Precision and WSI-Relevance on WSI-Bench, with competitive memory usage and the second-lowest inference latency among the evaluated models. These results demonstrate accurate and computationally efficient multimodal reasoning over gigapixel WSIs.</p>
+      </div>
+    </section>
+
+    <section class="section container" aria-labelledby="method-title">
+      <h2 id="method-title">Progressive In-Encoder Token Pruning</h2>
+      <p class="section-intro">A compact slide representation, built progressively from thousands of tissue patches.</p>
+      <div class="method-columns">
+        <div>
+          <h3>Hybrid slide encoding</h3>
+          <p>We use CONCH v1.5 the patch encoder. In the slide encoder, each hybrid stage combines three Vision Mamba blocks with a Transformer block, pairing efficient long-range propagation with global attention.</p>
+        </div>
+        <div>
+          <h3>Learned region selection</h3>
+          <p>Language-supervised routers score contextualized tokens between encoder stages. Five pruning modules progressively remove low-scoring, spatially coherent regions to reach a controlled token budget.</p>
+        </div>
+        <div>
+          <h3>Spatially aware reasoning</h3>
+          <p>A two-layer MLP projects retained tokens into Qwen2.5-VL-7B. Original patch coordinates are preserved through M-RoPE, maintaining spatial relationships during multimodal fusion.</p>
+        </div>
+      </div>
+
+      <figure class="paper-figure">
+        <a class="figure-link" href="./assets/images/pruning.png" aria-label="View the progressive pruning figure at full resolution">
+          <img src="./assets/images/pruning.png" width="2400" height="1350" alt="A whole-slide image is progressively reduced from 4,785 patch tokens to 957 across five pruning stages. Orange marks newly removed tokens; dark blue marks tokens removed earlier." loading="lazy" decoding="async">
+        </a>
+        <figcaption><strong>From 4,785 to 957 tokens.</strong> Each stage removes a coherent tissue region. Newly removed tokens appear in orange; previously removed tokens appear in dark blue. Retained tokens preserve their original row-major order.</figcaption>
+      </figure>
+
+      <div class="spatial-section">
+        <div>
+          <h3>Preserving tissue neighborhoods</h3>
+          <p>Irregular tissue boundaries can make contiguous raster windows span disconnected strips. Hilbert indexing keeps nearby patches close in a temporary pruning sequence, producing compact candidate regions. The router removes the lowest-scoring window. </p>
+        </div>
+        <figure>
+          <a class="figure-link" href="./assets/images/hilbert-curve.png" aria-label="View the raster and Hilbert indexing comparison at full resolution">
+            <img src="./assets/images/hilbert-curve.png" width="1498" height="394" alt="Comparison of raster and Hilbert indexing on an irregular tissue mask: Hilbert windows form more compact spatial regions." loading="lazy" decoding="async">
+          </a>
+          <figcaption>Spatial support of pruning windows under raster and Hilbert indexing.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section shaded" aria-labelledby="training-title">
+      <div class="container">
+        <h2 id="training-title">Training SLICEChat</h2>
+        <figure class="paper-figure training-figure">
+          <a class="figure-link" href="./assets/images/slide-encoder.png" aria-label="View the slide encoder training figure at full resolution">
+            <img src="./assets/images/slide-encoder.png" width="2400" height="686" alt="Slide encoder training: Stage 1 uses masked autoencoding without pruning; Stage 2 learns pruning through contrastive slide–text alignment." loading="lazy" decoding="async">
+          </a>
+          <figcaption>Slide encoder training. Blue arrows show self-supervised pretraining; red arrows show language-supervised pruning.</figcaption>
+        </figure>
+        <ol class="training-stages">
+          <li><h3>Self-supervised pretraining</h3><p>Learn slide representations from unlabeled TCGA slides using masked autoencoding. Pruning is disabled while the hybrid backbone learns long-range context.</p></li>
+          <li><h3>Language-supervised pruning</h3><p>Train the routing modules with slide–caption pairs and CLIP-style objectives. The slide backbone and PubMedBERT text encoder remain frozen.</p></li>
+          <li><h3>Multimodal instruction tuning</h3><p>Jointly train the projection layer and language model on slide captions and visual question answering examples, keeping the slide encoder frozen.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section container" aria-labelledby="results-title">
+      <h2 id="results-title">Results</h2>
+      <p class="section-intro">Strong whole-slide understanding with a compact visual representation.</p>
+      <div class="results-block">
+        <h3>SlideBench VQA</h3>
+        <p>SLICEChat achieves the highest overall accuracy on both TCGA and BCNB among the evaluated models. Slide-level models in this comparison are trained on SlideInstruct.</p>
+        <div class="table-scroll" role="region" aria-label="SlideBench VQA results" tabindex="0">
+          <table>
+            <caption>SlideBench VQA accuracy (%). Higher is better; bold indicates the best score in each column.</caption>
+            <thead><tr><th scope="col" rowspan="2">Model</th><th scope="colgroup" colspan="4">TCGA</th><th scope="col" rowspan="2">BCNB</th></tr><tr><th scope="col">Clinical</th><th scope="col">Diagnosis</th><th scope="col">Microscopy</th><th scope="col">Overall</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">SlideChat</th><td>69.39</td><td>72.61</td><td><strong>82.46</strong></td><td>74.95</td><td>54.04</td></tr>
+              <tr><th scope="row">HistoSelect</th><td><strong>80.61</strong></td><td>74.12</td><td>81.68</td><td>76.51</td><td>53.24</td></tr>
+              <tr class="ours"><th scope="row">SLICEChat (ours)</th><td>75.51</td><td><strong>79.25</strong></td><td><strong>82.46</strong></td><td><strong>79.84</strong></td><td><strong>59.09</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="results-block">
+        <h3>WSI-Bench</h3>
+        <p>SLICEChat leads in overall WSI-Precision and WSI-Relevance. These models are trained on the WSI-Bench training set.</p>
+        <div class="table-scroll" role="region" aria-label="WSI-Bench results" tabindex="0">
+          <table class="wsi-bench-table">
+            <caption>WSI-Bench results. Higher is better; bold indicates the best score for each metric and task.</caption>
+            <thead><tr><th scope="col">Metric</th><th scope="col">Model</th><th scope="col">Diagnosis</th><th scope="col">Morphology<br>analysis</th><th scope="col">Treatment<br>planning</th><th scope="col">Report</th><th scope="col">Overall</th></tr></thead>
+            <tbody>
+              <tr><th class="metric-label" scope="rowgroup" rowspan="3"><span>WSI-Precision</span></th><th scope="row">WSI-LLaVA</th><td>0.597</td><td>0.530</td><td><strong>0.794</strong></td><td>0.337</td><td>0.538</td></tr>
+              <tr><th scope="row">HistoSelect</th><td>0.560</td><td>0.516</td><td>0.718</td><td>0.326</td><td>0.518</td></tr>
+              <tr class="ours"><th scope="row">SLICEChat (ours)</th><td><strong>0.672</strong></td><td><strong>0.594</strong></td><td>0.790</td><td><strong>0.470</strong></td><td><strong>0.607</strong></td></tr>
+            </tbody>
+            <tbody>
+              <tr><th class="metric-label" scope="rowgroup" rowspan="3"><span>WSI-Relevance</span></th><th scope="row">WSI-LLaVA</th><td>0.822</td><td>0.745</td><td>0.866</td><td>0.678</td><td>0.760</td></tr>
+              <tr><th scope="row">HistoSelect</th><td>0.816</td><td>0.743</td><td>0.823</td><td>0.679</td><td>0.756</td></tr>
+              <tr class="ours"><th scope="row">SLICEChat (ours)</th><td><strong>0.845</strong></td><td><strong>0.757</strong></td><td><strong>0.889</strong></td><td><strong>0.717</strong></td><td><strong>0.776</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="results-block">
+        <h3>Computational Efficiency</h3>
+        <p>On a typical whole-slide input with 11,948 patches, SLICEChat has the second-lowest latency and peak memory consumption among the compared models.</p>
+        <div class="table-scroll" role="region" aria-label="Computational efficiency results" tabindex="0">
+          <table>
+            <caption>Measured on an NVIDIA A100 GPU. Lower is better; bold indicates the best score.</caption>
+            <thead><tr><th scope="col">Model</th><th scope="col">Peak memory (GiB)</th><th scope="col">Latency (ms)</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">SlideChat</th><td>16.560</td><td>2,405</td></tr>
+              <tr><th scope="row">WSI-LLaVA</th><td><strong>15.048</strong></td><td><strong>1,775</strong></td></tr>
+              <tr><th scope="row">HistoSelect</th><td>18.604</td><td>3,048</td></tr>
+              <tr class="ours"><th scope="row">SLICEChat (ours)</th><td>15.054</td><td>2,001</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">The comparison uses inputs with equal patch counts. WSI-LLaVA and HistoSelect preprocessing components were integrated into their respective end-to-end evaluation pipelines. Running the original repositories without this integration would result in significantly higher latency.</p>
+      </div>
+
+    </section>
+
+    <section class="section citation-section" aria-labelledby="bibtex-title">
+      <div class="container">
+        <h2 id="bibtex-title">BibTeX</h2>
+        <p class="citation-note">Citation details will be updated when the preprint is available.</p>
+        <!-- TODO: Update the authors, citation key, year, and arXiv ID when the preprint is available. -->
+        <pre><code>@article{slicechat_placeholder,
+  title   = {SLICEChat: Progressive In-Encoder Token Pruning for
+             Whole-Slide Pathology Language Models},
+  author  = {Author 1 and Author 2},
+  journal = {arXiv preprint arXiv:XXXX.XXXXX},
+  year    = {YEAR}
+}</code></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container narrow">
+      <p>Website design inspired by <a href="https://nerfies.github.io/">Nerfies</a> and its <a href="https://github.com/nerfies/nerfies.github.io">project page template</a>.</p>
+    </div>
+  </footer>
+</body>
+</html>
