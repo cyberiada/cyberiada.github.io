@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Task-Induced Riemannian Metrics for Vision Transformer Feature Spaces: a matrix-free diagnostic that predicts when a low-rank task metric is learnable, the Spectral Pullback Network, and geometric token pruning.">
+  <meta name="keywords" content="Vision Transformer, pullback metric, Jacobian, token pruning, Riemannian geometry">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Task-Induced Riemannian Metrics for ViT Feature Spaces</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <style>
+    body { font-size: 17px; }
+    .publication-title { line-height: 1.16; }
+    .section { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+    .prose { max-width: 720px; margin-left: auto; margin-right: auto; }
+    .prose p { line-height: 1.75; margin-bottom: 1.15rem; }
+    .prose ul { line-height: 1.75; }
+    .prose li { margin-bottom: 0.75rem; }
+    .lede { font-size: 1.12rem; line-height: 1.8; color: #2b2b2b; }
+    .section-head { margin-bottom: 1.8rem !important; }
+    .figure-wide { max-width: 1320px; margin: 0 auto; padding: 0 1.25rem; text-align: center; }
+    .figure-wide img { max-width: 100%; width: auto; height: auto; display: block;
+                       margin-left: auto; margin-right: auto; border-radius: 4px; }
+    .figure-wide .caption { text-align: center; }
+    .figure-medium { max-width: 920px; }
+    .caption { font-size: 0.95rem; line-height: 1.6; color: #55595c; max-width: 820px;
+               margin: 0.9rem auto 0 auto; }
+    .card-grid { max-width: 1120px; margin: 0 auto; }
+    .takeaway { border-top: 3px solid #363636; padding-top: 0.9rem; }
+    .takeaway .label { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase;
+                       color: #7a7a7a; margin-bottom: 0.35rem; }
+    .takeaway p.body { font-size: 0.98rem; line-height: 1.7; color: #3a3a3a; }
+    .table-wrap { max-width: 1120px; margin: 0 auto; }
+    .table td, .table th { vertical-align: middle; }
+    .regime-table td, .regime-table th { font-size: 0.95rem; padding: 0.7rem 0.75rem; }
+    .regime-table td.note { line-height: 1.6; }
+    .results-table td, .results-table th { font-size: 0.95rem; padding: 0.55rem 0.6rem; }
+    .regime-tag { font-weight: 600; }
+    .num { font-variant-numeric: tabular-nums; }
+    .best { font-weight: 700; }
+    .divider { height: 1px; background: #e8e8e8; max-width: 1120px; margin: 0 auto; }
+    footer .content { font-size: 0.9rem; }
+    @media (max-width: 768px) {
+      body { font-size: 16px; }
+      .figure-wide { padding: 0 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-2 publication-title">Task-Induced Riemannian Metrics for<br>Vision Transformer Feature Spaces</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Andrew Bond<sup>1</sup>,</span>
+            <span class="author-block">Ege Erdem Özlu<sup>1</sup>,</span>
+            <span class="author-block">Tuna Çimen<sup>1</sup>,</span>
+            <span class="author-block">Ilkin Umut Melanlioglu<sup>1</sup>,</span>
+            <span class="author-block">Tolga Birdal<sup>2</sup>,</span>
+            <span class="author-block">Erkut Erdem<sup>3</sup>,</span>
+            <span class="author-block">Aykut Erdem<sup>1</sup></span>
+          </div>
+
+          <div class="is-size-6 publication-authors" style="margin-top: 0.4rem;">
+            <span class="author-block"><sup>1</sup>Koç University</span> &nbsp;·&nbsp;
+            <span class="author-block"><sup>2</sup>Imperial College London</span> &nbsp;·&nbsp;
+            <span class="author-block"><sup>3</sup>Hacettepe University</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="./static/paper/task_induced_metrics.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="ai ai-arxiv"></i></span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/abond19/TaskInducedViTs/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="#bibtex" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-quote-left"></i></span>
+                  <span>BibTeX</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="teaser" style="padding: 0.5rem 0 2.5rem 0;">
+  <div class="figure-wide">
+    <img src="./static/images/overview.png" alt="Overview of the task-induced pullback metric and how we access it."/>
+    <p class="caption has-text-centered">
+      The decoder's Jacobian defines a <b>pullback metric</b> on the ViT feature space. We never build the
+      metric, and access it only through Jacobian-vector products.
+    </p>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="card-grid">
+    <div class="columns is-variable is-6">
+      <div class="column">
+        <div class="takeaway">
+          <p class="label">Step 1 &middot; Diagnose</p>
+          <p class="body">
+            κ<sub>cap</sub>(<i>r</i>) measures how much of the decoder's sensitivity a rank-<i>r</i> metric can
+            capture. It takes about 140 Jacobian-vector products and no training.
+          </p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="takeaway">
+          <p class="label">Step 2 &middot; Learn</p>
+          <p class="body">
+            The Spectral Pullback Network learns the metric from randomized power iteration. A 310K-parameter
+            head distills it into one score per token.
+          </p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="takeaway">
+          <p class="label">Step 3 &middot; Use</p>
+          <p class="body">
+            The scores drive token merging and pruning in a frozen ViT. A first-order bound relates the error to
+            the importance of the removed tokens.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
+<section class="section">
+  <div class="container">
+    <h2 class="title is-3 has-text-centered section-head">Abstract</h2>
+    <div class="prose">
+      <p class="lede">
+        Methods that operate on ViT features compare them with Euclidean distance or cosine similarity. Both
+        weight every feature direction equally. Task decoders do not.
+      </p>
+      <p>
+        The geometry a task induces is the pullback metric <i>g</i> = <i>J</i><sup>⊤</sup><i>J</i>, built from
+        the Jacobian of the decoder's output with respect to the features. Storing <i>g</i> is infeasible at
+        ViT scale, and for dense outputs such as depth maps even forming <i>J</i> is impractical. Whether a
+        low-rank version of <i>g</i> can be learned depends on the model–decoder pair, and the matrix-free
+        diagnostic κ<sub>cap</sub>(<i>r</i>) measures it.
+      </p>
+      <p>
+        For tractable pairs, the <b>Spectral Pullback Network</b> learns a low-rank metric from randomized
+        power iteration, and we distill it into a 310K-parameter <b>importance head</b> that reads only the
+        features. When the spectrum is too spread out, a VAE bottleneck restores tractability. Across DPT,
+        DINOv2, CLIP and VGGT, the diagnostic predicts which architecture is viable. The head reaches
+        Spearman ρ = 0.998 on DINOv2 CLS, and geometric token pruning cuts the additional depth error of
+        ToMe-based selection by 25% at prune ratio 0.5. The ViT stays frozen throughout.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
+<section class="section">
+  <div class="container">
+    <h2 class="title is-3 has-text-centered section-head">Run the diagnostic before you train</h2>
+    <div class="prose">
+      <p>
+        The diagnostic sorts a backbone–decoder pair into one of four regimes. The regime determines which
+        architecture to train.
+      </p>
+    </div>
+
+    <div class="table-wrap" style="margin-top: 2rem;">
+      <table class="table is-fullwidth is-hoverable regime-table">
+        <thead>
+          <tr>
+            <th>Backbone / decoder</th>
+            <th class="has-text-centered">κ<sub>cap</sub>(20)</th>
+            <th class="has-text-centered">CV</th>
+            <th class="has-text-centered">r<sub>eff</sub></th>
+            <th>Regime</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>DA V2 depth (DPT), L02</td>
+            <td class="has-text-centered num">95.6%</td>
+            <td class="has-text-centered num">0.026</td>
+            <td class="has-text-centered num">34</td>
+            <td rowspan="2" class="note"><span class="regime-tag">Low rank, delocalized.</span><br>
+              The metric fits, but its directions are spread over all tokens. Learning it needs cross-token
+              attention.</td>
+          </tr>
+          <tr>
+            <td>DA V2 depth (DPT), L10</td>
+            <td class="has-text-centered num">96.6%</td>
+            <td class="has-text-centered num">0.026</td>
+            <td class="has-text-centered num">20</td>
+          </tr>
+          <tr>
+            <td>DINOv2 CLS, L10</td>
+            <td class="has-text-centered num">33.4%</td>
+            <td class="has-text-centered num">4.06</td>
+            <td class="has-text-centered num">261</td>
+            <td class="note"><span class="regime-tag">Marginal κ, high CV.</span><br>
+              No faithful low-rank metric, yet a few tokens carry the sensitivity, so per-token scoring
+              works.</td>
+          </tr>
+          <tr>
+            <td>VGGT camera, L16</td>
+            <td class="has-text-centered num">≈ 100%</td>
+            <td class="has-text-centered num">N/A</td>
+            <td class="has-text-centered num">9</td>
+            <td class="note"><span class="regime-tag">Rank-bounded.</span><br>
+              Nine outputs, so the metric is low rank by construction.</td>
+          </tr>
+          <tr>
+            <td>VGGT pointcloud, L08</td>
+            <td class="has-text-centered num">96.6%</td>
+            <td class="has-text-centered num">0.59</td>
+            <td class="has-text-centered num">212</td>
+            <td rowspan="2" class="note"><span class="regime-tag">Rich spectrum.</span><br>
+              Beyond any practical rank budget. A VAE bottleneck brings the effective rank down to 30–53.</td>
+          </tr>
+          <tr>
+            <td>VGGT depth, L16</td>
+            <td class="has-text-centered num">76.2%</td>
+            <td class="has-text-centered num">0.63</td>
+            <td class="has-text-centered num">282</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="caption">
+        r = 20, m = 100 probes, q = 2, over 50 images. CV measures how unevenly the task-sensitive
+        directions spread across tokens.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
+<section class="section">
+  <div class="container">
+    <h2 class="title is-3 has-text-centered section-head">Token pruning results</h2>
+    <div class="prose">
+      <p>
+        Lower is better. On DINOv2 CLS, importance-guided merging stays closest to the unpruned embedding at
+        every ratio, by more than an order of magnitude at low ratios.
+      </p>
+      <p>
+        On dense depth the ordering changes with the ratio. Importance beats ToMe scoring from η = 0.20 upward
+        and is best of the three from η = 0.30. ToMe scoring wins at the lowest ratios.
+      </p>
+    </div>
+
+    <div class="table-wrap" style="margin-top: 2rem;">
+      <table class="table is-fullwidth is-hoverable results-table">
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th class="has-text-centered">η = 0.05</th>
+            <th class="has-text-centered">0.10</th>
+            <th class="has-text-centered">0.15</th>
+            <th class="has-text-centered">0.20</th>
+            <th class="has-text-centered">0.30</th>
+            <th class="has-text-centered">0.40</th>
+            <th class="has-text-centered">0.50</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="8" class="has-background-white-ter"><b>CLS cosine-distance degradation (× 100)</b> &middot; DINOv2-B/14</td></tr>
+          <tr>
+            <td>Random</td>
+            <td class="has-text-centered num">0.17</td><td class="has-text-centered num">0.36</td>
+            <td class="has-text-centered num">0.60</td><td class="has-text-centered num">0.86</td>
+            <td class="has-text-centered num">1.49</td><td class="has-text-centered num">2.31</td>
+            <td class="has-text-centered num">3.44</td>
+          </tr>
+          <tr>
+            <td>ToMe score</td>
+            <td class="has-text-centered num">0.67</td><td class="has-text-centered num">0.78</td>
+            <td class="has-text-centered num">0.95</td><td class="has-text-centered num">1.12</td>
+            <td class="has-text-centered num">1.75</td><td class="has-text-centered num">2.56</td>
+            <td class="has-text-centered num">3.82</td>
+          </tr>
+          <tr>
+            <td>Importance <b>(ours)</b></td>
+            <td class="has-text-centered num best">0.001</td><td class="has-text-centered num best">0.007</td>
+            <td class="has-text-centered num best">0.024</td><td class="has-text-centered num best">0.060</td>
+            <td class="has-text-centered num best">0.25</td><td class="has-text-centered num best">0.80</td>
+            <td class="has-text-centered num best">2.09</td>
+          </tr>
+          <tr><td colspan="8" class="has-background-white-ter"><b>DPT additional SILog (× 100)</b> &middot; Depth-Anything V2, single stage</td></tr>
+          <tr>
+            <td>Random</td>
+            <td class="has-text-centered num">4.59</td><td class="has-text-centered num">3.70</td>
+            <td class="has-text-centered num best">3.31</td><td class="has-text-centered num best">3.19</td>
+            <td class="has-text-centered num">3.16</td><td class="has-text-centered num">3.20</td>
+            <td class="has-text-centered num">3.29</td>
+          </tr>
+          <tr>
+            <td>ToMe score</td>
+            <td class="has-text-centered num best">4.29</td><td class="has-text-centered num best">3.66</td>
+            <td class="has-text-centered num">3.51</td><td class="has-text-centered num">3.50</td>
+            <td class="has-text-centered num">3.52</td><td class="has-text-centered num">3.67</td>
+            <td class="has-text-centered num">4.09</td>
+          </tr>
+          <tr>
+            <td>Importance <b>(ours)</b></td>
+            <td class="has-text-centered num">4.88</td><td class="has-text-centered num">4.86</td>
+            <td class="has-text-centered num">3.85</td><td class="has-text-centered num">3.28</td>
+            <td class="has-text-centered num best">3.02</td><td class="has-text-centered num best">3.01</td>
+            <td class="has-text-centered num best">3.08</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="caption">
+        ImageNet-val at 224, mean over 3 seeds, best per column in bold. On NYU-Depth-V2, a 2-stage schedule
+        beats ToMe scoring at every ratio and resolution by 25–35%.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
+<section class="section">
+  <div class="container">
+    <h2 class="title is-3 has-text-centered section-head">What the importance head looks at</h2>
+    <div class="prose">
+      <p>
+        The head concentrates on depth discontinuities, such as object outlines and foreground–background
+        transitions. ToMe's cosine scores highlight tokens that differ from their neighbours.
+      </p>
+    </div>
+  </div>
+  <div class="figure-wide figure-medium" style="margin-top: 2rem;">
+    <img src="./static/images/depth_importance.jpg" alt="Token importance maps for DPT depth."/>
+    <p class="caption has-text-centered">
+      Rows: input, importance head, ToMe cosine scores, and the depth predicted by the frozen decoder. Each
+      map is annotated with its Spearman ρ against the Jacobian-derived target. These four images are
+      examples, and the held-out average on this task is about 0.20.
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
+<section class="section">
+  <div class="container">
+    <h2 class="title is-3 has-text-centered section-head">Findings</h2>
+    <div class="prose content">
+      <ul>
+        <li>
+          <b>Tractability is structural.</b> Whether a faithful low-rank task metric exists depends on the
+          backbone, decoder and probe layer, and can be measured before any training.
+        </li>
+        <li>
+          <b>Spatial concentration is not spectral concentration.</b> DINOv2 CLS has a rich spectrum but
+          concentrates its sensitivity on a few tokens, so per-token scoring works. Dense depth is the
+          opposite case.
+        </li>
+        <li>
+          <b>The geometric target makes the head trainable.</b> Regressing plain Jacobian block norms instead
+          drops the correlation from ρ ≈ 0.20 to ρ ≈ 0.09 on dense depth.
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
+<section class="section" id="bibtex">
+  <div class="container">
+    <h2 class="title is-3 has-text-centered section-head">BibTeX</h2>
+    <div class="table-wrap content">
+      <pre><code>@article{bond2026taskinduced,
+  author  = {Bond, Andrew and {\"O}zlu, Ege Erdem and {\c{C}}imen, Tuna and
+             Melanlioglu, Ilkin Umut and Birdal, Tolga and Erdem, Erkut and Erdem, Aykut},
+  title   = {Task-Induced Riemannian Metrics for Vision Transformer Feature Spaces},
+  year    = {2026},
+}</code></pre>
+    </div>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link" href="./static/paper/task_induced_metrics.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link external-link" href="https://github.com/abond19/TaskInducedViTs/">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            This website is licensed under a <a rel="license"
+              href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons
+              Attribution-ShareAlike 4.0 International License</a>. It borrows the source code of
+            <a href="https://github.com/nerfies/nerfies.github.io">this website</a>, for which we thank the
+            authors.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
